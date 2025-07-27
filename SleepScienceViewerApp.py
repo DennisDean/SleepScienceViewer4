@@ -224,8 +224,11 @@ class MainApp(QMainWindow):
             # Spectrogram Signal Labels
             signal_labels = self.edf_file_obj.edf_signals.signal_labels
             eeg_labels = self.edf_file_obj.edf_signals.eeg_signal_labels # Will want a new one with stepped signals
+            stepped_signal_list = self.edf_file_obj.edf_signals.return_stepped_signals_from_list(signal_labels)
+            print(stepped_signal_list)
+            continuous_signal_list = self.edf_file_obj.edf_signals.return_continuous_signals_from_list(signal_labels)
             self.ui.spectrogram_comboBox.clear()
-            self.ui.spectrogram_comboBox.addItems(signal_labels)
+            self.ui.spectrogram_comboBox.addItems(continuous_signal_list)
 
             # Determine length of signal
             epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]

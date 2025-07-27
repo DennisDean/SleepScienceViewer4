@@ -355,38 +355,26 @@ class EdfSignals:
         self.signal_length_in_sec = sampling_time*len(signals)
 
         # Define maximum number of options for a stepped signal
-        self.max_stepped_options  = 10
+        self.stepped_signal_cutoff  = 10
+        self.stepped_sampling_cutoff = 0.05
     # Setup
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
         self.output_dir = output_dir
-    # Return information
-    def return_num_epochs(self, signal_key, epoch_width):
-        num_samples = len(self.signals_dict[signal_key])
-        signal_sampling_time = self.signal_sampling_time_dict[signal_key]
-        max_epochs = math.ceil(float(num_samples*signal_sampling_time)/epoch_width)
-        return max_epochs
-    def return_num_epochs_from_width(self, epoch_width):
-        max_epochs = math.ceil(float(self.signal_length_in_sec )/epoch_width)
-        return max_epochs
-    def return_signal_length_seconds(self, signal_key, epoch_width):
-        num_samples = len(self.signals_dict[signal_key])
-        signal_sampling_time = self.signal_sampling_time_dict[signal_key]
-        signal_length_seconds = num_samples*signal_sampling_time
-        return signal_length_seconds
-    def return_edf_signal(self,signal_key:str, signal_type:str):
-        edf_signal           = self.signals_dict[signal_key]
-        signal_label         = signal_key
-        signal_type          = signal_type
-        signal_units         = self.signal_units_dict[signal_key]
+    # Return signals
+    def return_edf_signal(self, signal_key: str, signal_type: str):
+        edf_signal = self.signals_dict[signal_key]
+        signal_label = signal_key
+        signal_type = signal_type
+        signal_units = self.signal_units_dict[signal_key]
         signal_sampling_time = self.signal_sampling_time_dict[signal_key]
 
         signal_obj = EdfSignal(signal_type, signal_label, signal_units,
                                signal_sampling_time, edf_signal)
 
         return signal_obj
-    def return_signal_segment(self,signal_key:str, signal_type:str,epoch_num, epoch_width):
+    def return_signal_segment(self, signal_key: str, signal_type: str, epoch_num, epoch_width):
         """
          Return the signal segment for a given epoch number and epoch width.
 
@@ -414,8 +402,45 @@ class EdfSignals:
         signal_segment = edf_signal[start_index:end_index]
 
         return signal_segment
+    # Return signal information
+    def return_num_epochs(self, signal_key, epoch_width):
+        num_samples = len(self.signals_dict[signal_key])
+        signal_sampling_time = self.signal_sampling_time_dict[signal_key]
+        max_epochs = math.ceil(float(num_samples*signal_sampling_time)/epoch_width)
+        return max_epochs
+    def return_num_epochs_from_width(self, epoch_width):
+        max_epochs = math.ceil(float(self.signal_length_in_sec )/epoch_width)
+        return max_epochs
+    def return_signal_length_seconds(self, signal_key, epoch_width):
+        num_samples = len(self.signals_dict[signal_key])
+        signal_sampling_time = self.signal_sampling_time_dict[signal_key]
+        signal_length_seconds = num_samples*signal_sampling_time
+        return signal_length_seconds
     def return_eeg_signals_from_list(self, signal_list:List[str]):
         return [s for s in signal_list if 'eeg' in s.lower()]
+    def return_stepped_signals_from_list(self, signal_list:List[str]):
+        signal_type = 'stepped'
+        epoch_num = 1
+        epoch_width = 30
+        self.stepped_signal_list = []
+        for signal_key in signal_list:
+            sampling_time = self.signal_sampling_time_dict[signal_key]
+            print(f'key {signal_key},  sampleing time {sampling_time}')
+            # s_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
+            # num_unique_points = len(list(set(s_segment)))
+            if sampling_time > self.stepped_sampling_cutoff:
+                self.stepped_signal_list.append(signal_key)
+        return self.stepped_signal_list
+    def return_continuous_signals_from_list(self, signal_list:List[str]):
+        signal_type = 'stepped'
+        epoch_num = 1
+        epoch_width = 30
+        self.continuous_signal_list = []
+        for signal_key in signal_list:
+            sampling_time = self.signal_sampling_time_dict[signal_key]
+            if sampling_time < self.stepped_sampling_cutoff:
+                self.continuous_signal_list.append(signal_key)
+        return self.continuous_signal_list
     # Calculate
     def calc_edf_signal_stats(self):
         """Calculate statistics for each signal."""
