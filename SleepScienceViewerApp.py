@@ -152,6 +152,9 @@ class MainApp(QMainWindow):
             self.ui.hypnogram_comboBox.clear()
             self.ui.hypnogram_comboBox.addItems(sleep_stage_labels)
 
+            # Get Sleep Stage Mappings
+            self.sleep_stage_mappings = self.annotation_xml_obj.sleep_stages_obj.return_sleep_stage_mappings()
+
             # Set annotation types
             annotations_type_list = self.annotation_xml_obj.scored_event_obj.scored_event_unique_names
             annotations_type_list.insert(0, 'All')

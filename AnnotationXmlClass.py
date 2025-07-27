@@ -216,6 +216,9 @@ class SleepStages:
     def return_sleep_stage_labels(self):
         sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels ]
         return sleep_stages_labels
+    def return_sleep_stage_mappings(self):
+        sleep_stages_labels = [self.num_stage_to_text_dict, self.num_stage_to_nremrem_dict ]
+        return sleep_stages_labels
     # Summarize and export
     def summarize_sleep_stages(self, stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
         """
@@ -318,9 +321,10 @@ class SleepStages:
         signal_color    = 'blue'
         y_pad_c         = 0.25
         label_fontsize  = 7
-        xlabel_offset   = -1
-        ylabel_offset   = 500
+        xlabel_offset   = +1
+        ylabel_offset   = 0.02*self.recording_duration_hr*3600
         grid_linewidth  = 0.8
+        print(f'recording duration {self.recording_duration}')
 
         # Get hypnogram information
         stages    = self.num_stages
@@ -345,7 +349,6 @@ class SleepStages:
 
         fig.tight_layout()
 
-
         # Clear tick marks
         ax.set_xticks([])
         ax.set_yticks([])
@@ -359,7 +362,7 @@ class SleepStages:
         x_ticks  = range(3600, int(max(times)), 3600)
         x_labels = map(lambda x: f'{str(int(x/3600))}h' , x_ticks)
         for x, label in zip(x_ticks, x_labels):
-            ax.text(x, ax.get_ylim()[0] + xlabel_offset , label,
+            ax.text(x, ax.get_ylim()[1] + xlabel_offset , label,
                     fontsize=label_fontsize, ha='center', va='bottom', color='black')
 
         # Draw custom y-axis labels
@@ -402,6 +405,7 @@ class SleepStages:
             existing_layout.addWidget(canvas)
         else:
             plt.show()
+    # Class Functions
     def __str__(self)->str:
         # Override default class description
         return f'SleepStages(number of epochs = {len(self.num_stages)}, epoch duration = {self.sleep_epoch }")'
