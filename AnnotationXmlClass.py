@@ -308,7 +308,7 @@ class SleepStages:
         except Exception as e:
             logger.error(f'*** Could not export sleep stages: {filename}, error: {e}')
     # Plotting functions
-    def plot_hypnogram(self, parent_widget=None):
+    def plot_hypnogram(self, parent_widget=None, stage_index = 0):
         """
             Plots a hypnogram into a QGraphicsView if provided, or as a standalone matplotlib figure.
             The plot background is white, auto-scales, and fills available width.
@@ -321,18 +321,30 @@ class SleepStages:
         signal_color    = 'blue'
         y_pad_c         = 0.25
         label_fontsize  = 7
-        xlabel_offset   = +1
+        xlabel_offset   = +1 if stage_index == 0 else 0
         ylabel_offset   = 0.02*self.recording_duration_hr*3600
         grid_linewidth  = 0.8
-        print(f'recording duration {self.recording_duration}')
 
         # Get hypnogram information
         stages    = self.num_stages
         times     = self.time_seconds
         time_axis = np.arange(len(stages)) * self.sleep_epoch
 
+        # Time and stage data
+        # times = sleep_stages.time_seconds
+        # stages = sleep_stages.num_stages
+
+        # Check interface for histogram
+        if stage_index == 0:
+            stage_map = self.num_stage_to_text_dict
+            stages = self.num_stages
+        else:
+            stage_map = self.num_stage_to_nremrem_reduced_dict
+            stages = self.sleep_stages_NremRem_num
+
+
+
         # Stage to Y-axis mapping (traditional inverted)
-        stage_map = self.num_stage_to_text_dict
         y_ticks   = list(stage_map.keys())
         y_ticks.sort()
 
@@ -346,6 +358,10 @@ class SleepStages:
         ax.set_xlim(min(times), max(times))
         ax.set_ylim(min(y_ticks) - 0.5, max(y_ticks) + 0.5)
         ax.tick_params(axis='both', labelsize=9)
+
+
+        # Reset x label offset as a proportion of ylim
+        yl = ax.get_ylim()
 
         fig.tight_layout()
 

@@ -66,6 +66,9 @@ class MainApp(QMainWindow):
         font.setStyleHint(QFont.StyleHint.Monospace)
         self.ui.annotation_listWidget.setFont(font)
 
+        # Save sleep stage mappings when annotations are loaded
+        self.sleep_stage_mappings = None
+
         # Enable updating the annotation list based on user selection
         self.ui.annotation_comboBox.currentTextChanged.connect(self.on_annotation_combobox_text_changed)
         self.annotations_list:str= None
@@ -169,84 +172,6 @@ class MainApp(QMainWindow):
             # Plot Hypnogram
             # self.draw_hypnogram_in_view(self.annotation_xml_obj.sleep_stages_obj, self.ui.hypnogram_graphicsView)
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView)
-    def draw_hypnogram_in_view(self, sleep_stages:SleepStages , graphics_view: QGraphicsView):
-        """
-        Draws a hypnogram in the provided QGraphicsView using data from a SleepStages object.
-
-        Args:
-            sleep_stages: SleepStages object with .time_seconds and .num_stages
-            graphics_view: PySide6 QGraphicsView instance
-        """
-        # Prepare new scene
-        scene = QGraphicsScene()
-        graphics_view.setScene(scene)
-
-        # Viewport size
-        view_width = graphics_view.viewport().width()
-        view_height = graphics_view.viewport().height()
-        margin = 5
-
-        # Time and stage data
-        times = sleep_stages.time_seconds
-        stages = sleep_stages.num_stages
-
-        # Check interface for histogram
-        if self.ui.hypnogram_comboBox.currentIndex() == 0:
-            text_dict = sleep_stages.num_stage_to_text_dict
-            stages = sleep_stages.num_stages
-        else:
-            text_dict = sleep_stages.num_stage_to_nremrem_reduced_dict
-            stages = sleep_stages.sleep_stages_NremRem_num
-
-        # Unique stages for y-axis (sort descending for higher stage = lower depth)
-        unique_stages = sorted(set(stages), reverse=True)
-        stage_to_y = {
-            stage: margin + i * ((view_height - 2 * margin) / (len(unique_stages) - 1))
-            for i, stage in enumerate(unique_stages)
-        }
-
-        # X scaling
-        max_time = max(times) if times else 1
-        x_scale = (view_width - 2 * margin) / max_time
-
-        pen = QPen(Qt.GlobalColor.blue, 2)
-
-        # Draw lines
-        for i in range(1, len(times)):
-            x1 = margin + times[i - 1] * x_scale
-            x2 = margin + times[i] * x_scale
-            y1 = stage_to_y[stages[i - 1]]
-            y2 = stage_to_y[stages[i]]
-
-            # Horizontal segment
-            scene.addLine(x1, y1, x2, y1, pen)
-            # Vertical drop/rise if stage changed
-            if y1 != y2:
-                scene.addLine(x2, y1, x2, y2, pen)
-
-        # Add vertical hour markers and labels
-        hour_pen = QPen(Qt.GlobalColor.lightGray, 1, Qt.PenStyle.DashLine)
-        num_hours = int(max_time // 3600) + 1
-        for h in range(num_hours):
-            x = margin + (h * 3600) * x_scale
-            scene.addLine(x, margin, x, view_height - margin, hour_pen)
-            hour_label = QGraphicsTextItem(f"{h}h")
-            hour_label.setDefaultTextColor(Qt.GlobalColor.darkGray)
-            hour_label.setPos(x + 2, view_height - margin + 2)
-            scene.addItem(hour_label)
-
-        # Add horizontal lines and stage labels
-        grid_pen = QPen(Qt.GlobalColor.lightGray, 1, Qt.PenStyle.DotLine)
-        for stage, y in stage_to_y.items():
-            scene.addLine(margin, y, view_width - margin, y, grid_pen)
-            label = text_dict.get(stage, str(stage))
-            text_item = QGraphicsTextItem(label)
-            text_item.setDefaultTextColor(Qt.GlobalColor.black)
-            text_item.setPos(0, y - 8)
-            scene.addItem(text_item)
-
-        # Fit scene to view
-        graphics_view.fitInView(scene.sceneRect(), Qt.AspectRatioMode.IgnoreAspectRatio)
     def on_hypnogram_changed(self, index):
         # Update Variables
         selected_text = self.ui.hypnogram_comboBox.itemText(index)
@@ -254,8 +179,10 @@ class MainApp(QMainWindow):
         logger.info(f"Combo box changed to index {index}: {selected_text}")
 
         # Update Hypnogram
-        # Plot Hypnogram
-        # self.draw_hypnogram_in_view(self.annotation_xml_obj.sleep_stages_obj, self.ui.hypnogram_graphicsView)
+        if self.sleep_stage_mappings != None:
+            stage_map = index
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                stage_index=stage_map)
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
