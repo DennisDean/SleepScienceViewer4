@@ -253,6 +253,10 @@ class MainApp(QMainWindow):
                               self.ui.signal_7_comboBox,  self.ui.signal_8_comboBox, self.ui.signal_9_comboBox,
                               self.ui.signal_10_comboBox, self.ui.signal_11_comboBox]
 
+        # Turn off change signal while updating combobox list following selection of a new edf file
+        for combo_box in signal_combo_boxes:
+            self.ui.hypnogram_comboBox.blockSignals(True)
+
         # add signal list to all comboboxes
         for combo in signal_combo_boxes:
             combo.clear()
@@ -263,6 +267,10 @@ class MainApp(QMainWindow):
                 combo.setCurrentIndex(i + 1)  # Set to the i-th signal
             else:
                 combo.setCurrentIndex(0)  # Default to the empty string if no signal available
+
+        # Turn combo change signals on
+        for combo_box in signal_combo_boxes:
+            self.ui.hypnogram_comboBox.blockSignals(False)
     def compute_and_display_spectrogram(self):
         # Check before starting long computation
 
