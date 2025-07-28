@@ -146,10 +146,14 @@ class MainApp(QMainWindow):
 
         if file_path:
             # Set Sleep Stage Labels
+
             sleep_stage_labels = self.annotation_xml_obj.sleep_stages_obj.return_sleep_stage_labels()
             sleep_stage_labels.remove(sleep_stage_labels[0])
+            print(f'sleep stage labels {sleep_stage_labels}')
+            self.ui.hypnogram_comboBox.blockSignals(True)
             self.ui.hypnogram_comboBox.clear()
             self.ui.hypnogram_comboBox.addItems(sleep_stage_labels)
+            self.ui.hypnogram_comboBox.blockSignals(False)
 
             # Get Sleep Stage Mappings
             self.sleep_stage_mappings = self.annotation_xml_obj.sleep_stages_obj.return_sleep_stage_mappings()
