@@ -53,10 +53,10 @@ from sympy.logic.boolalg import Boolean
 import numpy as np
 
 # Required for plotting
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.ticker import MaxNLocator
+# from matplotlib.ticker import MaxNLocator
 from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
 
 # Set up a module-level logger
@@ -321,7 +321,7 @@ class SleepStages:
         signal_color    = 'blue'
         y_pad_c         = 0.25
         label_fontsize  = 7
-        xlabel_offset   = +1 if stage_index == 0 else 0
+        xlabel_offset   = 1 if stage_index == 0 else 0
         ylabel_offset   = 0.02*self.recording_duration_hr*3600
         grid_linewidth  = 0.8
 
@@ -374,18 +374,26 @@ class SleepStages:
         for y, label in y_labels.items():
             ax.axhline(y=y, color=grid_color, linewidth=grid_linewidth, linestyle='-', zorder=0)
 
+
+
+        # Draw custom y-axis labels
+        # y_labels = stage_map
+        # for y, label in y_labels.items():
+        #    ax.text(ax.get_xlim()[0] + ylabel_offset, y, label,
+        #            fontsize=label_fontsize, ha='right', va='center', color='black')
+
+        #ax.set_xticks(x_ticks)
+        #ax.set_xticklabels(x_labels, fontsize=label_fontsize)
+
+        ax.set_yticks(list(stage_map.keys()))
+        ax.set_yticklabels(list(stage_map.values()), fontsize=label_fontsize)
+
         # Draw custom x-axis labels
         x_ticks  = range(3600, int(max(times)), 3600)
         x_labels = map(lambda x: f'{str(int(x/3600))}h' , x_ticks)
         for x, label in zip(x_ticks, x_labels):
             ax.text(x, ax.get_ylim()[1] + xlabel_offset , label,
-                    fontsize=label_fontsize, ha='center', va='bottom', color='black')
-
-        # Draw custom y-axis labels
-        y_labels = stage_map
-        for y, label in y_labels.items():
-            ax.text(ax.get_xlim()[0] + ylabel_offset, y, label,
-                    fontsize=label_fontsize, ha='right', va='center', color='black')
+                  fontsize=label_fontsize, ha='center', va='bottom', color='black')
 
         if parent_widget:
             # Compute vertical padding (5% headroom above and below)
@@ -398,7 +406,9 @@ class SleepStages:
             for spine in ax.spines.values():
                 spine.set_visible(False)
 
-            fig.subplots_adjust(left=0, right=1, top=0.95, bottom=0.05)
+            max_label_len = max([len(label) for label in stage_map.values()])
+            left_margin = min(0.03, 0.02 * max_label_len)
+            fig.subplots_adjust(left=left_margin, right=0.99, top=0.95, bottom=0.05)
             # fig.subplots_adjust(left=0.08, right=0.98, top=0.95, bottom=0.18)
 
             canvas = FigureCanvas(fig)
@@ -420,7 +430,8 @@ class SleepStages:
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
         else:
-            plt.show()
+            pass
+
     # Class Functions
     def __str__(self)->str:
         # Override default class description

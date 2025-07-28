@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Hypnogram redraws after combo box selection. Deleted hypnogram plotting function within the interface. Will use the plotting funciton within AnnotationXmlClass - Sleep Stages">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edfFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/edfFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,21 +27,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.AnnotationXmlClass.executor": "Run",
+    "Python.SleepScienceViewer.executor": "Run",
+    "Python.SleepScienceViewerApp.executor": "Run",
+    "Python.edfFile.executor": "Debug",
+    "Python.multitaper_spectrogram_python.executor": "Run",
+    "Python.multitaper_spectrogram_python_class.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,14 +81,23 @@
       <option name="project" value="LOCAL" />
       <updated>1753620464078</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals.">
+      <option name="closed" value="true" />
+      <created>1753641636140</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1753641636140</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Mostly working app with functionality in main window features. Menus are not implemented. Annotation and EDF classes are well developed. Fell a sleep on the keyboard and introduce a bug on multuple EDF load. 90% move of hypnogram drawing from viewer to annotation class. Need step function identification for spectrogram list. Neither y axis of x axis implemented in signals." />
     <MESSAGE value="Hypnogram labels working again after inverting hypnogram axis. Created a function to return sleep stage mapping." />
     <MESSAGE value="Hypnogram redraws after combo box selection. Deleted hypnogram plotting function within the interface. Will use the plotting funciton within AnnotationXmlClass - Sleep Stages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hypnogram redraws after combo box selection. Deleted hypnogram plotting function within the interface. Will use the plotting funciton within AnnotationXmlClass - Sleep Stages" />
+    <MESSAGE value="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals." />
+    <option name="LAST_COMMIT_MESSAGE" value="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -98,13 +109,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>386</line>
+          <line>382</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>701</line>
+          <line>712</line>
           <option name="timeStamp" value="122" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>465</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/edfFile.py</url>
+          <line>543</line>
+          <option name="timeStamp" value="126" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

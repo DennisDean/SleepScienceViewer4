@@ -28,11 +28,11 @@ import os
 import logging
 from typing import List, Dict
 import datetime
-import numpy as np
+# import numpy as np
 import pandas as pd
 import csv
 import json
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import seaborn as sns
 import openpyxl
 from   pathlib import Path
@@ -41,10 +41,10 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 import math
-from PyQt6.QtCore import QChar
+#from PyQt6.QtCore import QChar
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -425,7 +425,6 @@ class EdfSignals:
         self.stepped_signal_list = []
         for signal_key in signal_list:
             sampling_time = self.signal_sampling_time_dict[signal_key]
-            print(f'key {signal_key},  sampleing time {sampling_time}')
             # s_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
             # num_unique_points = len(list(set(s_segment)))
             if sampling_time > self.stepped_sampling_cutoff:
@@ -542,6 +541,7 @@ class EdfSignals:
             parent_widget (QWidget or None): If provided, embed plot in this widget.
         """
 
+        print(f'parent widget: {parent_widget}')
         # Set Plot defaults
         grid_color = 'gray'
         signal_color = 'blue'
@@ -618,54 +618,17 @@ class EdfSignals:
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
         else:
+            pass
+            # logger.warning("No parent_widget provided — opening standalone plot window.")
             # Standalone display
-            plt.figure(figsize=(10, 4))
-            plt.plot(time_axis, signal_segment, color='blue', linewidth=1)
-            plt.xlabel("Time (s)")
-            plt.ylabel(f"Amplitude ({signal_units})")
-            plt.title(f"{signal_key} - Epoch {epoch_num}")
-            plt.grid(True)
-            plt.tight_layout()
-            plt.show()
-    def plot(self, kind: str = "box", save: bool = False, filename: str = None, time_stamped: bool = False):
-        """Create and display or save a plot of the signals.
-
-        Args:
-            kind: Type of plot ('box' or 'hist').
-            save: Whether to save the plot to a file.
-            filename: Output filename (if saving).
-        """
-        if not self.signals:
-            raise ValueError("No signals loaded.")
-
-        df = pd.DataFrame.from_dict(self.signals, orient='index').T
-        df.columns.name = "Signal"
-
-        if kind == "box":
-            plt.figure(figsize=(12, 6))
-            sns.boxplot(data=df, width=0.5)
-            plt.title("Signal Distributions (Boxplot)")
-            plt.ylabel("Amplitude")
-            plt.xticks(rotation=45)
-            plt.tight_layout()
-        elif kind == "hist":
-            df.plot(kind='hist', bins=50, alpha=0.6, figsize=(12, 6), title="Signal Histograms")
-            plt.xlabel("Amplitude")
-            plt.tight_layout()
-        else:
-            raise ValueError("Supported plot types: 'box', 'hist'")
-
-        if save:
-            os.makedirs(self.output_dir, exist_ok=True)
-            if time_stamped:
-                filename = filename or generate_timestamped_filename("edf_signal_plot", ".png", self.output_dir)
-            else:
-                filename = filename or generate_filename("edf_signal_plot", ".png", self.output_dir)
-            plt.savefig(filename)
-            plt.close()
-            logger.info(f"Plot saved to file: {filename}")
-        else:
-            plt.show()
+            # plt.figure(figsize=(10, 4))
+            # plt.plot(time_axis, signal_segment, color='blue', linewidth=1)
+            # plt.xlabel("Time (s)")
+            # plt.ylabel(f"Amplitude ({signal_units})")
+            # plt.title(f"{signal_key} - Epoch {epoch_num}")
+            # plt.grid(True)
+            # plt.tight_layout()
+            # plt.show()
     # Utilities
     def __str__(self):
         """String representation of the EdfSignals object."""

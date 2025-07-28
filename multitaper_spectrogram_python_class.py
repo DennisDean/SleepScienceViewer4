@@ -16,13 +16,13 @@ import logging
 # Visualization imports
 import colorcet  # this import is necessary to add rainbow colormap to matplotlib
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_agg import FigureCanvasAgg
+# from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 from matplotlib import cm
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy, QWidget
-from PySide6.QtGui import QImage, QPixmap
-from PySide6.QtWidgets import QGraphicsScene
-import matplotlib.pyplot as plt
+#from PySide6.QtGui import QImage, QPixmap
+#from PySide6.QtWidgets import QGraphicsScene
+#import matplotlib.pyplot as plt
 from scipy.signal import chirp  # import chirp generation function
 
 
@@ -510,13 +510,14 @@ class MultitaperSpectrogram:
                clim = np.percentile(spect_data, [5, 98])
                im.set_clim(clim)
         elif parent_widget == None:
-            plt.figure()
-            plt.imshow(spect_data, extent=extent, aspect='auto', cmap='cet_rainbow4')
-            plt.colorbar(label='PSD (dB)')
-            plt.xlabel("Time (HH:MM:SS)")
-            plt.ylabel("Frequency (Hz)")
-            plt.gca().invert_yaxis()
-            plt.show()
+            pass
+            #plt.figure()
+            #plt.imshow(spect_data, extent=extent, aspect='auto', cmap='cet_rainbow4')
+            #plt.colorbar(label='PSD (dB)')
+            #plt.xlabel("Time (HH:MM:SS)")
+            #plt.ylabel("Frequency (Hz)")
+            #plt.gca().invert_yaxis()
+            #plt.show()
 
         # Optionally return for other use
         if self.return_fig:

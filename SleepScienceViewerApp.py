@@ -1,10 +1,6 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
 from PySide6.QtWidgets import QFileDialog, QMessageBox
-from PySide6.QtWidgets import QGraphicsScene, QGraphicsLineItem, QGraphicsView
-from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QFontDatabase
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QPen
 from PySide6.QtCore import QEvent, Qt, QObject
 
 import sys
@@ -225,7 +221,6 @@ class MainApp(QMainWindow):
             signal_labels = self.edf_file_obj.edf_signals.signal_labels
             eeg_labels = self.edf_file_obj.edf_signals.eeg_signal_labels # Will want a new one with stepped signals
             stepped_signal_list = self.edf_file_obj.edf_signals.return_stepped_signals_from_list(signal_labels)
-            print(stepped_signal_list)
             continuous_signal_list = self.edf_file_obj.edf_signals.return_continuous_signals_from_list(signal_labels)
             self.ui.spectrogram_comboBox.clear()
             self.ui.spectrogram_comboBox.addItems(continuous_signal_list)
@@ -236,7 +231,7 @@ class MainApp(QMainWindow):
             self.max_epoch = max_num_epochs
             self.signal_length_seconds = self.edf_file_obj.edf_signals.return_signal_length_seconds(signal_labels[0], epoch_width)
 
-            # Upate epoch label
+            # Update epoch label
             time_str = self.return_time_string(self.current_epoch, epoch_width)
             self.ui.epochs_label.setText(f" of {max_num_epochs} epochs ({time_str})")
 
