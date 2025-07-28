@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="including workspace.xml in commit. File maintains project level information">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="I replaced the edf graphics code in the edf plot with the code in annotation plot which is working. The did change in code did not work. Will be looking at places signal combo boxes are changed next">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edfFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/edfFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753725488898</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="I replaced the edf graphics code in the edf plot with the code in annotation plot which is working. The did change in code did not work. Will be looking at places signal combo boxes are changed next">
+      <option name="closed" value="true" />
+      <created>1753726782803</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1753726782803</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -163,7 +171,8 @@
     <MESSAGE value="Seemed to fine bug which a down stream consequence of not turning off the combox signals while updating the list." />
     <MESSAGE value="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress." />
     <MESSAGE value="including workspace.xml in commit. File maintains project level information" />
-    <option name="LAST_COMMIT_MESSAGE" value="including workspace.xml in commit. File maintains project level information" />
+    <MESSAGE value="I replaced the edf graphics code in the edf plot with the code in annotation plot which is working. The did change in code did not work. Will be looking at places signal combo boxes are changed next" />
+    <option name="LAST_COMMIT_MESSAGE" value="I replaced the edf graphics code in the edf plot with the code in annotation plot which is working. The did change in code did not work. Will be looking at places signal combo boxes are changed next" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -175,7 +184,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>394</line>
+          <line>398</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -185,7 +194,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>467</line>
+          <line>471</line>
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

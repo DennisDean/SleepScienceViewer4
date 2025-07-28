@@ -255,12 +255,16 @@ class MainApp(QMainWindow):
 
         # Turn off change signal while updating combobox list following selection of a new edf file
         for combo_box in signal_combo_boxes:
-            self.ui.hypnogram_comboBox.blockSignals(True)
+            combo_box.blockSignals(True)
 
         # add signal list to all comboboxes
         for combo in signal_combo_boxes:
             combo.clear()
             combo.addItems(signal_labels)
+
+        # Turn combo change signals on
+        for combo_box in signal_combo_boxes:
+            combo_box.blockSignals(False)
 
         for i, combo in enumerate(signal_combo_boxes):
             if i + 1 < len(signal_labels):  # +1 to skip the inserted empty string
@@ -268,9 +272,6 @@ class MainApp(QMainWindow):
             else:
                 combo.setCurrentIndex(0)  # Default to the empty string if no signal available
 
-        # Turn combo change signals on
-        for combo_box in signal_combo_boxes:
-            self.ui.hypnogram_comboBox.blockSignals(False)
     def compute_and_display_spectrogram(self):
         # Check before starting long computation
 
@@ -303,6 +304,10 @@ class MainApp(QMainWindow):
                           self.ui.signal_7_graphicsView,  self.ui.signal_8_graphicsView,  self.ui.signal_9_graphicsView,
                           self.ui.signal_10_graphicsView, self.ui.signal_11_graphicsView]
 
+        # Turn off change signal while updating combobox list following selection of a new edf file
+        for combo_box in signal_combo_boxes:
+            combo_box.blockSignals(True)
+
         # get combo boxes labels
         combo_box_signal_labels = [combo_box.currentText() for combo_box in signal_combo_boxes]
         graphic_views_to_update_id = []
@@ -324,13 +329,12 @@ class MainApp(QMainWindow):
 
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
                  signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+            # Turn off change signal while updating combobox list following selection of a new edf file
+
+        for combo_box in signal_combo_boxes:
+            combo_box.blockSignals(False)
 
         # Update epoch label string
-        # combo_box_signal_labels = [ label for label in combo_box_signal_labels if label != '']
-        # print(combo_box_signal_labels)
-        # if len(combo_box_signal_labels) > 0:
-        # signal_label = combo_box_signal_labels[0]
-        # max_num_epochs = self.edf_file_obj.edf_signals.return_num_epochs(signal_label, epoch_width)
         epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
         self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
         time_str       = self.return_time_string(current_epoch, epoch_width)
