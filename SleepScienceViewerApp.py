@@ -43,15 +43,18 @@ class MainApp(QMainWindow):
         self.ui.setupUi(self)
 
         # Initialize control variables
-        self.max_epoch: int                         = 1
-        self.current_epoch: int                     = 1
-        self.current_epoch_width_index:int          = 0
-        self.signal_length_seconds:int              = 1
         self.edf_file_obj:EdfFile                   = None
         self.annotation_xml_obj: AnnotationXmlClass = None
         self.epoch_display_options_text             = ['30 s', '1 min', '5 min', '10 min', '1 hr']
         self.epoch_display_options_width_sec        = [ 30,     60,      300,     600,      3600]
         self.epoch_display_axis_grid                = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
+
+        # Initialize epoch variables
+        self.max_epoch: int                 = None
+        self.current_epoch: int             = None
+        self.current_epoch_width_index: int = None
+        self.signal_length_seconds: int     = None
+        self.initialize_epoch_variables()
 
         # Visualization Controls
         # Assign the annotation list widget to a fixed width font
@@ -221,18 +224,20 @@ class MainApp(QMainWindow):
 
         if file_path:
             # Set epoch display options
-            # Spectrogram Signal Labels
-            signal_labels = self.edf_file_obj.edf_signals.signal_labels
-            eeg_labels = self.edf_file_obj.edf_signals.eeg_signal_labels # Will want a new one with stepped signals
-            stepped_signal_list = self.edf_file_obj.edf_signals.return_stepped_signals_from_list(signal_labels)
+            self.initialize_epoch_variables()
+
+            # Set Spectrogram Signal Labels
+            signal_labels          = self.edf_file_obj.edf_signals.signal_labels
+            eeg_labels             = self.edf_file_obj.edf_signals.eeg_signal_labels # Will want a new one with stepped signals
+            stepped_signal_list    = self.edf_file_obj.edf_signals.return_stepped_signals_from_list(signal_labels)
             continuous_signal_list = self.edf_file_obj.edf_signals.return_continuous_signals_from_list(signal_labels)
             self.ui.spectrogram_comboBox.clear()
             self.ui.spectrogram_comboBox.addItems(continuous_signal_list)
 
             # Determine length of signal
-            epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
-            max_num_epochs = self.edf_file_obj.edf_signals.return_num_epochs(eeg_labels[0], epoch_width)
-            self.max_epoch = max_num_epochs
+            epoch_width                = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+            max_num_epochs             = self.edf_file_obj.edf_signals.return_num_epochs(eeg_labels[0], epoch_width)
+            self.max_epoch             = max_num_epochs
             self.signal_length_seconds = self.edf_file_obj.edf_signals.return_signal_length_seconds(signal_labels[0], epoch_width)
 
             # Update epoch label
@@ -241,6 +246,12 @@ class MainApp(QMainWindow):
 
             # Draw Signals
             self.set_signal_combo_boxes()
+    def initialize_epoch_variables(self):
+            # Reset class epoch variable upon loading a new file
+            self.max_epoch: int                         = 1
+            self.current_epoch: int                     = 1
+            self.current_epoch_width_index:int          = 0
+            self.signal_length_seconds:int              = 1
     def set_signal_combo_boxes(self):
         # Get signal labels
         signal_labels = self.edf_file_obj.edf_signals.signal_labels
@@ -271,7 +282,6 @@ class MainApp(QMainWindow):
                 combo.setCurrentIndex(i + 1)  # Set to the i-th signal
             else:
                 combo.setCurrentIndex(0)  # Default to the empty string if no signal available
-
     def compute_and_display_spectrogram(self):
         # Check before starting long computation
 
