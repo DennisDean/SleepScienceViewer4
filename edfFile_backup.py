@@ -546,7 +546,6 @@ class EdfSignals:
         grid_color = 'gray'
         signal_color = 'blue'
 
-        # Extract signal or create a zero array signal drawn black if none is provided
         if signal_key == '':
             # Create empty signal
             sampling_time   = 0
@@ -564,8 +563,6 @@ class EdfSignals:
             sampling_time  = self.signal_sampling_time_dict[signal_key]
             signal_units   = self.signal_units_dict[signal_key]
             time_axis      = np.arange(len(signal_segment)) * sampling_time
-
-        # Setup to maintain a list of Canvases to write to for each signal segment.
 
         # Create figure and axis
         fig = Figure(figsize=(12, 2))
