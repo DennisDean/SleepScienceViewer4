@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Tracking down a bug where signals are not drawn to the interface. Instead new windows are created. Some evidence that this is an interaction between default use of matplotlib and PySide 6. &#10;&#10;I removed or commented out alternative plotting functionailty through the code base. However that did not fixe the issue.">
-      <change afterPath="$PROJECT_DIR$/edfFile_backup.py" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edfFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/edfFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +101,23 @@
       <option name="project" value="LOCAL" />
       <updated>1753707110726</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Tracking down a bug where signals are not drawn to the interface. Instead new windows are created. Some evidence that this is an interaction between default use of matplotlib and PySide 6. &#10;&#10;I removed or commented out alternative plotting functionailty through the code base. However that did not fixe the issue.">
+      <option name="closed" value="true" />
+      <created>1753717177878</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1753717177878</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries">
+      <option name="closed" value="true" />
+      <created>1753717664522</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1753717664522</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -111,7 +126,8 @@
     <MESSAGE value="Hypnogram redraws after combo box selection. Deleted hypnogram plotting function within the interface. Will use the plotting funciton within AnnotationXmlClass - Sleep Stages" />
     <MESSAGE value="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals." />
     <MESSAGE value="Tracking down a bug where signals are not drawn to the interface. Instead new windows are created. Some evidence that this is an interaction between default use of matplotlib and PySide 6. &#10;&#10;I removed or commented out alternative plotting functionailty through the code base. However that did not fixe the issue." />
-    <option name="LAST_COMMIT_MESSAGE" value="Tracking down a bug where signals are not drawn to the interface. Instead new windows are created. Some evidence that this is an interaction between default use of matplotlib and PySide 6. &#10;&#10;I removed or commented out alternative plotting functionailty through the code base. However that did not fixe the issue." />
+    <MESSAGE value="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -128,18 +144,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>712</line>
+          <line>713</line>
           <option name="timeStamp" value="122" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/edfFile.py</url>
-          <line>543</line>
-          <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
           <line>455</line>
           <option name="timeStamp" value="128" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>170</line>
+          <option name="timeStamp" value="129" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

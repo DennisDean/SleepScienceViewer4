@@ -395,22 +395,23 @@ class SleepStages:
             ax.text(x, ax.get_ylim()[1] + xlabel_offset , label,
                   fontsize=label_fontsize, ha='center', va='bottom', color='black')
 
+        # Compute vertical padding (5% headroom above and below)
+        y_min = np.min(stages)
+        y_max = np.max(stages)
+        y_pad = y_pad_c * (y_max - y_min if y_max != y_min else 1)
+        ax.set_ylim(y_min - y_pad, y_max + y_pad)
+        ax.invert_yaxis()
+
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+
+        max_label_len = max([len(label) for label in stage_map.values()])
+        left_margin = min(0.03, 0.02 * max_label_len)
+        fig.subplots_adjust(left=left_margin, right=0.99, top=0.95, bottom=0.05)
+        # fig.subplots_adjust(left=0.08, right=0.98, top=0.95, bottom=0.18)
+
         if parent_widget:
-            # Compute vertical padding (5% headroom above and below)
-            y_min = np.min(stages)
-            y_max = np.max(stages)
-            y_pad = y_pad_c * (y_max - y_min if y_max != y_min else 1)
-            ax.set_ylim(y_min - y_pad, y_max + y_pad)
-            ax.invert_yaxis()
-
-            for spine in ax.spines.values():
-                spine.set_visible(False)
-
-            max_label_len = max([len(label) for label in stage_map.values()])
-            left_margin = min(0.03, 0.02 * max_label_len)
-            fig.subplots_adjust(left=left_margin, right=0.99, top=0.95, bottom=0.05)
-            # fig.subplots_adjust(left=0.08, right=0.98, top=0.95, bottom=0.18)
-
+            # Create a new Figure Canvas
             canvas = FigureCanvas(fig)
             canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             canvas.updateGeometry()
