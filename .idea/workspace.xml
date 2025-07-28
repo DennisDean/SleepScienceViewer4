@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +116,31 @@
       <option name="project" value="LOCAL" />
       <updated>1753717664522</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Figure commands removed from the parent widget block so that all figur-canvas-layout information is in one block. Code work with expected buggy behavior. Switched to working with annotation code since the function is simpler. Turns out two figure windows are generated upon load; resulting in one figure for each supported type of histogram.">
+      <option name="closed" value="true" />
+      <created>1753724136141</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1753724136141</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Seemed to fine bug which a down stream consequence of not turning off the combox signals while updating the list.">
+      <option name="closed" value="true" />
+      <created>1753725070198</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1753725070198</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress.">
+      <option name="closed" value="true" />
+      <created>1753725434816</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1753725434816</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -127,7 +150,10 @@
     <MESSAGE value="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals." />
     <MESSAGE value="Tracking down a bug where signals are not drawn to the interface. Instead new windows are created. Some evidence that this is an interaction between default use of matplotlib and PySide 6. &#10;&#10;I removed or commented out alternative plotting functionailty through the code base. However that did not fixe the issue." />
     <MESSAGE value="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries" />
+    <MESSAGE value="Figure commands removed from the parent widget block so that all figur-canvas-layout information is in one block. Code work with expected buggy behavior. Switched to working with annotation code since the function is simpler. Turns out two figure windows are generated upon load; resulting in one figure for each supported type of histogram." />
+    <MESSAGE value="Seemed to fine bug which a down stream consequence of not turning off the combox signals while updating the list." />
+    <MESSAGE value="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress." />
+    <option name="LAST_COMMIT_MESSAGE" value="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -139,7 +165,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>382</line>
+          <line>394</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -149,12 +175,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>455</line>
+          <line>467</line>
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>170</line>
+          <line>174</line>
           <option name="timeStamp" value="129" />
         </line-breakpoint>
       </breakpoints>
