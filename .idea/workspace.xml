@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="including workspace.xml in commit. File maintains project level information">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edfFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/edfFile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753725434816</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="including workspace.xml in commit. File maintains project level information">
+      <option name="closed" value="true" />
+      <created>1753725488898</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1753725488898</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -153,7 +162,8 @@
     <MESSAGE value="Figure commands removed from the parent widget block so that all figur-canvas-layout information is in one block. Code work with expected buggy behavior. Switched to working with annotation code since the function is simpler. Turns out two figure windows are generated upon load; resulting in one figure for each supported type of histogram." />
     <MESSAGE value="Seemed to fine bug which a down stream consequence of not turning off the combox signals while updating the list." />
     <MESSAGE value="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress." />
-    <option name="LAST_COMMIT_MESSAGE" value="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress." />
+    <MESSAGE value="including workspace.xml in commit. File maintains project level information" />
+    <option name="LAST_COMMIT_MESSAGE" value="including workspace.xml in commit. File maintains project level information" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -179,9 +189,9 @@
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>174</line>
-          <option name="timeStamp" value="129" />
+          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
+          <line>142</line>
+          <option name="timeStamp" value="134" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

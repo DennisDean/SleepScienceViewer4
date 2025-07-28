@@ -575,38 +575,57 @@ class EdfSignals:
         ax.set_ylabel(f"Amplitude ({signal_units})")
         ax.grid(True)
 
+        # Compute vertical padding (5% headroom above and below)
+        y_min = np.min(signal_segment)
+        y_max = np.max(signal_segment)
+        y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
+        ax.set_ylim(y_min - y_pad, y_max + y_pad)
+
+        # Force x limit
+        x_pad = x_tick_settings[1] / 2
+        ax.set_xlim(-x_pad, epoch_width + x_pad)
+
+        # Set x-axis grid lines (5s major, 2s minor)
+        ax.xaxis.set_minor_locator(MultipleLocator(x_tick_settings[1]))
+        ax.xaxis.set_major_locator(MultipleLocator(x_tick_settings[0]))
+        ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
+        # ax.grid(axis='x', which='minor', linestyle=':', linewidth=0.5, color='lightgray')
+
+        # Remove ticks and labels, but preserve gridlines
+        # ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+
+        # Compute vertical padding (5% headroom above and below)
+        fig.subplots_adjust(left=0, right=1, top=0.95, bottom=0.05)
+
         if parent_widget:
             logger.info(f'plot_signal_segment: parent widget found')
-            # Compute vertical padding (5% headroom above and below)
-            y_min = np.min(signal_segment)
-            y_max = np.max(signal_segment)
-            y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
-            ax.set_ylim(y_min - y_pad, y_max + y_pad)
-
-            # Force x limit
-            x_pad = x_tick_settings[1]/2
-            ax.set_xlim(-x_pad, epoch_width+x_pad)
-
-            # Set x-axis grid lines (5s major, 2s minor)
-            ax.xaxis.set_minor_locator(MultipleLocator(x_tick_settings[1]))
-            ax.xaxis.set_major_locator(MultipleLocator(x_tick_settings[0]))
-            ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
-            #ax.grid(axis='x', which='minor', linestyle=':', linewidth=0.5, color='lightgray')
-
-            # Remove ticks and labels, but preserve gridlines
-            # ax.set_xticks([])
-            ax.set_yticks([])
-            for spine in ax.spines.values():
-                spine.set_visible(False)
-
-            logger.info(f'plot_signal_segment: adjusting figure subplot')
-            # Compute vertical padding (5% headroom above and below)
-            fig.subplots_adjust(left=0, right=1, top=0.95, bottom=0.05)
-
+            # Create a new Figure Canvas
             canvas = FigureCanvas(fig)
             canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             canvas.updateGeometry()
+            canvas.setStyleSheet("background-color: white;")  # Qt background
 
+            existing_layout = parent_widget.layout()
+            if existing_layout:
+                while existing_layout.count():
+                    item = existing_layout.takeAt(0)
+                    widget = item.widget()
+                    if widget:
+                        widget.setParent(None)
+            else:
+                existing_layout = QVBoxLayout(parent_widget)
+                parent_widget.setLayout(existing_layout)
+
+            existing_layout.setContentsMargins(0, 0, 0, 0)
+            existing_layout.addWidget(canvas)
+
+            """
+            canvas = FigureCanvas(fig)
+            canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            canvas.updateGeometry()
 
             existing_layout = parent_widget.layout()
             if existing_layout:
@@ -623,6 +642,7 @@ class EdfSignals:
 
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
+            """
         else:
             pass
             # logger.warning("No parent_widget provided — opening standalone plot window.")
