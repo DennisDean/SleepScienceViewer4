@@ -131,6 +131,9 @@ class MainApp(QMainWindow):
 
         # Store multi-taper results
         self.multitaper_spectrogram_obj:MultitaperSpectrogram = None
+
+        # Turn Off Epoch Buttons
+        self.turn_off_edf_signal_pushbuttons()
     # Initialize Annotations
     def load_xml_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open XML File", "", "XML Files (*.xml)")
@@ -152,7 +155,6 @@ class MainApp(QMainWindow):
 
             sleep_stage_labels = self.annotation_xml_obj.sleep_stages_obj.return_sleep_stage_labels()
             sleep_stage_labels.remove(sleep_stage_labels[0])
-            print(f'sleep stage labels {sleep_stage_labels}')
             self.ui.hypnogram_comboBox.blockSignals(True)
             self.ui.hypnogram_comboBox.clear()
             self.ui.hypnogram_comboBox.addItems(sleep_stage_labels)
@@ -246,12 +248,42 @@ class MainApp(QMainWindow):
 
             # Draw Signals
             self.set_signal_combo_boxes()
+
+            # Turn on signal related buttons
+            self.turn_on_edf_signal_pushbuttons()
     def initialize_epoch_variables(self):
             # Reset class epoch variable upon loading a new file
-            self.max_epoch: int                         = 1
-            self.current_epoch: int                     = 1
-            self.current_epoch_width_index:int          = 0
-            self.signal_length_seconds:int              = 1
+            self.max_epoch                         = 1
+            self.current_epoch                     = 1
+            self.current_epoch_width_index         = 0
+            self.signal_length_seconds             = 1
+
+            # Set epoch edit box to 1
+            self.ui.epochs_textEdit.setText(f"{self.current_epoch}")
+            self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+
+            # Set epoch combo box to 30 second window
+            self.ui.epoch_comboBox.setCurrentIndex(self.current_epoch_width_index)
+    def turn_off_edf_signal_pushbuttons(self):
+            # Turn off edf signal related widgets
+            self.ui.compute_spectrogram_pushButton.setEnabled(False)
+            self.ui.first_pushButton.setEnabled(False)
+            self.ui.next_epoch_pushButton.setEnabled(False)
+            self.ui.update_epoch_pushButton.setEnabled(False)
+            self.ui.epochs_textEdit.setEnabled(False)
+            self.ui.previous_pushButton.setEnabled(False)
+            self.ui.last_epoch_pushButton.setEnabled(False)
+            self.ui.epoch_comboBox.setEnabled(False)
+    def turn_on_edf_signal_pushbuttons(self):
+            # Turn off edf signal related widgets
+            self.ui.compute_spectrogram_pushButton.setEnabled(True)
+            self.ui.first_pushButton.setEnabled(True)
+            self.ui.next_epoch_pushButton.setEnabled(True)
+            self.ui.update_epoch_pushButton.setEnabled(True)
+            self.ui.epochs_textEdit.setEnabled(True)
+            self.ui.previous_pushButton.setEnabled(True)
+            self.ui.last_epoch_pushButton.setEnabled(True)
+            self.ui.epoch_comboBox.setEnabled(True)
     def set_signal_combo_boxes(self):
         # Get signal labels
         signal_labels = self.edf_file_obj.edf_signals.signal_labels

@@ -44,7 +44,6 @@ import json
 import csv
 import logging
 import traceback
-from random import uniform
 from typing import List, Dict
 from lxml import etree
 from sympy.logic.boolalg import Boolean
@@ -56,7 +55,6 @@ import numpy as np
 # import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-# from matplotlib.ticker import MaxNLocator
 from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
 
 # Set up a module-level logger
@@ -432,7 +430,6 @@ class SleepStages:
             existing_layout.addWidget(canvas)
         else:
             pass
-
     # Class Functions
     def __str__(self)->str:
         # Override default class description

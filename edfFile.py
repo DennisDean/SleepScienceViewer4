@@ -28,23 +28,17 @@ import os
 import logging
 from typing import List, Dict
 import datetime
-# import numpy as np
 import pandas as pd
 import csv
 import json
-#import matplotlib.pyplot as plt
-import seaborn as sns
-import openpyxl
-from   pathlib import Path
-from   multitaper_spectrogram_python_class import MultitaperSpectrogram
+from pathlib import Path
+from multitaper_spectrogram_python_class import MultitaperSpectrogram
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 import numpy as np
-# import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 import math
-#from PyQt6.QtCore import QChar
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -541,7 +535,6 @@ class EdfSignals:
             parent_widget (QWidget or None): If provided, embed plot in this widget.
         """
 
-        print(f'parent widget: {parent_widget}')
         # Set Plot defaults
         grid_color = 'gray'
         signal_color = 'blue'
