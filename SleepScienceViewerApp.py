@@ -14,7 +14,7 @@ import math
 
 # EDF and Annotation Classes
 from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
-from edfFile import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal, EdfSignalAnalysis, EdfFile
+from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal, EdfSignalAnalysis, EdfFile
 
 # Configure the logger
 logging.basicConfig(
@@ -893,7 +893,7 @@ class MainApp(QMainWindow):
             directory           = os.path.dirname(self.annotation_xml_obj.annotationFile)  # -> "/home/dennis/data"
             filename            = os.path.basename(self.annotation_xml_obj.annotationFile)
             suggested_file_name = os.path.splitext(filename)[0]
-            suggested_file_name = suggested_file_name + '_annotation_export.json'
+            suggested_file_name = suggested_file_name + '_annotation_export.xlsx'
 
             # Query user file location pation
             file_path, _ = QFileDialog.getSaveFileName(self,"Save Annotation Export",
@@ -942,7 +942,9 @@ class MainApp(QMainWindow):
             # Here you'd write your summary to the selected file path.
             # Example placeholder:
             try:
+                self.annotation_xml_obj.sleep_stages_obj.set_output_dir(directory)
                 self.annotation_xml_obj.sleep_stages_obj.export_sleep_stages(file_path)
+                self.annotation_xml_obj.sleep_stages_obj.summary_scored_sleep_stages()
                 logger.info(f'Sleep Stages Export Menu Item: File written to {file_path}')
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to save Sleep Stages File:\n{str(e)}")
