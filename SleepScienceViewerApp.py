@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from PySide6.QtGui import QFont, QFontDatabase
 from PySide6.QtCore import QEvent, Qt, QObject
+from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
 
 # System Imports
 import sys
@@ -29,6 +30,89 @@ logger = logging.getLogger(__name__)
 # from your_ui_module import Ui_MainWindow  # Replace this with your actual import if in a separate file
 from SleepScienceViewer import Ui_MainWindow
 
+# Dialog Boxes
+class EDFInfoDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("About EDF Format")
+        self.setMinimumSize(500, 300)
+
+        description = (
+            "<b>European Data Format (EDF)</b> is a standard file format "
+            "designed for exchange and storage of time-series physiological data such as EEG, EMG, or ECG.<br><br>"
+            "📄 <i>Kemp B, Zwinderman AH, Tuk B, Kamphuisen HA, Oberye JJ. "
+            "Analysis of a sleep-dependent neuronal feedback loop: the slow-wave microcontinuity of the EEG. "
+            "Clin Neurophysiol. 1992;82(2):145-150.</i><br><br>"
+            "🔗 <a href='https://www.edfplus.info/' style='color:#0077cc;'>https://www.edfplus.info/</a>"
+        )
+
+        label = QLabel(description)
+        label.setWordWrap(True)
+        label.setOpenExternalLinks(True)
+
+        close_button = QPushButton("Close")
+        close_button.clicked.connect(self.accept)
+
+        layout = QVBoxLayout()
+        layout.addWidget(label)
+        layout.addWidget(close_button, alignment=Qt.AlignmentFlag.AlignRight)
+        self.setLayout(layout)
+class SleepXMLInfoDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Sleep Annotation XML Standard")
+        self.setMinimumSize(500, 300)
+
+        description = (
+            "<b>Sleep Annotation XML Standard</b> is a structured format designed for "
+            "encoding events and annotations in sleep recordings, such as arousals, "
+            "apneas, and sleep stages. This format supports interoperability and consistent "
+            "data sharing across research studies and clinical applications.<br><br>"
+            "It is widely used by large-scale sleep research initiatives, including the "
+            "<a href='https://sleepdata.org/' style='color:#0077cc;'>National Sleep Research Resource (NSRR)</a>, "
+            "to facilitate analysis and reproducibility.<br><br>"
+            "🔗 <a href='https://sleepdata.org/tools/annotations' style='color:#0077cc;'>Learn more about Sleep XML Annotations</a>"
+        )
+
+        label = QLabel(description)
+        label.setWordWrap(True)
+        label.setOpenExternalLinks(True)
+
+        close_button = QPushButton("Close")
+        close_button.clicked.connect(self.accept)
+
+        layout = QVBoxLayout()
+        layout.addWidget(label)
+        layout.addWidget(close_button, alignment=Qt.AlignmentFlag.AlignRight)
+        self.setLayout(layout)
+class AboutDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("About Sleep Science Viewer")
+        self.setMinimumSize(400, 250)
+
+        layout = QVBoxLayout(self)
+
+        about_text = """
+        <h3>Sleep Science Viewer</h3>
+        <p>Application provides access to EDF and XML file used in sleep research and includes summary/report exports.
+         The applications demonstrates features made available in an EDF and Annotation class. </p>
+        <p><b>Developer:</b> Dennis A. Dean, II, PhD</p>
+        <p>&copy; 2025 Dennis A. Dean, II, PhD. All rights reserved.</p>
+        """
+
+        text_browser = QTextBrowser(self)
+        text_browser.setHtml(about_text)
+        text_browser.setReadOnly(True)
+        text_browser.setOpenExternalLinks(True)
+
+        layout.addWidget(text_browser)
+
+        btn_close = QPushButton("Close")
+        btn_close.clicked.connect(self.close)
+        layout.addWidget(btn_close)
+
+# Application
 class NumericTextEditFilter(QObject):
     def eventFilter(self, obj, event):
         if event.type() == QEvent.KeyPress:
@@ -135,6 +219,19 @@ class MainApp(QMainWindow):
 
         # Store multi-taper results
         self.multitaper_spectrogram_obj:MultitaperSpectrogram = None
+
+        # Turn on menu buttons
+        self.ui.actionOpen_Edf.triggered.connect(self.open_edf_menu_item)
+        self.ui.actionOpen_XML.triggered.connect(self.open_xml_menu_item)
+        self.ui.actionSettings.triggered.connect(self.settings_menu_item)
+        self.ui.actionEDF_Standard.triggered.connect(self.edf_standard_menu_item)
+
+
+
+
+        self.ui.actionAnnotation_Standard.triggered.connect(self.xml_standard_menu_item)
+        self.ui.actionAbout.triggered.connect(self.about_menu_item)
+
 
         # Turn Off Epoch Buttons
         self.turn_off_edf_signal_pushbuttons()
@@ -654,6 +751,7 @@ class MainApp(QMainWindow):
                     signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
     def set_signal_color(self):
         pass
+    # Annotation
     def annotation_list_widget_double_click(self, item):
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Annotation list double-clicked: {item.text()}")
@@ -686,6 +784,28 @@ class MainApp(QMainWindow):
         self.draw_signals_in_graphic_views()
 
         logger.info(f"Jumped to new signal epoch ({new_epoch})")
+    # Menu Item
+    def open_edf_menu_item(self):
+        self.load_edf_file()
+    def open_xml_menu_item(self):
+        self.load_xml_file()
+    def settings_menu_item(self):
+        msg_box = QMessageBox(self)
+        msg_box.setWindowTitle("Info")
+        msg_box.setText("Settings item is not implemented yet")
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.exec()
+
+    SleepXMLInfoDialog
+    def xml_standard_menu_item(self):
+        dlg = SleepXMLInfoDialog(self)
+        dlg.exec()
+    def edf_standard_menu_item(self):
+        dlg = EDFInfoDialog(self)
+        dlg.exec()
+    def about_menu_item(self):
+        dlg = AboutDialog(self)
+        dlg.exec()
     # Utilities
     def return_time_string(self, epoch:int, epoch_width:int):
         val     = float((epoch-1)*epoch_width)
