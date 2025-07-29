@@ -1,13 +1,17 @@
+# PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from PySide6.QtGui import QFont, QFontDatabase
 from PySide6.QtCore import QEvent, Qt, QObject
 
+# System Imports
 import sys
 import logging
+import math
+
+# EDF and Annotation Classes
 from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
 from edfFile import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal, EdfSignalAnalysis, EdfFile
-import math
 
 # Configure the logger
 logging.basicConfig(
