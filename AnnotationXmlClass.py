@@ -632,6 +632,7 @@ class SignalAnnotations:
         event_df, existing_cols = self.sleep_events_to_dataframe(self.scoredEvents, filename)
 
         # Save to Excel
+        logger.info(f'AnnotationXmlClass: Preparing to export events')
         try:
             if fmt == 'xlsx':
                 event_df.to_excel(filename, index=False)
@@ -818,7 +819,7 @@ class AnnotationXml:
         column_print(string_list:list, number_of_columns: int = 2, space: int = 5)
         get_unique_entries(input_list:list)->list
     """
-    def __init__(self, annotationFile:str, verbose: bool=False, output_dir: str = "./"):
+    def __init__(self, annotationFile:str, verbose: bool=False, output_dir: str = os.getcwd()):
         """
         Validate, Load, and access information stored in an XML annotation file.
 

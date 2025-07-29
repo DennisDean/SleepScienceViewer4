@@ -4,8 +4,10 @@ from PySide6.QtWidgets import QFileDialog, QMessageBox
 from PySide6.QtGui import QFont, QFontDatabase
 from PySide6.QtCore import QEvent, Qt, QObject
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
+from PySide6.QtWidgets import QFileDialog, QMessageBox, QWidget
 
 # System Imports
+import os
 import sys
 import logging
 import math
@@ -133,9 +135,9 @@ class MainApp(QMainWindow):
         # Initialize control variables
         self.edf_file_obj:EdfFile                   = None
         self.annotation_xml_obj: AnnotationXmlClass = None
-        self.epoch_display_options_text             = ['30 s', '1 min', '5 min', '10 min', '1 hr']
-        self.epoch_display_options_width_sec        = [ 30,     60,      300,     600,      3600]
-        self.epoch_display_axis_grid                = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
+        self.epoch_display_options_text: List       = ['30 s', '1 min', '5 min', '10 min', '1 hr']
+        self.epoch_display_options_width_sec: List  = [ 30,     60,      300,     600,      3600]
+        self.epoch_display_axis_grid: List          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
@@ -224,11 +226,13 @@ class MainApp(QMainWindow):
         self.ui.actionOpen_Edf.triggered.connect(self.open_edf_menu_item)
         self.ui.actionOpen_XML.triggered.connect(self.open_xml_menu_item)
         self.ui.actionSettings.triggered.connect(self.settings_menu_item)
+
+        self.ui.actionEDF_Summary.triggered.connect(self.edf_summary_menu_item)
+        self.ui.actionAnnotation_Summary.triggered.connect(self.annotation_summary_menu_item)
+        self.ui.actionAnnotation_Export.triggered.connect(self.annotation_export_menu_item)
+        self.ui.actionSleep_Stages_Export.triggered.connect(self.sleep_stages_export_menu_item)
+
         self.ui.actionEDF_Standard.triggered.connect(self.edf_standard_menu_item)
-
-
-
-
         self.ui.actionAnnotation_Standard.triggered.connect(self.xml_standard_menu_item)
         self.ui.actionAbout.triggered.connect(self.about_menu_item)
 
@@ -750,6 +754,7 @@ class MainApp(QMainWindow):
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
                     signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
     def set_signal_color(self):
+        # Not implemented. Will enable changing signal color assigning color from annotation file
         pass
     # Annotation
     def annotation_list_widget_double_click(self, item):
@@ -795,8 +800,155 @@ class MainApp(QMainWindow):
         msg_box.setText("Settings item is not implemented yet")
         msg_box.setIcon(QMessageBox.Information)
         msg_box.exec()
+    def edf_summary_menu_item(self):
+        logger.info(f'EDF Summary Menu Item selected')
+        if self.edf_file_obj != None:
+            """
+                Prompts the user to select a file path to save the EDF summary.
+                Displays a message box if the user cancels the dialog.
 
-    SleepXMLInfoDialog
+                Parameters:
+                    parent (QWidget): The parent widget for the dialog.
+
+                Returns:
+                    str or None: The selected file path or None if canceled.
+                """
+            # Compute Signal Statistics
+            self.edf_file_obj.edf_signals = self.edf_file_obj.edf_signals.calc_edf_signal_stats()
+
+            # Generate a suggested file name
+            directory           = os.path.dirname(self.edf_file_obj.file_name)  # -> "/home/dennis/data"
+            filename            = os.path.basename(self.edf_file_obj.file_name)
+            suggested_file_name = os.path.splitext(filename)[0]
+            suggested_file_name = suggested_file_name + '_edf_summary.json'
+
+            # Query user file location pation
+            file_path, _ = QFileDialog.getSaveFileName(self,"Save EDF Summary",
+                suggested_file_name,"Text Files (*.json);;All Files (*)")
+
+            if not file_path:
+                logger.info("EDF Summary Save Canceled: No file selected for saving the EDF summary.")
+                return None
+
+            # Here you'd write your summary to the selected file path.
+            # Example placeholder:
+            try:
+                self.edf_file_obj.export_summary_to_json(file_path)
+                logger.info(f'EDF Summary Menu Item: File written to {file_path}')
+            except Exception as e:
+                QMessageBox.critical(parent, "Error", f"Failed to save EDF summary:\n{str(e)}")
+                return None
+        else:
+            logger.info(f'EDF Summary Menu Item: EDF File not loaded. Summary not created')
+    def annotation_summary_menu_item(self):
+        if self.annotation_xml_obj != None:
+            """
+                Prompts the user to select a file path to save the Annotation summary.
+                Displays a message box if the user cancels the dialog.
+
+                Parameters:
+                    parent (QWidget): The parent widget for the dialog.
+
+                Returns:
+                    str or None: The selected file path or None if canceled.
+                """
+            # Generate a suggested file name
+            directory           = os.path.dirname(self.annotation_xml_obj.annotationFile)  # -> "/home/dennis/data"
+            filename            = os.path.basename(self.annotation_xml_obj.annotationFile)
+            suggested_file_name = os.path.splitext(filename)[0]
+            suggested_file_name = suggested_file_name + '_annotation_summary.json'
+
+            # Query user file location pation
+            file_path, _ = QFileDialog.getSaveFileName(self,"Save Annotation Summary",
+                suggested_file_name,"Text Files (*.json);;All Files (*)")
+
+            if not file_path:
+                logger.info("Annotation Summary Save Canceled: No file selected for saving the EDF summary.")
+                return None
+
+            # Here you'd write your summary to the selected file path.
+            # Example placeholder:
+            try:
+                self.annotation_xml_obj.export_summary(filename = file_path)
+                logger.info(f'Annotation Summary Menu Item: File written to {file_path}')
+            except Exception as e:
+                QMessageBox.critical(parent, "Error", f"Failed to save EDF summary:\n{str(e)}")
+                return None
+        else:
+            logger.info(f'EDF Annotation Menu Item: Annotation File not loaded. Summary not created')
+    def annotation_export_menu_item(self):
+        pass
+        if self.annotation_xml_obj != None:
+            """
+                Prompts the user to select a file path to save the Annotation Export.
+                Displays a message box if the user cancels the dialog.
+
+                Parameters:
+                    parent (QWidget): The parent widget for the dialog.
+
+                Returns:
+                    str or None: The selected file path or None if canceled.
+                """
+            # Generate a suggested file name
+            directory           = os.path.dirname(self.annotation_xml_obj.annotationFile)  # -> "/home/dennis/data"
+            filename            = os.path.basename(self.annotation_xml_obj.annotationFile)
+            suggested_file_name = os.path.splitext(filename)[0]
+            suggested_file_name = suggested_file_name + '_annotation_export.json'
+
+            # Query user file location pation
+            file_path, _ = QFileDialog.getSaveFileName(self,"Save Annotation Export",
+                suggested_file_name,"Text Files (*.json);;All Files (*)")
+
+            if not file_path:
+                logger.info("Annotation Export Save Canceled: No file selected.")
+                return None
+
+            # Here you'd write your summary to the selected file path.
+            # Example placeholder:
+            try:
+                self.annotation_xml_obj.scored_event_obj.export_event(filename = file_path)
+                logger.info(f'Annotation Export Menu Item: File written to {file_path}')
+            except Exception as e:
+                QMessageBox.critical(parent, "Error", f"Failed to save EDF summary:\n{str(e)}")
+                return None
+        else:
+            logger.info(f'EDF Annotation Export Item: Annotation File not loaded. Export not created')
+    def sleep_stages_export_menu_item(self):
+        if self.annotation_xml_obj != None:
+            """
+                Prompts the user to select a file path to export sleep stages.
+                Displays a message box if the user cancels the dialog.
+
+                Parameters:
+                    parent (QWidget): The parent widget for the dialog.
+
+                Returns:
+                    str or None: The selected file path or None if canceled.
+                """
+            # Generate a suggested file name
+            directory           = os.path.dirname(self.annotation_xml_obj.annotationFile)  # -> "/home/dennis/data"
+            filename            = os.path.basename(self.annotation_xml_obj.annotationFile)
+            suggested_file_name = os.path.splitext(filename)[0]
+            suggested_file_name = suggested_file_name + '_sleep_stages.csv'
+
+            # Query user file location pation
+            file_path, _ = QFileDialog.getSaveFileName(self,"Save Sleep Stages",
+                suggested_file_name,"Text Files (*.txt);;All Files (*)")
+
+            if not file_path:
+                logger.info("Sleep Stages Save Canceled: No file selected for saving the sleep stages to a file.")
+                return None
+
+            # Here you'd write your summary to the selected file path.
+            # Example placeholder:
+            try:
+                self.annotation_xml_obj.sleep_stages_obj.export_sleep_stages(file_path)
+                logger.info(f'Sleep Stages Export Menu Item: File written to {file_path}')
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to save Sleep Stages File:\n{str(e)}")
+                return None
+        else:
+            logger.info(f'Sleep Stages Export Menu Item: Annotation File not loaded. Summary not created')
     def xml_standard_menu_item(self):
         dlg = SleepXMLInfoDialog(self)
         dlg.exec()

@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1203, 1041)
+        MainWindow.resize(1203, 1061)
         self.actionOpen_Edf = QAction(MainWindow)
         self.actionOpen_Edf.setObjectName(u"actionOpen_Edf")
         self.actionOpen_XML = QAction(MainWindow)
@@ -644,7 +644,6 @@ class Ui_MainWindow(object):
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionSettings)
         self.menuGenerate.addAction(self.actionEDF_Summary)
-        self.menuGenerate.addAction(self.actionEDF_Signal_Export)
         self.menuGenerate.addSeparator()
         self.menuGenerate.addAction(self.actionAnnotation_Summary)
         self.menuGenerate.addAction(self.actionAnnotation_Export)
