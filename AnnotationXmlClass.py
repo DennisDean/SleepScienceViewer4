@@ -139,6 +139,8 @@ class SleepStages:
                  num_stage_to_nremrem_dict:Dict[int,str] = {0:'W', 1:'REM', 2:'NREM', 3:'NREM', 4:'NREM', 5:'NREM'},
                  nremrem_to_num_stage_dict:Dict[str,int] = {'W':0, 'REM':1, 'NREM':2},
                  num_stage_to_nremrem_reduced_dict:Dict[int,str] = {0:'W', 1:'REM', 2:'NREM'}):
+        # Update log
+        logging.info(f'Initializing SleepStagesClass: epoch{epoch}, num of stages {len(num_stages)}')
 
         # Set inputs and conversion
         self.sleep_epoch               = epoch
@@ -169,11 +171,6 @@ class SleepStages:
         self.recording_duration_hr   = self.number_of_epochs * self.sleep_epoch / 60 / 60
         self.time_seconds            = [float(i * epoch) for i in range(len(num_stages))]
 
-        # Initialize time text stages
-        # self.text_stages     = [num_stage_to_text_dict[s] for s in num_stages]
-        # self.nremrem_stages  = [num_stage_to_nremrem_dict[s] for s in num_stages]
-        # self.time_seconds    = [float(i*epoch)for i in range(len(num_stages))]
-
         # Labels - will make self describing in another pass
         self.numeric_labels  = list(num_stage_to_text_dict.keys())
         self.numeric_labels.sort()
@@ -181,6 +178,7 @@ class SleepStages:
         self.nremrem_labels  = get_unique_entries([num_stage_to_nremrem_dict[i] for i in self.numeric_labels])
         self.numeric_labels  = get_unique_entries([str(num_stage_to_num_dict[i]) for i in self.numeric_labels])
 
+        # Create labels to assist with histogram plotting
         self.numeric_labels  = "_".join(self.numeric_labels)
         self.text_labels     = "_".join(self.text_labels)
         self.nremrem_labels  = "_".join(self.nremrem_labels)
@@ -282,9 +280,15 @@ class SleepStages:
         :param fn:
         :return:
         """
+        # Log status
+        logging.info(f'Preparing to export sleep stages to {filename}')
+
+        # Set output directory if provided
         if output_dir != None:
             self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
+
+        ##### Changing behavior to work wit
         if time_stamped:
             filename = (os.path.join(self.output_dir, filename) or
                         generate_timestamped_filename("sleep_stages", ".txt", self.output_dir))
@@ -292,11 +296,14 @@ class SleepStages:
             filename = (os.path.join(self.output_dir, filename) or
                         generate_filename("sleep_stages", ".txt", self.output_dir))
 
+        logging.info(f'Preparing to export sleep stages ({len(self.num_stages)})')
+
         # Export numeric ad text sleep stages
         try:
+            logging.info(f'Opening file to write {self.num_stages} sleep stages')
             with open(filename, 'w') as file:
-                for i in range(len(self.sleepStages)):
-                    file.write(f"{self.sleepStages[i]}\t{self.sleep_stages_text[i]}\t{self.sleep_stages_NremRem[i]}\n")
+                for i in range(len(self.num_stages)):
+                    file.write(f"{self.num_stages[i]}\t{self.sleep_stages_text[i]}\t{self.sleep_stages_NremRem[i]}\n")
         except Exception as e:
             logger.error(f'*** Could not export sleep stages: {filename}, error: {e}')
     # Plotting functions

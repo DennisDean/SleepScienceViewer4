@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup.">
-      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,21 +31,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.AnnotationXmlClass.executor": "Run",
+    "Python.SleepScienceViewer.executor": "Run",
+    "Python.SleepScienceViewerApp.executor": "Run",
+    "Python.edfFile.executor": "Run",
+    "Python.logging_config.executor": "Run",
+    "Python.multitaper_spectrogram_python.executor": "Run",
+    "Python.multitaper_spectrogram_python_class.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -212,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753892224346</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written.">
+      <option name="closed" value="true" />
+      <created>1753892690033</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1753892690033</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -233,25 +243,31 @@
     <MESSAGE value="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros." />
     <MESSAGE value="Annotation export working. Changed the extension to .xlsx." />
     <MESSAGE value="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup." />
+    <MESSAGE value="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written." />
+    <option name="LAST_COMMIT_MESSAGE" value="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/multitaper_spectrogram_python_class.py</url>
-          <line>418</line>
+          <line>411</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>878</line>
+          <line>879</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>302</line>
+          <line>303</line>
           <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
+          <line>434</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
