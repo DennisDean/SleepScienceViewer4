@@ -167,12 +167,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_19.addItem(self.horizontalSpacer_5)
 
-        self.label_3 = QLabel(self.centralwidget)
-        self.label_3.setObjectName(u"label_3")
-        sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
-        self.label_3.setSizePolicy(sizePolicy)
+        self.spectrogram_label = QLabel(self.centralwidget)
+        self.spectrogram_label.setObjectName(u"spectrogram_label")
+        sizePolicy.setHeightForWidth(self.spectrogram_label.sizePolicy().hasHeightForWidth())
+        self.spectrogram_label.setSizePolicy(sizePolicy)
 
-        self.horizontalLayout_19.addWidget(self.label_3)
+        self.horizontalLayout_19.addWidget(self.spectrogram_label)
 
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -675,7 +675,7 @@ class Ui_MainWindow(object):
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.compute_spectrogram_pushButton.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Multitaper Spectrogram", None))
+        self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multitaper Spectrogram", None))
         self.first_pushButton.setText(QCoreApplication.translate("MainWindow", u"First", None))
         self.next_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.update_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"U", None))

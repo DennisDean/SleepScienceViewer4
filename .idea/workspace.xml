@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Annotation export working. Changed the extension to .xlsx.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SleepScienceViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edfFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,21 +32,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.AnnotationXmlClass.executor": "Debug",
+    "Python.SleepScienceViewer.executor": "Run",
+    "Python.SleepScienceViewerApp.executor": "Run",
+    "Python.edfFile.executor": "Run",
+    "Python.multitaper_spectrogram_python.executor": "Run",
+    "Python.multitaper_spectrogram_python_class.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -198,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753827059595</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Annotation export working. Changed the extension to .xlsx.">
+      <option name="closed" value="true" />
+      <created>1753828934139</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1753828934139</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -217,7 +225,8 @@
     <MESSAGE value="Added reset function which is helping. Need to take a break. When returning will create a function for explicitly resetting widgets to default values." />
     <MESSAGE value="Create multiple dialog boxes and message pop up to have action taken for the File and Help menu. Just need to the Generate menu item. Then the first pass is done." />
     <MESSAGE value="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros." />
+    <MESSAGE value="Annotation export working. Changed the extension to .xlsx." />
+    <option name="LAST_COMMIT_MESSAGE" value="Annotation export working. Changed the extension to .xlsx." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -228,19 +237,14 @@
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>796</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
           <line>878</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>792</line>
-          <option name="timeStamp" value="24" />
+          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
+          <line>302</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

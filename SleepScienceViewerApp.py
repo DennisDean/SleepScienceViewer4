@@ -428,16 +428,20 @@ class MainApp(QMainWindow):
             self.show_missing_eeg_warning()
 
         if process_eeg == True:
-            # Get EEG Signal
-            eeg_label = self.ui.spectrogram_comboBox.currentText()
-            signal_type = 'EEG'
-            eeg_signal_obj = self.edf_file_obj.edf_signals.return_edf_signal(eeg_label, signal_type)
-            edf_signal_analysis_obj = EdfSignalAnalysis(eeg_signal_obj)
+            # Get Continuous Signals
+            signal_label = self.ui.spectrogram_comboBox.currentText()
+            signal_type = 'continuous'
+            signal_obj = self.edf_file_obj.edf_signals.return_edf_signal(signal_label, signal_type)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
 
-            logger.info(f'Computing spectrogram ({eeg_label}): computation may be time consuming')
-            multitaper_spectrogram_obj = edf_signal_analysis_obj.multitapper_spectrogram()
+            # Compute Spectrogram
+            logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
+            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
             multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView)
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+
+            # Record Spectrogram Completions
+            self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
             logger.info('Computing spectrogram: Computation completed')
     def draw_signals_in_graphic_views(self):
 
@@ -929,7 +933,7 @@ class MainApp(QMainWindow):
             directory           = os.path.dirname(self.annotation_xml_obj.annotationFile)  # -> "/home/dennis/data"
             filename            = os.path.basename(self.annotation_xml_obj.annotationFile)
             suggested_file_name = os.path.splitext(filename)[0]
-            suggested_file_name = suggested_file_name + '_sleep_stages.csv'
+            suggested_file_name = suggested_file_name + '_sleep_stages.txt'
 
             # Query user file location pation
             file_path, _ = QFileDialog.getSaveFileName(self,"Save Sleep Stages",
