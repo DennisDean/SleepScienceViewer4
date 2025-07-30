@@ -17,16 +17,7 @@ from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
 from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal, EdfSignalAnalysis, EdfFile
 
 # Configure the logger
-logging.basicConfig(
-    level=logging.INFO,
-    format='[%(asctime)s] %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("SleepScienceViewer.log"),
-        logging.StreamHandler()
-    ]
-)
-
-logger = logging.getLogger(__name__)
+from logging_config import logger
 
 # Import your Ui_MainWindow from the generated module
 # from your_ui_module import Ui_MainWindow  # Replace this with your actual import if in a separate file

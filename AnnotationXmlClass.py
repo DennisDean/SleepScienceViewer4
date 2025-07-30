@@ -59,13 +59,7 @@ from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
 
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)  # Default to INFO; adjustable in class
-# Prevent multiple handlers if re-running interactively (e.g., in notebooks)
-if not logger.hasHandlers():
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+
 #Utilities
 def column_print(string_list:list, number_of_columns: int = 2, space: int = 5):
     """

@@ -42,13 +42,7 @@ import math
 
 # Set up logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)  # or DEBUG for more detail
 
-if not logger.handlers:
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
 
 # Utilities
 def generate_timestamped_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> str:
