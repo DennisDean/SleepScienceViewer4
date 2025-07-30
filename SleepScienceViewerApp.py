@@ -20,7 +20,6 @@ from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal,
 from logging_config import logger
 
 # Import your Ui_MainWindow from the generated module
-# from your_ui_module import Ui_MainWindow  # Replace this with your actual import if in a separate file
 from SleepScienceViewer import Ui_MainWindow
 
 # Dialog Boxes
@@ -64,7 +63,7 @@ class SleepXMLInfoDialog(QDialog):
             "It is widely used by large-scale sleep research initiatives, including the "
             "<a href='https://sleepdata.org/' style='color:#0077cc;'>National Sleep Research Resource (NSRR)</a>, "
             "to facilitate analysis and reproducibility.<br><br>"
-            "🔗 <a href='https://sleepdata.org/tools/annotations' style='color:#0077cc;'>Learn more about Sleep XML Annotations</a>"
+            "🔗 <a href='https://github.com/nsrr/edf-editor-translator/wiki/Compumedics-Annotation-Format' style='color:#0077cc;'>Learn more about Sleep XML Annotations</a>"
         )
 
         label = QLabel(description)
@@ -963,12 +962,13 @@ class MainApp(QMainWindow):
         minutes = int((seconds % 3600) // 60)
         seconds = int(seconds) % 60
         return f"{hours}:{minutes:02d}:{seconds:02d}"
+
+# Start Application
 def show_main_window():
     app = QApplication(sys.argv)
     window = MainApp()
     window.show()
     app.exec()
-
 # Only run if this script is executed directly
 if __name__ == "__main__":
     show_main_window()# -*- coding: utf-8 -*-

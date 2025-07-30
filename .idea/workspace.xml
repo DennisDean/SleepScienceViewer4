@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Sleep stages writing is working. Configuring logger made a strong difference.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753892690033</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Sleep stages writing is working. Configuring logger made a strong difference.">
+      <option name="closed" value="true" />
+      <created>1753895297414</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1753895297414</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -244,7 +252,8 @@
     <MESSAGE value="Annotation export working. Changed the extension to .xlsx." />
     <MESSAGE value="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup." />
     <MESSAGE value="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written." />
-    <option name="LAST_COMMIT_MESSAGE" value="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written." />
+    <MESSAGE value="Sleep stages writing is working. Configuring logger made a strong difference." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sleep stages writing is working. Configuring logger made a strong difference." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
