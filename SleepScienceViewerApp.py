@@ -146,6 +146,7 @@ class MainApp(QMainWindow):
         self.current_epoch: int             = None
         self.current_epoch_width_index: int = None
         self.signal_length_seconds: int     = None
+        self.automatic_histogram_redraw     = True
         self.initialize_epoch_variables()
 
         # Visualization Controls
@@ -513,17 +514,21 @@ class MainApp(QMainWindow):
                 text_distance = dl.distance_unicode(edf_filename_basename, xml_filename_basename)
                 xmltext_contains_edftext = edf_filename_basename in xml_filename_basename
                 logger.info(f'Checking if EDF and Annotation files names are aligned: text distance ({text_distance}), subset = {xmltext_contains_edftext}, {edf_filename_basename}, {xml_filename_basename}')
+            # Turn on hypnogram combobox
+            self.ui.hypnogram_comboBox.setEnabled(True)
+            self.automatic_histogram_redraw = True
     def on_hypnogram_changed(self, index):
         # Update Variables
-        selected_text = self.ui.hypnogram_comboBox.itemText(index)
-        self.hypnogram_combobox_selection = index
-        logger.info(f"Combo box changed to index {index}: {selected_text}")
+        if self.automatic_histogram_redraw:
+            selected_text = self.ui.hypnogram_comboBox.itemText(index)
+            self.hypnogram_combobox_selection = index
+            logger.info(f"Combo box changed to index {index}: {selected_text}")
 
-        # Update Hypnogram
-        if self.sleep_stage_mappings != None:
-            stage_map = index
-            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
-                                                                stage_index=stage_map)
+            # Update Hypnogram
+            if self.sleep_stage_mappings != None:
+                stage_map = index
+                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                    stage_index=stage_map)
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
@@ -546,6 +551,10 @@ class MainApp(QMainWindow):
                         self.ui.annotation_listWidget.addItem(item)
     def clear_annotation_widgets(self):
         # Clear annotation histogram and object
+        self.automatic_histogram_redraw = False
+        # self.ui.annotation_comboBox.currentTextChanged.disconnect()
+        self.ui.hypnogram_comboBox.setEnabled(False)
+        self.ui.hypnogram_comboBox.clear()
         self.annotation_xml_obj.sleep_stages_obj.clear_hypnogram_plot(self.ui.hypnogram_graphicsView)
         self.annotation_xml_obj = None
         self.ui.load_annotation_textEdit.clear()
