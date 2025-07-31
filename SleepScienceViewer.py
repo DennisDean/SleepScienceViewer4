@@ -61,12 +61,20 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.load_edf_textEdit = QTextEdit(self.centralwidget)
         self.load_edf_textEdit.setObjectName(u"load_edf_textEdit")
-        self.load_edf_textEdit.setMaximumSize(QSize(16777215, 35))
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.load_edf_textEdit.sizePolicy().hasHeightForWidth())
+        self.load_edf_textEdit.setSizePolicy(sizePolicy)
+        self.load_edf_textEdit.setMinimumSize(QSize(0, 25))
+        self.load_edf_textEdit.setMaximumSize(QSize(16777215, 25))
 
         self.horizontalLayout_2.addWidget(self.load_edf_textEdit)
 
         self.load_edf_pushButton = QPushButton(self.centralwidget)
         self.load_edf_pushButton.setObjectName(u"load_edf_pushButton")
+        self.load_edf_pushButton.setMinimumSize(QSize(0, 25))
+        self.load_edf_pushButton.setMaximumSize(QSize(16777215, 25))
 
         self.horizontalLayout_2.addWidget(self.load_edf_pushButton)
 
@@ -76,13 +84,17 @@ class Ui_MainWindow(object):
 
         self.load_annotation_textEdit = QTextEdit(self.centralwidget)
         self.load_annotation_textEdit.setObjectName(u"load_annotation_textEdit")
-        self.load_annotation_textEdit.setMaximumSize(QSize(16777215, 35))
+        sizePolicy.setHeightForWidth(self.load_annotation_textEdit.sizePolicy().hasHeightForWidth())
+        self.load_annotation_textEdit.setSizePolicy(sizePolicy)
+        self.load_annotation_textEdit.setMinimumSize(QSize(30, 25))
+        self.load_annotation_textEdit.setMaximumSize(QSize(16777215, 25))
 
         self.horizontalLayout_2.addWidget(self.load_annotation_textEdit)
 
         self.load_annotation_pushButton = QPushButton(self.centralwidget)
         self.load_annotation_pushButton.setObjectName(u"load_annotation_pushButton")
-        self.load_annotation_pushButton.setMaximumSize(QSize(125, 16777215))
+        self.load_annotation_pushButton.setMinimumSize(QSize(0, 25))
+        self.load_annotation_pushButton.setMaximumSize(QSize(125, 25))
 
         self.horizontalLayout_2.addWidget(self.load_annotation_pushButton)
 
@@ -113,11 +125,11 @@ class Ui_MainWindow(object):
 
         self.hypnogram_label = QLabel(self.centralwidget)
         self.hypnogram_label.setObjectName(u"hypnogram_label")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.hypnogram_label.sizePolicy().hasHeightForWidth())
-        self.hypnogram_label.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.hypnogram_label.sizePolicy().hasHeightForWidth())
+        self.hypnogram_label.setSizePolicy(sizePolicy1)
 
         self.horizontalLayout_17.addWidget(self.hypnogram_label)
 
@@ -137,11 +149,11 @@ class Ui_MainWindow(object):
 
         self.hypnogram_graphicsView = QGraphicsView(self.centralwidget)
         self.hypnogram_graphicsView.setObjectName(u"hypnogram_graphicsView")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.hypnogram_graphicsView.sizePolicy().hasHeightForWidth())
-        self.hypnogram_graphicsView.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.hypnogram_graphicsView.sizePolicy().hasHeightForWidth())
+        self.hypnogram_graphicsView.setSizePolicy(sizePolicy2)
         self.hypnogram_graphicsView.setMinimumSize(QSize(0, 90))
         self.hypnogram_graphicsView.setMaximumSize(QSize(16777215, 90))
 
@@ -149,10 +161,10 @@ class Ui_MainWindow(object):
 
         self.spectrogram_graphicsView = QGraphicsView(self.centralwidget)
         self.spectrogram_graphicsView.setObjectName(u"spectrogram_graphicsView")
-        sizePolicy1.setHeightForWidth(self.spectrogram_graphicsView.sizePolicy().hasHeightForWidth())
-        self.spectrogram_graphicsView.setSizePolicy(sizePolicy1)
-        self.spectrogram_graphicsView.setMinimumSize(QSize(0, 90))
-        self.spectrogram_graphicsView.setMaximumSize(QSize(16777215, 90))
+        sizePolicy2.setHeightForWidth(self.spectrogram_graphicsView.sizePolicy().hasHeightForWidth())
+        self.spectrogram_graphicsView.setSizePolicy(sizePolicy2)
+        self.spectrogram_graphicsView.setMinimumSize(QSize(0, 70))
+        self.spectrogram_graphicsView.setMaximumSize(QSize(16777215, 70))
 
         self.verticalLayout_2.addWidget(self.spectrogram_graphicsView)
 
@@ -160,6 +172,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
         self.compute_spectrogram_pushButton = QPushButton(self.centralwidget)
         self.compute_spectrogram_pushButton.setObjectName(u"compute_spectrogram_pushButton")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.compute_spectrogram_pushButton.sizePolicy().hasHeightForWidth())
+        self.compute_spectrogram_pushButton.setSizePolicy(sizePolicy3)
         self.compute_spectrogram_pushButton.setMinimumSize(QSize(125, 0))
         self.compute_spectrogram_pushButton.setMaximumSize(QSize(125, 16777215))
 
@@ -171,8 +188,11 @@ class Ui_MainWindow(object):
 
         self.spectrogram_label = QLabel(self.centralwidget)
         self.spectrogram_label.setObjectName(u"spectrogram_label")
-        sizePolicy.setHeightForWidth(self.spectrogram_label.sizePolicy().hasHeightForWidth())
-        self.spectrogram_label.setSizePolicy(sizePolicy)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.spectrogram_label.sizePolicy().hasHeightForWidth())
+        self.spectrogram_label.setSizePolicy(sizePolicy4)
 
         self.horizontalLayout_19.addWidget(self.spectrogram_label)
 
@@ -182,6 +202,8 @@ class Ui_MainWindow(object):
 
         self.spectrogram_comboBox = QComboBox(self.centralwidget)
         self.spectrogram_comboBox.setObjectName(u"spectrogram_comboBox")
+        sizePolicy4.setHeightForWidth(self.spectrogram_comboBox.sizePolicy().hasHeightForWidth())
+        self.spectrogram_comboBox.setSizePolicy(sizePolicy4)
         self.spectrogram_comboBox.setMinimumSize(QSize(125, 0))
         self.spectrogram_comboBox.setMaximumSize(QSize(125, 16777215))
 
@@ -219,13 +241,15 @@ class Ui_MainWindow(object):
 
         self.first_pushButton = QPushButton(self.centralwidget)
         self.first_pushButton.setObjectName(u"first_pushButton")
-        self.first_pushButton.setMaximumSize(QSize(50, 16777215))
+        self.first_pushButton.setMinimumSize(QSize(0, 25))
+        self.first_pushButton.setMaximumSize(QSize(50, 25))
 
         self.horizontalLayout_16.addWidget(self.first_pushButton)
 
         self.next_epoch_pushButton = QPushButton(self.centralwidget)
         self.next_epoch_pushButton.setObjectName(u"next_epoch_pushButton")
-        self.next_epoch_pushButton.setMaximumSize(QSize(50, 16777215))
+        self.next_epoch_pushButton.setMinimumSize(QSize(0, 25))
+        self.next_epoch_pushButton.setMaximumSize(QSize(50, 25))
 
         self.horizontalLayout_16.addWidget(self.next_epoch_pushButton)
 
@@ -235,13 +259,16 @@ class Ui_MainWindow(object):
 
         self.update_epoch_pushButton = QPushButton(self.centralwidget)
         self.update_epoch_pushButton.setObjectName(u"update_epoch_pushButton")
-        self.update_epoch_pushButton.setMinimumSize(QSize(30, 0))
-        self.update_epoch_pushButton.setMaximumSize(QSize(30, 16777215))
+        self.update_epoch_pushButton.setMinimumSize(QSize(30, 25))
+        self.update_epoch_pushButton.setMaximumSize(QSize(30, 25))
 
         self.horizontalLayout_16.addWidget(self.update_epoch_pushButton)
 
         self.epochs_textEdit = QTextEdit(self.centralwidget)
         self.epochs_textEdit.setObjectName(u"epochs_textEdit")
+        sizePolicy.setHeightForWidth(self.epochs_textEdit.sizePolicy().hasHeightForWidth())
+        self.epochs_textEdit.setSizePolicy(sizePolicy)
+        self.epochs_textEdit.setMinimumSize(QSize(0, 25))
         self.epochs_textEdit.setMaximumSize(QSize(100, 25))
 
         self.horizontalLayout_16.addWidget(self.epochs_textEdit)
@@ -261,13 +288,19 @@ class Ui_MainWindow(object):
 
         self.previous_pushButton = QPushButton(self.centralwidget)
         self.previous_pushButton.setObjectName(u"previous_pushButton")
-        self.previous_pushButton.setMaximumSize(QSize(50, 16777215))
+        sizePolicy3.setHeightForWidth(self.previous_pushButton.sizePolicy().hasHeightForWidth())
+        self.previous_pushButton.setSizePolicy(sizePolicy3)
+        self.previous_pushButton.setMinimumSize(QSize(0, 25))
+        self.previous_pushButton.setMaximumSize(QSize(50, 25))
 
         self.horizontalLayout_16.addWidget(self.previous_pushButton)
 
         self.last_epoch_pushButton = QPushButton(self.centralwidget)
         self.last_epoch_pushButton.setObjectName(u"last_epoch_pushButton")
-        self.last_epoch_pushButton.setMaximumSize(QSize(50, 16777215))
+        sizePolicy3.setHeightForWidth(self.last_epoch_pushButton.sizePolicy().hasHeightForWidth())
+        self.last_epoch_pushButton.setSizePolicy(sizePolicy3)
+        self.last_epoch_pushButton.setMinimumSize(QSize(0, 25))
+        self.last_epoch_pushButton.setMaximumSize(QSize(50, 25))
 
         self.horizontalLayout_16.addWidget(self.last_epoch_pushButton)
 
@@ -277,8 +310,10 @@ class Ui_MainWindow(object):
 
         self.epoch_comboBox = QComboBox(self.centralwidget)
         self.epoch_comboBox.setObjectName(u"epoch_comboBox")
-        self.epoch_comboBox.setMinimumSize(QSize(100, 0))
-        self.epoch_comboBox.setMaximumSize(QSize(100, 16777215))
+        sizePolicy4.setHeightForWidth(self.epoch_comboBox.sizePolicy().hasHeightForWidth())
+        self.epoch_comboBox.setSizePolicy(sizePolicy4)
+        self.epoch_comboBox.setMinimumSize(QSize(100, 25))
+        self.epoch_comboBox.setMaximumSize(QSize(100, 25))
 
         self.horizontalLayout_16.addWidget(self.epoch_comboBox)
 
@@ -303,11 +338,8 @@ class Ui_MainWindow(object):
 
         self.signal_1_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_1_graphicsView.setObjectName(u"signal_1_graphicsView")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.signal_1_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_1_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_1_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_1_graphicsView.setSizePolicy(sizePolicy)
         self.signal_1_graphicsView.setMinimumSize(QSize(0, 50))
         self.signal_1_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -334,8 +366,8 @@ class Ui_MainWindow(object):
 
         self.signal_2_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_2_graphicsView.setObjectName(u"signal_2_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_2_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_2_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_2_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_2_graphicsView.setSizePolicy(sizePolicy)
         self.signal_2_graphicsView.setMinimumSize(QSize(0, 50))
         self.signal_2_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -362,8 +394,8 @@ class Ui_MainWindow(object):
 
         self.signal_3_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_3_graphicsView.setObjectName(u"signal_3_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_3_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_3_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_3_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_3_graphicsView.setSizePolicy(sizePolicy)
         self.signal_3_graphicsView.setMinimumSize(QSize(50, 0))
         self.signal_3_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -390,8 +422,8 @@ class Ui_MainWindow(object):
 
         self.signal_4_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_4_graphicsView.setObjectName(u"signal_4_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_4_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_4_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_4_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_4_graphicsView.setSizePolicy(sizePolicy)
         self.signal_4_graphicsView.setMinimumSize(QSize(50, 0))
         self.signal_4_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -418,8 +450,8 @@ class Ui_MainWindow(object):
 
         self.signal_5_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_5_graphicsView.setObjectName(u"signal_5_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_5_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_5_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_5_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_5_graphicsView.setSizePolicy(sizePolicy)
         self.signal_5_graphicsView.setMinimumSize(QSize(50, 0))
         self.signal_5_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -446,8 +478,8 @@ class Ui_MainWindow(object):
 
         self.signal_6_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_6_graphicsView.setObjectName(u"signal_6_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_6_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_6_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_6_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_6_graphicsView.setSizePolicy(sizePolicy)
         self.signal_6_graphicsView.setMinimumSize(QSize(0, 50))
         self.signal_6_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -474,8 +506,8 @@ class Ui_MainWindow(object):
 
         self.signal_7_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_7_graphicsView.setObjectName(u"signal_7_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_7_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_7_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_7_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_7_graphicsView.setSizePolicy(sizePolicy)
         self.signal_7_graphicsView.setMinimumSize(QSize(50, 0))
         self.signal_7_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -502,8 +534,8 @@ class Ui_MainWindow(object):
 
         self.signal_8_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_8_graphicsView.setObjectName(u"signal_8_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_8_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_8_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_8_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_8_graphicsView.setSizePolicy(sizePolicy)
         self.signal_8_graphicsView.setMinimumSize(QSize(0, 50))
         self.signal_8_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -530,8 +562,8 @@ class Ui_MainWindow(object):
 
         self.signal_9_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_9_graphicsView.setObjectName(u"signal_9_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_9_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_9_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_9_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_9_graphicsView.setSizePolicy(sizePolicy)
         self.signal_9_graphicsView.setMinimumSize(QSize(0, 50))
         self.signal_9_graphicsView.setMaximumSize(QSize(16777215, 50))
 
@@ -558,8 +590,8 @@ class Ui_MainWindow(object):
 
         self.signal_10_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_10_graphicsView.setObjectName(u"signal_10_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_10_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_10_graphicsView.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.signal_10_graphicsView.sizePolicy().hasHeightForWidth())
+        self.signal_10_graphicsView.setSizePolicy(sizePolicy)
         self.signal_10_graphicsView.setMinimumSize(QSize(0, 50))
         self.signal_10_graphicsView.setMaximumSize(QSize(16777215, 50))
 

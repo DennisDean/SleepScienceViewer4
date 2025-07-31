@@ -445,7 +445,6 @@ class EdfSignals:
 
         logger.info(f'input list ({signal_list}), continuous ({self.continuous_signal_list})')
         return self.continuous_signal_list
-
     def return_continuous_signals_for_spectrogram(self, signal_list: List[str]):
         signal_type = 'continuous'
         epoch_num = 1
@@ -459,7 +458,6 @@ class EdfSignals:
 
         print(self.continuous_signal_list)
         return self.continuous_signal_list
-
     # Calculate
     def calc_edf_signal_stats(self):
         """Calculate statistics for each signal."""
@@ -646,6 +644,20 @@ class EdfSignals:
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
         # ax.grid(axis='x', which='minor', linestyle=':', linewidth=0.5, color='lightgray')
 
+        # Draw custom x-axis labels
+        units          = 's'
+        xlabel_offset  = 0.25
+        label_fontsize = 7
+        y_pad  = -0.0025*(ax.get_ylim()[1] - ax.get_ylim()[0])
+        x_pad  = 0.0075*(ax.get_xlim()[1] - ax.get_xlim()[0])
+        x_label_inc = x_tick_settings[0]
+        x_ticks = range(x_label_inc, int(max(time_axis)), x_label_inc)
+        x_labels = map(lambda x: f'{str(int(x))}', x_ticks)
+        for x, label in zip(x_ticks, x_labels):
+            ax.text(x+x_pad, ax.get_ylim()[0] + y_pad, label,
+                    fontsize=label_fontsize, ha='center', va='bottom', color='black')
+            print(f'label {label}, x {x}, y {ax.get_ylim()[0] + y_pad}')
+
         # Remove ticks and labels, but preserve gridlines
         # ax.set_xticks([])
         ax.set_yticks([])
@@ -653,7 +665,7 @@ class EdfSignals:
             spine.set_visible(False)
 
         # Compute vertical padding (5% headroom above and below)
-        fig.subplots_adjust(left=.01, right=0.99, top=0.95, bottom=0.10)
+        fig.subplots_adjust(left=.01, right=0.99, top=0.95, bottom=0.20)
 
         if annotation_marker != None:
             ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}')
