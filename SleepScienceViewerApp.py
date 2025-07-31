@@ -133,12 +133,19 @@ class MainApp(QMainWindow):
         self.setWindowTitle("Sleep Science Viewer")
         self.ui.setupUi(self)
 
+        # Time Unit Converstions
+        s_to_hr  = lambda s:int(s/3600)
+        s_to_min = lambda s:int(s/60)
+        s_to_s   = lambda s:int(s)
+
         # Initialize control variables
         self.edf_file_obj:EdfFile                   = None
         self.annotation_xml_obj: AnnotationXmlClass = None
         self.epoch_display_options_text: List       = ['30 s', '1 min', '5 min', '10 min', '1 hr']
         self.epoch_display_options_width_sec: List  = [ 30,     60,      300,     600,      3600]
         self.epoch_display_axis_grid: List          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
+        self.epoch_axis_units: List                 = ['s', 's', 'm', 'm', 'm']
+        self.time_convert_f: List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min]
         self.text_similarity_threshold              = 0.9
 
         # Initialize epoch variables
@@ -184,18 +191,6 @@ class MainApp(QMainWindow):
         self.ui.last_epoch_pushButton.clicked.connect(self.set_epoch_to_last)
         self.ui.epoch_comboBox.addItems(self.epoch_display_options_text)
         self.ui.epoch_comboBox.setStyleSheet("color: black; background-color: white;")
-
-        # Signal Buttons
-        self.ui.color_1_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_2_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_3_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_4_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_5_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_6_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_7_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_8_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_9_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_10_pushButton.clicked.connect(self.set_signal_color)
 
         # Combo Box Action
         self.ui.hypnogram_comboBox.currentIndexChanged.connect(self.on_hypnogram_changed)
@@ -408,19 +403,24 @@ class MainApp(QMainWindow):
         current_epoch = int(self.ui.epochs_textEdit.toPlainText())
 
         # Update graphic view
-        epoch_num = current_epoch - 1  # function expect zero indexing, reset epoch to signal start
-        epoch_width_index = self.ui.epoch_comboBox.currentIndex()
-        epoch_width = float(self.epoch_display_options_width_sec[epoch_width_index])
+        epoch_num               = current_epoch - 1  # function expect zero indexing, reset epoch to signal start
+        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
+        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f          = self.time_convert_f[epoch_width_index]
+        time_axis_units         = self.epoch_axis_units[epoch_width_index]
         signal_type = ""
+
         for i in graphic_views_to_update_id:
             signal_label = combo_box_signal_labels[i]
             graphic_view = graphic_views[i]
 
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
                                                               signal_type, epoch_num, epoch_width, graphic_view,
-                                                              x_tick_settings=epoch_display_axis_grid,
-                                                              annotation_marker=annotation_marker)
+                                                              x_tick_settings   = epoch_display_axis_grid,
+                                                              annotation_marker = annotation_marker,
+                                                              convert_time_f    = convert_time_f,
+                                                              time_axis_units   = time_axis_units)
 
         # Turn on combo box signal change
         for combo_box in signal_combo_boxes:

@@ -581,7 +581,8 @@ class EdfSignals:
         return obj
     # Visualization
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
-                            parent_widget=None, x_tick_settings:tuple[int, int] = [5,1], annotation_marker=None):
+                            parent_widget=None, x_tick_settings:tuple[int, int] = [5,1], annotation_marker=None,
+                            convert_time_f=lambda x:x, time_axis_units=''):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -594,9 +595,11 @@ class EdfSignals:
         """
 
         # Set Plot defaults
-        grid_color = 'gray'
-        signal_color = 'blue'
-        y_pad_c = 0.05
+        grid_color            = 'gray'
+        signal_color          = 'blue'
+        y_pad_c               = 0.05
+        tick_label_fontsize   = 6.5
+        annotation_line_width = 1.5
 
         if signal_key == '':
             # Create empty signal
@@ -623,16 +626,13 @@ class EdfSignals:
         ax.plot(time_axis, signal_segment, color=signal_color, linewidth=1)
 
         # Format plot
-        ax.set_title(f"{signal_key} - Epoch {epoch_num}")
-        ax.set_xlabel("Time (s)")
-        ax.set_ylabel(f"Amplitude ({signal_units})")
         ax.grid(True)
 
         # Compute vertical padding (5% headroom above and below)
         y_min = np.min(signal_segment)
         y_max = np.max(signal_segment)
         y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
-        ax.set_ylim(y_min - y_pad, y_max + y_pad)
+        ax.set_ylim(y_min - 2*y_pad, y_max + y_pad)
 
         # Force x limit
         x_pad = x_tick_settings[1] / 2
@@ -641,40 +641,26 @@ class EdfSignals:
         # Set x-axis grid lines (5s major, 2s minor)
         ax.xaxis.set_minor_locator(MultipleLocator(x_tick_settings[1]))
         ax.xaxis.set_major_locator(MultipleLocator(x_tick_settings[0]))
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize)
+
+        x_major_ticks   = ax.get_xticks()
+        x_custom_labels = [str(convert_time_f(L)) for L in x_major_ticks]
+        x_custom_labels = [L+time_axis_units for L in x_custom_labels]
+        ax.set_xticklabels(x_custom_labels, fontsize=tick_label_fontsize)
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
         # ax.grid(axis='x', which='minor', linestyle=':', linewidth=0.5, color='lightgray')
 
-        # Draw custom x-axis labels
-        units          = 's'
-        xlabel_offset  = 0.25
-        label_fontsize = 7
-        y_pad  = -0.0025*(ax.get_ylim()[1] - ax.get_ylim()[0])
-        x_pad  = 0.0075*(ax.get_xlim()[1] - ax.get_xlim()[0])
-        x_label_inc = x_tick_settings[0]
-        x_ticks = range(x_label_inc, int(max(time_axis)), x_label_inc)
-        x_labels = map(lambda x: f'{str(int(x))}', x_ticks)
-        for x, label in zip(x_ticks, x_labels):
-            ax.text(x+x_pad, ax.get_ylim()[0] + y_pad, label,
-                    fontsize=label_fontsize, ha='center', va='bottom', color='black')
-            print(f'label {label}, x {x}, y {ax.get_ylim()[0] + y_pad}')
-
         # Remove ticks and labels, but preserve gridlines
-        # ax.set_xticks([])
         ax.set_yticks([])
         for spine in ax.spines.values():
             spine.set_visible(False)
 
         # Compute vertical padding (5% headroom above and below)
-        fig.subplots_adjust(left=.01, right=0.99, top=0.95, bottom=0.20)
+        fig.subplots_adjust(left=.01, right=0.99, top=0.99, bottom=0.35)
 
         if annotation_marker != None:
-            ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}')
-
-        # Compute vertical padding (5% headroom above and below)
-        # y_min = np.min(signal_segment)
-        # y_max = np.max(signal_segment)
-        # y_pad = y_pad_c * (y_max - y_min if y_max != y_min else 1)
-        # ax.set_ylim(y_min - y_pad, y_max + y_pad)
+            ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}',
+                       linewidth=annotation_line_width)
 
         if parent_widget:
             logger.info(f'plot_signal_segment: parent widget found')
@@ -697,39 +683,6 @@ class EdfSignals:
 
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
-            """
-            canvas = FigureCanvas(fig)
-            canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-            canvas.updateGeometry()
-
-            existing_layout = parent_widget.layout()
-            if existing_layout:
-                logger.info(f'plot_signal_segment: existing layout found')
-                while existing_layout.count():
-                    item = existing_layout.takeAt(0)
-                    widget = item.widget()
-                    if widget:
-                        widget.setParent(None)
-            else:
-                logger.info(f'plot_signal_segment: existing layout NOT found')
-                existing_layout = QVBoxLayout(parent_widget)
-                parent_widget.setLayout(existing_layout)
-
-            existing_layout.setContentsMargins(0, 0, 0, 0)
-            existing_layout.addWidget(canvas)
-            """
-        else:
-            pass
-            # logger.warning("No parent_widget provided — opening standalone plot window.")
-            # Standalone display
-            # plt.figure(figsize=(10, 4))
-            # plt.plot(time_axis, signal_segment, color='blue', linewidth=1)
-            # plt.xlabel("Time (s)")
-            # plt.ylabel(f"Amplitude ({signal_units})")
-            # plt.title(f"{signal_key} - Epoch {epoch_num}")
-            # plt.grid(True)
-            # plt.tight_layout()
-            # plt.show()
     # Utilities
     def __str__(self):
         """String representation of the EdfSignals object."""

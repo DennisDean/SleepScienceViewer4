@@ -329,19 +329,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_15.addWidget(self.signal_1_comboBox)
 
-        self.color_1_pushButton = QPushButton(self.centralwidget)
-        self.color_1_pushButton.setObjectName(u"color_1_pushButton")
-        self.color_1_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_1_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_15.addWidget(self.color_1_pushButton)
-
         self.signal_1_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_1_graphicsView.setObjectName(u"signal_1_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_1_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_1_graphicsView.setSizePolicy(sizePolicy)
         self.signal_1_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_1_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_1_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_15.addWidget(self.signal_1_graphicsView)
 
@@ -357,19 +350,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_14.addWidget(self.signal_2_comboBox)
 
-        self.color_2_pushButton = QPushButton(self.centralwidget)
-        self.color_2_pushButton.setObjectName(u"color_2_pushButton")
-        self.color_2_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_2_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_14.addWidget(self.color_2_pushButton)
-
         self.signal_2_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_2_graphicsView.setObjectName(u"signal_2_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_2_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_2_graphicsView.setSizePolicy(sizePolicy)
         self.signal_2_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_2_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_2_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_14.addWidget(self.signal_2_graphicsView)
 
@@ -385,19 +371,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_13.addWidget(self.signal_3_comboBox)
 
-        self.color_3_pushButton = QPushButton(self.centralwidget)
-        self.color_3_pushButton.setObjectName(u"color_3_pushButton")
-        self.color_3_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_3_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_13.addWidget(self.color_3_pushButton)
-
         self.signal_3_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_3_graphicsView.setObjectName(u"signal_3_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_3_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_3_graphicsView.setSizePolicy(sizePolicy)
         self.signal_3_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_3_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_3_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_13.addWidget(self.signal_3_graphicsView)
 
@@ -413,19 +392,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_12.addWidget(self.signal_4_comboBox)
 
-        self.color_4_pushButton = QPushButton(self.centralwidget)
-        self.color_4_pushButton.setObjectName(u"color_4_pushButton")
-        self.color_4_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_4_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_12.addWidget(self.color_4_pushButton)
-
         self.signal_4_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_4_graphicsView.setObjectName(u"signal_4_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_4_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_4_graphicsView.setSizePolicy(sizePolicy)
         self.signal_4_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_4_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_4_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_12.addWidget(self.signal_4_graphicsView)
 
@@ -441,19 +413,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_11.addWidget(self.signal_5_comboBox)
 
-        self.color_5_pushButton = QPushButton(self.centralwidget)
-        self.color_5_pushButton.setObjectName(u"color_5_pushButton")
-        self.color_5_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_5_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_11.addWidget(self.color_5_pushButton)
-
         self.signal_5_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_5_graphicsView.setObjectName(u"signal_5_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_5_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_5_graphicsView.setSizePolicy(sizePolicy)
         self.signal_5_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_5_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_5_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_11.addWidget(self.signal_5_graphicsView)
 
@@ -469,19 +434,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_10.addWidget(self.signal_6_comboBox)
 
-        self.color_6_pushButton = QPushButton(self.centralwidget)
-        self.color_6_pushButton.setObjectName(u"color_6_pushButton")
-        self.color_6_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_6_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_10.addWidget(self.color_6_pushButton)
-
         self.signal_6_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_6_graphicsView.setObjectName(u"signal_6_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_6_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_6_graphicsView.setSizePolicy(sizePolicy)
         self.signal_6_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_6_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_6_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_10.addWidget(self.signal_6_graphicsView)
 
@@ -497,19 +455,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_9.addWidget(self.signal_7_comboBox)
 
-        self.color_7_pushButton = QPushButton(self.centralwidget)
-        self.color_7_pushButton.setObjectName(u"color_7_pushButton")
-        self.color_7_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_7_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_9.addWidget(self.color_7_pushButton)
-
         self.signal_7_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_7_graphicsView.setObjectName(u"signal_7_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_7_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_7_graphicsView.setSizePolicy(sizePolicy)
         self.signal_7_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_7_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_7_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_9.addWidget(self.signal_7_graphicsView)
 
@@ -525,19 +476,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_8.addWidget(self.signal_8_comboBox)
 
-        self.color_8_pushButton = QPushButton(self.centralwidget)
-        self.color_8_pushButton.setObjectName(u"color_8_pushButton")
-        self.color_8_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_8_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_8.addWidget(self.color_8_pushButton)
-
         self.signal_8_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_8_graphicsView.setObjectName(u"signal_8_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_8_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_8_graphicsView.setSizePolicy(sizePolicy)
         self.signal_8_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_8_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_8_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_8.addWidget(self.signal_8_graphicsView)
 
@@ -552,13 +496,6 @@ class Ui_MainWindow(object):
         self.signal_9_comboBox.setMaximumSize(QSize(100, 16777215))
 
         self.horizontalLayout_7.addWidget(self.signal_9_comboBox)
-
-        self.color_9_pushButton = QPushButton(self.centralwidget)
-        self.color_9_pushButton.setObjectName(u"color_9_pushButton")
-        self.color_9_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_9_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_7.addWidget(self.color_9_pushButton)
 
         self.signal_9_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_9_graphicsView.setObjectName(u"signal_9_graphicsView")
@@ -581,29 +518,17 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_5.addWidget(self.signal_10_comboBox)
 
-        self.color_10_pushButton = QPushButton(self.centralwidget)
-        self.color_10_pushButton.setObjectName(u"color_10_pushButton")
-        self.color_10_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_10_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_5.addWidget(self.color_10_pushButton)
-
         self.signal_10_graphicsView = QGraphicsView(self.centralwidget)
         self.signal_10_graphicsView.setObjectName(u"signal_10_graphicsView")
         sizePolicy.setHeightForWidth(self.signal_10_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_10_graphicsView.setSizePolicy(sizePolicy)
         self.signal_10_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_10_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_10_graphicsView.setMaximumSize(QSize(16777215, 55))
 
         self.horizontalLayout_5.addWidget(self.signal_10_graphicsView)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_5)
-
-        self.horizontalLayout_6 = QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-
-        self.verticalLayout_3.addLayout(self.horizontalLayout_6)
 
 
         self.horizontalLayout_4.addLayout(self.verticalLayout_3)
@@ -695,16 +620,6 @@ class Ui_MainWindow(object):
         self.epochs_label.setText(QCoreApplication.translate("MainWindow", u"/max_epochs", None))
         self.previous_pushButton.setText(QCoreApplication.translate("MainWindow", u"Prev.", None))
         self.last_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"Last", None))
-        self.color_1_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_2_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_3_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_4_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_5_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_6_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_7_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_8_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_9_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_10_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuGenerate.setTitle(QCoreApplication.translate("MainWindow", u"Generate", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
