@@ -969,6 +969,5 @@ def show_main_window():
     window = MainApp()
     window.show()
     app.exec()
-# Only run if this script is executed directly
 if __name__ == "__main__":
     show_main_window()# -*- coding: utf-8 -*-

@@ -43,7 +43,6 @@ import math
 # Set up logging
 logger = logging.getLogger(__name__)
 
-
 # Utilities
 def generate_timestamped_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> str:
     """Add a time stamp to a generated file
@@ -75,6 +74,7 @@ def convert_to_serializable(obj):
         return convert_to_serializable(vars(obj))
     else:
         return obj
+
 # EDF Classes
 class EdfHeader:
     """Class for storing and summarizing EDF header information."""
@@ -448,6 +448,40 @@ class EdfSignals:
         else:
             logger.info("Signal summary statistics:")
             self.edf_signals_stats.summary()
+    def export_signals_to_txt(self, output_dir: str):
+        """
+        Exports each signal as a separate .txt file with time-value columns.
+
+        Parameters:
+        - output_dir (str): Directory where the signal text files will be saved.
+        """
+        # Ensure output directory exists
+        os.makedirs(output_dir, exist_ok=True)
+
+        for label in self.signal_labels:
+            signal = self.signals_dict[label]
+            sampling_interval = self.signal_sampling_time[label]
+            unit = self.signal_units.get(label, "")
+
+            # Create time array
+            time = np.arange(len(signal)) * sampling_interval
+
+            # Create file-safe label
+            safe_label = label.replace(" ", "_").replace("/", "_").replace("-", "_")
+            edf_base = os.path.splitext(os.path.basename(self.source_edf_filename))[0]
+
+            # Construct filename
+            filename = f"{edf_base}_{safe_label}.txt"
+            filepath = os.path.join(output_dir, filename)
+
+            # Write to file
+            with open(filepath, 'w') as f:
+                # Write header
+                f.write(f"Time (s)\t{label} ({unit})\n")
+
+                # Write data
+                for t, v in zip(time, signal):
+                    f.write(f"{t:.6f}\t{v:.6f}\n")
     def export_sig_stats_to_csv(self, filename: str = None, time_stamped: bool = False, output_dir:str = None):
         """Export signal statistics to a CSV file.
 
@@ -929,6 +963,8 @@ class EdfFile:
             self.edf_signals.summary()
     def __str__(self):
         return f'EDF File: {self.file_w_path}'
+
+# Main
 def main():
     """Less than complete testing"""
     DEBUG = 0

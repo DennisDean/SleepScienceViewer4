@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Sleep stages writing is working. Configuring logger made a strong difference.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="All features working. Changed link in SleepXMLInfo to show XML specification. Considering deliting a signal so that ten are shown. to give room to add x and y axis to signal plots.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +233,23 @@
       <option name="project" value="LOCAL" />
       <updated>1753895297414</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="All features working. Changed link in SleepXMLInfo to show XML specification.">
+      <option name="closed" value="true" />
+      <created>1753896053717</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1753896053717</updated>
+    </task>
+    <task id="LOCAL-00023" summary="All features working. Changed link in SleepXMLInfo to show XML specification. Considering deliting a signal so that ten are shown. to give room to add x and y axis to signal plots.">
+      <option name="closed" value="true" />
+      <created>1753896160734</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1753896160734</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -253,29 +272,31 @@
     <MESSAGE value="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup." />
     <MESSAGE value="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written." />
     <MESSAGE value="Sleep stages writing is working. Configuring logger made a strong difference." />
-    <option name="LAST_COMMIT_MESSAGE" value="Sleep stages writing is working. Configuring logger made a strong difference." />
+    <MESSAGE value="All features working. Changed link in SleepXMLInfo to show XML specification." />
+    <MESSAGE value="All features working. Changed link in SleepXMLInfo to show XML specification. Considering deliting a signal so that ten are shown. to give room to add x and y axis to signal plots." />
+    <option name="LAST_COMMIT_MESSAGE" value="All features working. Changed link in SleepXMLInfo to show XML specification. Considering deliting a signal so that ten are shown. to give room to add x and y axis to signal plots." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/multitaper_spectrogram_python_class.py</url>
-          <line>411</line>
+          <line>427</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>879</line>
+          <line>880</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>303</line>
+          <line>304</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>434</line>
+          <line>435</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>

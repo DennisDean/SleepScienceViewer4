@@ -25,10 +25,25 @@ from PySide6.QtWidgets import QVBoxLayout, QSizePolicy, QWidget
 #import matplotlib.pyplot as plt
 from scipy.signal import chirp  # import chirp generation function
 
-
 # Set up logging
 logger = logging.getLogger(__name__)
 
+# Except from original file. See below for full description
+""""
+This code is companion to the paper:
+        "Sleep Neurophysiological Dynamics Through the Lens of Multitaper Spectral Analysis"
+           Michael J. Prerau, Ritchie E. Brown, Matt T. Bianchi, Jeffrey M. Ellenbogen, Patrick L. Purdon
+           December 7, 2016 : 60-92
+           DOI: 10.1152/physiol.00062.2015
+         which should be cited for academic use of this code.
+
+         A full tutorial on the multitaper spectrogram can be found at: # https://www.sleepEEG.org/multitaper
+
+        Copyright 2021 Michael J. Prerau Laboratory. - https://www.sleepEEG.org
+        Authors: Michael J. Prerau, Ph.D., Thomas Possidente, Mingjian He
+"""
+
+# Revisions made to the file to align with a class approach
 """
 Revisions
 - added function variable type to primary definition
@@ -38,6 +53,7 @@ Revisions
 - added ability to create plot in test and to plot to a widget
 - converted computation to a class
 """
+
 # MULTITAPER SPECTROGRAM #
 class MultitaperSpectrogram:
     def __init__(self, data:np.array, fs:float, frequency_range=None, time_bandwidth=5, num_tapers=None, window_params=None,
@@ -609,7 +625,8 @@ class MultitaperSpectrogram:
             mt_spectrum = np.reshape(mt_spectrum, nfft)  # reshape to 1D
 
         return mt_spectrum[freq_inds]
-# Main
+
+#Main
 def main():
 
     """Less than complete testing"""
@@ -642,6 +659,5 @@ def main():
     multi_spectrogram_obj.compute_spectrogram()
     multi_spectrogram_obj.display_spectrogram_props()
     multi_spectrogram_obj.plot()
-
 if __name__ == "__main__":
     main()

@@ -131,6 +131,7 @@ def generate_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> s
     """
     filename = f"{prefix}{ext}"
     return os.path.join(output_dir, filename) if output_dir else filename
+
 # Sleep annotation classes
 class SleepStages:
     def __init__(self, epoch:int, num_stages:list,
@@ -1102,6 +1103,7 @@ class AnnotationXml:
     def __str__(self)->str:
         # Override default class description
         return f'AnnotationXml(file_name="{self.file_name}", file_loaded={self.file_loaded})'
+
 # Main
 def main():
     """
