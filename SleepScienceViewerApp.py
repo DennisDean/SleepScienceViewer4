@@ -431,7 +431,7 @@ class MainApp(QMainWindow):
             # Record Spectrogram Completions
             self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
             logger.info('Computing spectrogram: Computation completed')
-    def draw_signals_in_graphic_views(self):
+    def draw_signals_in_graphic_views(self, annotation_marker = None):
 
         signal_combo_boxes = [self.ui.signal_1_comboBox, self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
                               self.ui.signal_4_comboBox, self.ui.signal_5_comboBox, self.ui.signal_6_comboBox,
@@ -467,9 +467,10 @@ class MainApp(QMainWindow):
             graphic_view            = graphic_views[i]
 
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                 signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
-            # Turn off change signal while updating combobox list following selection of a new edf file
+                 signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid,
+                 annotation_marker = annotation_marker)
 
+        # Turn on combo box signal change
         for combo_box in signal_combo_boxes:
             combo_box.blockSignals(False)
 
@@ -761,14 +762,18 @@ class MainApp(QMainWindow):
         annotation_time_in_sec = int(time_list[0])*3600 + int(time_list[1])*60 + int(time_list[2])
 
         # Change Current epoch
-        new_epoch = float(annotation_time_in_sec)/self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        new_epoch = float(annotation_time_in_sec)/epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch))*epoch_window_in_seconds
         new_epoch = math.floor(new_epoch) + 1
         self.ui.epochs_textEdit.setText(str(new_epoch))
 
-        # Update signal graphic views to annotation epoch
-        self.draw_signals_in_graphic_views()
 
-        logger.info(f"Jumped to new signal epoch ({new_epoch})")
+
+        # Update signal graphic views to annotation epoch
+        self.draw_signals_in_graphic_views(annotation_marker = annotation_epoch_offset_start)
+
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {annotation_epoch_offset_start})")
     # Menu Item
     def open_edf_menu_item(self):
         self.load_edf_file()

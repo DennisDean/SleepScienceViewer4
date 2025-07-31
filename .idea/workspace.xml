@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added signal export menu item and deleted one signal entry. Ten entries expanded to fill the area.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Export signal menu item is working.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
@@ -32,27 +32,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.AnnotationXmlClass.executor": "Run",
-    "Python.EdfFileClass.executor": "Run",
-    "Python.SleepScienceViewer.executor": "Run",
-    "Python.SleepScienceViewerApp.executor": "Run",
-    "Python.edfFile.executor": "Run",
-    "Python.logging_config.executor": "Run",
-    "Python.multitaper_spectrogram_python.executor": "Run",
-    "Python.multitaper_spectrogram_python_class.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.EdfFileClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.logging_config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-598b0484d0b5-e2d783800521-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.26927.74" />
+        <option value="bundled-python-sdk-4c141bd692a7-e2d783800521-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.26927.90" />
       </set>
     </attachedChunks>
   </component>
@@ -272,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753930663173</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Export signal menu item is working.">
+      <option name="closed" value="true" />
+      <created>1753934182296</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1753934182296</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -299,7 +307,8 @@
     <MESSAGE value="All features working. Changed link in SleepXMLInfo to show XML specification. Considering deliting a signal so that ten are shown. to give room to add x and y axis to signal plots." />
     <MESSAGE value="Added a generated function for creating a signal export function." />
     <MESSAGE value="Added signal export menu item and deleted one signal entry. Ten entries expanded to fill the area." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added signal export menu item and deleted one signal entry. Ten entries expanded to fill the area." />
+    <MESSAGE value="Export signal menu item is working." />
+    <option name="LAST_COMMIT_MESSAGE" value="Export signal menu item is working." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

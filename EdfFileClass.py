@@ -551,7 +551,7 @@ class EdfSignals:
         return obj
     # Visualization
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
-                            parent_widget=None, x_tick_settings:tuple[int, int] = [5,1]):
+                            parent_widget=None, x_tick_settings:tuple[int, int] = [5,1], annotation_marker=None):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -620,6 +620,9 @@ class EdfSignals:
 
         # Compute vertical padding (5% headroom above and below)
         fig.subplots_adjust(left=0, right=1, top=0.95, bottom=0.05)
+
+        if annotation_marker != None:
+            ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}')
 
         if parent_widget:
             logger.info(f'plot_signal_segment: parent widget found')
@@ -975,11 +978,6 @@ def main():
     EDF_FILE_NAME2 = "sample2.edf"
     EDF_FILE_NAME3 = "SC4001E0-PSG.edf"
     EDF_FILE_NAME4 = "SC4001EC-Hypnogram.edf"
-
-    edf = EdfFile("sample.edf")
-    edf.load()
-    edf.calculate_signal_stats()
-    edf.summary()
 
     # -----------------------------------------------------------------------
     # test edf class with file 1
