@@ -432,6 +432,14 @@ class SleepStages:
             existing_layout.addWidget(canvas)
         else:
             pass
+    def clear_hypnogram_plot(self, parent_widget = None):
+        layout = parent_widget.layout()
+        if layout:
+            while layout.count():
+                item = layout.takeAt(0)
+                widget = item.widget()
+                if widget:
+                    widget.setParent(None)
     # Class Functions
     def __str__(self)->str:
         # Override default class description

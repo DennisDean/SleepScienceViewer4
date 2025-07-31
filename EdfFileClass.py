@@ -32,6 +32,9 @@ import pandas as pd
 import csv
 import json
 from pathlib import Path
+
+from sympy.logic.boolalg import Boolean
+
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -336,6 +339,10 @@ class EdfSignals:
         self.edf_signals_stats = EdfSignalsStats()
         self.output_dir = os.getcwd()
 
+        # Stepped Channel Information Passed in from annotation file
+        self.stepped_channel_labels                  = []
+        self.stepped_channel_dict: dict[str,Boolean] = {}
+
         # Compute signal length in seconds
         signal_key                = signal_labels[0]
         signals                   = signals_dict[signal_key]
@@ -343,8 +350,9 @@ class EdfSignals:
         self.signal_length_in_sec = sampling_time*len(signals)
 
         # Define maximum number of options for a stepped signal
-        self.stepped_signal_cutoff  = 10
-        self.stepped_sampling_cutoff = 0.05
+        self.stepped_signal_cutoff   = 10      # temporary approach to guess continuous signals
+        self.stepped_sampling_cutoff = 0.05   # temporary approach to guess continuous signals
+        self.stepped_signal_dict     = {}
     # Setup
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -407,27 +415,51 @@ class EdfSignals:
     def return_eeg_signals_from_list(self, signal_list:List[str]):
         return [s for s in signal_list if 'eeg' in s.lower()]
     def return_stepped_signals_from_list(self, signal_list:List[str]):
-        signal_type = 'stepped'
+        # this is a first pass function that allows other functions to be made. Ideally the stepped channels
+        # will be passed in when the annotation file is assigned.
+
+        # signal_type = 'stepped'
         epoch_num = 1
         epoch_width = 30
         self.stepped_signal_list = []
-        for signal_key in signal_list:
-            sampling_time = self.signal_sampling_time_dict[signal_key]
-            # s_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
-            # num_unique_points = len(list(set(s_segment)))
-            if sampling_time > self.stepped_sampling_cutoff:
-                self.stepped_signal_list.append(signal_key)
+        if self.stepped_signal_dict == None:
+            for signal_key in signal_list:
+                sampling_time = self.signal_sampling_time_dict[signal_key]
+                # s_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
+                # num_unique_points = len(list(set(s_segment)))
+                if sampling_time > self.stepped_sampling_cutoff:
+                    self.stepped_signal_list.append(signal_key)
+        else:
+            for signal_key in signal_list:
+                if signal_key in self.stepped_signal_dict.keys():
+                    self.stepped_signal_list.append(signal_key)
+        print(self.stepped_signal_list)
         return self.stepped_signal_list
     def return_continuous_signals_from_list(self, signal_list:List[str]):
-        signal_type = 'stepped'
-        epoch_num = 1
-        epoch_width = 30
+        # Use sampling rate to select continuous signals for spectral analysis
         self.continuous_signal_list = []
         for signal_key in signal_list:
             sampling_time = self.signal_sampling_time_dict[signal_key]
             if sampling_time < self.stepped_sampling_cutoff:
                 self.continuous_signal_list.append(signal_key)
+
+        logger.info(f'input list ({signal_list}), continuous ({self.continuous_signal_list})')
         return self.continuous_signal_list
+
+    def return_continuous_signals_for_spectrogram(self, signal_list: List[str]):
+        signal_type = 'continuous'
+        epoch_num = 1
+        epoch_width = 30
+        self.continuous_signal_list = []
+
+        for signal_key in signal_list:
+            sampling_time = self.signal_sampling_time_dict[signal_key]
+            if sampling_time < self.stepped_sampling_cutoff:
+                self.continuous_signal_list.append(signal_key)
+
+        print(self.continuous_signal_list)
+        return self.continuous_signal_list
+
     # Calculate
     def calc_edf_signal_stats(self):
         """Calculate statistics for each signal."""
@@ -566,29 +598,31 @@ class EdfSignals:
         # Set Plot defaults
         grid_color = 'gray'
         signal_color = 'blue'
+        y_pad_c = 0.05
 
         if signal_key == '':
             # Create empty signal
-            sampling_time   = 0
-            signal_units    = ''
-            num_points      = 100
-            signal_segment  = [0]*num_points
-            sampling_time   = epoch_width/num_points
-            time_axis       = np.arange(len(signal_segment)+1) * sampling_time
-            signal_segment  = [0] * (num_points+1)
-            signal_color    = grid_color
-            logger.info(f"EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.")
+            sampling_time = 0
+            signal_units = ''
+            num_points = 100
+            signal_segment = [0] * num_points
+            sampling_time = epoch_width / num_points
+            time_axis = np.arange(len(signal_segment) + 1) * sampling_time
+            signal_segment = [0] * (num_points + 1)
+            signal_color = grid_color
+            logger.info(
+                f"EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.")
         else:
             # Get signal and metadata
             signal_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
-            sampling_time  = self.signal_sampling_time_dict[signal_key]
-            signal_units   = self.signal_units_dict[signal_key]
-            time_axis      = np.arange(len(signal_segment)) * sampling_time
+            sampling_time = self.signal_sampling_time_dict[signal_key]
+            signal_units = self.signal_units_dict[signal_key]
+            time_axis = np.arange(len(signal_segment)) * sampling_time
 
         # Create figure and axis
         fig = Figure(figsize=(12, 2))
         ax = fig.add_subplot(111)
-        ax.plot(time_axis, signal_segment, color= signal_color, linewidth=1)
+        ax.plot(time_axis, signal_segment, color=signal_color, linewidth=1)
 
         # Format plot
         ax.set_title(f"{signal_key} - Epoch {epoch_num}")
@@ -619,10 +653,16 @@ class EdfSignals:
             spine.set_visible(False)
 
         # Compute vertical padding (5% headroom above and below)
-        fig.subplots_adjust(left=0, right=1, top=0.95, bottom=0.05)
+        fig.subplots_adjust(left=.01, right=0.99, top=0.95, bottom=0.10)
 
         if annotation_marker != None:
             ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}')
+
+        # Compute vertical padding (5% headroom above and below)
+        # y_min = np.min(signal_segment)
+        # y_max = np.max(signal_segment)
+        # y_pad = y_pad_c * (y_max - y_min if y_max != y_min else 1)
+        # ax.set_ylim(y_min - y_pad, y_max + y_pad)
 
         if parent_widget:
             logger.info(f'plot_signal_segment: parent widget found')
@@ -645,7 +685,6 @@ class EdfSignals:
 
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
-
             """
             canvas = FigureCanvas(fig)
             canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
