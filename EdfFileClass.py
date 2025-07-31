@@ -448,7 +448,7 @@ class EdfSignals:
         else:
             logger.info("Signal summary statistics:")
             self.edf_signals_stats.summary()
-    def export_signals_to_txt(self, output_dir: str):
+    def export_signals_to_txt(self, output_dir: str, edf_file_name:str):
         """
         Exports each signal as a separate .txt file with time-value columns.
 
@@ -458,17 +458,17 @@ class EdfSignals:
         # Ensure output directory exists
         os.makedirs(output_dir, exist_ok=True)
 
-        for label in self.signal_labels:
+        for label in (label for label in self.signal_labels if label != ''):
             signal = self.signals_dict[label]
-            sampling_interval = self.signal_sampling_time[label]
-            unit = self.signal_units.get(label, "")
+            sampling_interval = self.signal_sampling_time_dict[label]
+            unit = self.signal_units_dict.get(label, "")
 
             # Create time array
             time = np.arange(len(signal)) * sampling_interval
 
             # Create file-safe label
             safe_label = label.replace(" ", "_").replace("/", "_").replace("-", "_")
-            edf_base = os.path.splitext(os.path.basename(self.source_edf_filename))[0]
+            edf_base = os.path.splitext(os.path.basename(edf_file_name))[0]
 
             # Construct filename
             filename = f"{edf_base}_{safe_label}.txt"

@@ -183,7 +183,6 @@ class MainApp(QMainWindow):
         self.ui.color_8_pushButton.clicked.connect(self.set_signal_color)
         self.ui.color_9_pushButton.clicked.connect(self.set_signal_color)
         self.ui.color_10_pushButton.clicked.connect(self.set_signal_color)
-        self.ui.color_11_pushButton.clicked.connect(self.set_signal_color)
 
         # Combo Box Action
         self.ui.hypnogram_comboBox.currentIndexChanged.connect(self.on_hypnogram_changed)
@@ -204,7 +203,6 @@ class MainApp(QMainWindow):
         self.ui.signal_8_comboBox.currentTextChanged.connect(self.signal_8_change)
         self.ui.signal_9_comboBox.currentTextChanged.connect(self.signal_9_change)
         self.ui.signal_10_comboBox.currentTextChanged.connect(self.signal_10_change)
-        self.ui.signal_11_comboBox.currentTextChanged.connect(self.signal_11_change)
 
         # Set Up list widget
         self.ui.annotation_listWidget.itemDoubleClicked.connect(self.annotation_list_widget_double_click)
@@ -218,6 +216,7 @@ class MainApp(QMainWindow):
         self.ui.actionSettings.triggered.connect(self.settings_menu_item)
 
         self.ui.actionEDF_Summary.triggered.connect(self.edf_summary_menu_item)
+        self.ui.actionEDF_Signal_Export_2.triggered.connect(self.edf_signal_export_menu_item)
         self.ui.actionAnnotation_Summary.triggered.connect(self.annotation_summary_menu_item)
         self.ui.actionAnnotation_Export.triggered.connect(self.annotation_export_menu_item)
         self.ui.actionSleep_Stages_Export.triggered.connect(self.sleep_stages_export_menu_item)
@@ -225,7 +224,6 @@ class MainApp(QMainWindow):
         self.ui.actionEDF_Standard.triggered.connect(self.edf_standard_menu_item)
         self.ui.actionAnnotation_Standard.triggered.connect(self.xml_standard_menu_item)
         self.ui.actionAbout.triggered.connect(self.about_menu_item)
-
 
         # Turn Off Epoch Buttons
         self.turn_off_edf_signal_pushbuttons()
@@ -389,7 +387,7 @@ class MainApp(QMainWindow):
         signal_combo_boxes = [self.ui.signal_1_comboBox,  self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
                               self.ui.signal_4_comboBox,  self.ui.signal_5_comboBox, self.ui.signal_6_comboBox,
                               self.ui.signal_7_comboBox,  self.ui.signal_8_comboBox, self.ui.signal_9_comboBox,
-                              self.ui.signal_10_comboBox, self.ui.signal_11_comboBox]
+                              self.ui.signal_10_comboBox ]
 
         # Turn off change signal while updating combobox list following selection of a new edf file
         for combo_box in signal_combo_boxes:
@@ -438,12 +436,12 @@ class MainApp(QMainWindow):
         signal_combo_boxes = [self.ui.signal_1_comboBox, self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
                               self.ui.signal_4_comboBox, self.ui.signal_5_comboBox, self.ui.signal_6_comboBox,
                               self.ui.signal_7_comboBox, self.ui.signal_8_comboBox, self.ui.signal_9_comboBox,
-                              self.ui.signal_10_comboBox, self.ui.signal_11_comboBox]
+                              self.ui.signal_10_comboBox]
 
         graphic_views = [ self.ui.signal_1_graphicsView,  self.ui.signal_2_graphicsView,  self.ui.signal_3_graphicsView,
                           self.ui.signal_4_graphicsView,  self.ui.signal_5_graphicsView,  self.ui.signal_6_graphicsView,
                           self.ui.signal_7_graphicsView,  self.ui.signal_8_graphicsView,  self.ui.signal_9_graphicsView,
-                          self.ui.signal_10_graphicsView, self.ui.signal_11_graphicsView]
+                          self.ui.signal_10_graphicsView]
 
         # Turn off change signal while updating combobox list following selection of a new edf file
         for combo_box in signal_combo_boxes:
@@ -735,18 +733,6 @@ class MainApp(QMainWindow):
 
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
                      signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
-    def signal_11_change(self, text):
-        logger.info(f"Signal 11 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_11_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                    signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
     def set_signal_color(self):
         # Not implemented. Will enable changing signal color assigning color from annotation file
         pass
@@ -834,6 +820,34 @@ class MainApp(QMainWindow):
                 return None
         else:
             logger.info(f'EDF Summary Menu Item: EDF File not loaded. Summary not created')
+    def edf_signal_export_menu_item(self):
+        logger.info(f'EDF Signal Export Menu Item Selected')
+        if self.edf_file_obj != None:
+            """
+                Prompts the user to select a file path to save the EDF summary.
+                Displays a message box if the user cancels the dialog.
+
+                Parameters:
+                    parent (QWidget): The parent widget for the dialog.
+
+                Returns:
+                    str or None: The selected file path or None if canceled.
+                """
+
+            # Select folder
+            dialog_title       = 'Select a signal export file.'
+            starting_directory = os.getcwd()
+            folder_path = QFileDialog.getExistingDirectory(self, dialog_title,
+                starting_directory, QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+
+            if folder_path:
+                self.edf_file_obj.edf_signals.export_signals_to_txt(folder_path, self.edf_file_obj.file_name)
+                logger.info(f'Signals written to folder: {folder_path}')
+            else:
+                logger.info(f'Folder not selected for signal export.')
+                return
+        else:
+            logger.info(f'EDF Signal Export Menu Item: EDF File not loaded. Export not created not created')
     def annotation_summary_menu_item(self):
         if self.annotation_xml_obj != None:
             """
