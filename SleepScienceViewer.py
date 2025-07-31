@@ -49,6 +49,8 @@ class Ui_MainWindow(object):
         self.actionAnnotation_Standard.setObjectName(u"actionAnnotation_Standard")
         self.actionAbout = QAction(MainWindow)
         self.actionAbout.setObjectName(u"actionAbout")
+        self.actionEDF_Signal_Export_2 = QAction(MainWindow)
+        self.actionEDF_Signal_Export_2.setObjectName(u"actionEDF_Signal_Export_2")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -568,29 +570,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.signal_11_comboBox = QComboBox(self.centralwidget)
-        self.signal_11_comboBox.setObjectName(u"signal_11_comboBox")
-        self.signal_11_comboBox.setMinimumSize(QSize(100, 0))
-        self.signal_11_comboBox.setMaximumSize(QSize(100, 16777215))
-
-        self.horizontalLayout_6.addWidget(self.signal_11_comboBox)
-
-        self.color_11_pushButton = QPushButton(self.centralwidget)
-        self.color_11_pushButton.setObjectName(u"color_11_pushButton")
-        self.color_11_pushButton.setMinimumSize(QSize(25, 0))
-        self.color_11_pushButton.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_6.addWidget(self.color_11_pushButton)
-
-        self.signal_11_graphicsView = QGraphicsView(self.centralwidget)
-        self.signal_11_graphicsView.setObjectName(u"signal_11_graphicsView")
-        sizePolicy2.setHeightForWidth(self.signal_11_graphicsView.sizePolicy().hasHeightForWidth())
-        self.signal_11_graphicsView.setSizePolicy(sizePolicy2)
-        self.signal_11_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_11_graphicsView.setMaximumSize(QSize(16777215, 50))
-
-        self.horizontalLayout_6.addWidget(self.signal_11_graphicsView)
-
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_6)
 
@@ -644,6 +623,7 @@ class Ui_MainWindow(object):
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionSettings)
         self.menuGenerate.addAction(self.actionEDF_Summary)
+        self.menuGenerate.addAction(self.actionEDF_Signal_Export_2)
         self.menuGenerate.addSeparator()
         self.menuGenerate.addAction(self.actionAnnotation_Summary)
         self.menuGenerate.addAction(self.actionAnnotation_Export)
@@ -671,6 +651,7 @@ class Ui_MainWindow(object):
         self.actionEDF_Standard.setText(QCoreApplication.translate("MainWindow", u"EDF Standard", None))
         self.actionAnnotation_Standard.setText(QCoreApplication.translate("MainWindow", u"Annotation Standard", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
+        self.actionEDF_Signal_Export_2.setText(QCoreApplication.translate("MainWindow", u"EDF Signal Export", None))
         self.load_edf_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load EDF", None))
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
@@ -692,7 +673,6 @@ class Ui_MainWindow(object):
         self.color_8_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.color_9_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.color_10_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
-        self.color_11_pushButton.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuGenerate.setTitle(QCoreApplication.translate("MainWindow", u"Generate", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
