@@ -16,11 +16,11 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGraphicsView,
-    QHBoxLayout, QLabel, QLayout, QListWidget,
-    QListWidgetItem, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QSizePolicy, QSpacerItem, QStatusBar,
-    QTextEdit, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGraphicsView, QHBoxLayout,
+    QLabel, QLayout, QListWidget, QListWidgetItem,
+    QMainWindow, QMenu, QMenuBar, QPushButton,
+    QSizePolicy, QSpacerItem, QStatusBar, QTextEdit,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -105,13 +105,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.line_2 = QFrame(self.centralwidget)
-        self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.Shape.HLine)
-        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.verticalLayout_2.addWidget(self.line_2)
-
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.horizontalLayout_17.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -163,8 +156,8 @@ class Ui_MainWindow(object):
         self.spectrogram_graphicsView.setObjectName(u"spectrogram_graphicsView")
         sizePolicy2.setHeightForWidth(self.spectrogram_graphicsView.sizePolicy().hasHeightForWidth())
         self.spectrogram_graphicsView.setSizePolicy(sizePolicy2)
-        self.spectrogram_graphicsView.setMinimumSize(QSize(0, 70))
-        self.spectrogram_graphicsView.setMaximumSize(QSize(16777215, 70))
+        self.spectrogram_graphicsView.setMinimumSize(QSize(0, 60))
+        self.spectrogram_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.verticalLayout_2.addWidget(self.spectrogram_graphicsView)
 
@@ -211,13 +204,6 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_19)
-
-        self.line = QFrame(self.centralwidget)
-        self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.Shape.HLine)
-        self.line.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.verticalLayout_2.addWidget(self.line)
 
 
         self.horizontalLayout_3.addLayout(self.verticalLayout_2)
@@ -334,7 +320,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_1_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_1_graphicsView.setSizePolicy(sizePolicy)
         self.signal_1_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_1_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_1_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_15.addWidget(self.signal_1_graphicsView)
 
@@ -355,7 +341,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_2_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_2_graphicsView.setSizePolicy(sizePolicy)
         self.signal_2_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_2_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_2_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_14.addWidget(self.signal_2_graphicsView)
 
@@ -376,7 +362,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_3_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_3_graphicsView.setSizePolicy(sizePolicy)
         self.signal_3_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_3_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_3_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_13.addWidget(self.signal_3_graphicsView)
 
@@ -397,7 +383,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_4_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_4_graphicsView.setSizePolicy(sizePolicy)
         self.signal_4_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_4_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_4_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_12.addWidget(self.signal_4_graphicsView)
 
@@ -418,7 +404,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_5_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_5_graphicsView.setSizePolicy(sizePolicy)
         self.signal_5_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_5_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_5_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_11.addWidget(self.signal_5_graphicsView)
 
@@ -439,7 +425,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_6_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_6_graphicsView.setSizePolicy(sizePolicy)
         self.signal_6_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_6_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_6_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_10.addWidget(self.signal_6_graphicsView)
 
@@ -460,7 +446,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_7_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_7_graphicsView.setSizePolicy(sizePolicy)
         self.signal_7_graphicsView.setMinimumSize(QSize(50, 0))
-        self.signal_7_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_7_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_9.addWidget(self.signal_7_graphicsView)
 
@@ -481,7 +467,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_8_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_8_graphicsView.setSizePolicy(sizePolicy)
         self.signal_8_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_8_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_8_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_8.addWidget(self.signal_8_graphicsView)
 
@@ -502,7 +488,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_9_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_9_graphicsView.setSizePolicy(sizePolicy)
         self.signal_9_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_9_graphicsView.setMaximumSize(QSize(16777215, 50))
+        self.signal_9_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_7.addWidget(self.signal_9_graphicsView)
 
@@ -523,7 +509,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.signal_10_graphicsView.sizePolicy().hasHeightForWidth())
         self.signal_10_graphicsView.setSizePolicy(sizePolicy)
         self.signal_10_graphicsView.setMinimumSize(QSize(0, 50))
-        self.signal_10_graphicsView.setMaximumSize(QSize(16777215, 55))
+        self.signal_10_graphicsView.setMaximumSize(QSize(16777215, 60))
 
         self.horizontalLayout_5.addWidget(self.signal_10_graphicsView)
 

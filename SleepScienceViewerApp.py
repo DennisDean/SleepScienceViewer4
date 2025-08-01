@@ -1,3 +1,31 @@
+"""
+Sleep Science Viewer
+
+Overview:
+A python native edf-annotation viewed with corresponding EDF and Annotation loaders.
+Nearly all the work is done in the loaders with the goal of developing tools to
+support interactive analysis and future development.
+
+Author:
+Dennis A. Dean, II, PhD
+Sleep Science
+
+Completion Date: July 31, 2025
+
+Acknowledgement:
+The python code models previous Matlab versions of the code written by Case Western Reserve
+University and by Matlab code I wrote when I was at Brigham and Women's Hospital. The previously
+authored Matlab code benefited from feedback received following public release of the MATLAB
+code on MATLAB central.
+
+© 2025 Dennis A. Dean II
+This file is part of the SleepScienceViewer project.
+
+This source code is licensed under the GNU Affero General Public License v3.0.
+See the LICENSE file in the root directory of this source tree or visit
+https://www.gnu.org/licenses/agpl-3.0.html for full terms.
+"""
+
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
 from PySide6.QtWidgets import QFileDialog, QMessageBox
@@ -154,6 +182,7 @@ class MainApp(QMainWindow):
         self.current_epoch_width_index: int = None
         self.signal_length_seconds: int     = None
         self.automatic_histogram_redraw     = True
+        self.automatic_signal_redraw        = True
         self.initialize_epoch_variables()
 
         # Visualization Controls
@@ -264,7 +293,6 @@ class MainApp(QMainWindow):
             stepped_signal_list = self.edf_file_obj.edf_signals.return_stepped_signals_from_list(signal_labels)
             continuous_signal_list = self.edf_file_obj.edf_signals.return_continuous_signals_from_list(
                 signal_labels)
-            print(f'continuous_signal_list = {continuous_signal_list}')
             self.ui.spectrogram_comboBox.clear()
             self.ui.spectrogram_comboBox.addItems(continuous_signal_list)
 
@@ -320,6 +348,9 @@ class MainApp(QMainWindow):
         self.ui.epoch_comboBox.setEnabled(True)
         self.ui.load_annotation_pushButton.setEnabled(True)
     def set_signal_combo_boxes(self):
+        # Turn off signal plot update
+        self.automatic_signal_redraw = False
+
         # Get signal labels
         signal_labels = self.edf_file_obj.edf_signals.signal_labels
         signal_labels.insert(0, '')
@@ -344,11 +375,14 @@ class MainApp(QMainWindow):
         for combo_box in signal_combo_boxes:
             combo_box.blockSignals(False)
 
+        # Turn on signal plot update. Using the label list set the combobox sequentially to different labels.
         for i, combo in enumerate(signal_combo_boxes):
             if i + 1 < len(signal_labels):  # +1 to skip the inserted empty string
                 combo.setCurrentIndex(i + 1)  # Set to the i-th signal
             else:
                 combo.setCurrentIndex(0)  # Default to the empty string if no signal available
+        # Turn auto redraw back on
+        self.automatic_signal_redraw = True
     def compute_and_display_spectrogram(self):
         # Check before starting long computation
 
@@ -358,6 +392,9 @@ class MainApp(QMainWindow):
             self.show_missing_eeg_warning()
 
         if process_eeg == True:
+            # Make sure figures are not inadvertenly generated
+            self.automatic_signal_redraw = False
+
             # Get Continuous Signals
             signal_label = self.ui.spectrogram_comboBox.currentText()
             signal_type = 'continuous'
@@ -373,7 +410,13 @@ class MainApp(QMainWindow):
             # Record Spectrogram Completions
             self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
             logger.info('Computing spectrogram: Computation completed')
+
+            # Turn on signal update
+            self.automatic_signal_redraw = True
     def draw_signals_in_graphic_views(self, annotation_marker=None):
+
+        if self.automatic_signal_redraw == False:
+            return
 
         signal_combo_boxes = [self.ui.signal_1_comboBox, self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
                               self.ui.signal_4_comboBox, self.ui.signal_5_comboBox, self.ui.signal_6_comboBox,
@@ -412,15 +455,27 @@ class MainApp(QMainWindow):
         signal_type = ""
 
         for i in graphic_views_to_update_id:
+            # Select graphic view
             signal_label = combo_box_signal_labels[i]
             graphic_view = graphic_views[i]
 
+            # Set stepped variables
+            stepped_dict      = {}
+            is_signal_stepped = False
+            if self.annotation_xml_obj != None:
+                is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+                if is_signal_stepped:
+                    stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+            # Plot signal segment
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
                                                               signal_type, epoch_num, epoch_width, graphic_view,
                                                               x_tick_settings   = epoch_display_axis_grid,
                                                               annotation_marker = annotation_marker,
                                                               convert_time_f    = convert_time_f,
-                                                              time_axis_units   = time_axis_units)
+                                                              time_axis_units   = time_axis_units,
+                                                              is_signal_stepped = is_signal_stepped,
+                                                              stepped_dict      = stepped_dict )
 
         # Turn on combo box signal change
         for combo_box in signal_combo_boxes:
@@ -676,6 +731,7 @@ class MainApp(QMainWindow):
         self.current_epoch_width_index = new_epoch_width_index
     # Signals
     def signal_1_change(self, text):
+        # Signal information for plotting
         logger.info(f"Signal 1 combo box changed to {text}")
         signal_label            = text
         graphic_view            = self.ui.signal_1_graphicsView
@@ -684,9 +740,25 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f          = self.time_convert_f[epoch_width_index]
+        time_axis_units         = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                    signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                    signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid,
+                    is_signal_stepped = is_signal_stepped, stepped_dict  = stepped_dict,
+                                                          convert_time_f = convert_time_f,
+                                                          time_axis_units= time_axis_units)
+
         if text == '':
             text = "''"
         logger.info(f"Signal 1 combo box changed to {text}")
@@ -699,9 +771,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                        signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_3_change(self, text):
         logger.info(f"Signal 3 combo box changed to {text}")
         signal_label            = text
@@ -711,9 +800,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                       signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_4_change(self, text):
         pass
         logger.info(f"Signal 4 combo box changed to {text}")
@@ -724,9 +830,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                       signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_5_change(self, text):
         logger.info(f"Signal 5 combo box changed to {text}")
         signal_label            = text
@@ -736,9 +859,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                        signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_6_change(self, text):
         logger.info(f"Signal 6 combo box changed to {text}")
         signal_label            = text
@@ -748,9 +888,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                        signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_7_change(self, text):
         # Update Variables
         logger.info(f"Signal 7 combo box changed to {text}")
@@ -761,9 +918,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                        signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_8_change(self, text):
         logger.info(f"Signal 8 combo box changed to {text}")
         signal_label            = text
@@ -773,9 +947,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                    signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_9_change(self, text):
         logger.info(f"Signal 9 combo box changed to {text}")
         signal_label            = text
@@ -785,9 +976,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                     signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     def signal_10_change(self, text):
         logger.info(f"Signal 10 combo box changed to {text}")
         signal_label            = text
@@ -797,12 +1005,26 @@ class MainApp(QMainWindow):
         epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
         epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
+        # Check for stepped channels if annotation file is available
+        is_signal_stepped = False
+        stepped_dict = {}
+        if self.annotation_xml_obj != None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+            stepped_dict = {}
+            if is_signal_stepped:
+                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+        # Plot signal segment
         self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                     signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid)
-    def set_signal_color(self):
-        # Not implemented. Will enable changing signal color assigning color from annotation file
-        pass
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          is_signal_stepped=is_signal_stepped,
+                                                          stepped_dict=stepped_dict,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units)
     # Annotation
     def annotation_list_widget_double_click(self, item):
         # Slot to handle double-click events on QListWidget items.

@@ -20,6 +20,13 @@ The python code models previous Matlab versions of the code written by Case West
 University and by Matlab code I wrote when I was at Brigham and Women's Hospital. The previously
 authored Matlab code benefited from feedback received following public release of the MATLAB
 code on MATLAB central.
+
+© 2025 Dennis A. Dean II
+This file is part of the SleepScienceViewer project.
+
+This source code is licensed under the GNU Affero General Public License v3.0.
+See the LICENSE file in the root directory of this source tree or visit
+https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 
@@ -433,7 +440,6 @@ class EdfSignals:
             for signal_key in signal_list:
                 if signal_key in self.stepped_signal_dict.keys():
                     self.stepped_signal_list.append(signal_key)
-        print(self.stepped_signal_list)
         return self.stepped_signal_list
     def return_continuous_signals_from_list(self, signal_list:List[str]):
         # Use sampling rate to select continuous signals for spectral analysis
@@ -456,7 +462,6 @@ class EdfSignals:
             if sampling_time < self.stepped_sampling_cutoff:
                 self.continuous_signal_list.append(signal_key)
 
-        print(self.continuous_signal_list)
         return self.continuous_signal_list
     # Calculate
     def calc_edf_signal_stats(self):
@@ -582,7 +587,8 @@ class EdfSignals:
     # Visualization
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
                             parent_widget=None, x_tick_settings:tuple[int, int] = [5,1], annotation_marker=None,
-                            convert_time_f=lambda x:x, time_axis_units=''):
+                            convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
+                            stepped_dict = {} ):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -629,10 +635,25 @@ class EdfSignals:
         ax.grid(True)
 
         # Compute vertical padding (5% headroom above and below)
-        y_min = np.min(signal_segment)
-        y_max = np.max(signal_segment)
-        y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
-        ax.set_ylim(y_min - 2*y_pad, y_max + y_pad)
+        if is_signal_stepped:
+            # Set y axis range
+            y_min = 0
+            y_max = len(stepped_dict)
+            y_pad = y_max/8
+            ax.set_ylim(y_min-y_pad, y_max+y_pad)
+
+            # Set y axis labels
+            y_tick_values = range(y_min, y_max, 1)
+            y_tick_labels = stepped_dict
+            ax.set_yticks(y_tick_values)
+            ax.set_yticklabels(y_tick_labels)
+            ax.tick_params(axis='y', labelsize=tick_label_fontsize-1)
+        else:
+            y_min = np.min(signal_segment)
+            y_max = np.max(signal_segment)
+            y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
+            ax.set_ylim(y_min - 2*y_pad, y_max + y_pad)
+            ax.tick_params(axis='y', labelsize=tick_label_fontsize)
 
         # Force x limit
         x_pad = x_tick_settings[1] / 2
@@ -648,15 +669,13 @@ class EdfSignals:
         x_custom_labels = [L+time_axis_units for L in x_custom_labels]
         ax.set_xticklabels(x_custom_labels, fontsize=tick_label_fontsize)
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
-        # ax.grid(axis='x', which='minor', linestyle=':', linewidth=0.5, color='lightgray')
 
         # Remove ticks and labels, but preserve gridlines
-        ax.set_yticks([])
         for spine in ax.spines.values():
             spine.set_visible(False)
 
         # Compute vertical padding (5% headroom above and below)
-        fig.subplots_adjust(left=.01, right=0.99, top=0.99, bottom=0.35)
+        fig.subplots_adjust(left=.03, right=0.99, top=0.93, bottom=0.35)
 
         if annotation_marker != None:
             ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}',

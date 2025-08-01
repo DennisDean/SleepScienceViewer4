@@ -35,6 +35,14 @@ The python code models previous Matlab versions of the code written by Case West
 University and by Matlab code I wrote when I was at Brigham and Women's Hospital. The previously
 authored Matlab code benefited from feedback received following public release of the MATLAB
 code on MATLAB central.
+
+
+© 2025 Dennis A. Dean II
+This file is part of the SleepScienceViewer project.
+
+This source code is licensed under the GNU Affero General Public License v3.0.
+See the LICENSE file in the root directory of this source tree or visit
+https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 import xml.etree.ElementTree as ET
 import os

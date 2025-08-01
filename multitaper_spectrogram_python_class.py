@@ -1,3 +1,32 @@
+# Integrating computation with in the Sleep Science Viewer Example
+
+""""
+This code is companion to the paper:
+        "Sleep Neurophysiological Dynamics Through the Lens of Multitaper Spectral Analysis"
+           Michael J. Prerau, Ritchie E. Brown, Matt T. Bianchi, Jeffrey M. Ellenbogen, Patrick L. Purdon
+           December 7, 2016 : 60-92
+           DOI: 10.1152/physiol.00062.2015
+         which should be cited for academic use of this code.
+
+         A full tutorial on the multitaper spectrogram can be found at: # https://www.sleepEEG.org/multitaper
+
+        Copyright 2021 Michael J. Prerau Laboratory. - https://www.sleepEEG.org
+        Authors: Michael J. Prerau, Ph.D., Thomas Possidente, Mingjian He
+"""
+
+# Revisions made to the file to align with a class approach
+"""
+Revisions
+- added function variable type to primary definition
+- replaced np.mat with np.asmatrix
+- force matplot lib to use QT(PySide6)
+- restructured to class format
+- added ability to create plot in test and to plot to a widget
+- Subsequently removed plots in test to reduce the potential of using incompatible libraries
+- Converted computation to a class
+- Did not remove the flags no longer required due to the class
+"""
+
 # Analysis Imports
 import math
 import numpy as np
@@ -29,30 +58,7 @@ from scipy.signal import chirp  # import chirp generation function
 logger = logging.getLogger(__name__)
 
 # Except from original file. See below for full description
-""""
-This code is companion to the paper:
-        "Sleep Neurophysiological Dynamics Through the Lens of Multitaper Spectral Analysis"
-           Michael J. Prerau, Ritchie E. Brown, Matt T. Bianchi, Jeffrey M. Ellenbogen, Patrick L. Purdon
-           December 7, 2016 : 60-92
-           DOI: 10.1152/physiol.00062.2015
-         which should be cited for academic use of this code.
 
-         A full tutorial on the multitaper spectrogram can be found at: # https://www.sleepEEG.org/multitaper
-
-        Copyright 2021 Michael J. Prerau Laboratory. - https://www.sleepEEG.org
-        Authors: Michael J. Prerau, Ph.D., Thomas Possidente, Mingjian He
-"""
-
-# Revisions made to the file to align with a class approach
-"""
-Revisions
-- added function variable type to primary definition
-- replaced np.mat with np.asmatrix
-- force matplot lib to use QT(PySide6)
-- restructured to class format
-- added ability to create plot in test and to plot to a widget
-- converted computation to a class
-"""
 
 # MULTITAPER SPECTROGRAM #
 class MultitaperSpectrogram:
