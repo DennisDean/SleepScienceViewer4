@@ -28,7 +28,8 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
-
+# TODO: Sleep stages export only has N1 export, N2-N4 not present
+# TODO: Folder export does not say select a folder. Export dialog is ambiguous is best
 
 # Import Modules
 import os
@@ -604,7 +605,7 @@ class EdfSignals:
         grid_color            = 'gray'
         signal_color          = 'blue'
         y_pad_c               = 0.05
-        tick_label_fontsize   = 6.5
+        tick_label_fontsize   = 6
         annotation_line_width = 1.5
 
         if signal_key == '':
@@ -639,7 +640,7 @@ class EdfSignals:
             # Set y axis range
             y_min = 0
             y_max = len(stepped_dict)
-            y_pad = y_max/8
+            y_pad = y_max/10
             ax.set_ylim(y_min-y_pad, y_max+y_pad)
 
             # Set y axis labels
@@ -647,28 +648,41 @@ class EdfSignals:
             y_tick_labels = stepped_dict
             ax.set_yticks(y_tick_values)
             ax.set_yticklabels(y_tick_labels)
-            ax.tick_params(axis='y', labelsize=tick_label_fontsize-1)
+            ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
         else:
             y_min = np.min(signal_segment)
             y_max = np.max(signal_segment)
             y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
             ax.set_ylim(y_min - 2*y_pad, y_max + y_pad)
-            ax.tick_params(axis='y', labelsize=tick_label_fontsize)
+            ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
 
         # Force x limit
-        x_pad = x_tick_settings[1] / 2
+        epoch_width     = int(epoch_width)
+        major_tick_step = int(x_tick_settings[0])
+        minor_tick_step = int(x_tick_settings[1])
+        x_pad           = float(minor_tick_step)/4
         ax.set_xlim(-x_pad, epoch_width + x_pad)
 
-        # Set x-axis grid lines (5s major, 2s minor)
-        ax.xaxis.set_minor_locator(MultipleLocator(x_tick_settings[1]))
-        ax.xaxis.set_major_locator(MultipleLocator(x_tick_settings[0]))
-        ax.tick_params(axis='x', labelsize=tick_label_fontsize)
+        # Set major and minor ticks
+        major_ticks = list(range(0, int(epoch_width + 1), int(major_tick_step)))
+        minor_ticks = [x for x in range(0, epoch_width + 1, minor_tick_step) if x not in major_ticks]
 
-        x_major_ticks   = ax.get_xticks()
-        x_custom_labels = [str(convert_time_f(L)) for L in x_major_ticks]
-        x_custom_labels = [L+time_axis_units for L in x_custom_labels]
-        ax.set_xticklabels(x_custom_labels, fontsize=tick_label_fontsize)
+        # Set tick parameters
+        ax.tick_params(axis='x', which='major', direction='in')
+        ax.tick_params(axis='x', which='minor', direction='in')
+
+        # Set major and minor ticks
+        ax.set_xticks(major_ticks)
+        ax.set_xticks(minor_ticks, minor=True)
+
+        # Set labels only for major ticks
+        ax.set_xticklabels([f"{x}{time_axis_units}" for x in major_ticks], fontsize=tick_label_fontsize)
+
+        # Enable grid lines for major and minor ticks
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
+        ax.grid(axis='x', which='minor', linestyle='--', linewidth=0.5, color='lightgray')
+
+
 
         # Remove ticks and labels, but preserve gridlines
         for spine in ax.spines.values():

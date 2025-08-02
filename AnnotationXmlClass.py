@@ -7,7 +7,7 @@ Overview:
 Annotation class is a utility for accessing information stored within an XML file which is the
 standard for the National Sleeep Research Resource (NSRR). The file is commonly used to access sleep
 stages. In addition, the file contains the epoch length, stepped channels, scored event settings,
-scored events, and montage. The class provide comprehensive access to the information stored in the
+scored events, and montage. The class provides comprehensive access to the information stored in the
 file.
 
 In order to support multiple applications, the class supports setting the XML file, checking the

@@ -26,6 +26,9 @@ See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
+# TODO: Need a sleep stages export figure
+# TODO: clean up video
+
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
 from PySide6.QtWidgets import QFileDialog, QMessageBox
@@ -39,6 +42,7 @@ import os
 import sys
 import logging
 import math
+from functools import partial
 
 # Utilites
 import pyrsdameraulevenshtein as dl
@@ -174,7 +178,8 @@ class MainApp(QMainWindow):
         self.epoch_display_axis_grid: List          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
         self.epoch_axis_units: List                 = ['s', 's', 'm', 'm', 'm']
         self.time_convert_f: List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min]
-        self.text_similarity_threshold              = 0.9
+        self.text_similarity_threshold             = 0.9
+        self.listBoxFontSize                       = 9
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
@@ -229,19 +234,41 @@ class MainApp(QMainWindow):
         self.ui.epochs_textEdit.installEventFilter(self.numeric_filter)
         self.ui.epoch_comboBox.currentIndexChanged.connect(self.on_epoch_width_change)
 
-        # Signal Selection Boxes
-        self.ui.signal_1_comboBox.currentTextChanged.connect(self.signal_1_change)
-        self.ui.signal_2_comboBox.currentTextChanged.connect(self.signal_2_change)
-        self.ui.signal_3_comboBox.currentTextChanged.connect(self.signal_3_change)
-        self.ui.signal_4_comboBox.currentTextChanged.connect(self.signal_4_change)
-        self.ui.signal_5_comboBox.currentTextChanged.connect(self.signal_5_change)
-        self.ui.signal_6_comboBox.currentTextChanged.connect(self.signal_6_change)
-        self.ui.signal_7_comboBox.currentTextChanged.connect(self.signal_7_change)
-        self.ui.signal_8_comboBox.currentTextChanged.connect(self.signal_8_change)
-        self.ui.signal_9_comboBox.currentTextChanged.connect(self.signal_9_change)
-        self.ui.signal_10_comboBox.currentTextChanged.connect(self.signal_10_change)
+        # Set up for a single function combobox change
+        self.signal_views = [
+            self.ui.signal_1_graphicsView,
+            self.ui.signal_2_graphicsView,
+            self.ui.signal_3_graphicsView,
+            self.ui.signal_4_graphicsView,
+            self.ui.signal_5_graphicsView,
+            self.ui.signal_6_graphicsView,
+            self.ui.signal_7_graphicsView,
+            self.ui.signal_8_graphicsView,
+            self.ui.signal_9_graphicsView,
+            self.ui.signal_10_graphicsView,
+        ]
+
+        self.signal_comboboxes = [
+            self.ui.signal_1_comboBox,
+            self.ui.signal_2_comboBox,
+            self.ui.signal_3_comboBox,
+            self.ui.signal_4_comboBox,
+            self.ui.signal_5_comboBox,
+            self.ui.signal_6_comboBox,
+            self.ui.signal_7_comboBox,
+            self.ui.signal_8_comboBox,
+            self.ui.signal_9_comboBox,
+            self.ui.signal_10_comboBox,
+        ]
+
+        # Connect Combo Box Change
+        for i, cb in enumerate(self.signal_comboboxes):
+            cb.currentTextChanged.connect(partial(self.on_signal_combobox_changed, i))
 
         # Set Up list widget
+        font = self.ui.annotation_listWidget.font()
+        font.setPointSize(self.listBoxFontSize)
+        self.ui.annotation_listWidget.setFont(font)
         self.ui.annotation_listWidget.itemDoubleClicked.connect(self.annotation_list_widget_double_click)
 
         # Store multi-taper results
@@ -730,301 +757,45 @@ class MainApp(QMainWindow):
         # Update current width
         self.current_epoch_width_index = new_epoch_width_index
     # Signals
-    def signal_1_change(self, text):
-        # Signal information for plotting
-        logger.info(f"Signal 1 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_1_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1 # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
+    def on_signal_combobox_changed(self, index, text):
+        logger.info(f"Signal {index + 1} combo box changed to {text}")
+
+        signal_label = text
+        graphic_view = self.signal_views[index]
+
+        signal_type = ""
+        epoch_num = int(self.ui.epochs_textEdit.toPlainText()) - 1
+        epoch_width_index = self.ui.epoch_comboBox.currentIndex()
+        epoch_width = float(self.epoch_display_options_width_sec[epoch_width_index])
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f          = self.time_convert_f[epoch_width_index]
-        time_axis_units         = self.epoch_axis_units[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
 
         # Check for stepped channels if annotation file is available
         is_signal_stepped = False
         stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
+        if self.annotation_xml_obj is not None:
+            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels
             if is_signal_stepped:
                 stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
 
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                    signal_type, epoch_num, epoch_width, graphic_view, x_tick_settings = epoch_display_axis_grid,
-                    is_signal_stepped = is_signal_stepped, stepped_dict  = stepped_dict,
-                                                          convert_time_f = convert_time_f,
-                                                          time_axis_units= time_axis_units)
+        # Plot signal
+        self.edf_file_obj.edf_signals.plot_signal_segment(
+            signal_label,
+            signal_type,
+            epoch_num,
+            epoch_width,
+            graphic_view,
+            x_tick_settings=epoch_display_axis_grid,
+            is_signal_stepped=is_signal_stepped,
+            stepped_dict=stepped_dict,
+            convert_time_f=convert_time_f,
+            time_axis_units=time_axis_units
+        )
 
         if text == '':
             text = "''"
-        logger.info(f"Signal 1 combo box changed to {text}")
-    def signal_2_change(self, text):
-        logger.info(f"Signal 2 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_2_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_3_change(self, text):
-        logger.info(f"Signal 3 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_3_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1 # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_4_change(self, text):
-        pass
-        logger.info(f"Signal 4 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_4_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1 # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_5_change(self, text):
-        logger.info(f"Signal 5 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_5_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_6_change(self, text):
-        logger.info(f"Signal 6 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_6_graphicsView
-        signal_type             = ""
-        epoch_num               =  int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_7_change(self, text):
-        # Update Variables
-        logger.info(f"Signal 7 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_7_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_8_change(self, text):
-        logger.info(f"Signal 8 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_8_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_9_change(self, text):
-        logger.info(f"Signal 9 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_9_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
-    def signal_10_change(self, text):
-        logger.info(f"Signal 10 combo box changed to {text}")
-        signal_label            = text
-        graphic_view            = self.ui.signal_10_graphicsView
-        signal_type             = ""
-        epoch_num               = int(self.ui.epochs_textEdit.toPlainText()) - 1  # function expect zero indexing
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f = self.time_convert_f[epoch_width_index]
-        time_axis_units = self.epoch_axis_units[epoch_width_index]
-
-        # Check for stepped channels if annotation file is available
-        is_signal_stepped = False
-        stepped_dict = {}
-        if self.annotation_xml_obj != None:
-            is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-            stepped_dict = {}
-            if is_signal_stepped:
-                stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-        # Plot signal segment
-        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                          signal_type, epoch_num, epoch_width, graphic_view,
-                                                          x_tick_settings=epoch_display_axis_grid,
-                                                          is_signal_stepped=is_signal_stepped,
-                                                          stepped_dict=stepped_dict,
-                                                          convert_time_f=convert_time_f,
-                                                          time_axis_units=time_axis_units)
+        logger.info(f"Signal {index + 1} combo box changed to {text}")
     # Annotation
     def annotation_list_widget_double_click(self, item):
         # Slot to handle double-click events on QListWidget items.
@@ -1061,7 +832,7 @@ class MainApp(QMainWindow):
         # Update signal graphic views to annotation epoch
         self.draw_signals_in_graphic_views(annotation_marker = annotation_epoch_offset_start)
 
-        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {annotation_epoch_offset_start})")
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     # Menu Item
     def open_edf_menu_item(self):
         self.load_edf_file()
