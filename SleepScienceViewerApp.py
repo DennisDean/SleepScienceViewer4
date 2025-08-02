@@ -899,7 +899,7 @@ class MainApp(QMainWindow):
                 """
 
             # Select folder
-            dialog_title       = 'Select a signal export file.'
+            dialog_title       = 'Select a signal export folder.'
             starting_directory = os.getcwd()
             folder_path = QFileDialog.getExistingDirectory(self, dialog_title,
                 starting_directory, QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
