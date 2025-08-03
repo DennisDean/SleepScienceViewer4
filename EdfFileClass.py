@@ -28,7 +28,6 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
-# TODO: Sleep stages export only has N1 export, N2-N4 not present
 
 # Import Modules
 import os

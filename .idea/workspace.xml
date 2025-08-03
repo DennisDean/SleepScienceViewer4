@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fixed signal folder-select dialog box to state select a folder.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,11 +344,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754178651224</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct.">
+      <option name="closed" value="true" />
+      <created>1754179402720</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1754179402720</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Seemed to fine bug which a down stream consequence of not turning off the combox signals while updating the list." />
     <MESSAGE value="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress." />
     <MESSAGE value="including workspace.xml in commit. File maintains project level information" />
     <MESSAGE value="I replaced the edf graphics code in the edf plot with the code in annotation plot which is working. The did change in code did not work. Will be looking at places signal combo boxes are changed next" />
@@ -372,7 +380,8 @@
     <MESSAGE value="Added licene information. Did some basic testing of all functionality." />
     <MESSAGE value="Update signal plot to remove axis warning.  Plotting could use some work. good for now." />
     <MESSAGE value="Fixed signal folder-select dialog box to state select a folder." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed signal folder-select dialog box to state select a folder." />
+    <MESSAGE value="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -384,18 +393,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>314</line>
+          <line>330</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>453</line>
+          <line>469</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
           <line>148</line>
           <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>609</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
+          <line>302</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

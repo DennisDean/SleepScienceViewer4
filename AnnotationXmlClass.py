@@ -65,6 +65,8 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
 
+# TODO Show stages 1-3, collapse stage 4
+
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
 
@@ -144,10 +146,13 @@ def generate_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> s
 class SleepStages:
     def __init__(self, epoch:int, num_stages:list,
                  num_stage_to_num_dict: Dict[int,str]    = {0:0,   1:1,      2:2,      3:3,      4:4,     5:5},
-                 num_stage_to_text_dict:Dict[int,str]    = {0:'W', 1:'REM',   2:'N1',   3:'N2',   4:'N3',  5:'N4'},
-                 num_stage_to_nremrem_dict:Dict[int,str] = {0:'W', 1:'REM', 2:'NREM', 3:'NREM', 4:'NREM', 5:'NREM'},
-                 nremrem_to_num_stage_dict:Dict[str,int] = {'W':0, 'REM':1, 'NREM':2},
-                 num_stage_to_nremrem_reduced_dict:Dict[int,str] = {0:'W', 1:'REM', 2:'NREM'}):
+                 num_stage_to_text_dict:Dict[int,str]    = {0:'W', 1:'N1',   2:'N2',   3:'N3',   4:'N4',  5:'REM'},
+                 num_stage_to_nremrem_dict:Dict[int,str] = {0:'W', 1:'NREM', 2:'NREM', 3:'NREM', 4:'NREM', 5:'REM'},
+                 num_stage_to_text_n3_dict: Dict[int, str] = {0: 'W', 1: 'N1', 2: 'N2', 3: 'N3', 4: 'N3', 5:'REM'},
+                 nremrem_to_num_stage_dict:Dict[str,int] = {'W':0, 'NREM':1, 'REM':2},
+                 num_stage_to_nremrem_reduced_dict:Dict[int,str] = {0:'W', 1:'NREM', 2:'REM'},
+                 num_stage_to_text_n3_reduced_dict: Dict[int, str] = {0: 'W', 1: 'N1', 2: 'N2', 3: 'N3', 4:'REM'},
+                 ):
         # Update log
         logging.info(f'Initializing SleepStagesClass: epoch{epoch}, num of stages {len(num_stages)}')
 
@@ -156,9 +161,16 @@ class SleepStages:
         self.num_stages                = num_stages
         self.num_stage_to_num_dict     = num_stage_to_num_dict
         self.num_stage_to_text_dict    = num_stage_to_text_dict
-        self.num_stage_to_nremrem_dict = num_stage_to_nremrem_dict
-        self.nremrem_to_num_stage_dict = nremrem_to_num_stage_dict
+        self.num_stage_to_nremrem_dict         = num_stage_to_nremrem_dict
+        self.nremrem_to_num_stage_dict         = nremrem_to_num_stage_dict
         self.num_stage_to_nremrem_reduced_dict = num_stage_to_nremrem_reduced_dict
+        self.num_stage_to_text_n3_dict         = num_stage_to_text_n3_dict
+        self.num_stage_to_text_n3_reduced_dict = num_stage_to_text_n3_reduced_dict
+
+        # Convert num stages to
+        self.collapse_n3_n4_dict   = {0:0, 1:1,   2:2,   3:3,   4:3,  5:4}
+        self.num_stage_n3          = [self.collapse_n3_n4_dict[i] for i in num_stages]
+
 
         # Compute recording duration
         self.recording_duration        = (self.sleep_epoch * len(self.num_stages))/3600
@@ -187,12 +199,16 @@ class SleepStages:
         self.numeric_labels.sort()
         self.text_labels     = get_unique_entries([num_stage_to_text_dict[i] for i in self.numeric_labels])
         self.nremrem_labels  = get_unique_entries([num_stage_to_nremrem_dict[i] for i in self.numeric_labels])
+        self.text_n3_labels  = get_unique_entries([num_stage_to_text_n3_dict[i] for i in self.numeric_labels])
         self.numeric_labels  = get_unique_entries([str(num_stage_to_num_dict[i]) for i in self.numeric_labels])
+
+        print(f'text_n3_labels {self.text_n3_labels}')
 
         # Create labels to assist with histogram plotting
         self.numeric_labels  = "_".join(self.numeric_labels)
         self.text_labels     = "_".join(self.text_labels)
         self.nremrem_labels  = "_".join(self.nremrem_labels)
+        self.text_n3_labels  = "_".join(self.text_n3_labels)
 
         # Output Control
         self.output_dir = os.getcwd()
@@ -215,7 +231,7 @@ class SleepStages:
         return stage_str_list
     # Return values
     def return_sleep_stage_labels(self):
-        sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels ]
+        sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels, self.text_n3_labels ]
         return sleep_stages_labels
     def return_sleep_stage_mappings(self):
         sleep_stages_labels = [self.num_stage_to_text_dict, self.num_stage_to_nremrem_dict ]
@@ -345,13 +361,13 @@ class SleepStages:
         # stages = sleep_stages.num_stages
 
         # Check interface for histogram
-        if stage_index == 0:
-            stage_map = self.num_stage_to_text_dict
-            stages = self.num_stages
-        else:
-            stage_map = self.num_stage_to_nremrem_reduced_dict
-            stages = self.sleep_stages_NremRem_num
+        stage_mapping = [self.num_stage_to_text_dict, self.num_stage_to_nremrem_reduced_dict,
+                         self.num_stage_to_text_n3_reduced_dict]
+        stage_arrays  = [self.num_stages, self.sleep_stages_NremRem_num,
+                         self.num_stage_n3 ]
 
+        stage_map = stage_mapping[stage_index]
+        stages    = stage_arrays[stage_index]
 
 
         # Stage to Y-axis mapping (traditional inverted)
