@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Checked exports written to a selected folders. Exported requirements.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Cleared the to do.">
+      <change afterPath="$PROJECT_DIR$/Media/SleepScienceViewer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Media/edf_summary.webm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Media/signal_export.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Media/sleep_event_export.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Media/sleep_event_summary.webm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Media/sleep_stages.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -400,12 +404,26 @@
       <option name="project" value="LOCAL" />
       <updated>1754249542782</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Reinstalled matplotlib. This cleared the init warning.Exported a full requirements.txt file. Preparing to upload to github.">
+      <option name="closed" value="true" />
+      <created>1754251838936</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1754251838936</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Cleared the to do.">
+      <option name="closed" value="true" />
+      <created>1754251893475</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1754251893475</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros." />
-    <MESSAGE value="Annotation export working. Changed the extension to .xlsx." />
     <MESSAGE value="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup." />
     <MESSAGE value="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written." />
     <MESSAGE value="Sleep stages writing is working. Configuring logger made a strong difference." />
@@ -429,7 +447,9 @@
     <MESSAGE value="Removed non standard characters from files in-order to generate a requirement.txt. The process seemed to have messed up the virtual envirnoment. &#10;&#10;Stopping for now. Shifting to writing." />
     <MESSAGE value="Updated readme file" />
     <MESSAGE value="Checked exports written to a selected folders. Exported requirements." />
-    <option name="LAST_COMMIT_MESSAGE" value="Checked exports written to a selected folders. Exported requirements." />
+    <MESSAGE value="Reinstalled matplotlib. This cleared the init warning.Exported a full requirements.txt file. Preparing to upload to github." />
+    <MESSAGE value="Cleared the to do." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleared the to do." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -451,12 +471,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>148</line>
+          <line>147</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>626</line>
+          <line>625</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -471,22 +491,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>43</line>
+          <line>42</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>528</line>
+          <line>527</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>515</line>
+          <line>514</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>532</line>
+          <line>531</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
