@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Removed non standard characters from files in-order to generate a requirement.txt. The process seemed to have messed up the virtual envirnoment. &#10;&#10;Stopping for now. Shifting to writing.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Checked exports written to a selected folders. Exported requirements.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -31,23 +31,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.EdfFileClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.logging_config.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.AnnotationXmlClass.executor": "Run",
+    "Python.EdfFileClass.executor": "Run",
+    "Python.SleepScienceViewer.executor": "Run",
+    "Python.SleepScienceViewerApp.executor": "Run",
+    "Python.__init__.executor": "Run",
+    "Python.edfFile.executor": "Run",
+    "Python.logging_config.executor": "Run",
+    "Python.multitaper_spectrogram_python.executor": "Run",
+    "Python.multitaper_spectrogram_python_class.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -383,12 +384,26 @@
       <option name="project" value="LOCAL" />
       <updated>1754224124459</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Updated readme file">
+      <option name="closed" value="true" />
+      <created>1754225314483</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1754225314483</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Checked exports written to a selected folders. Exported requirements.">
+      <option name="closed" value="true" />
+      <created>1754249542782</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1754249542782</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added reset function which is helping. Need to take a break. When returning will create a function for explicitly resetting widgets to default values." />
-    <MESSAGE value="Create multiple dialog boxes and message pop up to have action taken for the File and Help menu. Just need to the Generate menu item. Then the first pass is done." />
     <MESSAGE value="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros." />
     <MESSAGE value="Annotation export working. Changed the extension to .xlsx." />
     <MESSAGE value="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup." />
@@ -412,7 +427,9 @@
     <MESSAGE value="Synced hypnogram label sizes. Made signal plot labels bigger." />
     <MESSAGE value="Added n3 collapsed stages to export. Would be nice to add to summary; skipping for now." />
     <MESSAGE value="Removed non standard characters from files in-order to generate a requirement.txt. The process seemed to have messed up the virtual envirnoment. &#10;&#10;Stopping for now. Shifting to writing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed non standard characters from files in-order to generate a requirement.txt. The process seemed to have messed up the virtual envirnoment. &#10;&#10;Stopping for now. Shifting to writing." />
+    <MESSAGE value="Updated readme file" />
+    <MESSAGE value="Checked exports written to a selected folders. Exported requirements." />
+    <option name="LAST_COMMIT_MESSAGE" value="Checked exports written to a selected folders. Exported requirements." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -439,7 +456,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>609</line>
+          <line>626</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -456,6 +473,21 @@
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
           <line>43</line>
           <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>528</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>515</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>532</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

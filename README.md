@@ -18,7 +18,7 @@ The Sleep Science viewer requires an EDF and Annotation file. We used files down
 We recommend using a virtual environment when running the Sleep Science Viewer.
 
 ### Dependencies
-Program developed with python 3.12 with PySide6 used for developing the interface. See [Requirements.txt ](requirements.bak)for additional dependencies.
+Program developed with python 3.12 with PySide6 used for developing the interface. See [Requirements.txt ](requirements.txt)for additional dependencies.
 
 ### Installing
 
