@@ -8,7 +8,7 @@ A python native sleep science viewer that allows users to review EDF and corresp
 
 The generate options supports user report generations. EDF generated outputs include an [EDF summary](Media/edf_summary.webm) and the ability to [export signals](Media/signal_export.png) to a folders. Annotation exports include a [summary report](), [annotation listing](Media/sleep_event_export.png), and [sleep stages](Media/sleep_stages.png). 
 
-![SleepScienceViewer](/home/dennis/PycharmProjects/SleepScienceViewer4/Media/SleepScienceViewer.png)
+![SleepScienceViewer](Media/SleepScienceViewer.png)
 
 
 ## Getting Started
