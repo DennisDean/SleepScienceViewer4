@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Cleared the to do.">
-      <change afterPath="$PROJECT_DIR$/Media/SleepScienceViewer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Media/edf_summary.webm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Media/signal_export.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Media/sleep_event_export.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Media/sleep_event_summary.webm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Media/sleep_stages.png" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added media to the git repository.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,24 +30,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.AnnotationXmlClass.executor": "Run",
-    "Python.EdfFileClass.executor": "Run",
-    "Python.SleepScienceViewer.executor": "Run",
-    "Python.SleepScienceViewerApp.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python.edfFile.executor": "Run",
-    "Python.logging_config.executor": "Run",
-    "Python.multitaper_spectrogram_python.executor": "Run",
-    "Python.multitaper_spectrogram_python_class.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.EdfFileClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.logging_config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -420,11 +415,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754251893475</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Added media to the git repository.">
+      <option name="closed" value="true" />
+      <created>1754252283217</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1754252283217</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup." />
     <MESSAGE value="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written." />
     <MESSAGE value="Sleep stages writing is working. Configuring logger made a strong difference." />
     <MESSAGE value="All features working. Changed link in SleepXMLInfo to show XML specification." />
@@ -449,7 +451,8 @@
     <MESSAGE value="Checked exports written to a selected folders. Exported requirements." />
     <MESSAGE value="Reinstalled matplotlib. This cleared the init warning.Exported a full requirements.txt file. Preparing to upload to github." />
     <MESSAGE value="Cleared the to do." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleared the to do." />
+    <MESSAGE value="Added media to the git repository." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added media to the git repository." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
