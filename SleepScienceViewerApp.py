@@ -26,7 +26,6 @@ See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
-# TODO: Exports are not going to output folder. Exports going to root folder
 # TODO: clean up video
 
 # PySide6 imports
