@@ -164,7 +164,9 @@ class SleepStages:
         self.recording_duration        = (self.sleep_epoch * len(self.num_stages))/3600
 
         # Convert numeric sleep stages to text
+        print(set(num_stages))
         self.sleep_stages_text          = self.convert_num_stages_to_text(num_stages, num_stage_to_text_dict)
+        print(set(self.sleep_stages_text ))
         self.sleep_stages_NremRem       = self.convert_num_stages_to_text(num_stages, num_stage_to_nremrem_dict)
 
         # Create a new numeric representation for nremrem
@@ -309,7 +311,7 @@ class SleepStages:
 
         # Export numeric ad text sleep stages
         try:
-            logging.info(f'Opening file to write {self.num_stages} sleep stages')
+            logging.info(f'Opening file to write {len(self.num_stages)} sleep stages')
             with open(filename, 'w') as file:
                 for i in range(len(self.num_stages)):
                     file.write(f"{self.num_stages[i]}\t{self.sleep_stages_text[i]}\t{self.sleep_stages_NremRem[i]}\n")
