@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Add hypnogram that collapses N3-N4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -352,11 +351,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754179402720</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Add hypnogram that collapses N3-N4">
+      <option name="closed" value="true" />
+      <created>1754218474462</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1754218474462</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress." />
     <MESSAGE value="including workspace.xml in commit. File maintains project level information" />
     <MESSAGE value="I replaced the edf graphics code in the edf plot with the code in annotation plot which is working. The did change in code did not work. Will be looking at places signal combo boxes are changed next" />
     <MESSAGE value="Windows external to the gui are no longer being created. Epoch buttons seem to be working. Upon loading a new edf. wpoch does not reset to one." />
@@ -381,7 +387,8 @@
     <MESSAGE value="Update signal plot to remove axis warning.  Plotting could use some work. good for now." />
     <MESSAGE value="Fixed signal folder-select dialog box to state select a folder." />
     <MESSAGE value="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct." />
+    <MESSAGE value="Add hypnogram that collapses N3-N4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add hypnogram that collapses N3-N4" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -393,12 +400,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>330</line>
+          <line>326</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>469</line>
+          <line>448</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -413,8 +420,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>302</line>
-          <option name="timeStamp" value="33" />
+          <line>437</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

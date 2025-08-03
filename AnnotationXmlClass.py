@@ -65,8 +65,6 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
 
-# TODO Show stages 1-3, collapse stage 4
-
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
 
@@ -157,10 +155,11 @@ class SleepStages:
         logging.info(f'Initializing SleepStagesClass: epoch{epoch}, num of stages {len(num_stages)}')
 
         # Set inputs and conversion
-        self.sleep_epoch               = epoch
-        self.num_stages                = num_stages
-        self.num_stage_to_num_dict     = num_stage_to_num_dict
-        self.num_stage_to_text_dict    = num_stage_to_text_dict
+        self.sleep_epoch                       = epoch
+        self.num_stages                        = num_stages
+
+        self.num_stage_to_num_dict             = num_stage_to_num_dict
+        self.num_stage_to_text_dict            = num_stage_to_text_dict
         self.num_stage_to_nremrem_dict         = num_stage_to_nremrem_dict
         self.nremrem_to_num_stage_dict         = nremrem_to_num_stage_dict
         self.num_stage_to_nremrem_reduced_dict = num_stage_to_nremrem_reduced_dict
@@ -176,10 +175,9 @@ class SleepStages:
         self.recording_duration        = (self.sleep_epoch * len(self.num_stages))/3600
 
         # Convert numeric sleep stages to text
-        print(set(num_stages))
         self.sleep_stages_text          = self.convert_num_stages_to_text(num_stages, num_stage_to_text_dict)
-        print(set(self.sleep_stages_text ))
         self.sleep_stages_NremRem       = self.convert_num_stages_to_text(num_stages, num_stage_to_nremrem_dict)
+        self.sleep_stages_N3            = self.convert_num_stages_to_text(num_stages, num_stage_to_text_n3_dict)
 
         # Create a new numeric representation for nremrem
         self.sleep_stages_NremRem_num   = self.convert_num_stages_to_text(self.sleep_stages_NremRem , nremrem_to_num_stage_dict)
@@ -201,8 +199,6 @@ class SleepStages:
         self.nremrem_labels  = get_unique_entries([num_stage_to_nremrem_dict[i] for i in self.numeric_labels])
         self.text_n3_labels  = get_unique_entries([num_stage_to_text_n3_dict[i] for i in self.numeric_labels])
         self.numeric_labels  = get_unique_entries([str(num_stage_to_num_dict[i]) for i in self.numeric_labels])
-
-        print(f'text_n3_labels {self.text_n3_labels}')
 
         # Create labels to assist with histogram plotting
         self.numeric_labels  = "_".join(self.numeric_labels)
@@ -330,7 +326,7 @@ class SleepStages:
             logging.info(f'Opening file to write {len(self.num_stages)} sleep stages')
             with open(filename, 'w') as file:
                 for i in range(len(self.num_stages)):
-                    file.write(f"{self.num_stages[i]}\t{self.sleep_stages_text[i]}\t{self.sleep_stages_NremRem[i]}\n")
+                    file.write(f"{self.num_stages[i]}\t{self.sleep_stages_text[i]}\t{self.sleep_stages_NremRem[i]}\t{self.sleep_stages_N3[i]}\n")
         except Exception as e:
             logger.error(f'*** Could not export sleep stages: {filename}, error: {e}')
     # Plotting functions
@@ -346,8 +342,9 @@ class SleepStages:
         grid_color      = '#cccccc'  # light gray
         signal_color    = 'blue'
         y_pad_c         = 0.25
-        label_fontsize  = 7
-        xlabel_offset   = 1 if stage_index == 0 else 0
+        label_fontsize  = 8
+        xlabel_offset_dict = {0:1, 1:0, 2:0.5}
+        xlabel_offset   = xlabel_offset_dict[stage_index]
         ylabel_offset   = 0.02*self.recording_duration_hr*3600
         grid_linewidth  = 0.8
 
@@ -356,16 +353,11 @@ class SleepStages:
         times     = self.time_seconds
         time_axis = np.arange(len(stages)) * self.sleep_epoch
 
-        # Time and stage data
-        # times = sleep_stages.time_seconds
-        # stages = sleep_stages.num_stages
-
         # Check interface for histogram
         stage_mapping = [self.num_stage_to_text_dict, self.num_stage_to_nremrem_reduced_dict,
                          self.num_stage_to_text_n3_reduced_dict]
         stage_arrays  = [self.num_stages, self.sleep_stages_NremRem_num,
                          self.num_stage_n3 ]
-
         stage_map = stage_mapping[stage_index]
         stages    = stage_arrays[stage_index]
 
@@ -379,15 +371,12 @@ class SleepStages:
         ax = fig.add_subplot(111)
         ax.invert_yaxis()
 
+        # Plot hypnogram
         ax.step(time_axis, stages, color=signal_color, linewidth=1)
 
         ax.set_xlim(min(times), max(times))
         ax.set_ylim(min(y_ticks) - 0.5, max(y_ticks) + 0.5)
-        ax.tick_params(axis='both', labelsize=9)
-
-
-        # Reset x label offset as a proportion of ylim
-        yl = ax.get_ylim()
+        ax.tick_params(axis='both', labelsize=label_fontsize)
 
         fig.tight_layout()
 
@@ -400,17 +389,7 @@ class SleepStages:
         for y, label in y_labels.items():
             ax.axhline(y=y, color=grid_color, linewidth=grid_linewidth, linestyle='-', zorder=0)
 
-
-
         # Draw custom y-axis labels
-        # y_labels = stage_map
-        # for y, label in y_labels.items():
-        #    ax.text(ax.get_xlim()[0] + ylabel_offset, y, label,
-        #            fontsize=label_fontsize, ha='right', va='center', color='black')
-
-        #ax.set_xticks(x_ticks)
-        #ax.set_xticklabels(x_labels, fontsize=label_fontsize)
-
         ax.set_yticks(list(stage_map.keys()))
         ax.set_yticklabels(list(stage_map.values()), fontsize=label_fontsize)
 

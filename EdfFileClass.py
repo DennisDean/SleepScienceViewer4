@@ -603,7 +603,7 @@ class EdfSignals:
         grid_color            = 'gray'
         signal_color          = 'blue'
         y_pad_c               = 0.05
-        tick_label_fontsize   = 6
+        tick_label_fontsize   = 7
         annotation_line_width = 1.5
 
         if signal_key == '':
