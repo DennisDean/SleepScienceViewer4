@@ -6,7 +6,7 @@ A python native EDF file and XML annotation viewer.
 
 A python native sleep science viewer that allows users to review EDF and corresponding annotations files (XML).The interface displays the file hypnogram and up to ten signals, and can show up to ten signals. Listed annotations can be filtered by type and double clicking an annotation will advance the signal to the epoch containing the annotation. Optionally, the user can change the display epoch duration, generate a multi-taper spectrogram, and can adjust how stages are displays in the hypnogram. 
 
-The generate options supports user report generations. EDF generated outputs include an [EDF summary](Media/edf_summary.mp4) and the ability to [export signals](Media/signal_export.png) to a folders. Annotation exports include a [summary report](sleep_event_summary.mp4), [annotation listing](Media/sleep_event_export.png), and [sleep stages](Media/sleep_stages.png). 
+The generate options supports user report generations. EDF generated outputs include an [EDF summary](Media/edf_summary_small.mp4) and the ability to [export signals](Media/signal_export.png) to a folders. Annotation exports include a [summary report](sleep_event_summary_small.mp4), [annotation listing](Media/sleep_event_export.png), and [sleep stages](Media/sleep_stages.png). 
 
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 
