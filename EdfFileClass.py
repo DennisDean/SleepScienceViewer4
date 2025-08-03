@@ -21,7 +21,7 @@ University and by Matlab code I wrote when I was at Brigham and Women's Hospital
 authored Matlab code benefited from feedback received following public release of the MATLAB
 code on MATLAB central.
 
-© 2025 Dennis A. Dean II
+Copyright 2025 Dennis A. Dean II
 This file is part of the SleepScienceViewer project.
 
 This source code is licensed under the GNU Affero General Public License v3.0.

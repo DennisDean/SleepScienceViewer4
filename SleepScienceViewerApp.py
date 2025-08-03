@@ -18,7 +18,7 @@ University and by Matlab code I wrote when I was at Brigham and Women's Hospital
 authored Matlab code benefited from feedback received following public release of the MATLAB
 code on MATLAB central.
 
-© 2025 Dennis A. Dean II
+Copyright 2025 Dennis A. Dean II
 This file is part of the SleepScienceViewer project.
 
 This source code is licensed under the GNU Affero General Public License v3.0.
@@ -67,10 +67,10 @@ class EDFInfoDialog(QDialog):
         description = (
             "<b>European Data Format (EDF)</b> is a standard file format "
             "designed for exchange and storage of time-series physiological data such as EEG, EMG, or ECG.<br><br>"
-            "📄 <i>Kemp B, Zwinderman AH, Tuk B, Kamphuisen HA, Oberye JJ. "
+            "<i>Kemp B, Zwinderman AH, Tuk B, Kamphuisen HA, Oberye JJ. "
             "Analysis of a sleep-dependent neuronal feedback loop: the slow-wave microcontinuity of the EEG. "
             "Clin Neurophysiol. 1992;82(2):145-150.</i><br><br>"
-            "🔗 <a href='https://www.edfplus.info/' style='color:#0077cc;'>https://www.edfplus.info/</a>"
+            "<a href='https://www.edfplus.info/' style='color:#0077cc;'>https://www.edfplus.info/</a>"
         )
 
         label = QLabel(description)
@@ -98,7 +98,7 @@ class SleepXMLInfoDialog(QDialog):
             "It is widely used by large-scale sleep research initiatives, including the "
             "<a href='https://sleepdata.org/' style='color:#0077cc;'>National Sleep Research Resource (NSRR)</a>, "
             "to facilitate analysis and reproducibility.<br><br>"
-            "🔗 <a href='https://github.com/nsrr/edf-editor-translator/wiki/Compumedics-Annotation-Format' style='color:#0077cc;'>Learn more about Sleep XML Annotations</a>"
+            "<a href='https://github.com/nsrr/edf-editor-translator/wiki/Compumedics-Annotation-Format' style='color:#0077cc;'>Learn more about Sleep XML Annotations</a>"
         )
 
         label = QLabel(description)

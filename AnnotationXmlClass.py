@@ -37,7 +37,7 @@ authored Matlab code benefited from feedback received following public release o
 code on MATLAB central.
 
 
-© 2025 Dennis A. Dean II
+Copyright 2025 Dennis A. Dean II
 This file is part of the SleepScienceViewer project.
 
 This source code is licensed under the GNU Affero General Public License v3.0.
@@ -64,6 +64,9 @@ import numpy as np
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
+
+# To Do List
+# TODO: Add N3 collapse summary to json export
 
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
@@ -143,12 +146,12 @@ def generate_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> s
 # Sleep annotation classes
 class SleepStages:
     def __init__(self, epoch:int, num_stages:list,
-                 num_stage_to_num_dict: Dict[int,str]    = {0:0,   1:1,      2:2,      3:3,      4:4,     5:5},
-                 num_stage_to_text_dict:Dict[int,str]    = {0:'W', 1:'N1',   2:'N2',   3:'N3',   4:'N4',  5:'REM'},
-                 num_stage_to_nremrem_dict:Dict[int,str] = {0:'W', 1:'NREM', 2:'NREM', 3:'NREM', 4:'NREM', 5:'REM'},
-                 num_stage_to_text_n3_dict: Dict[int, str] = {0: 'W', 1: 'N1', 2: 'N2', 3: 'N3', 4: 'N3', 5:'REM'},
-                 nremrem_to_num_stage_dict:Dict[str,int] = {'W':0, 'NREM':1, 'REM':2},
-                 num_stage_to_nremrem_reduced_dict:Dict[int,str] = {0:'W', 1:'NREM', 2:'REM'},
+                 num_stage_to_num_dict: Dict[int,str]             = {0:0,   1:1,      2:2,      3:3,      4:4,     5:5},
+                 num_stage_to_text_dict:Dict[int,str]             = {0:'W', 1:'N1',   2:'N2',   3:'N3',   4:'N4',  5:'REM'},
+                 num_stage_to_nremrem_dict:Dict[int,str]          = {0:'W', 1:'NREM', 2:'NREM', 3:'NREM', 4:'NREM', 5:'REM'},
+                 num_stage_to_text_n3_dict: Dict[int, str]         = {0: 'W', 1: 'N1', 2: 'N2', 3: 'N3', 4: 'N3', 5:'REM'},
+                 nremrem_to_num_stage_dict:Dict[str,int]          = {'W':0, 'NREM':1, 'REM':2},
+                 num_stage_to_nremrem_reduced_dict:Dict[int,str]  = {0:'W', 1:'NREM', 2:'REM'},
                  num_stage_to_text_n3_reduced_dict: Dict[int, str] = {0: 'W', 1: 'N1', 2: 'N2', 3: 'N3', 4:'REM'},
                  ):
         # Update log

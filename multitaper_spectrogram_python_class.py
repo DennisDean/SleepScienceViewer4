@@ -25,21 +25,22 @@ Revisions
 - Subsequently removed plots in test to reduce the potential of using incompatible libraries
 - Converted computation to a class
 - Did not remove the flags no longer required due to the class
+- Removed no  ISO-8859-1 characters in order to generate requirements.txt
 """
 
 # Analysis Imports
 import math
 import numpy as np
 import numpy.typing as npt
-from openpyxl.pivot.fields import Boolean
-from scipy.signal.windows import dpss
-from scipy.signal import detrend
-from typing import Tuple, TypeAlias, Literal
+from   openpyxl.pivot.fields import Boolean
+from   scipy.signal.windows import dpss
+from   scipy.signal import detrend
+from   typing import Tuple, TypeAlias, Literal
 
 # Logistical Imports
 import warnings
 import timeit
-from joblib import Parallel, delayed, cpu_count
+from   joblib import Parallel, delayed, cpu_count
 import logging
 
 # Visualization imports
@@ -645,25 +646,4 @@ def main():
     min_nfft        = 0  # No minimum nfft
     detrend_opt     = 'constant'  # detrend each window by subtracting the average
     multiprocess    = True  # use multiprocessing
-    n_jobs          = 3  # use 3 cores in multiprocessing
-    weighting       = 'unity'  # weight each taper at 1
-    plot_on         = True  # plot spectrogram
-    return_fig      = False  # do not return plotted spectrogram
-    clim_scale      = False # do not auto-scale colormap
-    verbose         = False  # print extra info
-    xyflip          = False  # do not transpose spect output matrix
-
-    # Generate sample chirp data
-    t = np.arange(1/fs, 600, 1/fs)  # Create 10 min time array from 1/fs to 600 stepping by 1/fs
-    f_start = 1  # Set chirp freq range min (Hz)
-    f_end = 20  # Set chirp freq range max (Hz)
-    data = chirp(t, f_start, t[-1], f_end, 'logarithmic')
-
-    # Compute the multitaper spectrogram
-    multi_spectrogram_obj = MultitaperSpectrogram(data, fs, frequency_range, time_bandwidth, num_tapers, window_params,
-        min_nfft, detrend_opt, multiprocess, n_jobs, weighting, plot_on, return_fig, clim_scale, verbose, xyflip)
-    multi_spectrogram_obj.compute_spectrogram()
-    multi_spectrogram_obj.display_spectrogram_props()
-    multi_spectrogram_obj.plot()
-if __name__ == "__main__":
-    main()
+   
