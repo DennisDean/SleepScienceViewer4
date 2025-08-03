@@ -26,7 +26,7 @@ See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
-# TODO: Need a sleep stages export figure
+# TODO: Exports are not going to output folder. Exports going to root folder
 # TODO: clean up video
 
 # PySide6 imports
@@ -530,6 +530,23 @@ class MainApp(QMainWindow):
             logger.info(
                 f"Message Dialog Box - Cancel clicked, Msg: {'Computing a multitaper spectrogram can be time consuming. Do you want to proceed?'} ")
             return False
+    def show_signal_export_ok_cancel_dialog(parent=None):
+        msg_box = QMessageBox(parent)
+        msg_box.setWindowTitle("Confirm Action")
+        msg_box.setText(
+            "Writing signals to disk may take a while. \n\nDo you want to proceed?")
+        msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        msg_box.setDefaultButton(QMessageBox.Ok)
+
+        result = msg_box.exec()
+
+        if result == QMessageBox.Ok:
+            logger.info("OK clicked: Will continue ")
+            return True
+        else:
+            logger.info(
+                f"Message Dialog Box - Cancel clicked, Msg: {'Writing signals to disk may take a while. \n\nDo you want to proceed?'} ")
+            return False
     def show_missing_eeg_warning(self):
         QMessageBox.warning(
             self,
@@ -898,6 +915,7 @@ class MainApp(QMainWindow):
                     str or None: The selected file path or None if canceled.
                 """
 
+
             # Select folder
             dialog_title       = 'Select a signal export folder.'
             starting_directory = os.getcwd()
@@ -905,8 +923,12 @@ class MainApp(QMainWindow):
                 starting_directory, QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
 
             if folder_path:
-                self.edf_file_obj.edf_signals.export_signals_to_txt(folder_path, self.edf_file_obj.file_name)
-                logger.info(f'Signals written to folder: {folder_path}')
+                # Verify to proceed
+                proceed_flag = self.show_signal_export_ok_cancel_dialog()
+
+                if proceed_flag:
+                    self.edf_file_obj.edf_signals.export_signals_to_txt(folder_path, self.edf_file_obj.file_name)
+                    logger.info(f'Signals written to folder: {folder_path}')
             else:
                 logger.info(f'Folder not selected for signal export.')
                 return
