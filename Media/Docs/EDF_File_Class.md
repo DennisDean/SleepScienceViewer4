@@ -61,5 +61,5 @@ This project is licensed under the **GNU Affero General Public License v3.0**.
 See [LICENSE](LICENSE) for details.
 
 ## Acknowledgements
-This Python implementation models previous MATLAB versions and benefits from feedback on MATLAB Central, building on MATLAB code from Case Western Reserve University and Brigham and Women's Hospital.
+This Python implementation models previous **MATLAB** versions and benefits from feedback on MATLAB Central, building on MATLAB code from **Case Western Reserve University** and **Brigham and Women's Hospital**.
 

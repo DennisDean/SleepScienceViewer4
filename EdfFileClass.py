@@ -46,7 +46,6 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 import numpy as np
-from matplotlib.ticker import MultipleLocator
 import math
 
 # Set up logging
@@ -603,7 +602,7 @@ class EdfSignals:
         grid_color            = 'gray'
         signal_color          = 'blue'
         y_pad_c               = 0.05
-        tick_label_fontsize   = 7
+        tick_label_fontsize   = 6.5
         annotation_line_width = 1.5
 
         if signal_key == '':

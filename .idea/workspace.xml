@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="fix type'o in hyperlink" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="minor readme updates">
+      <change beforePath="$PROJECT_DIR$/.idea/SleepScienceViewer4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SleepScienceViewer4.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Media/Docs/EDF_File_Class.md" beforeDir="false" afterPath="$PROJECT_DIR$/Media/Docs/EDF_File_Class.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,14 +67,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Hypnogram redraws after combo box selection. Deleted hypnogram plotting function within the interface. Will use the plotting funciton within AnnotationXmlClass - Sleep Stages">
-      <option name="closed" value="true" />
-      <created>1753620464078</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1753620464078</updated>
     </task>
     <task id="LOCAL-00004" summary="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals.">
       <option name="closed" value="true" />
@@ -454,11 +452,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754576971740</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="minor readme updates">
+      <option name="closed" value="true" />
+      <created>1754577339147</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1754577339147</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added signal export menu item and deleted one signal entry. Ten entries expanded to fill the area." />
     <MESSAGE value="Export signal menu item is working." />
     <MESSAGE value="Red line plotted at annotation following a double click in the annotation list." />
     <MESSAGE value="Made progress requireing edffile is selected prior to annotation file. Window widget acting accordingly. Annotation widgets are turn off when new edf up loaded. &#10;&#10;Can not clear hystogram combobox with out creating previous encountered bug where windows are generated when signals are redrawn." />
@@ -483,14 +488,15 @@
     <MESSAGE value="Created gifs since smaller mp4 didn't work." />
     <MESSAGE value="Linked class descriptions to main README.md" />
     <MESSAGE value="fix type'o in hyperlink" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix type'o in hyperlink" />
+    <MESSAGE value="minor readme updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor readme updates" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/multitaper_spectrogram_python_class.py</url>
-          <line>434</line>
+          <line>435</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -520,7 +526,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EdfFileClass.py</url>
-          <line>328</line>
+          <line>327</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
