@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Created gifs since smaller mp4 didn't work.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Linked class descriptions to main README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Media/sleep_event_export.png" beforeDir="false" afterPath="$PROJECT_DIR$/Media/sleep_event_export.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,25 +30,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.AnnotationXmlClass.executor": "Run",
-    "Python.EdfFileClass.executor": "Run",
-    "Python.SleepScienceViewer.executor": "Run",
-    "Python.SleepScienceViewerApp.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python.edfFile.executor": "Run",
-    "Python.logging_config.executor": "Run",
-    "Python.multitaper_spectrogram_python.executor": "Run",
-    "Python.multitaper_spectrogram_python_class.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.EdfFileClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.logging_config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -450,11 +448,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754530560112</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Linked class descriptions to main README.md">
+      <option name="closed" value="true" />
+      <created>1754576462904</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1754576462904</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="All features working. Changed link in SleepXMLInfo to show XML specification. Considering deliting a signal so that ten are shown. to give room to add x and y axis to signal plots." />
     <MESSAGE value="Added a generated function for creating a signal export function." />
     <MESSAGE value="Added signal export menu item and deleted one signal entry. Ten entries expanded to fill the area." />
     <MESSAGE value="Export signal menu item is working." />
@@ -479,7 +484,8 @@
     <MESSAGE value="Converted videos to mp4" />
     <MESSAGE value="created smaller videos for the git page" />
     <MESSAGE value="Created gifs since smaller mp4 didn't work." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created gifs since smaller mp4 didn't work." />
+    <MESSAGE value="Linked class descriptions to main README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Linked class descriptions to main README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
