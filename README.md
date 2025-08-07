@@ -52,8 +52,6 @@ cd SleepScienceViewer4
 To launch the application, navigate to the installation folder and run:
 
 bash
-cd path/to/SleepScienceViewer4/
-python SleepScienceViewerApp.py
 
 ```
 cd .../Install_Folder/
