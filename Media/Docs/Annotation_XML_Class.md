@@ -11,6 +11,7 @@ The core of this module is the AnnotationXml class, which enables:
 - Summarizing and exporting annotation details.
 - Visualizing hypnograms directly within Qt-based interfaces.
 - Supporting robust access to annotation information for Python developers, complementing existing C utilities and NSRR data structures.
+
 ## Key Features
 - **XML Validation**: Validate annotation files against an XSD schema.
 - **Data Loading**: Parse sleep stages, scored events, montage configurations, and epoch length.
