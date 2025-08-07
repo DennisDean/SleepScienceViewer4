@@ -5,8 +5,6 @@ A python native EDF file and XML annotation viewer.
 ## Description
 SleepScienceViewer is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) and corresponding annotation files (XML). Designed with sleep science workflows in mind, the tool enables efficient review of signals and sleep stages through a responsive and customizable GUI.
 
-The generate options supports user report generations. EDF generated outputs include an [EDF summary](Media/edf_summary_small.mp4) and the ability to [export signals](Media/signal_export.png) to a folders. Annotation exports include a [summary report](sleep_event_summary_small.mp4), [annotation listing](Media/sleep_event_export.png), and [sleep stages](Media/sleep_stages.png). 
-
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 
 ## Key Features
@@ -23,12 +21,12 @@ The generate options supports user report generations. EDF generated outputs inc
    - Toggle how sleep stages are displayed in the hypnogram
    - Generate multi-taper spectrograms for selected signals
 - **Report Generation & Export Tools**
-   - Generate EDF summary reports
-   - Export individual signals to folder(s) for downstream use
+   - Generate [EDF summary reports](Media/edf_summary.png)
+   - Export individual [signals to folder](Media/signal_export.png)(s) for downstream use
    - Export annotation data including:
-      - A full annotation listing
-      - Sleep stage timeline
-      - Summary reports for review and documentation
+      - A [full annotation listing](Media/sleep_event_export.png)
+      - [Sleep stage timeline](Media/sleep_stages.png)
+      - [Summary reports](Media/sleep_event_summary.png) for review and documentation
 
 ## Getting Started
 
