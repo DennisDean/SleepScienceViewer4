@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="minor readme updates">
-      <change beforePath="$PROJECT_DIR$/.idea/SleepScienceViewer4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SleepScienceViewer4.iml" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Replace qt5 with a qt6 import in the multi_taper_sprectrogram file. &#10;&#10;Multiple minor read me changes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Media/Docs/EDF_File_Class.md" beforeDir="false" afterPath="$PROJECT_DIR$/Media/Docs/EDF_File_Class.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,14 +64,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Created function if EDF Signals to identify stepped and continuous functions from the sampling rate. can identify eeg, stepped, and continuous signals.">
-      <option name="closed" value="true" />
-      <created>1753641636140</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1753641636140</updated>
     </task>
     <task id="LOCAL-00005" summary="Tracking down a bug where signals are not drawn to the interface. Instead new windows are created. Some evidence that this is an interaction between default use of matplotlib and PySide 6. &#10;&#10;I removed or commented out alternative plotting functionailty through the code base. However that did not fixe the issue.">
       <option name="closed" value="true" />
@@ -460,11 +449,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754577339147</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Replace qt5 with a qt6 import in the multi_taper_sprectrogram file. &#10;&#10;Multiple minor read me changes.">
+      <option name="closed" value="true" />
+      <created>1754579970240</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1754579970240</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Export signal menu item is working." />
     <MESSAGE value="Red line plotted at annotation following a double click in the annotation list." />
     <MESSAGE value="Made progress requireing edffile is selected prior to annotation file. Window widget acting accordingly. Annotation widgets are turn off when new edf up loaded. &#10;&#10;Can not clear hystogram combobox with out creating previous encountered bug where windows are generated when signals are redrawn." />
     <MESSAGE value="EDF file load followed by annotation file load working. May want to revisit disconnecting on txt change. Seems to be working well. &#10;&#10;Signal plots could use some axis. X axis will be simpler to put in place.&#10;&#10;Y axis will need to determine stepped axis and global vs. local scaling." />
@@ -489,7 +485,8 @@
     <MESSAGE value="Linked class descriptions to main README.md" />
     <MESSAGE value="fix type'o in hyperlink" />
     <MESSAGE value="minor readme updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor readme updates" />
+    <MESSAGE value="Replace qt5 with a qt6 import in the multi_taper_sprectrogram file. &#10;&#10;Multiple minor read me changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Replace qt5 with a qt6 import in the multi_taper_sprectrogram file. &#10;&#10;Multiple minor read me changes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

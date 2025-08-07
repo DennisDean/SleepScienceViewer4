@@ -40,7 +40,7 @@ We recommend using a virtual environment when running the Sleep Science Viewer.
 Ideal for researchers, clinicians, and developers working in sleep research, human performance, or bio-signal analysis. The interface and tools are designed to streamline review and reporting workflows for sleep study data.
 
 ## Dependencies
-This application was developed in Python 3.12, with the GUI built using PySide6. Please refer to requirements.txt for a complete list of required dependencies.
+This application was developed in Python 3.12, with the GUI built using PySide6. Please refer to [requirements.txt](requirements.txt) for a complete list of required dependencies.
 
 ## Installing
 
