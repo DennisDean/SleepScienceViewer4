@@ -3,13 +3,32 @@
 A python native EDF file and XML annotation viewer. 
 
 ## Description
-
-A python native sleep science viewer that allows users to review EDF and corresponding annotations files (XML).The interface displays the file hypnogram and up to ten signals, and can show up to ten signals. Listed annotations can be filtered by type and double clicking an annotation will advance the signal to the epoch containing the annotation. Optionally, the user can change the display epoch duration, generate a multi-taper spectrogram, and can adjust how stages are displays in the hypnogram. 
+SleepScienceViewer is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) and corresponding annotation files (XML). Designed with sleep science workflows in mind, the tool enables efficient review of signals and sleep stages through a responsive and customizable GUI.
 
 The generate options supports user report generations. EDF generated outputs include an [EDF summary](Media/edf_summary_small.mp4) and the ability to [export signals](Media/signal_export.png) to a folders. Annotation exports include a [summary report](sleep_event_summary_small.mp4), [annotation listing](Media/sleep_event_export.png), and [sleep stages](Media/sleep_stages.png). 
 
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 
+## Key Features
+
+- **EDF & Annotation Support**
+   - Load EDF files with associated XML annotation files
+   - Visualize up to 10 simultaneous signals
+   - View and interact with a full hypnogram display
+- **Annotation Interaction**
+   - Filter listed annotations by type
+   - Double-click on an annotation to jump to the corresponding epoch
+- **Custom Display Options**
+   - Change epoch duration for signal navigation
+   - Toggle how sleep stages are displayed in the hypnogram
+   - Generate multi-taper spectrograms for selected signals
+- **Report Generation & Export Tools**
+   - Generate EDF summary reports
+   - Export individual signals to folder(s) for downstream use
+   - Export annotation data including:
+      - A full annotation listing
+      - Sleep stage timeline
+      - Summary reports for review and documentation
 
 ## Getting Started
 
@@ -17,16 +36,26 @@ The Sleep Science viewer requires an EDF and Annotation file. We used files down
 
 We recommend using a virtual environment when running the Sleep Science Viewer.
 
-### Dependencies
-Program developed with python 3.12 with PySide6 used for developing the interface. See [Requirements.txt ](requirements.txt)for additional dependencies.
+## Intended Use
+Ideal for researchers, clinicians, and developers working in sleep research, human performance, or bio-signal analysis. The interface and tools are designed to streamline review and reporting workflows for sleep study data.
 
-### Installing
+## Dependencies
+This application was developed in Python 3.12, with the GUI built using PySide6. Please refer to requirements.txt for a complete list of required dependencies.
+
+## Installing
 
 Clone to local environment. See below for run command.
 
-### Executing program
+git clone https://github.com/DennisDean/SleepScienceViewer4.git
+cd SleepScienceViewer4
 
-* How to run the program
+## Running the Application
+
+To launch the application, navigate to the installation folder and run:
+
+bash
+cd path/to/SleepScienceViewer4/
+python SleepScienceViewerApp.py
 
 ```
 cd .../Install_Folder/
@@ -35,30 +64,32 @@ python SleepScienceViewerApp
 
 ## Help
 
-Will add as questions are received. 
+Help documentation will be added as questions are received and common usage scenarios emerge.
+For questions or feedback, feel free to reach out to the author listed below.
 
 ## Authors
 
 Contributors names and contact info
 
-Dennis A. Dean, II, Phd
+**Dennis A. Dean, II, PhD**
 dennis.a.dean@gmail.com
 
 ## Version History
 
-* 0.1
+* v0.1
     * First functioning release
-
 
 ## License
 
-This project is licensed under the GNU Affero General Public License v3.0 License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the **GNU Affero General Public License v3.0 License**.
+See the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
+This project builds on work originally developed during my time at **Brigham and Women's Hospital**, where a similar class structure was used in earlier internal tools.
 
-The python code extends into a class structure code I wrote when I was at Brigham and Women's Hospital. The
-authored MATLAB code benefited from feedback received following public release on MATLAB central. The original MATLAB
-code benefited from code developed at Case Western University. 
+The original **MATLAB version** of this tool was shaped by valuable community feedback received following its public release on **MATLAB Central**.
 
-A re-factored version of the [multitaper_spectorgram_python.py](https://github.com/preraulab/multitaper_toolbox/blob/master/python/multitaper_spectrogram_python.py) file was used to provide a multi-taper spectrogram option. 
-Information about the method can be found [here](https://prerau.bwh.harvard.edu/multitaper/). 
+It also benefited from code developed at **Case Western Reserve University**.
+
+Special thanks to the authors of the [multitaper_spectorgram_python.py](https://github.com/preraulab/multitaper_toolbox/blob/master/python/multitaper_spectrogram_python.py) module, which was refactored for this application to support multi-taper spectrogram visualization.
+More information on the multi-taper method can be found on the [Prerau Lab website](https://prerau.bwh.harvard.edu/multitaper/).
