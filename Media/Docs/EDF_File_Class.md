@@ -34,12 +34,12 @@ edf.edf_signals.export_sig_stats_to_csv()
 ```
 
 ## Modules and Classes
-**EdfHeader**: Stores EDF header info
-**EdfSignalHeader**: Stores signal header info
-**EdfSignals**: Manages signal data and analysis
-**EdfSignal**: Represents individual signals
-**EdfSignalsStats**: Holds computed signal statistics
-**EdfFile**: Main class for loading and processing EDF files
+- **EdfHeader**: Stores EDF header info
+- **EdfSignalHeader**: Stores signal header info
+- **EdfSignals**: Manages signal data and analysis
+- **EdfSignal**: Represents individual signals
+- **EdfSignalsStats**: Holds computed signal statistics
+- **EdfFile**: Main class for loading and processing EDF files
 
 ## Utilities
 Includes functions for generating timestamped filenames, converting objects for JSON serialization, and plotting signal segments within GUIs.
@@ -58,7 +58,7 @@ dennis.a.dean@gmail.com
 
 ## License
 This project is licensed under the **GNU Affero General Public License v3.0**.
-See LICENSE for details.
+See [LICENSE](LICENSE) for details.
 
 ## Acknowledgements
 This Python implementation models previous MATLAB versions and benefits from feedback on MATLAB Central, building on MATLAB code from Case Western Reserve University and Brigham and Women's Hospital.

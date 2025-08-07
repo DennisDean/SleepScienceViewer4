@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Linked class descriptions to main README.md">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="fix type'o in hyperlink" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,22 +61,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Mostly working app with functionality in main window features. Menus are not implemented. Annotation and EDF classes are well developed. Fell a sleep on the keyboard and introduce a bug on multuple EDF load. 90% move of hypnogram drawing from viewer to annotation class. Need step function identification for spectrogram list. Neither y axis of x axis implemented in signals.">
-      <option name="closed" value="true" />
-      <created>1753616534920</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1753616534920</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Hypnogram labels working again after inverting hypnogram axis. Created a function to return sleep stage mapping.">
-      <option name="closed" value="true" />
-      <created>1753618096288</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1753618096288</updated>
     </task>
     <task id="LOCAL-00003" summary="Hypnogram redraws after combo box selection. Deleted hypnogram plotting function within the interface. Will use the plotting funciton within AnnotationXmlClass - Sleep Stages">
       <option name="closed" value="true" />
@@ -456,11 +438,26 @@
       <option name="project" value="LOCAL" />
       <updated>1754576462904</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="fix type'o in hyperlink">
+      <option name="closed" value="true" />
+      <created>1754576963361</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1754576963361</updated>
+    </task>
+    <task id="LOCAL-00051" summary="fix type'o in hyperlink">
+      <option name="closed" value="true" />
+      <created>1754576971740</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1754576971740</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added a generated function for creating a signal export function." />
     <MESSAGE value="Added signal export menu item and deleted one signal entry. Ten entries expanded to fill the area." />
     <MESSAGE value="Export signal menu item is working." />
     <MESSAGE value="Red line plotted at annotation following a double click in the annotation list." />
@@ -485,7 +482,8 @@
     <MESSAGE value="created smaller videos for the git page" />
     <MESSAGE value="Created gifs since smaller mp4 didn't work." />
     <MESSAGE value="Linked class descriptions to main README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Linked class descriptions to main README.md" />
+    <MESSAGE value="fix type'o in hyperlink" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix type'o in hyperlink" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
