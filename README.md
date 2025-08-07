@@ -46,8 +46,10 @@ This application was developed in Python 3.12, with the GUI built using PySide6.
 
 Clone to local environment. See below for run command.
 
+```
 git clone https://github.com/DennisDean/SleepScienceViewer4.git
 cd SleepScienceViewer4
+```
 
 ## Running the Application
 
