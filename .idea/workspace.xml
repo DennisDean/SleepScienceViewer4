@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fixed x axis labels. Cleaned up code.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters.">
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,14 +63,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries">
-      <option name="closed" value="true" />
-      <created>1753717664522</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1753717664522</updated>
     </task>
     <task id="LOCAL-00008" summary="Figure commands removed from the parent widget block so that all figur-canvas-layout information is in one block. Code work with expected buggy behavior. Switched to working with annotation code since the function is simpler. Turns out two figure windows are generated upon load; resulting in one figure for each supported type of histogram.">
       <option name="closed" value="true" />
@@ -459,11 +448,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754679638594</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters.">
+      <option name="closed" value="true" />
+      <created>1754692846085</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1754692846085</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="EDF file load followed by annotation file load working. May want to revisit disconnecting on txt change. Seems to be working well. &#10;&#10;Signal plots could use some axis. X axis will be simpler to put in place.&#10;&#10;Y axis will need to determine stepped axis and global vs. local scaling." />
     <MESSAGE value="Updated interface to give more room to signals. Added x axis labels. Need to lower the labels. Then I will work on the y axis." />
     <MESSAGE value="Deleted color boxes. X axis are set. Major tick labels adjust by epoch width and include units." />
     <MESSAGE value="Added licene information. Did some basic testing of all functionality." />
@@ -488,7 +484,8 @@
     <MESSAGE value="Replace qt5 with a qt6 import in the multi_taper_sprectrogram file. &#10;&#10;Multiple minor read me changes." />
     <MESSAGE value="Rebuilt requirements.txt and linked to in README.md" />
     <MESSAGE value="Fixed x axis labels. Cleaned up code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed x axis labels. Cleaned up code." />
+    <MESSAGE value="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

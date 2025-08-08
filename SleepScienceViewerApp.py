@@ -602,7 +602,7 @@ class MainApp(QMainWindow):
                 event_type = item_text[t_start:t_end].strip()
                 # item.setBackground(QBrush(QColor("black")))
                 if event_type in color_dict.keys():
-                    text_color = self.invert_color(color_dict[event_type])
+                    text_color = 'black'
                 else:
                     text_color = 'black'
                 item.setForeground(QBrush(QColor(text_color)))
