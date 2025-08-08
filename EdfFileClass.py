@@ -164,17 +164,17 @@ class EdfSignalHeader:
         Args:
             number_of_signals: Number of signals in the EDF file.
         """
-        self.number_of_signals = number_of_signals
-        self.signal_labels = np.empty(number_of_signals, dtype='U16')
-        self.transducer_type = np.empty(number_of_signals, dtype='U80')
+        self.number_of_signals  = number_of_signals
+        self.signal_labels      = np.empty(number_of_signals, dtype='U16')
+        self.transducer_type    = np.empty(number_of_signals, dtype='U80')
         self.physical_dimension = np.empty(number_of_signals, dtype='U8')
-        self.physical_min = np.empty(number_of_signals, dtype='float64')
-        self.physical_max = np.empty(number_of_signals, dtype='float64')
-        self.digital_min = np.empty(number_of_signals, dtype='float64')
-        self.digital_max = np.empty(number_of_signals, dtype='float64')
-        self.prefiltering = np.empty(number_of_signals, dtype='U80')
-        self.samples_in_record = np.empty(number_of_signals, dtype='float64')
-        self.reserve_2 = np.empty(number_of_signals, dtype='U32')
+        self.physical_min       = np.empty(number_of_signals, dtype='float64')
+        self.physical_max       = np.empty(number_of_signals, dtype='float64')
+        self.digital_min        = np.empty(number_of_signals, dtype='float64')
+        self.digital_max        = np.empty(number_of_signals, dtype='float64')
+        self.prefiltering       = np.empty(number_of_signals, dtype='U80')
+        self.samples_in_record  = np.empty(number_of_signals, dtype='float64')
+        self.reserve_2          = np.empty(number_of_signals, dtype='U32')
     def summary(self):
         """Log a summary of the EDF signal header information."""
         logger.info("EDF Signal Header Summary:")
@@ -673,7 +673,7 @@ class EdfSignals:
         ax.set_xticks(minor_ticks, minor=True)
 
         # Set labels only for major ticks
-        ax.set_xticklabels([f"{x}{time_axis_units}" for x in major_ticks], fontsize=tick_label_fontsize)
+        ax.set_xticklabels([f"{convert_time_f(x)}{time_axis_units}" for x in major_ticks], fontsize=tick_label_fontsize)
 
         # Enable grid lines for major and minor ticks
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')

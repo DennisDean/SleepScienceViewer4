@@ -12,6 +12,8 @@ This code is companion to the paper:
 
         Copyright 2021 Michael J. Prerau Laboratory. - https://www.sleepEEG.org
         Authors: Michael J. Prerau, Ph.D., Thomas Possidente, Mingjian He
+
+        BSD 3-Clause License
 """
 
 # Revisions made to the file to align with a class approach

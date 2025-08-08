@@ -508,9 +508,9 @@ class MainApp(QMainWindow):
             combo_box.blockSignals(False)
 
         # Update epoch label string
-        epoch_width = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
         self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
-        time_str = self.return_time_string(current_epoch, epoch_width)
+        time_str       = self.return_time_string(current_epoch, epoch_width)
         self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
     def show_ok_cancel_dialog(parent=None):
         msg_box = QMessageBox(parent)
