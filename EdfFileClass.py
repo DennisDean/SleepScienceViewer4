@@ -29,6 +29,9 @@ See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
+# To Do List
+# TODO: Add support for color signals
+
 # Import Modules
 import os
 import logging

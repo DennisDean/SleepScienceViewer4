@@ -26,6 +26,8 @@ See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
+# To Do List
+# TODO: Support for changing signal color
 # TODO: clean up video
 
 # PySide6 imports
@@ -35,6 +37,8 @@ from PySide6.QtGui import QFont, QFontDatabase
 from PySide6.QtCore import QEvent, Qt, QObject
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QWidget
+from PySide6.QtGui import QColor, QBrush
+from PySide6.QtWidgets import QListWidgetItem
 
 # System Imports
 import os
@@ -591,7 +595,17 @@ class MainApp(QMainWindow):
             self.ui.annotation_comboBox.addItems(annotations_type_list)
             self.ui.annotation_listWidget.clear()
             annotations_list = self.annotation_xml_obj.scored_event_obj.scored_event_name_source_time_list
-            for item in annotations_list:
+            t_start, t_end = self.extract_event_indexes(annotations_list[0])
+            color_dict = self.annotation_xml_obj.scored_event_obj.scored_event_color_dict
+            for item_text in annotations_list:
+                item = QListWidgetItem(item_text)
+                event_type = item_text[t_start:t_end].strip()
+                # item.setBackground(QBrush(QColor("black")))
+                if event_type in color_dict.keys():
+                    text_color = self.invert_color(color_dict[event_type])
+                else:
+                    text_color = 'black'
+                item.setForeground(QBrush(QColor(text_color)))
                 self.ui.annotation_listWidget.addItem(item)
             self.annotations_list = annotations_list
 
@@ -664,6 +678,19 @@ class MainApp(QMainWindow):
         self.ui.annotation_listWidget.clear()
 
         # Clear spectrogram
+    def extract_event_indexes(self, entry_text):
+        index_start = entry_text.find('Name')
+        index_end   = entry_text.find('Input')
+        return (index_start, index_end)
+    def invert_color(self, hex_color):
+        hex_color = hex_color.lstrip('#')
+        rgb_color = tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
+        i_rgb     = tuple(255 - c for c in rgb_color)
+        brightness = 0.299*i_rgb[0] + 0.587*i_rgb[1] + 0.114*i_rgb[2]
+        if brightness > 100:
+            factor = 100 / brightness
+            i_rgb  =  tuple(int(c * factor) for c in i_rgb)
+        return "#{:02X}{:02X}{:02X}".format(*i_rgb)
     # Epochs
     def set_epoch_to_first(self):
         """

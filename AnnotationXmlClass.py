@@ -62,11 +62,13 @@ import numpy as np
 # Required for plotting
 # import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
 
 # To Do List
 # TODO: Add N3 collapse summary to json export
+# TODO: Use color for annotation
+
 
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
@@ -453,29 +455,38 @@ class SleepStages:
         # Override default class description
         return f'SleepStages(number of epochs = {len(self.num_stages)}, epoch duration = {self.sleep_epoch }")'
 class SignalAnnotations:
-    def __init__(self, scoredEvents, scoredEventSettings):
+    def __init__(self, scoredEvents, scoredEventSettings: Dict[str,Dict[str,str]]):
 
         # Define some variables set during initialization
-        self.scored_events_sum_dict = {}
-        self.scored_event_unique_names = []
+        self.scored_events_sum_dict     = {}
+        self.scored_event_unique_names  = []
         self.scored_event_unique_inputs = []
-        self.scored_event_unique_keys = []
-        self.scored_event_types = []
+        self.scored_event_unique_keys   = []
+        self.scored_event_types         = []
 
         # Process Scored Event Settings
-        self.scoredEventSettings   = scoredEventSettings
-        self.color_dict            = self.summarize_scored_settings()
+        self.scoredEventSettings        = scoredEventSettings
+        self.color_dict                 = self.summarize_scored_settings()
+
+        # Create an annotation dictionary
+        print(scoredEventSettings)
+        self.scored_event_color_f       = lambda annot_key : int(scoredEventSettings[annot_key]['Colour'])
+        self.color_24_to_hex_f          = lambda color_int : "#{:06X}".format(color_int)
+        self.scored_event_color_dict    = {}
+        for key in self.scoredEventSettings.keys():
+           self.scored_event_color_dict[key] = self.color_24_to_hex_f(self.scored_event_color_f(key))
+        print(self.scored_event_color_dict)
 
         # Process Scored Events
         self.scoredEvents          = scoredEvents
         self.scoredEvents_sum_dict = self.summarize_scoredEvents(self.scoredEvents)
         self.sleep_events_df       = self.create_sleep_events_dataframe(self.scoredEvents)
         self.df_summary_cols       = ['Start', 'Name', 'Input']
-        self.scored_event_name_source_time_list =  \
-                                    self.df_columns_to_text(self.sleep_events_df, self.df_summary_cols)
+        self.scored_event_name_source_time_list \
+                                   = self.df_columns_to_text(self.sleep_events_df, self.df_summary_cols)
 
         # Output Control
-        self.output_dir = os.getcwd()
+        self.output_dir            = os.getcwd()
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
@@ -846,12 +857,12 @@ class AnnotationXml:
         """
 
         # File variables
-        self.annotationFile = ''
-        self.file_name      = None
-        self.file_exists    = False
+        self.annotationFile  = ''
+        self.file_name       = None
+        self.file_exists     = False
 
         # Class flags
-        self.file_loaded = False
+        self.file_loaded     = False
 
         # XML Variables
         self.xml_tree        = None
@@ -1000,7 +1011,7 @@ class AnnotationXml:
                 # Create Sleep Stages Object
                 self.sleep_stages_obj = SleepStages(self.epochLength, self.sleepStages)
 
-                # Moving Scored Events to Seperate Class
+                # Moving Scored Events to Separate Class
                 self.scored_event_obj       = SignalAnnotations(self.scoredEvents, self.scoredEventSettings)
         else:
             logger.error(f"** File Not Found: {self.annotationFile} **")

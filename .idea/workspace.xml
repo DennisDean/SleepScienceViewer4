@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Rebuilt requirements.txt and linked to in README.md">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fixed x axis labels. Cleaned up code.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnnotationXmlClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnnotationXmlClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/multitaper_spectrogram_python_class.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,14 +66,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Tracking down a bug where signals are not drawn to the interface. Instead new windows are created. Some evidence that this is an interaction between default use of matplotlib and PySide 6. &#10;&#10;I removed or commented out alternative plotting functionailty through the code base. However that did not fixe the issue.">
-      <option name="closed" value="true" />
-      <created>1753717177878</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1753717177878</updated>
     </task>
     <task id="LOCAL-00007" summary="Tried suggested fix. Made it worst. Reverting to previous code in next commit. Also noticed that same issue exist for load annotation. Issue likely emerged when deleting unused matplotlib related libraries">
       <option name="closed" value="true" />
@@ -459,11 +451,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754580553725</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Fixed x axis labels. Cleaned up code.">
+      <option name="closed" value="true" />
+      <created>1754679638593</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1754679638594</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Made progress requireing edffile is selected prior to annotation file. Window widget acting accordingly. Annotation widgets are turn off when new edf up loaded. &#10;&#10;Can not clear hystogram combobox with out creating previous encountered bug where windows are generated when signals are redrawn." />
     <MESSAGE value="EDF file load followed by annotation file load working. May want to revisit disconnecting on txt change. Seems to be working well. &#10;&#10;Signal plots could use some axis. X axis will be simpler to put in place.&#10;&#10;Y axis will need to determine stepped axis and global vs. local scaling." />
     <MESSAGE value="Updated interface to give more room to signals. Added x axis labels. Need to lower the labels. Then I will work on the y axis." />
     <MESSAGE value="Deleted color boxes. X axis are set. Major tick labels adjust by epoch width and include units." />
@@ -488,7 +487,8 @@
     <MESSAGE value="minor readme updates" />
     <MESSAGE value="Replace qt5 with a qt6 import in the multi_taper_sprectrogram file. &#10;&#10;Multiple minor read me changes." />
     <MESSAGE value="Rebuilt requirements.txt and linked to in README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rebuilt requirements.txt and linked to in README.md" />
+    <MESSAGE value="Fixed x axis labels. Cleaned up code." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed x axis labels. Cleaned up code." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -500,43 +500,48 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>329</line>
+          <line>331</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>451</line>
+          <line>453</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>147</line>
+          <line>151</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>625</line>
+          <line>639</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>440</line>
+          <line>442</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>42</line>
+          <line>46</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>527</line>
+          <line>531</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>744</line>
+          <line>771</line>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
+          <line>850</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
