@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters.">
-      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="removed debugging print statements to test install.">
+      <change afterPath="$PROJECT_DIR$/dist/sleepscienceviewer-0.1.0-py3-none-any.whl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/sleepscienceviewer-0.1.0.tar.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,22 +66,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Figure commands removed from the parent widget block so that all figur-canvas-layout information is in one block. Code work with expected buggy behavior. Switched to working with annotation code since the function is simpler. Turns out two figure windows are generated upon load; resulting in one figure for each supported type of histogram.">
-      <option name="closed" value="true" />
-      <created>1753724136141</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1753724136141</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Seemed to fine bug which a down stream consequence of not turning off the combox signals while updating the list.">
-      <option name="closed" value="true" />
-      <created>1753725070198</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1753725070198</updated>
     </task>
     <task id="LOCAL-00010" summary="Mad same change for EDF file load. Instead of a handful of figures created only two figures created. Progress.">
       <option name="closed" value="true" />
@@ -456,12 +443,26 @@
       <option name="project" value="LOCAL" />
       <updated>1754692846085</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="turned off color text in annotation. Just not worth the work.">
+      <option name="closed" value="true" />
+      <created>1754693238244</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1754693238244</updated>
+    </task>
+    <task id="LOCAL-00058" summary="removed debugging print statements to test install.">
+      <option name="closed" value="true" />
+      <created>1754710297952</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1754710297952</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated interface to give more room to signals. Added x axis labels. Need to lower the labels. Then I will work on the y axis." />
-    <MESSAGE value="Deleted color boxes. X axis are set. Major tick labels adjust by epoch width and include units." />
     <MESSAGE value="Added licene information. Did some basic testing of all functionality." />
     <MESSAGE value="Update signal plot to remove axis warning.  Plotting could use some work. good for now." />
     <MESSAGE value="Fixed signal folder-select dialog box to state select a folder." />
@@ -485,7 +486,9 @@
     <MESSAGE value="Rebuilt requirements.txt and linked to in README.md" />
     <MESSAGE value="Fixed x axis labels. Cleaned up code." />
     <MESSAGE value="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters." />
+    <MESSAGE value="turned off color text in annotation. Just not worth the work." />
+    <MESSAGE value="removed debugging print statements to test install." />
+    <option name="LAST_COMMIT_MESSAGE" value="removed debugging print statements to test install." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -494,16 +497,6 @@
           <url>file://$PROJECT_DIR$/multitaper_spectrogram_python_class.py</url>
           <line>437</line>
           <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>331</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>453</line>
-          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
@@ -516,11 +509,6 @@
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>442</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
           <line>46</line>
           <option name="timeStamp" value="36" />
@@ -529,16 +517,6 @@
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
           <line>531</line>
           <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>771</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/AnnotationXmlClass.py</url>
-          <line>850</line>
-          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
