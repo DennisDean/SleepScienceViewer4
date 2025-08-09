@@ -45,22 +45,16 @@ This application was developed in Python 3.12, with the GUI built using PySide6.
 ## Installing
 
 **1. Install pipx**
-
-bash
 ```
 python -m pip install --user pipx
 python -m pipx ensurepath
 ```
 **2. Download install package**
-
-bash
 ```
 git clone https://github.com/DennisDean/SleepScienceViewer4.git
 cd SleepScienceViewer4/dist
 ```
 **3. Install SleepScience Viewer**
-
-bash
 ```
 pipx install sleepscienceviewer-0.1.0-py3-none-any.whl
 ```
@@ -69,7 +63,6 @@ pipx install sleepscienceviewer-0.1.0-py3-none-any.whl
 
 To launch the application, navigate to the installation folder and run:
 
-bash
 ```
 SleepScienceViewer
 ```
