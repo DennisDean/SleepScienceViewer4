@@ -42,6 +42,10 @@ Ideal for researchers, clinicians, and developers working in sleep research, hum
 ## Dependencies
 This application was developed in Python 3.12, with the GUI built using PySide6. Please refer to [requirements.txt](requirements.txt) for a complete list of required dependencies.
 
+## Download Test Data
+
+We tested the SleepScienceViewer with data from (here)[https://zzz.bwh.harvard.edu/luna/tut/tut1/].
+
 ## Installing
 
 **1. Install pipx**
