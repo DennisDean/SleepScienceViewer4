@@ -65,7 +65,7 @@ pipx install sleepscienceviewer-0.1.0-py3-none-any.whl
 
 ## Running the Application
 
-To launch the application, navigate to the installation folder and run:
+To launch the application:
 
 ```
 SleepScienceViewer
