@@ -44,7 +44,7 @@ This application was developed in Python 3.12, with the GUI built using PySide6.
 
 ## Download Test Data
 
-We tested the SleepScienceViewer with data from (here)[https://zzz.bwh.harvard.edu/luna/tut/tut1/].
+We tested the SleepScienceViewer with data from [here](https://zzz.bwh.harvard.edu/luna/tut/tut1/).
 
 ## Installing
 
