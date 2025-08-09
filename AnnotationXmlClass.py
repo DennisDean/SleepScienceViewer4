@@ -469,13 +469,11 @@ class SignalAnnotations:
         self.color_dict                 = self.summarize_scored_settings()
 
         # Create an annotation dictionary
-        print(scoredEventSettings)
         self.scored_event_color_f       = lambda annot_key : int(scoredEventSettings[annot_key]['Colour'])
         self.color_24_to_hex_f          = lambda color_int : "#{:06X}".format(color_int)
         self.scored_event_color_dict    = {}
         for key in self.scoredEventSettings.keys():
            self.scored_event_color_dict[key] = self.color_24_to_hex_f(self.scored_event_color_f(key))
-        print(self.scored_event_color_dict)
 
         # Process Scored Events
         self.scoredEvents          = scoredEvents
