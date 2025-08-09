@@ -81,6 +81,7 @@ For questions or feedback, feel free to reach out to the author listed below.
 Contributors names and contact info
 
 **Dennis A. Dean, II, PhD**
+
 dennis.a.dean@gmail.com
 
 ## Version History
