@@ -59,6 +59,8 @@ from logging_config import logger
 
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
+from SignalViewer import Ui_SignalWindow
+from SignalWindowClass import SignalWindow
 
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
@@ -162,6 +164,7 @@ class NumericTextEditFilter(QObject):
                 return True  # Filter out non-numeric input
         return False
 class MainApp(QMainWindow):
+    # Initialize Windows
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -288,12 +291,20 @@ class MainApp(QMainWindow):
         self.ui.actionAnnotation_Export.triggered.connect(self.annotation_export_menu_item)
         self.ui.actionSleep_Stages_Export.triggered.connect(self.sleep_stages_export_menu_item)
 
+        self.ui.actionOpen_Signal_Window.triggered.connect(self.open_signal_view)
+
         self.ui.actionEDF_Standard.triggered.connect(self.edf_standard_menu_item)
         self.ui.actionAnnotation_Standard.triggered.connect(self.xml_standard_menu_item)
         self.ui.actionAbout.triggered.connect(self.about_menu_item)
 
         # Turn Off Epoch Buttons
         self.turn_off_edf_signal_pushbuttons()
+
+        # Save space for windows
+        self.signal_view_window = None
+    def open_signal_view(self):
+        self.signal_window = SignalWindow(signal_data=None)
+        self.signal_window.show()
     # Initialize EDF
     def load_edf_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", "", "EDF Files (*.edf)")

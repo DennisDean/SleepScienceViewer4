@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added distribution wheel.">
+      <change afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SleepScienceViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewer.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,25 +39,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.EdfFileClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.logging_config.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
-    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.AnnotationXmlClass.executor": "Run",
+    "Python.EdfFileClass.executor": "Run",
+    "Python.SleepScienceViewer.executor": "Run",
+    "Python.SleepScienceViewerApp.executor": "Run",
+    "Python.__init__.executor": "Run",
+    "Python.edfFile.executor": "Run",
+    "Python.logging_config.executor": "Run",
+    "Python.multitaper_spectrogram_python.executor": "Run",
+    "Python.multitaper_spectrogram_python_class.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Development-SignalView",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -503,12 +506,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>151</line>
+          <line>153</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>639</line>
+          <line>650</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -518,7 +521,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>531</line>
+          <line>542</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
