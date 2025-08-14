@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added distribution wheel.">
-      <change afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Signal Viewer Window launches. Widget sizes are fixed and do not scale when the window is maximized.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SleepScienceViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SleepScienceViewer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewer.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +40,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.AnnotationXmlClass.executor": "Run",
     "Python.EdfFileClass.executor": "Run",
+    "Python.SignalViewer.executor": "Run",
     "Python.SleepScienceViewer.executor": "Run",
     "Python.SleepScienceViewerApp.executor": "Run",
     "Python.__init__.executor": "Run",
@@ -72,14 +69,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00011" summary="including workspace.xml in commit. File maintains project level information">
-      <option name="closed" value="true" />
-      <created>1753725488898</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1753725488898</updated>
     </task>
     <task id="LOCAL-00012" summary="I replaced the edf graphics code in the edf plot with the code in annotation plot which is working. The did change in code did not work. Will be looking at places signal combo boxes are changed next">
       <option name="closed" value="true" />
@@ -465,11 +454,18 @@
       <option name="project" value="LOCAL" />
       <updated>1754713317345</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Signal Viewer Window launches. Widget sizes are fixed and do not scale when the window is maximized.">
+      <option name="closed" value="true" />
+      <created>1755137782437</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1755137782437</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update signal plot to remove axis warning.  Plotting could use some work. good for now." />
     <MESSAGE value="Fixed signal folder-select dialog box to state select a folder." />
     <MESSAGE value="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct." />
     <MESSAGE value="Add hypnogram that collapses N3-N4" />
@@ -494,7 +490,8 @@
     <MESSAGE value="turned off color text in annotation. Just not worth the work." />
     <MESSAGE value="removed debugging print statements to test install." />
     <MESSAGE value="Added distribution wheel." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added distribution wheel." />
+    <MESSAGE value="Signal Viewer Window launches. Widget sizes are fixed and do not scale when the window is maximized." />
+    <option name="LAST_COMMIT_MESSAGE" value="Signal Viewer Window launches. Widget sizes are fixed and do not scale when the window is maximized." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
