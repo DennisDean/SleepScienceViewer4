@@ -179,13 +179,19 @@ class MainApp(QMainWindow):
         # Initialize control variables
         self.edf_file_obj:EdfFile                   = None
         self.annotation_xml_obj: AnnotationXmlClass = None
+
+        # Setting up for automatic file recomendation selection
+        self.text_similarity_threshold             = 0.9
+
+        # Define how widgets show up
+        self.listBoxFontSize                       = 9
+
+        # Set up epoch controls
         self.epoch_display_options_text: List       = ['30 s', '1 min', '5 min', '10 min', '1 hr']
         self.epoch_display_options_width_sec: List  = [ 30,     60,      300,     600,      3600]
         self.epoch_display_axis_grid: List          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
         self.epoch_axis_units: List                 = ['s', 's', 'm', 'm', 'm']
         self.time_convert_f: List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min]
-        self.text_similarity_threshold             = 0.9
-        self.listBoxFontSize                       = 9
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
@@ -303,7 +309,7 @@ class MainApp(QMainWindow):
         # Save space for windows
         self.signal_view_window = None
     def open_signal_view(self):
-        self.signal_window = SignalWindow(signal_data=None)
+        self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj, parent=None)
         self.signal_window.show()
     # Initialize EDF
     def load_edf_file(self):

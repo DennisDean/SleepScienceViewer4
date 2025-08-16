@@ -31,6 +31,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # To Do List
 # TODO: Add support for color signals
+# TODO: Add support of selecting signals to load
 
 # Import Modules
 import os
@@ -330,7 +331,7 @@ class EdfSignalsStats:
             logger.error(f"Excel export failed: {e}")
 class EdfSignals:
     """Class for storing and summarizing EDF signal data loaded from an EDF file."""
-    BYTES_PER_SAMPLE = 2
+    BYTES_PER_SAMPLE = 2 # Set to original standard value. May support larger bytes per sample in the future
     def __init__(self, signal_labels: List[str], signals_dict:Dict[str,List[float]],
                  signal_sampling_time_dict:Dict[str,float],signal_units_dict:Dict[str,str]):
         """Initialize EdfSignals.
@@ -793,7 +794,7 @@ class EdfFile:
         """
         self.file_w_path = file_path or ''
         self.file_name = os.path.basename(file_path) if file_path else ''
-        self.signal_labels = signal_labels or []
+        self.signal_labels = signal_labels or []  # not implemented yet
         self.epochs = epochs
 
         self._file_set = bool(file_path)
