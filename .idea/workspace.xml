@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Signal viewer scales appropriately. Will tweak interface later. Better to spend time populating with a signal and analysis to load annotations.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="signal list is set and defaults to first signal in viewer. Add epoch widget controls. Need to activate controls next.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignalWindowClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
@@ -38,28 +37,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.AnnotationXmlClass.executor": "Run",
-    "Python.EdfFileClass.executor": "Run",
-    "Python.SignalViewer.executor": "Run",
-    "Python.SignalWindowClass.executor": "Run",
-    "Python.SleepScienceViewer.executor": "Run",
-    "Python.SleepScienceViewerApp.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python.edfFile.executor": "Run",
-    "Python.logging_config.executor": "Run",
-    "Python.multitaper_spectrogram_python.executor": "Run",
-    "Python.multitaper_spectrogram_python_class.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Development-SignalView",
-    "last_opened_file_path": "/home/dennis/PycharmProjects/SleepScienceViewer4",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.EdfFileClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SignalViewer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SignalWindowClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.logging_config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Development-SignalView&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dennis/PycharmProjects/SleepScienceViewer4&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -74,14 +73,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Added reset function which is helping. Need to take a break. When returning will create a function for explicitly resetting widgets to default values.">
-      <option name="closed" value="true" />
-      <created>1753728600134</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1753728600134</updated>
     </task>
     <task id="LOCAL-00015" summary="Added reset function which is helping. Need to take a break. When returning will create a function for explicitly resetting widgets to default values.">
       <option name="closed" value="true" />
@@ -467,11 +458,18 @@
       <option name="project" value="LOCAL" />
       <updated>1755141516536</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Passing in edf and xml objections into the signal viewer. Loaded signals combo box">
+      <option name="closed" value="true" />
+      <created>1755365669671</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1755365669671</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed sleep stage log file to show number of stages. Sleep stages exports seems correct." />
     <MESSAGE value="Add hypnogram that collapses N3-N4" />
     <MESSAGE value="Synced hypnogram label sizes. Made signal plot labels bigger." />
     <MESSAGE value="Added n3 collapsed stages to export. Would be nice to add to summary; skipping for now." />
@@ -496,7 +494,8 @@
     <MESSAGE value="Added distribution wheel." />
     <MESSAGE value="Signal Viewer Window launches. Widget sizes are fixed and do not scale when the window is maximized." />
     <MESSAGE value="Signal viewer scales appropriately. Will tweak interface later. Better to spend time populating with a signal and analysis to load annotations." />
-    <option name="LAST_COMMIT_MESSAGE" value="Signal viewer scales appropriately. Will tweak interface later. Better to spend time populating with a signal and analysis to load annotations." />
+    <MESSAGE value="Passing in edf and xml objections into the signal viewer. Loaded signals combo box" />
+    <option name="LAST_COMMIT_MESSAGE" value="Passing in edf and xml objections into the signal viewer. Loaded signals combo box" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -513,7 +512,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>656</line>
+          <line>654</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -523,8 +522,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>548</line>
+          <line>546</line>
           <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
+          <line>167</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

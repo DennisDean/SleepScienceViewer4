@@ -244,6 +244,7 @@ class MainApp(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.epochs_textEdit.installEventFilter(self.numeric_filter)
+        #self.ui.epochs_textEdit.addAction()
         self.ui.epoch_comboBox.currentIndexChanged.connect(self.on_epoch_width_change)
 
         # Set up for a single function combobox change
@@ -308,9 +309,6 @@ class MainApp(QMainWindow):
 
         # Save space for windows
         self.signal_view_window = None
-    def open_signal_view(self):
-        self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj, parent=None)
-        self.signal_window.show()
     # Initialize EDF
     def load_edf_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", "", "EDF Files (*.edf)")
@@ -894,6 +892,7 @@ class MainApp(QMainWindow):
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     # Menu Item
+    # File
     def open_edf_menu_item(self):
         self.load_edf_file()
     def open_xml_menu_item(self):
@@ -904,6 +903,7 @@ class MainApp(QMainWindow):
         msg_box.setText("Settings item is not implemented yet")
         msg_box.setIcon(QMessageBox.Information)
         msg_box.exec()
+    # Generate
     def edf_summary_menu_item(self):
         logger.info(f'EDF Summary Menu Item selected')
         if self.edf_file_obj != None:
@@ -1088,6 +1088,14 @@ class MainApp(QMainWindow):
                 return None
         else:
             logger.info(f'Sleep Stages Export Menu Item: Annotation File not loaded. Summary not created')
+    # Window
+    def open_signal_view(self):
+        # Get index value for first signal graphic view
+        signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
+        self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
+                                          signal_combobox_index = signal_combobox_index, parent=None)
+        self.signal_window.show()
+    # Help
     def xml_standard_menu_item(self):
         dlg = SleepXMLInfoDialog(self)
         dlg.exec()
