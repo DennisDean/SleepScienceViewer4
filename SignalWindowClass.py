@@ -25,7 +25,6 @@ logger = logging.getLogger(__name__)
 # TODO: Draw signals
 # TODO: Respond to epoch change
 # TODO: Add Epoch Number to Signals
-# TODO: Push Button update name does not conform with other buttons
 
 # Utilities
 class NumericTextEditFilter(QObject):
@@ -84,7 +83,7 @@ class SignalWindow(QMainWindow):
 
         # Setup epoch widgets
         self.ui.pushButton_first.clicked.connect(self.set_epoch_to_first)
-        self.ui.pushButton__next.clicked.connect(self.set_epoch_to_next)
+        self.ui.pushButton_next.clicked.connect(self.set_epoch_to_next)
         self.ui.pushButton_update.clicked.connect(self.set_epoch_from_text)
         self.ui.pushButton_previous.clicked.connect(self.set_epoch_to_prev)
         self.ui.pushButton_last.clicked.connect(self.set_epoch_to_last)
@@ -97,7 +96,12 @@ class SignalWindow(QMainWindow):
 
         # Initialize epoch variables and widget
         self.initialize_epoch_variables()
-    # Setup
+
+        # Draw signals in graphic view
+        self.automatic_signal_redraw = True
+        # self.draw_signal_in_graphic_views()
+
+        # Setup
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -126,6 +130,78 @@ class SignalWindow(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.textEdit_epoch.installEventFilter(self.numeric_filter)
+    def draw_signal_in_graphic_views(self, annotation_marker=None):
+
+        if self.automatic_signal_redraw == False:
+            return
+
+        signal_combo_boxes = [self.ui.graphicsView_signal_1,  self.ui.graphicsView_signal_2,  self.ui.graphicsView_signal_3,
+                              self.ui.graphicsView_signal_4,   self.ui.graphicsView_signal_5,  self.ui.graphicsView_signal_6,
+                              self.ui.graphicsView_signal_7,  self.ui.graphicsView_signal_8,  self.ui.graphicsView_signal_9,
+                              self.ui.graphicsView_signal_10, self.ui.graphicsView_signal_11, self.ui.graphicsView_signal_12,
+                              self.ui.graphicsView_signal_13, self.ui.graphicsView_signal_14, self.ui.graphicsView_signal_14]
+
+        graphic_views = [self.ui.graphicsView_signal_1,  self.ui.graphicsView_signal_2,  self.ui.graphicsView_signal_3,
+                              self.ui.graphicsView_signal_4,   self.ui.graphicsView_signal_5,  self.ui.graphicsView_signal_6,
+                              self.ui.graphicsView_signal_7,  self.ui.graphicsView_signal_8,  self.ui.graphicsView_signal_9,
+                              self.ui.graphicsView_signal_10, self.ui.graphicsView_signal_11, self.ui.graphicsView_signal_12,
+                              self.ui.graphicsView_signal_13, self.ui.graphicsView_signal_14, self.ui.graphicsView_signal_14]
+
+        # Turn off change signal while updating combobox list following selection of a new edf file
+        for combo_box in signal_combo_boxes:
+            combo_box.blockSignals(True)
+
+        # get combo boxes labels
+        combo_box_signal_labels = [combo_box.currentText() for combo_box in signal_combo_boxes]
+        graphic_views_to_update_id = []
+        for i, label in enumerate(
+                combo_box_signal_labels):  # not needed since plot in EDF handles no signal key present
+            graphic_views_to_update_id.append(i)
+
+        # Set variables
+        current_epoch = int(self.ui.epochs_textEdit.toPlainText())
+
+        # Update graphic view
+        epoch_num               = current_epoch - 1  # function expect zero indexing, reset epoch to signal start
+        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
+        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
+        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f          = self.time_convert_f[epoch_width_index]
+        time_axis_units         = self.epoch_axis_units[epoch_width_index]
+        signal_type = ""
+
+        for i in graphic_views_to_update_id:
+            # Select graphic view
+            signal_label = combo_box_signal_labels[i]
+            graphic_view = graphic_views[i]
+
+            # Set stepped variables
+            stepped_dict      = {}
+            is_signal_stepped = False
+            if self.annotation_xml_obj != None:
+                is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+                if is_signal_stepped:
+                    stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+            # Plot signal segment
+            self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
+                                                              signal_type, epoch_num, epoch_width, graphic_view,
+                                                              x_tick_settings   = epoch_display_axis_grid,
+                                                              annotation_marker = annotation_marker,
+                                                              convert_time_f    = convert_time_f,
+                                                              time_axis_units   = time_axis_units,
+                                                              is_signal_stepped = is_signal_stepped,
+                                                              stepped_dict      = stepped_dict )
+
+        # Turn on combo box signal change
+        for combo_box in signal_combo_boxes:
+            combo_box.blockSignals(False)
+
+        # Update epoch label string
+        epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
+        time_str       = self.return_time_string(current_epoch, epoch_width)
+        self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
     # Epoch Buttons
     def set_epoch_to_first(self):
         """

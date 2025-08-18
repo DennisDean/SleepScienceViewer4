@@ -25,7 +25,7 @@ class Ui_SignalWindow(object):
     def setupUi(self, SignalWindow):
         if not SignalWindow.objectName():
             SignalWindow.setObjectName(u"SignalWindow")
-        SignalWindow.resize(1223, 881)
+        SignalWindow.resize(1279, 881)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -143,11 +143,11 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_11.addWidget(self.pushButton_first)
 
-        self.pushButton__next = QPushButton(self.centralwidget)
-        self.pushButton__next.setObjectName(u"pushButton__next")
-        self.pushButton__next.setMinimumSize(QSize(0, 25))
+        self.pushButton_next = QPushButton(self.centralwidget)
+        self.pushButton_next.setObjectName(u"pushButton_next")
+        self.pushButton_next.setMinimumSize(QSize(0, 25))
 
-        self.horizontalLayout_11.addWidget(self.pushButton__next)
+        self.horizontalLayout_11.addWidget(self.pushButton_next)
 
         self.horizontalSpacer_6 = QSpacerItem(40, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -167,7 +167,7 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_11.addWidget(self.textEdit_epoch)
 
-        self.horizontalSpacer_23 = QSpacerItem(6, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_23 = QSpacerItem(6, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_11.addItem(self.horizontalSpacer_23)
 
@@ -218,6 +218,21 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_10.addItem(self.horizontalSpacer_9)
 
+        self.label_signal_1 = QLabel(self.centralwidget)
+        self.label_signal_1.setObjectName(u"label_signal_1")
+        self.label_signal_1.setMinimumSize(QSize(40, 12))
+        self.label_signal_1.setMaximumSize(QSize(40, 12))
+        font = QFont()
+        font.setPointSize(9)
+        self.label_signal_1.setFont(font)
+        self.label_signal_1.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_10.addWidget(self.label_signal_1)
+
+        self.horizontalSpacer_29 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_10.addItem(self.horizontalSpacer_29)
+
         self.graphicsView_signal_1 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_1.setObjectName(u"graphicsView_signal_1")
         self.graphicsView_signal_1.setMinimumSize(QSize(0, 40))
@@ -235,6 +250,19 @@ class Ui_SignalWindow(object):
         self.horizontalSpacer_24 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_16.addItem(self.horizontalSpacer_24)
+
+        self.label_signal_2 = QLabel(self.centralwidget)
+        self.label_signal_2.setObjectName(u"label_signal_2")
+        self.label_signal_2.setMinimumSize(QSize(40, 12))
+        self.label_signal_2.setMaximumSize(QSize(40, 12))
+        self.label_signal_2.setFont(font)
+        self.label_signal_2.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_16.addWidget(self.label_signal_2)
+
+        self.horizontalSpacer_30 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_16.addItem(self.horizontalSpacer_30)
 
         self.graphicsView_signal_2 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_2.setObjectName(u"graphicsView_signal_2")
@@ -254,6 +282,19 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_15.addItem(self.horizontalSpacer_22)
 
+        self.label_signal_3 = QLabel(self.centralwidget)
+        self.label_signal_3.setObjectName(u"label_signal_3")
+        self.label_signal_3.setMinimumSize(QSize(40, 12))
+        self.label_signal_3.setMaximumSize(QSize(40, 12))
+        self.label_signal_3.setFont(font)
+        self.label_signal_3.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_15.addWidget(self.label_signal_3)
+
+        self.horizontalSpacer_31 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_15.addItem(self.horizontalSpacer_31)
+
         self.graphicsView_signal_3 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_3.setObjectName(u"graphicsView_signal_3")
         self.graphicsView_signal_3.setMinimumSize(QSize(0, 40))
@@ -272,12 +313,25 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_10)
 
-        self.graphicsView_signal4 = QGraphicsView(self.centralwidget)
-        self.graphicsView_signal4.setObjectName(u"graphicsView_signal4")
-        self.graphicsView_signal4.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal4.setMaximumSize(QSize(16777215, 40))
+        self.label_signal_4 = QLabel(self.centralwidget)
+        self.label_signal_4.setObjectName(u"label_signal_4")
+        self.label_signal_4.setMinimumSize(QSize(40, 12))
+        self.label_signal_4.setMaximumSize(QSize(40, 12))
+        self.label_signal_4.setFont(font)
+        self.label_signal_4.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.horizontalLayout_2.addWidget(self.graphicsView_signal4)
+        self.horizontalLayout_2.addWidget(self.label_signal_4)
+
+        self.horizontalSpacer_32 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_32)
+
+        self.graphicsView_signal_4 = QGraphicsView(self.centralwidget)
+        self.graphicsView_signal_4.setObjectName(u"graphicsView_signal_4")
+        self.graphicsView_signal_4.setMinimumSize(QSize(0, 40))
+        self.graphicsView_signal_4.setMaximumSize(QSize(16777215, 40))
+
+        self.horizontalLayout_2.addWidget(self.graphicsView_signal_4)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_2)
@@ -289,6 +343,19 @@ class Ui_SignalWindow(object):
         self.horizontalSpacer_28 = QSpacerItem(6, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_17.addItem(self.horizontalSpacer_28)
+
+        self.label_signal_5 = QLabel(self.centralwidget)
+        self.label_signal_5.setObjectName(u"label_signal_5")
+        self.label_signal_5.setMinimumSize(QSize(40, 12))
+        self.label_signal_5.setMaximumSize(QSize(40, 12))
+        self.label_signal_5.setFont(font)
+        self.label_signal_5.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_17.addWidget(self.label_signal_5)
+
+        self.horizontalSpacer_33 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_17.addItem(self.horizontalSpacer_33)
 
         self.graphicsView_signal_5 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_5.setObjectName(u"graphicsView_signal_5")
@@ -310,6 +377,19 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_14.addItem(self.horizontalSpacer_11)
 
+        self.label_signal_6 = QLabel(self.centralwidget)
+        self.label_signal_6.setObjectName(u"label_signal_6")
+        self.label_signal_6.setMinimumSize(QSize(40, 12))
+        self.label_signal_6.setMaximumSize(QSize(40, 12))
+        self.label_signal_6.setFont(font)
+        self.label_signal_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_14.addWidget(self.label_signal_6)
+
+        self.horizontalSpacer_34 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_14.addItem(self.horizontalSpacer_34)
+
         self.graphicsView_signal_6 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_6.setObjectName(u"graphicsView_signal_6")
         self.graphicsView_signal_6.setMinimumSize(QSize(0, 40))
@@ -327,6 +407,19 @@ class Ui_SignalWindow(object):
         self.horizontalSpacer_12 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_12.addItem(self.horizontalSpacer_12)
+
+        self.label_signal_7 = QLabel(self.centralwidget)
+        self.label_signal_7.setObjectName(u"label_signal_7")
+        self.label_signal_7.setMinimumSize(QSize(40, 12))
+        self.label_signal_7.setMaximumSize(QSize(40, 12))
+        self.label_signal_7.setFont(font)
+        self.label_signal_7.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_12.addWidget(self.label_signal_7)
+
+        self.horizontalSpacer_35 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_12.addItem(self.horizontalSpacer_35)
 
         self.graphicsView_signal_7 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_7.setObjectName(u"graphicsView_signal_7")
@@ -346,6 +439,19 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_13.addItem(self.horizontalSpacer_13)
 
+        self.label_signal_8 = QLabel(self.centralwidget)
+        self.label_signal_8.setObjectName(u"label_signal_8")
+        self.label_signal_8.setMinimumSize(QSize(40, 12))
+        self.label_signal_8.setMaximumSize(QSize(40, 12))
+        self.label_signal_8.setFont(font)
+        self.label_signal_8.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_13.addWidget(self.label_signal_8)
+
+        self.horizontalSpacer_36 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_13.addItem(self.horizontalSpacer_36)
+
         self.graphicsView_signal_8 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_8.setObjectName(u"graphicsView_signal_8")
         self.graphicsView_signal_8.setMinimumSize(QSize(0, 40))
@@ -363,6 +469,19 @@ class Ui_SignalWindow(object):
         self.horizontalSpacer_14 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_9.addItem(self.horizontalSpacer_14)
+
+        self.label_signal_9 = QLabel(self.centralwidget)
+        self.label_signal_9.setObjectName(u"label_signal_9")
+        self.label_signal_9.setMinimumSize(QSize(40, 12))
+        self.label_signal_9.setMaximumSize(QSize(40, 12))
+        self.label_signal_9.setFont(font)
+        self.label_signal_9.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_9.addWidget(self.label_signal_9)
+
+        self.horizontalSpacer_37 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_9.addItem(self.horizontalSpacer_37)
 
         self.graphicsView_signal_9 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_9.setObjectName(u"graphicsView_signal_9")
@@ -382,6 +501,19 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_8.addItem(self.horizontalSpacer_15)
 
+        self.label_signal_10 = QLabel(self.centralwidget)
+        self.label_signal_10.setObjectName(u"label_signal_10")
+        self.label_signal_10.setMinimumSize(QSize(40, 12))
+        self.label_signal_10.setMaximumSize(QSize(40, 12))
+        self.label_signal_10.setFont(font)
+        self.label_signal_10.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_8.addWidget(self.label_signal_10)
+
+        self.horizontalSpacer_38 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_8.addItem(self.horizontalSpacer_38)
+
         self.graphicsView_signal_10 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_10.setObjectName(u"graphicsView_signal_10")
         self.graphicsView_signal_10.setMinimumSize(QSize(0, 40))
@@ -399,6 +531,19 @@ class Ui_SignalWindow(object):
         self.horizontalSpacer_16 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_16)
+
+        self.label_signal_11 = QLabel(self.centralwidget)
+        self.label_signal_11.setObjectName(u"label_signal_11")
+        self.label_signal_11.setMinimumSize(QSize(40, 12))
+        self.label_signal_11.setMaximumSize(QSize(40, 12))
+        self.label_signal_11.setFont(font)
+        self.label_signal_11.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout.addWidget(self.label_signal_11)
+
+        self.horizontalSpacer_39 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer_39)
 
         self.graphicsView_signal_11 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_11.setObjectName(u"graphicsView_signal_11")
@@ -418,6 +563,19 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_7.addItem(self.horizontalSpacer_17)
 
+        self.label_signal_12 = QLabel(self.centralwidget)
+        self.label_signal_12.setObjectName(u"label_signal_12")
+        self.label_signal_12.setMinimumSize(QSize(40, 12))
+        self.label_signal_12.setMaximumSize(QSize(40, 12))
+        self.label_signal_12.setFont(font)
+        self.label_signal_12.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_7.addWidget(self.label_signal_12)
+
+        self.horizontalSpacer_40 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_40)
+
         self.graphicsView_signal_12 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_12.setObjectName(u"graphicsView_signal_12")
         self.graphicsView_signal_12.setMinimumSize(QSize(0, 40))
@@ -435,6 +593,19 @@ class Ui_SignalWindow(object):
         self.horizontalSpacer_18 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_6.addItem(self.horizontalSpacer_18)
+
+        self.label_signal_13 = QLabel(self.centralwidget)
+        self.label_signal_13.setObjectName(u"label_signal_13")
+        self.label_signal_13.setMinimumSize(QSize(40, 12))
+        self.label_signal_13.setMaximumSize(QSize(40, 12))
+        self.label_signal_13.setFont(font)
+        self.label_signal_13.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_6.addWidget(self.label_signal_13)
+
+        self.horizontalSpacer_41 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_6.addItem(self.horizontalSpacer_41)
 
         self.graphicsView_signal_13 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_13.setObjectName(u"graphicsView_signal_13")
@@ -454,6 +625,19 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_5.addItem(self.horizontalSpacer_19)
 
+        self.label_signal_14 = QLabel(self.centralwidget)
+        self.label_signal_14.setObjectName(u"label_signal_14")
+        self.label_signal_14.setMinimumSize(QSize(40, 12))
+        self.label_signal_14.setMaximumSize(QSize(40, 12))
+        self.label_signal_14.setFont(font)
+        self.label_signal_14.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_5.addWidget(self.label_signal_14)
+
+        self.horizontalSpacer_42 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_42)
+
         self.graphicsView_signal_14 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_14.setObjectName(u"graphicsView_signal_14")
         self.graphicsView_signal_14.setMinimumSize(QSize(0, 40))
@@ -472,6 +656,24 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer_20)
 
+        self.label_signal_15 = QLabel(self.centralwidget)
+        self.label_signal_15.setObjectName(u"label_signal_15")
+        self.label_signal_15.setMinimumSize(QSize(40, 12))
+        self.label_signal_15.setMaximumSize(QSize(40, 12))
+        self.label_signal_15.setFont(font)
+        self.label_signal_15.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_4.addWidget(self.label_signal_15)
+
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+
+        self.horizontalLayout_4.addLayout(self.verticalLayout_2)
+
+        self.horizontalSpacer_44 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_44)
+
         self.graphicsView_signal_15 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_15.setObjectName(u"graphicsView_signal_15")
         self.graphicsView_signal_15.setMinimumSize(QSize(0, 40))
@@ -489,6 +691,19 @@ class Ui_SignalWindow(object):
         self.horizontalSpacer_21 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_21)
+
+        self.rotatedlabel_axis = QLabel(self.centralwidget)
+        self.rotatedlabel_axis.setObjectName(u"rotatedlabel_axis")
+        self.rotatedlabel_axis.setMinimumSize(QSize(40, 12))
+        self.rotatedlabel_axis.setMaximumSize(QSize(40, 16777215))
+        self.rotatedlabel_axis.setFont(font)
+        self.rotatedlabel_axis.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_3.addWidget(self.rotatedlabel_axis)
+
+        self.horizontalSpacer_43 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_43)
 
         self.graphicsView_signal_axis = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_axis.setObjectName(u"graphicsView_signal_axis")
@@ -529,7 +744,7 @@ class Ui_SignalWindow(object):
         SignalWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(SignalWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1223, 23))
+        self.menubar.setGeometry(QRect(0, 0, 1279, 23))
         SignalWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(SignalWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -547,10 +762,26 @@ class Ui_SignalWindow(object):
         self.pushButton_save.setText(QCoreApplication.translate("SignalWindow", u"Save", None))
         self.pushButton_load.setText(QCoreApplication.translate("SignalWindow", u"Load", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"First", None))
-        self.pushButton__next.setText(QCoreApplication.translate("SignalWindow", u"Next", None))
+        self.pushButton_next.setText(QCoreApplication.translate("SignalWindow", u"Next", None))
         self.pushButton_update.setText(QCoreApplication.translate("SignalWindow", u"U", None))
         self.label_page.setText(QCoreApplication.translate("SignalWindow", u"1 of x pages", None))
         self.pushButton_previous.setText(QCoreApplication.translate("SignalWindow", u"Previous", None))
         self.pushButton_last.setText(QCoreApplication.translate("SignalWindow", u"Last", None))
+        self.label_signal_1.setText(QCoreApplication.translate("SignalWindow", u"1", None))
+        self.label_signal_2.setText(QCoreApplication.translate("SignalWindow", u"2", None))
+        self.label_signal_3.setText(QCoreApplication.translate("SignalWindow", u"3", None))
+        self.label_signal_4.setText(QCoreApplication.translate("SignalWindow", u"4", None))
+        self.label_signal_5.setText(QCoreApplication.translate("SignalWindow", u"5", None))
+        self.label_signal_6.setText(QCoreApplication.translate("SignalWindow", u"6", None))
+        self.label_signal_7.setText(QCoreApplication.translate("SignalWindow", u"7", None))
+        self.label_signal_8.setText(QCoreApplication.translate("SignalWindow", u"8", None))
+        self.label_signal_9.setText(QCoreApplication.translate("SignalWindow", u"9", None))
+        self.label_signal_10.setText(QCoreApplication.translate("SignalWindow", u"10", None))
+        self.label_signal_11.setText(QCoreApplication.translate("SignalWindow", u"11", None))
+        self.label_signal_12.setText(QCoreApplication.translate("SignalWindow", u"12", None))
+        self.label_signal_13.setText(QCoreApplication.translate("SignalWindow", u"13", None))
+        self.label_signal_14.setText(QCoreApplication.translate("SignalWindow", u"14", None))
+        self.label_signal_15.setText(QCoreApplication.translate("SignalWindow", u"15", None))
+        self.rotatedlabel_axis.setText(QCoreApplication.translate("SignalWindow", u"Time:", None))
     # retranslateUi
 

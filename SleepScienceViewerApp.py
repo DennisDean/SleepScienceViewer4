@@ -57,6 +57,9 @@ from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal,
 # Configure the logger
 from logging_config import logger
 
+# To Do List
+# TODO: Disable menu items according to files that are loaded
+
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
 from SignalViewer import Ui_SignalWindow
