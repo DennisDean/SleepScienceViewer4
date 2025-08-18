@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalViewer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignalWindowClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,14 +73,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros.">
-      <option name="closed" value="true" />
-      <created>1753827059595</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1753827059595</updated>
     </task>
     <task id="LOCAL-00018" summary="Annotation export working. Changed the extension to .xlsx.">
       <option name="closed" value="true" />
@@ -468,11 +458,18 @@
       <option name="project" value="LOCAL" />
       <updated>1755526509110</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing.">
+      <option name="closed" value="true" />
+      <created>1755532122010</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1755532122011</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added n3 collapsed stages to export. Would be nice to add to summary; skipping for now." />
     <MESSAGE value="Removed non standard characters from files in-order to generate a requirement.txt. The process seemed to have messed up the virtual envirnoment. &#10;&#10;Stopping for now. Shifting to writing." />
     <MESSAGE value="Updated readme file" />
     <MESSAGE value="Checked exports written to a selected folders. Exported requirements." />
@@ -497,7 +494,8 @@
     <MESSAGE value="Passing in edf and xml objections into the signal viewer. Loaded signals combo box" />
     <MESSAGE value="Fine tuned epoch buttons. Added numeric filter to epoch edit box. Next is to draw signals in each graphics box." />
     <MESSAGE value="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports." />
+    <MESSAGE value="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing." />
+    <option name="LAST_COMMIT_MESSAGE" value="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -529,28 +527,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>104</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>255</line>
+          <line>256</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
           <line>570</line>
           <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>223</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>132</line>
-          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

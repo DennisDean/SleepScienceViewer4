@@ -20,10 +20,10 @@ from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
 logger = logging.getLogger(__name__)
 
 # To Do List
-# TODO: Setup epoch buttons
-# TODO" Load Signal for drawing
-# TODO: Draw signals
+# TODO: Respond to signal change
 # TODO: Respond to epoch change
+# TODO: Set y min-max across plots
+# TODO: Set time axis
 
 
 # Utilities
@@ -101,7 +101,8 @@ class SignalWindow(QMainWindow):
         self.automatic_signal_redraw = True
         self.draw_signal_in_graphic_views()
 
-        # Setup
+        # Connect change in combo box
+        self.ui.comboBox_signals.currentTextChanged[str].connect(self.update_signal_combobox)
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -313,13 +314,23 @@ class SignalWindow(QMainWindow):
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to page ({self.current_epoch})")
     def activate_epoch_buttons(self, activate_buttons = True):
-        self.ui.pushButton_first.blockSignals(activate_buttons)
-        self.ui.pushButton_next.blockSignals(activate_buttons)
-        self.ui.pushButton_update.blockSignals(activate_buttons)
-        self.ui.pushButton_previous.blockSignals(activate_buttons)
-        self.ui.pushButton_last.clicked.blockSignals(activate_buttons)
-    def update_signal_combobox (self):
-        pass
+        self.ui.pushButton_first.setEnabled(activate_buttons)
+        self.ui.pushButton_next.setEnabled(activate_buttons)
+        self.ui.pushButton_update.setEnabled(activate_buttons)
+        self.ui.pushButton_previous.setEnabled(activate_buttons)
+        self.ui.pushButton_last.setEnabled(activate_buttons)
+    def update_signal_combobox (self, signal_label):
+        # turn off update signal combobox
+        self.ui.comboBox_signals.blockSignals(True)
+
+        # Update signal graphic views
+        self.draw_signal_in_graphic_views()
+
+        # turn off update signal combobox
+        self.ui.comboBox_signals.blockSignals(False)
+
+        # log action
+        logger.infor(f'Signal combobox changed to {signal_label}')
     # Utilities
     def return_time_string(self, epoch:int, epoch_width:int):
         val     = float((epoch-1)*epoch_width)
