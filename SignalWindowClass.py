@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 # TODO: Respond to epoch change
 # TODO: Set y min-max across plots
 # TODO: Set time axis
+# TODO: Handle case where you run out of signals (last epoch)
 
 
 # Utilities
@@ -103,6 +104,7 @@ class SignalWindow(QMainWindow):
 
         # Connect change in combo box
         self.ui.comboBox_signals.currentTextChanged[str].connect(self.update_signal_combobox)
+        self.ui.comboBox_epoch.currentTextChanged[str].connect(self.update_epoch_combobox)
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -164,7 +166,7 @@ class SignalWindow(QMainWindow):
         epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
         convert_time_f          = self.time_convert_f[epoch_width_index]
         time_axis_units         = self.epoch_axis_units[epoch_width_index]
-        signal_type = ""
+        signal_type             = ""
 
         # Set signal label
         signal_label = self.ui.comboBox_signals.currentText()
@@ -184,14 +186,31 @@ class SignalWindow(QMainWindow):
             # Plot signal segment
             self.edf_obj.edf_signals.plot_signal_segment(signal_label,
                                                               signal_type, epoch_num+i, epoch_width, graphic_view,
-                                                              x_tick_settings   = epoch_display_axis_grid,
-                                                              annotation_marker = annotation_marker,
-                                                              convert_time_f    = convert_time_f,
-                                                              time_axis_units   = time_axis_units,
-                                                              is_signal_stepped = is_signal_stepped,
-                                                              stepped_dict      = stepped_dict )
+                                                              x_tick_settings       = epoch_display_axis_grid,
+                                                              annotation_marker     = annotation_marker,
+                                                              convert_time_f        = convert_time_f,
+                                                              time_axis_units       = time_axis_units,
+                                                              is_signal_stepped     = is_signal_stepped,
+                                                              stepped_dict          = stepped_dict,
+                                                              turn_xaxis_labels_off = True)
 
-        # Turn on combo box signal change
+
+        # Create x axis for reference
+        signal_label = "" # force no signal
+        graphic_view = self.ui.graphicsView_signal_axis
+        is_signal_stepped = False
+        self.edf_obj.edf_signals.plot_signal_segment(signal_label,
+                                                     signal_type, epoch_num, epoch_width, graphic_view,
+                                                     x_tick_settings       = epoch_display_axis_grid,
+                                                     annotation_marker     = annotation_marker,
+                                                     convert_time_f        = convert_time_f,
+                                                     time_axis_units       = time_axis_units,
+                                                     is_signal_stepped     = is_signal_stepped,
+                                                     stepped_dict          = stepped_dict,
+                                                     turn_xaxis_labels_off = False)
+
+
+        #Turn on combo box signal change
         self.ui.comboBox_signals.blockSignals(False)
 
         # Update epoch label string
@@ -199,6 +218,19 @@ class SignalWindow(QMainWindow):
         # self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
         #time_str       = self.return_time_string(current_epoch, epoch_width)
         #self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
+    # Signal Actions
+    def update_signal_combobox (self, signal_label):
+        # turn off update signal combobox
+        self.ui.comboBox_signals.blockSignals(True)
+
+        # Update signal graphic views
+        self.draw_signal_in_graphic_views()
+
+        # turn off update signal combobox
+        self.ui.comboBox_signals.blockSignals(False)
+
+        # log action
+        logger.infor(f'Signal combobox changed to {signal_label}')
     # Epoch Buttons
     def set_epoch_to_first(self):
         """
@@ -319,18 +351,18 @@ class SignalWindow(QMainWindow):
         self.ui.pushButton_update.setEnabled(activate_buttons)
         self.ui.pushButton_previous.setEnabled(activate_buttons)
         self.ui.pushButton_last.setEnabled(activate_buttons)
-    def update_signal_combobox (self, signal_label):
+    def update_epoch_combobox (self, epoch_str):
         # turn off update signal combobox
-        self.ui.comboBox_signals.blockSignals(True)
+        self.ui.comboBox_epoch.blockSignals(True)
 
         # Update signal graphic views
         self.draw_signal_in_graphic_views()
 
         # turn off update signal combobox
-        self.ui.comboBox_signals.blockSignals(False)
+        self.ui.comboBox_epoch.blockSignals(False)
 
         # log action
-        logger.infor(f'Signal combobox changed to {signal_label}')
+        logger.info(f'Signal combobox changed to {epoch_str}')
     # Utilities
     def return_time_string(self, epoch:int, epoch_width:int):
         val     = float((epoch-1)*epoch_width)

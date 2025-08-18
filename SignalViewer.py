@@ -692,14 +692,14 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_signal_time.addItem(self.horizontalSpacer_21)
 
-        self.rotatedlabel_axis = QLabel(self.centralwidget)
-        self.rotatedlabel_axis.setObjectName(u"rotatedlabel_axis")
-        self.rotatedlabel_axis.setMinimumSize(QSize(40, 12))
-        self.rotatedlabel_axis.setMaximumSize(QSize(40, 16777215))
-        self.rotatedlabel_axis.setFont(font)
-        self.rotatedlabel_axis.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.label_signal_time = QLabel(self.centralwidget)
+        self.label_signal_time.setObjectName(u"label_signal_time")
+        self.label_signal_time.setMinimumSize(QSize(40, 12))
+        self.label_signal_time.setMaximumSize(QSize(40, 16777215))
+        self.label_signal_time.setFont(font)
+        self.label_signal_time.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.horizontalLayout_signal_time.addWidget(self.rotatedlabel_axis)
+        self.horizontalLayout_signal_time.addWidget(self.label_signal_time)
 
         self.horizontalSpacer_43 = QSpacerItem(6, 6, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
@@ -707,8 +707,8 @@ class Ui_SignalWindow(object):
 
         self.graphicsView_signal_axis = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_axis.setObjectName(u"graphicsView_signal_axis")
-        self.graphicsView_signal_axis.setMinimumSize(QSize(0, 20))
-        self.graphicsView_signal_axis.setMaximumSize(QSize(16777215, 20))
+        self.graphicsView_signal_axis.setMinimumSize(QSize(0, 40))
+        self.graphicsView_signal_axis.setMaximumSize(QSize(16777215, 40))
 
         self.horizontalLayout_signal_time.addWidget(self.graphicsView_signal_axis)
 
@@ -782,6 +782,6 @@ class Ui_SignalWindow(object):
         self.label_signal_13.setText(QCoreApplication.translate("SignalWindow", u"13", None))
         self.label_signal_14.setText(QCoreApplication.translate("SignalWindow", u"14", None))
         self.label_signal_15.setText(QCoreApplication.translate("SignalWindow", u"15", None))
-        self.rotatedlabel_axis.setText(QCoreApplication.translate("SignalWindow", u"Time:", None))
+        self.label_signal_time.setText(QCoreApplication.translate("SignalWindow", u"time:", None))
     # retranslateUi
 

@@ -1820,7 +1820,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="rotatedlabel_axis">
+           <widget class="QLabel" name="label_signal_time">
             <property name="minimumSize">
              <size>
               <width>40</width>
@@ -1839,7 +1839,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Time:</string>
+             <string>time:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1867,13 +1867,13 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>20</height>
+              <height>40</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>20</height>
+              <height>40</height>
              </size>
             </property>
            </widget>

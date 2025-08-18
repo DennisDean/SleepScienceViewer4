@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Signal combo box triggers a new signal to be drawn to the graphics views.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignalViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignalViewer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignalWindowClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,14 +76,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Annotation export working. Changed the extension to .xlsx.">
-      <option name="closed" value="true" />
-      <created>1753828934139</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1753828934139</updated>
     </task>
     <task id="LOCAL-00019" summary="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup.">
       <option name="closed" value="true" />
@@ -466,11 +461,18 @@
       <option name="project" value="LOCAL" />
       <updated>1755532122011</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Signal combo box triggers a new signal to be drawn to the graphics views.">
+      <option name="closed" value="true" />
+      <created>1755538015735</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1755538015735</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Removed non standard characters from files in-order to generate a requirement.txt. The process seemed to have messed up the virtual envirnoment. &#10;&#10;Stopping for now. Shifting to writing." />
     <MESSAGE value="Updated readme file" />
     <MESSAGE value="Checked exports written to a selected folders. Exported requirements." />
     <MESSAGE value="Reinstalled matplotlib. This cleared the init warning.Exported a full requirements.txt file. Preparing to upload to github." />
@@ -495,7 +497,8 @@
     <MESSAGE value="Fine tuned epoch buttons. Added numeric filter to epoch edit box. Next is to draw signals in each graphics box." />
     <MESSAGE value="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports." />
     <MESSAGE value="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing." />
-    <option name="LAST_COMMIT_MESSAGE" value="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing." />
+    <MESSAGE value="Signal combo box triggers a new signal to be drawn to the graphics views." />
+    <option name="LAST_COMMIT_MESSAGE" value="Signal combo box triggers a new signal to be drawn to the graphics views." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -527,7 +530,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>256</line>
+          <line>288</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
