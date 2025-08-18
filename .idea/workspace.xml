@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fine tuned epoch buttons. Added numeric filter to epoch edit box. Next is to draw signals in each graphics box.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignalViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignalViewer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignalWindowClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,14 +75,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Create multiple dialog boxes and message pop up to have action taken for the File and Help menu. Just need to the Generate menu item. Then the first pass is done.">
-      <option name="closed" value="true" />
-      <created>1753762399415</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1753762399415</updated>
     </task>
     <task id="LOCAL-00017" summary="Created stub functions for all menu items. I deleted the signal export item since I don't intend to include. I considered making the signal statistics an item; decided agaisnt since signal statistics are included in the edf summary. Annotation and sleep stages exports are not working while not providing an erros.">
       <option name="closed" value="true" />
@@ -469,11 +460,18 @@
       <option name="project" value="LOCAL" />
       <updated>1755399878547</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports.">
+      <option name="closed" value="true" />
+      <created>1755526509109</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1755526509110</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Synced hypnogram label sizes. Made signal plot labels bigger." />
     <MESSAGE value="Added n3 collapsed stages to export. Would be nice to add to summary; skipping for now." />
     <MESSAGE value="Removed non standard characters from files in-order to generate a requirement.txt. The process seemed to have messed up the virtual envirnoment. &#10;&#10;Stopping for now. Shifting to writing." />
     <MESSAGE value="Updated readme file" />
@@ -498,7 +496,8 @@
     <MESSAGE value="Signal viewer scales appropriately. Will tweak interface later. Better to spend time populating with a signal and analysis to load annotations." />
     <MESSAGE value="Passing in edf and xml objections into the signal viewer. Loaded signals combo box" />
     <MESSAGE value="Fine tuned epoch buttons. Added numeric filter to epoch edit box. Next is to draw signals in each graphics box." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fine tuned epoch buttons. Added numeric filter to epoch edit box. Next is to draw signals in each graphics box." />
+    <MESSAGE value="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -535,7 +534,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>243</line>
+          <line>255</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -545,8 +544,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>220</line>
+          <line>223</line>
           <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
+          <line>132</line>
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
