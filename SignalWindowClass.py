@@ -95,9 +95,6 @@ class SignalWindow(QMainWindow):
         self.signal_units  = self.edf_obj.edf_signals.signal_units_dict[self.signal_label]
         self.sampling_time = self.edf_obj.edf_signals.signal_sampling_time_dict[self.signal_label]
 
-        # Initialize epoch variables and widget
-        self.initialize_epoch_variables()
-
         # Draw signals in graphic view
         self.automatic_signal_redraw = True
         self.draw_signal_in_graphic_views()
@@ -117,6 +114,8 @@ class SignalWindow(QMainWindow):
         self.max_epoch  = self.edf_obj.edf_signals.return_num_epochs(self.signal_label, epoch_width)
 
         # Set up epic combobox
+        # print(f'epoch display options {self.epoch_display_options_text}, i)
+        self.ui.comboBox_epoch.clear()
         self.ui.comboBox_epoch.addItems(self.epoch_display_options_text)
 
         # Set epoch edit box to 1
@@ -133,6 +132,7 @@ class SignalWindow(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.textEdit_epoch.installEventFilter(self.numeric_filter)
+    # Visualization
     def draw_signal_in_graphic_views(self, annotation_marker:float=None,
                                      epochs_to_draw:int=None):
 

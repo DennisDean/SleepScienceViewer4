@@ -63,6 +63,15 @@ from logging_config import logger
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
 from SignalViewer import Ui_SignalWindow
+class NumericTextEditFilter(QObject):
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.KeyPress:
+            if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
+                return False  # Allow backspace and delete
+            if event.text().isdigit():
+                return False  # Allow digits
+            else:
+                return True  # Filter out non-numeric input
 from SignalWindowClass import SignalWindow
 
 # Dialog Boxes
