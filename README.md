@@ -36,7 +36,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
   - Signal x axis moved to the bottom of the page
   - *Not Implemented:* Interface set up to extract and display annotations computationally
 
-![Signal Viewer](Media/Signal Viewer_beta.png)
+![Signal Viewer](Media/signal_viewer_beta.png)
 
 ## Getting Started
 
