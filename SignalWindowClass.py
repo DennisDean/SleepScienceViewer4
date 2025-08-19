@@ -258,7 +258,7 @@ class SignalWindow(QMainWindow):
         self.draw_signal_in_graphic_views()
 
         # Turn on epoc buttons
-        self.activate_epoch_buttons()
+        self.activate_epoch_buttons(activate_buttons=True)
 
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to first ({self.current_epoch})")
@@ -271,6 +271,7 @@ class SignalWindow(QMainWindow):
         # Turn off epoc buttons
         self.activate_epoch_buttons(activate_buttons=False)
 
+        print(f"Epoch set to next ({self.current_epoch})")
         # Example: Set an internal index
         if self.current_epoch + self.number_of_epochs_on_screen < self.max_epoch:
             self.current_epoch += self.number_of_epochs_on_screen
@@ -278,8 +279,9 @@ class SignalWindow(QMainWindow):
             self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
 
             # update Signals
-            self.draw_signal_in_graphic_views()
-
+            self.draw_signal_in_graphic_views(epochs_to_draw = self.number_of_epochs_on_screen)
+            print(f"Epoch set to next ({self.current_epoch})")
+            print(f"Epoch set to next ({self.current_epoch})")
         # Turn of epoc buttons
         self.activate_epoch_buttons()
 
