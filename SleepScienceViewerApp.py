@@ -391,10 +391,10 @@ class MainApp(QMainWindow):
 
         # Turn off menu items
         self.ui.actionEDF_Summary.setEnabled(False)
-        self.ui.actionEDF_Signal_Export.setEnabled(False)
+        self.ui.actionEDF_Signal_Export_2.setEnabled(False)
 
         # Enable xml open action
-        self.ui.actionOpen_XML.setEnabled(True)
+        self.ui.actionOpen_XML.setEnabled(False)
     def turn_on_edf_actions(self):
         # Turn off edf signal related widgets
         self.ui.compute_spectrogram_pushButton.setEnabled(True)
@@ -409,7 +409,7 @@ class MainApp(QMainWindow):
 
         # Turn off menu items
         self.ui.actionEDF_Summary.setEnabled(True)
-        self.ui.actionEDF_Signal_Export.setEnabled(True)
+        self.ui.actionEDF_Signal_Export_2.setEnabled(True)
 
         # Enable xml open action
         self.ui.actionOpen_XML.setEnabled(True)

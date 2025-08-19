@@ -133,7 +133,8 @@ class SignalWindow(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.textEdit_epoch.installEventFilter(self.numeric_filter)
-    def draw_signal_in_graphic_views(self, annotation_marker=None):
+    def draw_signal_in_graphic_views(self, annotation_marker:float=None,
+                                     epochs_to_draw:int=None):
 
         if self.automatic_signal_redraw == False:
             return
@@ -141,10 +142,12 @@ class SignalWindow(QMainWindow):
         # Turn off combo box signal change
         self.ui.comboBox_signals.blockSignals(True)
 
+        epochs_to_draw = self.number_of_epochs_on_screen if epochs_to_draw == None else epochs_to_draw
+
         epoch_labels  = [self.ui.label_signal_1,  self.ui.label_signal_2,  self.ui.label_signal_3,
                          self.ui.label_signal_4,  self.ui.label_signal_5,  self.ui.label_signal_6,
                          self.ui.label_signal_7,  self.ui.label_signal_8,  self.ui.label_signal_9,
-                         self.ui.label_signal_10, self.ui.label_signal_12, self.ui.label_signal_12,
+                         self.ui.label_signal_10, self.ui.label_signal_11, self.ui.label_signal_12,
                          self.ui.label_signal_13, self.ui.label_signal_14, self.ui.label_signal_15]
 
         graphic_views = [self.ui.graphicsView_signal_1,  self.ui.graphicsView_signal_2,  self.ui.graphicsView_signal_3,
@@ -182,6 +185,11 @@ class SignalWindow(QMainWindow):
                 is_signal_stepped = signal_label in self.xml_obj.steppedChannels.keys()
                 if is_signal_stepped:
                     stepped_dict = self.xml_obj.steppedChannels[signal_label]
+
+            # Check if this is an edge case
+            if i >= epochs_to_draw:
+                # force zero signal
+                signal_label = ""
 
             # Plot signal segment
             self.edf_obj.edf_signals.plot_signal_segment(signal_label,
@@ -230,7 +238,7 @@ class SignalWindow(QMainWindow):
         self.ui.comboBox_signals.blockSignals(False)
 
         # log action
-        logger.infor(f'Signal combobox changed to {signal_label}')
+        logger.info(f'Signal combobox changed to {signal_label}')
     # Epoch Buttons
     def set_epoch_to_first(self):
         """
@@ -311,11 +319,11 @@ class SignalWindow(QMainWindow):
             self.current_epoch -= self.number_of_epochs_on_screen
             self.ui.textEdit_epoch.setText(f"{self.current_epoch}")
             self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
-        else:
-            self.set_epoch_to_first()
 
             # update Signals
             self.draw_signal_in_graphic_views()
+        else:
+            self.set_epoch_to_first()
 
         # Turn of epoc buttons
         self.activate_epoch_buttons()
@@ -328,6 +336,9 @@ class SignalWindow(QMainWindow):
         Update the UI and any associated data views accordingly.
         """
 
+        # Check for edge cases
+        epochs_to_draw = self.max_epoch % self.number_of_epochs_on_screen
+
         # Turn of epoc buttons
         self.activate_epoch_buttons(activate_buttons=False)
 
@@ -338,7 +349,7 @@ class SignalWindow(QMainWindow):
         self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
 
         # update Signals
-        self.draw_signal_in_graphic_views()
+        self.draw_signal_in_graphic_views(epochs_to_draw = epochs_to_draw)
 
         # Turn of epoc buttons
         self.activate_epoch_buttons()
