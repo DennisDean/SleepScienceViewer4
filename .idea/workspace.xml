@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fine tuning main viewer window. Added support for drawing last epoch. &#10;&#10;Next: Look at crashing when changing the epoch with.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Edited epoch initialization script. Updated the todo list. Can scroll through signals. &#10;&#10;Scaling signals next on the list. Will likely pick ECG for adding signal analysis functionality.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalWindowClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Development-SignalView" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,7 +54,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Development-SignalView",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "/home/dennis/PycharmProjects/SleepScienceViewer4",
     "settings.editor.selected.configurable": "preferences.editor"
   }
@@ -74,30 +73,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00022" summary="All features working. Changed link in SleepXMLInfo to show XML specification.">
-      <option name="closed" value="true" />
-      <created>1753896053717</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1753896053717</updated>
-    </task>
-    <task id="LOCAL-00023" summary="All features working. Changed link in SleepXMLInfo to show XML specification. Considering deliting a signal so that ten are shown. to give room to add x and y axis to signal plots.">
-      <option name="closed" value="true" />
-      <created>1753896160734</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1753896160734</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Added a generated function for creating a signal export function.">
-      <option name="closed" value="true" />
-      <created>1753930307379</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1753930307379</updated>
     </task>
     <task id="LOCAL-00025" summary="Added signal export menu item and deleted one signal entry. Ten entries expanded to fill the area.">
       <option name="closed" value="true" />
@@ -467,13 +442,34 @@
       <option name="project" value="LOCAL" />
       <updated>1755609072139</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="saving master changing before merging master and development branches">
+      <option name="closed" value="true" />
+      <created>1755618977041</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1755618977041</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Next and previous button do not work after merging the development branch with the master branch.">
+      <option name="closed" value="true" />
+      <created>1755620230842</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1755620230842</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Edited epoch initialization script. Updated the todo list. Can scroll through signals. &#10;&#10;Scaling signals next on the list. Will likely pick ECG for adding signal analysis functionality.">
+      <option name="closed" value="true" />
+      <created>1755624384393</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1755624384393</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cleared the to do." />
-    <MESSAGE value="Added media to the git repository." />
-    <MESSAGE value="Converted videos to mp4" />
     <MESSAGE value="created smaller videos for the git page" />
     <MESSAGE value="Created gifs since smaller mp4 didn't work." />
     <MESSAGE value="Linked class descriptions to main README.md" />
@@ -496,7 +492,10 @@
     <MESSAGE value="X labels turned off for signal. Z labels tuned on for time axis. Rescaled padding to ensure a larger part of the graphics view is used." />
     <MESSAGE value="Data loads turn buttons and actions on/off." />
     <MESSAGE value="Fine tuning main viewer window. Added support for drawing last epoch. &#10;&#10;Next: Look at crashing when changing the epoch with." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fine tuning main viewer window. Added support for drawing last epoch. &#10;&#10;Next: Look at crashing when changing the epoch with." />
+    <MESSAGE value="saving master changing before merging master and development branches" />
+    <MESSAGE value="Next and previous button do not work after merging the development branch with the master branch." />
+    <MESSAGE value="Edited epoch initialization script. Updated the todo list. Can scroll through signals. &#10;&#10;Scaling signals next on the list. Will likely pick ECG for adding signal analysis functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Edited epoch initialization script. Updated the todo list. Can scroll through signals. &#10;&#10;Scaling signals next on the list. Will likely pick ECG for adding signal analysis functionality." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -507,49 +506,14 @@
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>164</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>687</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>46</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>576</line>
-          <option name="timeStamp" value="37" />
+          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
+          <line>283</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>296</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/EdfFileClass.py</url>
-          <line>331</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>177</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>162</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>332</line>
-          <option name="timeStamp" value="57" />
+          <line>280</line>
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

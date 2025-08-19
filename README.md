@@ -30,6 +30,14 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
       - [Sleep stage timeline](Media/sleep_stages.png)
       - [Summary reports](Media/sleep_event_summary.png) for review and documentation
 
+## Feature in Development
+- **Signal Viewer**
+  - Page through a signal to view signal, recording distruptions, and noise
+  - Signal x axis moved to the bottom of the page
+  - *Not Implemented:* Interface set up to extract and display annotations computationally
+
+![Signal Viewer](Media/Signal Viewer_beta.png)
+
 ## Getting Started
 
 The Sleep Science viewer requires an EDF and Annotation file. We used files downloaded from a [National Sleep Research Resource](https://sleepdata.org/) tutorial for the to develop the interface. 
