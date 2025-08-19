@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Signal combo box triggers a new signal to be drawn to the graphics views.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="X labels turned off for signal. Z labels tuned on for time axis. Rescaled padding to ensure a larger part of the graphics view is used.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalViewer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalWindowClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,33 +36,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.AnnotationXmlClass.executor": "Run",
-    "Python.EdfFileClass.executor": "Run",
-    "Python.SignalViewer.executor": "Run",
-    "Python.SignalWindowClass.executor": "Run",
-    "Python.SleepScienceViewer.executor": "Run",
-    "Python.SleepScienceViewerApp.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python.edfFile.executor": "Run",
-    "Python.logging_config.executor": "Run",
-    "Python.multitaper_spectrogram_python.executor": "Run",
-    "Python.multitaper_spectrogram_python_class.executor": "Run",
-    "Python.rotatedlabel.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Development-SignalView",
-    "last_opened_file_path": "/home/dennis/PycharmProjects/SleepScienceViewer4",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.AnnotationXmlClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.EdfFileClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SignalViewer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SignalWindowClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SleepScienceViewerApp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.edfFile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.logging_config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python.executor&quot;: &quot;Run&quot;,
+    &quot;Python.multitaper_spectrogram_python_class.executor&quot;: &quot;Run&quot;,
+    &quot;Python.rotatedlabel.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Development-SignalView&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dennis/PycharmProjects/SleepScienceViewer4&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-03e874896e21-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.23892.439" />
+        <option value="bundled-python-sdk-d9fa9deec7cb-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.23892.515" />
       </set>
     </attachedChunks>
   </component>
@@ -76,14 +73,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Added signal label to signal label upon completion of the multitaper spectrogram computation. Created a logging_config file to centralize logging setup.">
-      <option name="closed" value="true" />
-      <created>1753892224346</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1753892224346</updated>
     </task>
     <task id="LOCAL-00020" summary="Using logging_config.py to set up logging across application. Config is working well. Will return to debugging Sleep Stages export which is resulting in an empty file being written.">
       <option name="closed" value="true" />
@@ -469,11 +458,18 @@
       <option name="project" value="LOCAL" />
       <updated>1755538015735</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="X labels turned off for signal. Z labels tuned on for time axis. Rescaled padding to ensure a larger part of the graphics view is used.">
+      <option name="closed" value="true" />
+      <created>1755545054479</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1755545054479</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated readme file" />
     <MESSAGE value="Checked exports written to a selected folders. Exported requirements." />
     <MESSAGE value="Reinstalled matplotlib. This cleared the init warning.Exported a full requirements.txt file. Preparing to upload to github." />
     <MESSAGE value="Cleared the to do." />
@@ -498,7 +494,8 @@
     <MESSAGE value="Cleaned up epoch labels in signal form. Converted back to regular labels. Removed rotated label imports." />
     <MESSAGE value="signal drawing upon load and selecting epoch buttons. Turning epoch buttons off and on during drawing." />
     <MESSAGE value="Signal combo box triggers a new signal to be drawn to the graphics views." />
-    <option name="LAST_COMMIT_MESSAGE" value="Signal combo box triggers a new signal to be drawn to the graphics views." />
+    <MESSAGE value="X labels turned off for signal. Z labels tuned on for time axis. Rescaled padding to ensure a larger part of the graphics view is used." />
+    <option name="LAST_COMMIT_MESSAGE" value="X labels turned off for signal. Z labels tuned on for time axis. Rescaled padding to ensure a larger part of the graphics view is used." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -510,12 +507,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>156</line>
+          <line>155</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>657</line>
+          <line>675</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -525,7 +522,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>549</line>
+          <line>564</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -535,8 +532,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>570</line>
+          <line>585</line>
           <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EdfFileClass.py</url>
+          <line>331</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>168</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

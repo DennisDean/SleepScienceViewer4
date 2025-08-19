@@ -146,8 +146,7 @@ class AboutDialog(QDialog):
         btn_close = QPushButton("Close")
         btn_close.clicked.connect(self.close)
         layout.addWidget(btn_close)
-
-# Application
+# utilities
 def clear_spectrogram_plot(parent_widget = None):
     layout = parent_widget.layout()
     if layout:
@@ -166,6 +165,7 @@ class NumericTextEditFilter(QObject):
             else:
                 return True  # Filter out non-numeric input
         return False
+# Application
 class MainApp(QMainWindow):
     # Initialize Windows
     def __init__(self):
@@ -308,7 +308,8 @@ class MainApp(QMainWindow):
         self.ui.actionAbout.triggered.connect(self.about_menu_item)
 
         # Turn Off Epoch Buttons
-        self.turn_off_edf_signal_pushbuttons()
+        self.turn_off_edf_actions()
+        self.turn_off_xml_actions()
 
         # Save space for windows
         self.signal_view_window = None
@@ -359,7 +360,10 @@ class MainApp(QMainWindow):
             self.set_signal_combo_boxes()
 
             # Turn on signal related buttons
-            self.turn_on_edf_signal_pushbuttons()
+            self.turn_on_edf_actions()
+
+            # Turn off actions
+            self.turn_off_xml_actions()
     def initialize_epoch_variables(self):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -373,7 +377,7 @@ class MainApp(QMainWindow):
 
         # Set epoch combo box to 30 second window
         self.ui.epoch_comboBox.setCurrentIndex(self.current_epoch_width_index)
-    def turn_off_edf_signal_pushbuttons(self):
+    def turn_off_edf_actions(self):
         # Turn off edf signal related widgets
         self.ui.compute_spectrogram_pushButton.setEnabled(False)
         self.ui.first_pushButton.setEnabled(False)
@@ -384,7 +388,14 @@ class MainApp(QMainWindow):
         self.ui.last_epoch_pushButton.setEnabled(False)
         self.ui.epoch_comboBox.setEnabled(False)
         self.ui.load_annotation_pushButton.setEnabled(False)
-    def turn_on_edf_signal_pushbuttons(self):
+
+        # Turn off menu items
+        self.ui.actionEDF_Summary.setEnabled(False)
+        self.ui.actionEDF_Signal_Export.setEnabled(False)
+
+        # Enable xml open action
+        self.ui.actionOpen_XML.setEnabled(True)
+    def turn_on_edf_actions(self):
         # Turn off edf signal related widgets
         self.ui.compute_spectrogram_pushButton.setEnabled(True)
         self.ui.first_pushButton.setEnabled(True)
@@ -395,6 +406,13 @@ class MainApp(QMainWindow):
         self.ui.last_epoch_pushButton.setEnabled(True)
         self.ui.epoch_comboBox.setEnabled(True)
         self.ui.load_annotation_pushButton.setEnabled(True)
+
+        # Turn off menu items
+        self.ui.actionEDF_Summary.setEnabled(True)
+        self.ui.actionEDF_Signal_Export.setEnabled(True)
+
+        # Enable xml open action
+        self.ui.actionOpen_XML.setEnabled(True)
     def set_signal_combo_boxes(self):
         # Turn off signal plot update
         self.automatic_signal_redraw = False
@@ -589,6 +607,9 @@ class MainApp(QMainWindow):
 
             # Update interface
             self.ui.load_annotation_textEdit.setText(f"{file_path}")
+
+            # Turn on XML actions
+            self.turn_on_xml_actions()
             #QMessageBox.information(self, "XML Loaded", f"Loaded: {file_path}")
             logger.info(f"Loaded XML: {file_path}")
         except:
@@ -709,6 +730,18 @@ class MainApp(QMainWindow):
             factor = 100 / brightness
             i_rgb  =  tuple(int(c * factor) for c in i_rgb)
         return "#{:02X}{:02X}{:02X}".format(*i_rgb)
+    def turn_off_xml_actions(self):
+        # Turn on signal related menu items
+        self.ui.actionAnnotation_Summary.setEnabled(False)
+        self.ui.actionAnnotation_Export.setEnabled(False)
+        self.ui.actionSleep_Stages_Export.setEnabled(False)
+        self.ui.actionOpen_Signal_Window.setEnabled(False)
+    def turn_on_xml_actions(self):
+        # Turn off signal related menu items
+        self.ui.actionAnnotation_Summary.setEnabled(True)
+        self.ui.actionAnnotation_Export.setEnabled(True)
+        self.ui.actionSleep_Stages_Export.setEnabled(True)
+        self.ui.actionOpen_Signal_Window.setEnabled(True)
     # Epochs
     def set_epoch_to_first(self):
         """
