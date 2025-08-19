@@ -29,6 +29,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # To Do List
 # TODO: Support for changing signal color
 # TODO: clean up video
+# TODO: Custom response to return key when editing the epoch
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem

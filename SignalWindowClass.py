@@ -20,11 +20,8 @@ from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
 logger = logging.getLogger(__name__)
 
 # To Do List
-# TODO: Respond to signal change
-# TODO: Respond to epoch change
 # TODO: Set y min-max across plots
-# TODO: Set time axis
-# TODO: Handle case where you run out of signals (last epoch)
+# TODO: Custom response to a return withing the edit field
 
 
 # Utilities
@@ -46,6 +43,12 @@ class SignalWindow(QMainWindow):
         super().__init__(parent)
         # Signal Window Features
         self.number_of_epochs_on_screen = 15
+
+        # Initialize epoch variables
+        self.max_epoch = 1
+        self.current_epoch = 1
+        self.current_epoch_width_index = 0
+        self.signal_length_seconds = 1
 
         # Setup and Draw Window
         self.ui = Ui_SignalWindow()
@@ -88,12 +91,14 @@ class SignalWindow(QMainWindow):
         self.ui.pushButton_update.clicked.connect(self.set_epoch_from_text)
         self.ui.pushButton_previous.clicked.connect(self.set_epoch_to_prev)
         self.ui.pushButton_last.clicked.connect(self.set_epoch_to_last)
-        self.initialize_epoch_variables()
 
         # Set up signal
         self.signal        = self.edf_obj.edf_signals.signals_dict[self.signal_label]
         self.signal_units  = self.edf_obj.edf_signals.signal_units_dict[self.signal_label]
         self.sampling_time = self.edf_obj.edf_signals.signal_sampling_time_dict[self.signal_label]
+
+        # Initialize epoch variables
+        self.initialize_epoch_variables()
 
         # Draw signals in graphic view
         self.automatic_signal_redraw = True
@@ -108,13 +113,18 @@ class SignalWindow(QMainWindow):
         self.current_epoch = 1
         self.current_epoch_width_index = 0
         self.signal_length_seconds = 1
+        epoch_start_index = 0
+
+        # Set up epic combobox
+        self.ui.comboBox_epoch.clear()
+        self.ui.comboBox_epoch.addItems(self.epoch_display_options_text)
+        self.ui.comboBox_epoch.setCurrentIndex(epoch_start_index)
 
         # Set maximum number of epochs
         epoch_width     = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
         self.max_epoch  = self.edf_obj.edf_signals.return_num_epochs(self.signal_label, epoch_width)
 
         # Set up epic combobox
-        # print(f'epoch display options {self.epoch_display_options_text}, i)
         self.ui.comboBox_epoch.clear()
         self.ui.comboBox_epoch.addItems(self.epoch_display_options_text)
 
@@ -125,9 +135,6 @@ class SignalWindow(QMainWindow):
         # Set epoch string
         time_str = self.return_time_string(self.current_epoch, epoch_width)
         self.ui.label_page.setText(f'of {self.max_epoch} epochs, ({time_str})')
-
-        # Set epoch combo box to 30 second window
-        self.ui.comboBox_epoch.setCurrentIndex(self.current_epoch_width_index)
 
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
