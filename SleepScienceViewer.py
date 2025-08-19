@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'SleepScienceViewer.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.3
+## Created by: Qt User Interface Compiler version 6.9.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -51,6 +51,8 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName(u"actionAbout")
         self.actionEDF_Signal_Export_2 = QAction(MainWindow)
         self.actionEDF_Signal_Export_2.setObjectName(u"actionEDF_Signal_Export_2")
+        self.actionOpen_Signal_Window = QAction(MainWindow)
+        self.actionOpen_Signal_Window.setObjectName(u"actionOpen_Signal_Window")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -553,6 +555,8 @@ class Ui_MainWindow(object):
         self.menuGenerate.setObjectName(u"menuGenerate")
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
+        self.menuWindow = QMenu(self.menubar)
+        self.menuWindow.setObjectName(u"menuWindow")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -560,6 +564,7 @@ class Ui_MainWindow(object):
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuGenerate.menuAction())
+        self.menubar.addAction(self.menuWindow.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.menuFile.addAction(self.actionOpen_Edf)
         self.menuFile.addAction(self.actionOpen_XML)
@@ -575,6 +580,7 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionAnnotation_Standard)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
+        self.menuWindow.addAction(self.actionOpen_Signal_Window)
 
         self.retranslateUi(MainWindow)
 
@@ -582,7 +588,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Sleep Science Viewer", None))
         self.actionOpen_Edf.setText(QCoreApplication.translate("MainWindow", u"Open Edf", None))
         self.actionOpen_XML.setText(QCoreApplication.translate("MainWindow", u"Open XML", None))
         self.actionSettings.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
@@ -595,6 +601,7 @@ class Ui_MainWindow(object):
         self.actionAnnotation_Standard.setText(QCoreApplication.translate("MainWindow", u"Annotation Standard", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.actionEDF_Signal_Export_2.setText(QCoreApplication.translate("MainWindow", u"EDF Signal Export", None))
+        self.actionOpen_Signal_Window.setText(QCoreApplication.translate("MainWindow", u"Open Signal Window", None))
         self.load_edf_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load EDF", None))
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
@@ -609,5 +616,6 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuGenerate.setTitle(QCoreApplication.translate("MainWindow", u"Generate", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
+        self.menuWindow.setTitle(QCoreApplication.translate("MainWindow", u"Window", None))
     # retranslateUi
 

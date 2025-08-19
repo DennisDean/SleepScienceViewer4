@@ -31,6 +31,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # To Do List
 # TODO: Add support for color signals
+# TODO: Add support of selecting signals to load
 
 # Import Modules
 import os
@@ -330,7 +331,7 @@ class EdfSignalsStats:
             logger.error(f"Excel export failed: {e}")
 class EdfSignals:
     """Class for storing and summarizing EDF signal data loaded from an EDF file."""
-    BYTES_PER_SAMPLE = 2
+    BYTES_PER_SAMPLE = 2 # Set to original standard value. May support larger bytes per sample in the future
     def __init__(self, signal_labels: List[str], signals_dict:Dict[str,List[float]],
                  signal_sampling_time_dict:Dict[str,float],signal_units_dict:Dict[str,str]):
         """Initialize EdfSignals.
@@ -589,7 +590,7 @@ class EdfSignals:
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
                             parent_widget=None, x_tick_settings:tuple[int, int] = [5,1], annotation_marker=None,
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
-                            stepped_dict = {} ):
+                            stepped_dict = {}, turn_xaxis_labels_off = False ):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -602,11 +603,12 @@ class EdfSignals:
         """
 
         # Set Plot defaults
-        grid_color            = 'gray'
-        signal_color          = 'blue'
-        y_pad_c               = 0.05
-        tick_label_fontsize   = 6.5
-        annotation_line_width = 1.5
+        grid_color                  = 'gray'
+        signal_color                = 'blue'
+        y_pad_c                     = 0.05
+        tick_label_fontsize         = 6.5
+        annotation_line_width       = 1.5
+        y_top_bottom_padding_factor = 2
 
         if signal_key == '':
             # Create empty signal
@@ -653,7 +655,11 @@ class EdfSignals:
             y_min = np.min(signal_segment)
             y_max = np.max(signal_segment)
             y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
-            ax.set_ylim(y_min - 2*y_pad, y_max + y_pad)
+            if turn_xaxis_labels_off:
+                # take back the room for labels
+                y_top_bottom_padding_factor = 1
+                y_pad = 0.02 * (y_max - y_min if y_max != y_min else 1)
+            ax.set_ylim(y_min - y_top_bottom_padding_factor*y_pad, y_max + y_pad)
             ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
 
         # Force x limit
@@ -676,7 +682,12 @@ class EdfSignals:
         ax.set_xticks(minor_ticks, minor=True)
 
         # Set labels only for major ticks
-        ax.set_xticklabels([f"{convert_time_f(x)}{time_axis_units}" for x in major_ticks], fontsize=tick_label_fontsize)
+        ax.set_xticklabels([f"{convert_time_f(x)}{time_axis_units}" for x in major_ticks],
+                               fontsize=tick_label_fontsize)
+        if turn_xaxis_labels_off == True:
+            ax.set_xticklabels([])
+        else:
+            ax.set_yticklabels([])
 
         # Enable grid lines for major and minor ticks
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
@@ -689,7 +700,10 @@ class EdfSignals:
             spine.set_visible(False)
 
         # Compute vertical padding (5% headroom above and below)
-        fig.subplots_adjust(left=.03, right=0.99, top=0.93, bottom=0.35)
+        if turn_xaxis_labels_off:
+            fig.subplots_adjust(left=.03, right=0.99, top=0.92, bottom=0.05)
+        else:
+            fig.subplots_adjust(left=.03, right=0.99, top=0.93, bottom=0.35)
 
         if annotation_marker != None:
             ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}',
@@ -793,7 +807,7 @@ class EdfFile:
         """
         self.file_w_path = file_path or ''
         self.file_name = os.path.basename(file_path) if file_path else ''
-        self.signal_labels = signal_labels or []
+        self.signal_labels = signal_labels or []  # not implemented yet
         self.epochs = epochs
 
         self._file_set = bool(file_path)

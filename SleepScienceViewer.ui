@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Sleep Science Viewer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -1082,8 +1082,15 @@
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionOpen_Signal_Window"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuGenerate"/>
+   <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -1145,6 +1152,11 @@
   <action name="actionEDF_Signal_Export_2">
    <property name="text">
     <string>EDF Signal Export</string>
+   </property>
+  </action>
+  <action name="actionOpen_Signal_Window">
+   <property name="text">
+    <string>Open Signal Window</string>
    </property>
   </action>
  </widget>

@@ -57,8 +57,22 @@ from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal,
 # Configure the logger
 from logging_config import logger
 
+# To Do List
+# TODO: Disable menu items according to files that are loaded
+
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
+from SignalViewer import Ui_SignalWindow
+class NumericTextEditFilter(QObject):
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.KeyPress:
+            if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
+                return False  # Allow backspace and delete
+            if event.text().isdigit():
+                return False  # Allow digits
+            else:
+                return True  # Filter out non-numeric input
+from SignalWindowClass import SignalWindow
 
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
@@ -141,8 +155,7 @@ class AboutDialog(QDialog):
         btn_close = QPushButton("Close")
         btn_close.clicked.connect(self.close)
         layout.addWidget(btn_close)
-
-# Application
+# utilities
 def clear_spectrogram_plot(parent_widget = None):
     layout = parent_widget.layout()
     if layout:
@@ -161,7 +174,9 @@ class NumericTextEditFilter(QObject):
             else:
                 return True  # Filter out non-numeric input
         return False
+# Application
 class MainApp(QMainWindow):
+    # Initialize Windows
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -176,13 +191,19 @@ class MainApp(QMainWindow):
         # Initialize control variables
         self.edf_file_obj:EdfFile                   = None
         self.annotation_xml_obj: AnnotationXmlClass = None
+
+        # Setting up for automatic file recomendation selection
+        self.text_similarity_threshold             = 0.9
+
+        # Define how widgets show up
+        self.listBoxFontSize                       = 9
+
+        # Set up epoch controls
         self.epoch_display_options_text: List       = ['30 s', '1 min', '5 min', '10 min', '1 hr']
         self.epoch_display_options_width_sec: List  = [ 30,     60,      300,     600,      3600]
         self.epoch_display_axis_grid: List          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
         self.epoch_axis_units: List                 = ['s', 's', 'm', 'm', 'm']
         self.time_convert_f: List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min]
-        self.text_similarity_threshold             = 0.9
-        self.listBoxFontSize                       = 9
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
@@ -235,6 +256,7 @@ class MainApp(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.epochs_textEdit.installEventFilter(self.numeric_filter)
+        #self.ui.epochs_textEdit.addAction()
         self.ui.epoch_comboBox.currentIndexChanged.connect(self.on_epoch_width_change)
 
         # Set up for a single function combobox change
@@ -288,12 +310,18 @@ class MainApp(QMainWindow):
         self.ui.actionAnnotation_Export.triggered.connect(self.annotation_export_menu_item)
         self.ui.actionSleep_Stages_Export.triggered.connect(self.sleep_stages_export_menu_item)
 
+        self.ui.actionOpen_Signal_Window.triggered.connect(self.open_signal_view)
+
         self.ui.actionEDF_Standard.triggered.connect(self.edf_standard_menu_item)
         self.ui.actionAnnotation_Standard.triggered.connect(self.xml_standard_menu_item)
         self.ui.actionAbout.triggered.connect(self.about_menu_item)
 
         # Turn Off Epoch Buttons
-        self.turn_off_edf_signal_pushbuttons()
+        self.turn_off_edf_actions()
+        self.turn_off_xml_actions()
+
+        # Save space for windows
+        self.signal_view_window = None
     # Initialize EDF
     def load_edf_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", "", "EDF Files (*.edf)")
@@ -341,7 +369,10 @@ class MainApp(QMainWindow):
             self.set_signal_combo_boxes()
 
             # Turn on signal related buttons
-            self.turn_on_edf_signal_pushbuttons()
+            self.turn_on_edf_actions()
+
+            # Turn off actions
+            self.turn_off_xml_actions()
     def initialize_epoch_variables(self):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -355,7 +386,7 @@ class MainApp(QMainWindow):
 
         # Set epoch combo box to 30 second window
         self.ui.epoch_comboBox.setCurrentIndex(self.current_epoch_width_index)
-    def turn_off_edf_signal_pushbuttons(self):
+    def turn_off_edf_actions(self):
         # Turn off edf signal related widgets
         self.ui.compute_spectrogram_pushButton.setEnabled(False)
         self.ui.first_pushButton.setEnabled(False)
@@ -366,7 +397,14 @@ class MainApp(QMainWindow):
         self.ui.last_epoch_pushButton.setEnabled(False)
         self.ui.epoch_comboBox.setEnabled(False)
         self.ui.load_annotation_pushButton.setEnabled(False)
-    def turn_on_edf_signal_pushbuttons(self):
+
+        # Turn off menu items
+        self.ui.actionEDF_Summary.setEnabled(False)
+        self.ui.actionEDF_Signal_Export_2.setEnabled(False)
+
+        # Enable xml open action
+        self.ui.actionOpen_XML.setEnabled(False)
+    def turn_on_edf_actions(self):
         # Turn off edf signal related widgets
         self.ui.compute_spectrogram_pushButton.setEnabled(True)
         self.ui.first_pushButton.setEnabled(True)
@@ -377,6 +415,13 @@ class MainApp(QMainWindow):
         self.ui.last_epoch_pushButton.setEnabled(True)
         self.ui.epoch_comboBox.setEnabled(True)
         self.ui.load_annotation_pushButton.setEnabled(True)
+
+        # Turn off menu items
+        self.ui.actionEDF_Summary.setEnabled(True)
+        self.ui.actionEDF_Signal_Export_2.setEnabled(True)
+
+        # Enable xml open action
+        self.ui.actionOpen_XML.setEnabled(True)
     def set_signal_combo_boxes(self):
         # Turn off signal plot update
         self.automatic_signal_redraw = False
@@ -571,6 +616,9 @@ class MainApp(QMainWindow):
 
             # Update interface
             self.ui.load_annotation_textEdit.setText(f"{file_path}")
+
+            # Turn on XML actions
+            self.turn_on_xml_actions()
             #QMessageBox.information(self, "XML Loaded", f"Loaded: {file_path}")
             logger.info(f"Loaded XML: {file_path}")
         except:
@@ -691,6 +739,18 @@ class MainApp(QMainWindow):
             factor = 100 / brightness
             i_rgb  =  tuple(int(c * factor) for c in i_rgb)
         return "#{:02X}{:02X}{:02X}".format(*i_rgb)
+    def turn_off_xml_actions(self):
+        # Turn on signal related menu items
+        self.ui.actionAnnotation_Summary.setEnabled(False)
+        self.ui.actionAnnotation_Export.setEnabled(False)
+        self.ui.actionSleep_Stages_Export.setEnabled(False)
+        self.ui.actionOpen_Signal_Window.setEnabled(False)
+    def turn_on_xml_actions(self):
+        # Turn off signal related menu items
+        self.ui.actionAnnotation_Summary.setEnabled(True)
+        self.ui.actionAnnotation_Export.setEnabled(True)
+        self.ui.actionSleep_Stages_Export.setEnabled(True)
+        self.ui.actionOpen_Signal_Window.setEnabled(True)
     # Epochs
     def set_epoch_to_first(self):
         """
@@ -877,6 +937,7 @@ class MainApp(QMainWindow):
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     # Menu Item
+    # File
     def open_edf_menu_item(self):
         self.load_edf_file()
     def open_xml_menu_item(self):
@@ -887,6 +948,7 @@ class MainApp(QMainWindow):
         msg_box.setText("Settings item is not implemented yet")
         msg_box.setIcon(QMessageBox.Information)
         msg_box.exec()
+    # Generate
     def edf_summary_menu_item(self):
         logger.info(f'EDF Summary Menu Item selected')
         if self.edf_file_obj != None:
@@ -1071,6 +1133,14 @@ class MainApp(QMainWindow):
                 return None
         else:
             logger.info(f'Sleep Stages Export Menu Item: Annotation File not loaded. Summary not created')
+    # Window
+    def open_signal_view(self):
+        # Get index value for first signal graphic view
+        signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
+        self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
+                                          signal_combobox_index = signal_combobox_index, parent=None)
+        self.signal_window.show()
+    # Help
     def xml_standard_menu_item(self):
         dlg = SleepXMLInfoDialog(self)
         dlg.exec()
