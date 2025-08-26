@@ -596,6 +596,21 @@ class MainApp(QMainWindow):
             logger.info(
                 f"Message Dialog Box - Cancel clicked, Msg: {'Writing signals to disk may take a while. \n\nDo you want to proceed?'} ")
             return False
+
+    def show_signal_completed_dialog(parent=None, location:str = ""):
+        msg_box = QMessageBox(parent)
+        msg_box.setWindowTitle("Update")
+        msg_box.setText(
+            f"Signal export completed. Files written to: \n\n{location}")
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.setDefaultButton(QMessageBox.Ok)
+
+        result = msg_box.exec()
+
+
+        logger.info("OK clicked: Signal written acknowledged by users ")
+
+        return True
     def show_missing_eeg_warning(self):
         QMessageBox.warning(
             self,
@@ -1016,7 +1031,15 @@ class MainApp(QMainWindow):
                 proceed_flag = self.show_signal_export_ok_cancel_dialog()
 
                 if proceed_flag:
+                    # Set cursor to busy
+                    QApplication.setOverrideCursor(Qt.WaitCursor)
+
+                    # Write Files
                     self.edf_file_obj.edf_signals.export_signals_to_txt(folder_path, self.edf_file_obj.file_name)
+
+                    # Let people and processes know file export completed
+                    QApplication.restoreOverrideCursor()
+                    self.show_signal_completed_dialog(location = folder_path)
                     logger.info(f'Signals written to folder: {folder_path}')
             else:
                 logger.info(f'Folder not selected for signal export.')
