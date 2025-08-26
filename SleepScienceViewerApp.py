@@ -468,6 +468,9 @@ class MainApp(QMainWindow):
             self.show_missing_eeg_warning()
 
         if process_eeg == True:
+            # Turn on busy cursor
+            QApplication.setOverrideCursor(Qt.WaitCursor)
+
             # Make sure figures are not inadvertenly generated
             self.automatic_signal_redraw = False
 
@@ -486,6 +489,9 @@ class MainApp(QMainWindow):
             # Record Spectrogram Completions
             self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
             logger.info('Computing spectrogram: Computation completed')
+
+            # Turn off busy cursor
+            QApplication.setOverrideCursor()
 
             # Turn on signal update
             self.automatic_signal_redraw = True
