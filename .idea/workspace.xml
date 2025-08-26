@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Added busy cursor to computing spectorgram. Made progress on PanTomkin Algorithm.">
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Pan Tomkins r peak identification working with partial algorithm working.">
+      <change afterPath="$PROJECT_DIR$/PanTomkinClass2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PanTomkinsClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/PanTomkinsClass.py" afterDir="false" />
     </list>
@@ -74,14 +75,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00030" summary="EDF file load followed by annotation file load working. May want to revisit disconnecting on txt change. Seems to be working well. &#10;&#10;Signal plots could use some axis. X axis will be simpler to put in place.&#10;&#10;Y axis will need to determine stepped axis and global vs. local scaling.">
-      <option name="closed" value="true" />
-      <created>1753984900804</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1753984900804</updated>
     </task>
     <task id="LOCAL-00031" summary="Updated interface to give more room to signals. Added x axis labels. Need to lower the labels. Then I will work on the y axis.">
       <option name="closed" value="true" />
@@ -467,11 +460,18 @@
       <option name="project" value="LOCAL" />
       <updated>1756214245399</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Pan Tomkins r peak identification working with partial algorithm working.">
+      <option name="closed" value="true" />
+      <created>1756221235625</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1756221235625</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Replace qt5 with a qt6 import in the multi_taper_sprectrogram file. &#10;&#10;Multiple minor read me changes." />
     <MESSAGE value="Rebuilt requirements.txt and linked to in README.md" />
     <MESSAGE value="Fixed x axis labels. Cleaned up code." />
     <MESSAGE value="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters." />
@@ -496,7 +496,8 @@
     <MESSAGE value="Rename figure" />
     <MESSAGE value="Added a busy cursor to signify that the exports is in progress. Dialog box let's the user know the export is completed." />
     <MESSAGE value="Added busy cursor to computing spectorgram. Made progress on PanTomkin Algorithm." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added busy cursor to computing spectorgram. Made progress on PanTomkin Algorithm." />
+    <MESSAGE value="Pan Tomkins r peak identification working with partial algorithm working." />
+    <option name="LAST_COMMIT_MESSAGE" value="Pan Tomkins r peak identification working with partial algorithm working." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -523,8 +524,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/PanTomkinsClass.py</url>
-          <line>42</line>
+          <line>37</line>
           <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PanTomkinsClass.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PanTomkinsClass.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

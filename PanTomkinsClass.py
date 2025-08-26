@@ -27,11 +27,6 @@ def apply_bandpass_filter(data, fs, lowcut, highcut, order=5):
     filtered_data = sosfiltfilt(sos, data)
     return filtered_data
 
-class PanTomkinsClass:
-    def __init__(self, signal):
-        PASS
-    def band_pass(self,low_pass:float = 5, high_pass:float = 15):
-        PASS
 def main():
 
     # ECG test file
@@ -40,10 +35,18 @@ def main():
 
     # Test Parameters
     fs               = 1/(time[2] - time[1])
+    num_test_samples = int(60*fs)
+
+    # ECG test file
+    ecg_fn = "./Exports/signals/learn-nsrr01_ECG.txt"
+    time, ecg = np.loadtxt(ecg_fn,skiprows = 1, unpack = True)
+
+    # Test Parameters
+    fs = 1/(time[2] - time[1])
     num_test_samples = int(30*fs)
 
     # filter
-    lowcut  = 0.5
+    lowcut = 0.5
     highcut = 50
     filtered_ekg = apply_bandpass_filter(ecg[:num_test_samples], fs, lowcut, highcut)
 
@@ -54,53 +57,44 @@ def main():
     squared_ecg = np.square(diff_ecg)
 
     # Smoothed
-    integration_window  = int(0.150*fs)
-    smoothed_ecg = np.convolve(squared_ecg,
-                               np.ones(integration_window)/integration_window,
-                               mode = 'same')
+    window_size = int(0.100*fs)
+    smoothed_ecg = np.convolve(squared_ecg, np.ones(window_size)/window_size, mode = 'same')
 
     # --- Peak detection with find_peaks ---
     # Distance: enforce refractory period (200 ms)
     min_distance = int(0.2 * fs)
 
     # Initial detection
-    r_peaks, properties = find_peaks(
+    peaks, properties = find_peaks(
         smoothed_ecg,
-        distance=int(0.2 * fs),  # 200 ms refractory
-        prominence=np.percentile(smoothed_ecg, 90) * 0.2
+        distance=min_distance,
+        prominence=np.percentile(smoothed_ecg, 90) * 0.2  # rough threshold
     )
 
-    # --- Step 1: Lag correction ---
-    lag = integration_window // 2
-    lag_corrected_peaks = r_peaks - lag
-    lag_corrected_peaks = lag_corrected_peaks[lag_corrected_peaks >= 0]
-
-
-    # Refinement search window = half the integration window
-    search_window = integration_window // 2
-    refined_r_peaks = []
-    for p in r_peaks:
+    # Optional: refine peak positions on the bandpassed ECG
+    r_peaks = []
+    search_window = int(0.05 * fs)  # ±50 ms
+    for p in peaks:
         start = max(0, p - search_window)
         end = min(len(filtered_ekg), p + search_window)
-        refined = start + np.argmax(ecg[start:end])
-        refined_r_peaks.append(refined)
-
+        refined = start + np.argmax(filtered_ekg[start:end])
+        r_peaks.append(refined)
+    r_peaks = np.array(r_peaks)
 
     # Print results
     print("Detected R-peaks:", r_peaks)
     print("Corresponding times:", time[r_peaks])
 
-
     fig, axs = plt.subplots(5, 1)
     axs[0].plot(time[:num_test_samples],  ecg[:num_test_samples],          label='Signal 1', color='blue')
-    axs[0].plot(time[refined_r_peaks], ecg[refined_r_peaks], 'o', color = 'red')
+    axs[0].plot(time[r_peaks], ecg[r_peaks], 'o', color = 'red')
 
     axs[1].plot(time[:num_test_samples],  filtered_ekg, label='Signal 1', color='blue')
-    axs[1].plot(time[refined_r_peaks], ecg[refined_r_peaks], 'o', color = 'red')
+    axs[1].plot(time[r_peaks], filtered_ekg[r_peaks], 'o', color = 'red')
 
-    axs[2].plot(time[:num_test_samples],  diff_ecg,     label='Signal 1', color='blue')
-    axs[3].plot(time[:num_test_samples],  squared_ecg,  label='Signal 1', color='blue')
-    axs[4].plot(time[:num_test_samples],  smoothed_ecg, label='Signal 1', color='blue')
+    #axs[2].plot(time[:num_test_samples],  diff_ecg,     label='Signal 1', color='blue')
+    #axs[3].plot(time[:num_test_samples],  squared_ecg,  label='Signal 1', color='blue')
+    #axs[4].plot(time[:num_test_samples],  smoothed_ecg, label='Signal 1', color='blue')
 
     plt.tight_layout()
     plt.show()
