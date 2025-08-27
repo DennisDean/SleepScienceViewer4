@@ -43,7 +43,7 @@ def main():
 
     # Test Parameters
     fs = 1/(time[2] - time[1])
-    num_test_samples = int(30*fs)
+    num_test_samples = int(15*fs)
 
     # filter
     lowcut = 0.5
@@ -57,29 +57,81 @@ def main():
     squared_ecg = np.square(diff_ecg)
 
     # Smoothed
-    window_size = int(0.100*fs)
-    smoothed_ecg = np.convolve(squared_ecg, np.ones(window_size)/window_size, mode = 'same')
+    integration_window = int(0.20*fs)
+    smoothed_ecg = np.convolve(squared_ecg, np.ones(integration_window)/integration_window, mode = 'same')
+
+    # Initialize threshold variables using an initial segment (e.g., first 2 sec or few peaks)
+    SPKI = np.max(smoothed_ecg[:int(2 * fs)])  # heuristic seed
+    NPKI = np.mean(smoothed_ecg[:int(2 * fs)])  # heuristic seed
+    SPKF = SPKI
+    NPKF = NPKI
+    THI1 = NPKI + 0.25 * (SPKI - NPKI)
+    THF1 = NPKF + 0.25 * (SPKF - NPKF)
+    THI2, THF2 = 0.5 * THI1, 0.5 * THF1
 
     # --- Peak detection with find_peaks ---
     # Distance: enforce refractory period (200 ms)
     min_distance = int(0.2 * fs)
 
     # Initial detection
-    peaks, properties = find_peaks(
+    r_peaks, properties = find_peaks(
         smoothed_ecg,
         distance=min_distance,
         prominence=np.percentile(smoothed_ecg, 90) * 0.2  # rough threshold
     )
 
+    #lag = integration_window // 2
+    #lag_corrected_peaks = r_peaks - lag
+    #r_peaks = lag_corrected_peaks[lag_corrected_peaks >= 0]
+
+    # Tie integration window to search window
+    search_window = integration_window // 2
+
     # Optional: refine peak positions on the bandpassed ECG
-    r_peaks = []
-    search_window = int(0.05 * fs)  # ±50 ms
-    for p in peaks:
+    refined_r_peaks = []
+    for p in r_peaks:
         start = max(0, p - search_window)
         end = min(len(filtered_ekg), p + search_window)
         refined = start + np.argmax(filtered_ekg[start:end])
-        r_peaks.append(refined)
-    r_peaks = np.array(r_peaks)
+        refined_r_peaks.append(refined)
+
+    refined = np.array(refined_r_peaks)
+
+    # 4) RR interval detection + search-back initialization
+    rr_intervals = np.diff(refined) / fs  # in seconds
+    RR_list = rr_intervals.tolist()
+
+    def rr_avgs(rrs):
+        if not rrs:
+            return None, None
+        avg1 = np.mean(rrs[-8:])
+        regul = [r for r in rrs if avg1 * 0.92 < r < avg1 * 1.16]
+        avg2 = np.mean(regul) if regul else avg1
+        return avg1, avg2
+
+    # 5) Search-back for missed beats
+    final_peaks = [refined[0]]
+    for current in refined[1:]:
+        last_peak = final_peaks[-1]
+        delta_t = (current - last_peak) / fs
+
+        avg1, avg2 = rr_avgs(RR_list)
+
+        if avg2 and delta_t > 1.66 * avg2:
+            # Search back interval
+            start = last_peak + int(0.2 * fs)
+            end = current - int(0.2 * fs)
+            seg = smoothed_ecg[start:end]
+            if seg.size:
+                peak_idx = start + np.argmax(seg)
+                final_peaks.append(peak_idx)
+                RR_list.append((peak_idx - last_peak) / fs)
+
+        final_peaks.append(current)
+        RR_list.append((current - last_peak) / fs)
+
+    final_peaks = np.array(final_peaks)
+    r_peaks = final_peaks
 
     # Print results
     print("Detected R-peaks:", r_peaks)

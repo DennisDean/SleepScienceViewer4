@@ -49,7 +49,7 @@ class PanTompkinsDetector:
         print(f'fs = {fs}, self.integration_window = {self.integration_window}, self.lag  = {self.lag }')
         print(f'self.search_back_factor = {self.search_back_factor}, self.refractory_period  = {self.refractory_period }, self.twave_window  = {self.twave_window}')
     def _initialize_thresholds(self, int_signal, filt_signal):
-        init_len = int(self.fs * 2)  # first 2 s
+        init_len = int(self.fs * 5)  # first 2 s
         self.SPKI = np.max(int_signal[:init_len])
         self.NPKI = np.mean(int_signal[:init_len])
         self.SPKF = np.max(filt_signal[:init_len])
@@ -73,6 +73,11 @@ class PanTompkinsDetector:
 
         # Prepare integrated signal
         I = np.convolve(squared_ecg, np.ones(self.integration_window)/self.integration_window, mode="same")
+
+        time = np.arange(0, 1/self.fs, 1/self.fs*len(I))
+        #plt.plot(filtered_ecg, 'blue')
+        plt.plot(I, 'red')
+        plt.show()
 
         # Initialize thresholds on first call
         if self.SPKI is None:
@@ -150,9 +155,9 @@ def main():
 
     print (r_peaks)
 
-    plt.plot(time[:num_test_samples], ecg[:num_test_samples])
-    plt.plot(time[r_peaks], ecg[r_peaks], 'ro')
-    plt.show()
+    #plt.plot(time[:num_test_samples], ecg[:num_test_samples])
+    #plt.plot(time[r_peaks], ecg[r_peaks], 'ro')
+    #plt.show()
     pass
 if __name__ == "__main__":
     main()
