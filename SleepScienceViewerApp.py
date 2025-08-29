@@ -325,7 +325,7 @@ class MainApp(QMainWindow):
         self.signal_view_window = None
     # Initialize EDF
     def load_edf_file(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", "", "EDF Files (*.edf)")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", "", "EDF Files (*.edf *.EDF)")
         try:
             # Create XML Object
             self.edf_file_obj = EdfFile(file_path)
@@ -357,7 +357,7 @@ class MainApp(QMainWindow):
 
             # Determine length of signal
             epoch_width = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
-            max_num_epochs = self.edf_file_obj.edf_signals.return_num_epochs(eeg_labels[0], epoch_width)
+            max_num_epochs = self.edf_file_obj.edf_signals.return_num_epochs(signal_labels[0], epoch_width)
             self.max_epoch = max_num_epochs
             self.signal_length_seconds = self.edf_file_obj.edf_signals.return_signal_length_seconds(
                 signal_labels[0], epoch_width)
@@ -629,7 +629,7 @@ class MainApp(QMainWindow):
         logger.info(f'Preparing to loading annotation file.')
 
         # Initiate annotation file selection
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open XML File", "", "XML Files (*.xml)")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open XML File", "", "XML Files (*.xml *.XML)")
 
         try:
             # Create XML Object

@@ -100,6 +100,11 @@ class SignalWindow(QMainWindow):
         # Initialize epoch variables
         self.initialize_epoch_variables()
 
+        # Initialize Filter
+        self.initialize_filter_variables()
+        self.ui.pushButton_filter.toggled.connect(self.filter_button_toggled)
+        self.filter_param = [-1, -1, -1]  # Setting filtering off
+
         # Draw signals in graphic view
         self.automatic_signal_redraw = True
         self.draw_signal_in_graphic_views()
@@ -107,6 +112,8 @@ class SignalWindow(QMainWindow):
         # Connect change in combo box
         self.ui.comboBox_signals.currentTextChanged[str].connect(self.update_signal_combobox)
         self.ui.comboBox_epoch.currentTextChanged[str].connect(self.update_epoch_combobox)
+
+
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -139,6 +146,21 @@ class SignalWindow(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.textEdit_epoch.installEventFilter(self.numeric_filter)
+    def initialize_filter_variables(self):
+        # Define filter combo box entries
+        self.filter_low_menu_text  = ['', '0.1 Hz', '0.5 Hz', '1.0 Hz', '10 Hz']
+        self.filter_high_menu_text = ['', '50 Hz', '60 Hz', '70 Hz']
+        self.filter_notch_text     = ['', '50 Hz', '60 Hz']
+
+        # Define filter combo box values
+        self.filter_low_menu_val   = [-1, 0.1 , 0.5, 1.0, 10.0]
+        self.filter_high_menu_val  = [-1, 50.0, 60.0, 70.0]
+        self.filter_notch_val      = [-1, 50.0, 60.0]
+
+        # Set filter combo box values
+        self.ui.comboBox_filter_low.addItems(self.filter_low_menu_text)
+        self.ui.comboBox_filter_high.addItems(self.filter_high_menu_text)
+        self.ui.comboBox_filter_notch.addItems(self.filter_notch_text)
     # Visualization
     def draw_signal_in_graphic_views(self, annotation_marker:float=None,
                                      epochs_to_draw:int=None):
@@ -180,6 +202,11 @@ class SignalWindow(QMainWindow):
 
         # Set signal label
         signal_label = self.ui.comboBox_signals.currentText()
+
+        # Get filtering parameters
+        filter_param = self.filter_param
+        print('Got filter parameters')
+
         for i, graphic_view in enumerate(graphic_views):
             # Select graphic view
             signal_label = signal_label
@@ -207,8 +234,8 @@ class SignalWindow(QMainWindow):
                                                               time_axis_units       = time_axis_units,
                                                               is_signal_stepped     = is_signal_stepped,
                                                               stepped_dict          = stepped_dict,
-                                                              turn_xaxis_labels_off = True)
-
+                                                              turn_xaxis_labels_off = True,
+                                                              filter_param          = filter_param)
 
         # Create x axis for reference
         signal_label = "" # force no signal
@@ -222,7 +249,9 @@ class SignalWindow(QMainWindow):
                                                      time_axis_units       = time_axis_units,
                                                      is_signal_stepped     = is_signal_stepped,
                                                      stepped_dict          = stepped_dict,
-                                                     turn_xaxis_labels_off = False)
+                                                     turn_xaxis_labels_off = False,
+                                                     filter_param          = filter_param)
+
 
 
         #Turn on combo box signal change
@@ -246,6 +275,16 @@ class SignalWindow(QMainWindow):
 
         # log action
         logger.info(f'Signal combobox changed to {signal_label}')
+    def filter_button_toggled(self, checked:bool):
+        if checked:
+            lowcut = self.filter_low_menu_val[self.ui.comboBox_filter_low.currentIndex()]
+            highcut = self.filter_high_menu_val[self.ui.comboBox_filter_high.currentIndex()]
+            notch = self.filter_notch_val[self.ui.comboBox_filter_notch.currentIndex()]
+            self.filter_param = [lowcut, highcut, notch]
+            logger.info(f'Setting filtering parameters: lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
+        else:
+            self.filter_param = [-1, -1, -1]
+            logger.info(f'Turning filter Setting Off')
     # Epoch Buttons
     def set_epoch_to_first(self):
         """

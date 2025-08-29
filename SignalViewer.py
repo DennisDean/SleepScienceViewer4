@@ -59,26 +59,47 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_controls.addItem(self.horizontalSpacer_2)
 
-        self.comboBox_method = QComboBox(self.centralwidget)
-        self.comboBox_method.setObjectName(u"comboBox_method")
-        self.comboBox_method.setMinimumSize(QSize(150, 25))
-        self.comboBox_method.setMaximumSize(QSize(150, 25))
+        self.comboBox_filter_low = QComboBox(self.centralwidget)
+        self.comboBox_filter_low.setObjectName(u"comboBox_filter_low")
+        self.comboBox_filter_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_filter_low.setMaximumSize(QSize(75, 25))
+        self.comboBox_filter_low.setMaxVisibleItems(18)
 
-        self.horizontalLayout_controls.addWidget(self.comboBox_method)
+        self.horizontalLayout_controls.addWidget(self.comboBox_filter_low)
 
-        self.pushButton_setup = QPushButton(self.centralwidget)
-        self.pushButton_setup.setObjectName(u"pushButton_setup")
-        self.pushButton_setup.setMinimumSize(QSize(100, 25))
-        self.pushButton_setup.setMaximumSize(QSize(100, 25))
+        self.comboBox_filter_high = QComboBox(self.centralwidget)
+        self.comboBox_filter_high.setObjectName(u"comboBox_filter_high")
+        self.comboBox_filter_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_filter_high.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_controls.addWidget(self.pushButton_setup)
+        self.horizontalLayout_controls.addWidget(self.comboBox_filter_high)
 
-        self.pushButton_compute = QPushButton(self.centralwidget)
-        self.pushButton_compute.setObjectName(u"pushButton_compute")
-        self.pushButton_compute.setMinimumSize(QSize(100, 25))
-        self.pushButton_compute.setMaximumSize(QSize(100, 25))
+        self.pushButton_filter = QPushButton(self.centralwidget)
+        self.pushButton_filter.setObjectName(u"pushButton_filter")
+        self.pushButton_filter.setMinimumSize(QSize(60, 25))
+        self.pushButton_filter.setMaximumSize(QSize(60, 25))
+        self.pushButton_filter.setCheckable(True)
 
-        self.horizontalLayout_controls.addWidget(self.pushButton_compute)
+        self.horizontalLayout_controls.addWidget(self.pushButton_filter)
+
+        self.horizontalSpacer_45 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_controls.addItem(self.horizontalSpacer_45)
+
+        self.comboBox_filter_notch = QComboBox(self.centralwidget)
+        self.comboBox_filter_notch.setObjectName(u"comboBox_filter_notch")
+        self.comboBox_filter_notch.setMinimumSize(QSize(75, 25))
+        self.comboBox_filter_notch.setMaximumSize(QSize(75, 25))
+
+        self.horizontalLayout_controls.addWidget(self.comboBox_filter_notch)
+
+        self.pushButton_notch = QPushButton(self.centralwidget)
+        self.pushButton_notch.setObjectName(u"pushButton_notch")
+        self.pushButton_notch.setMinimumSize(QSize(100, 25))
+        self.pushButton_notch.setMaximumSize(QSize(100, 25))
+        self.pushButton_notch.setCheckable(True)
+
+        self.horizontalLayout_controls.addWidget(self.pushButton_notch)
 
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -757,8 +778,8 @@ class Ui_SignalWindow(object):
 
     def retranslateUi(self, SignalWindow):
         SignalWindow.setWindowTitle(QCoreApplication.translate("SignalWindow", u"Signal Window", None))
-        self.pushButton_setup.setText(QCoreApplication.translate("SignalWindow", u"Setup", None))
-        self.pushButton_compute.setText(QCoreApplication.translate("SignalWindow", u"Compute", None))
+        self.pushButton_filter.setText(QCoreApplication.translate("SignalWindow", u"Filter", None))
+        self.pushButton_notch.setText(QCoreApplication.translate("SignalWindow", u"Notch", None))
         self.pushButton_save.setText(QCoreApplication.translate("SignalWindow", u"Save", None))
         self.pushButton_load.setText(QCoreApplication.translate("SignalWindow", u"Load", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"First", None))

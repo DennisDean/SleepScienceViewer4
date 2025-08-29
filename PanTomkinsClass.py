@@ -5,6 +5,7 @@ import numpy as np
 from scipy.signal import butter, sosfiltfilt
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
+from ecgdetectors import Detectors
 
 def apply_bandpass_filter(data, fs, lowcut, highcut, order=5):
     """
@@ -43,6 +44,7 @@ def main():
 
     # Test Parameters
     fs = 1/(time[2] - time[1])
+    print(fs)
     num_test_samples = int(15*fs)
 
     # filter

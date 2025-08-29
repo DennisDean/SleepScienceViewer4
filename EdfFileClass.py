@@ -36,7 +36,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # Import Modules
 import os
 import logging
-from typing import List, Dict
+from typing import List, Dict, Tuple
 import datetime
 import pandas as pd
 import csv
@@ -51,6 +51,9 @@ from matplotlib.figure import Figure
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 import numpy as np
 import math
+
+from scipy.signal import butter, sosfiltfilt
+import numpy as np
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -588,9 +591,10 @@ class EdfSignals:
         return obj
     # Visualization
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
-                            parent_widget=None, x_tick_settings:tuple[int, int] = [5,1], annotation_marker=None,
+                            parent_widget=None, x_tick_settings:list[int, int] = [5,1], annotation_marker=None,
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
-                            stepped_dict = {}, turn_xaxis_labels_off = False ):
+                            stepped_dict: dict | None = None, turn_xaxis_labels_off = False,
+                            filter_param:list[float, float, float] =[-1,-1,-1]):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -610,6 +614,9 @@ class EdfSignals:
         annotation_line_width       = 1.5
         y_top_bottom_padding_factor = 2
 
+        if stepped_dict is None:
+            stepped_dict = {}
+
         if signal_key == '':
             # Create empty signal
             sampling_time = 0
@@ -625,9 +632,30 @@ class EdfSignals:
         else:
             # Get signal and metadata
             signal_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
-            sampling_time = self.signal_sampling_time_dict[signal_key]
-            signal_units = self.signal_units_dict[signal_key]
-            time_axis = np.arange(len(signal_segment)) * sampling_time
+            sampling_time  = self.signal_sampling_time_dict[signal_key]
+            signal_units   = self.signal_units_dict[signal_key]
+            time_axis      = np.arange(len(signal_segment)) * sampling_time
+
+            # Check if filtering parameters are provided
+            filter_test = True in [ x>0 for x in filter_param]
+            print(f'Testing Filter Parameters: filter_test = {filter_test}, filter_param = {filter_param}')
+            if filter_test:
+                lowcut  = filter_param[0]
+                highcut = filter_param[1]
+                notch   = filter_param[2]
+                print('Extracted filter value')
+                if lowcut>0 and highcut>0:
+                    fs = 1/sampling_time
+                    logger.info(
+                        f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
+                    print(signal_segment)
+                    signal_segment_np = self.apply_bandpass_filter(np.array(signal_segment), fs, lowcut, highcut)
+                    signal_segment    = signal_segment_np.tolist()
+                    logger.info(
+                        f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
+
+                if notch >0:
+                    pass
 
         # Create figure and axis
         fig = Figure(figsize=(12, 2))
@@ -731,6 +759,26 @@ class EdfSignals:
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
     # Utilities
+    def apply_bandpass_filter(self,data, fs, lowcut, highcut, order=5):
+        """
+        Applies a Butterworth bandpass filter to  data.
+
+        Args:
+            data (np.ndarray): The 1D  signal.
+            fs (float): The sampling frequency of the data.
+            lowcut (float): The lower cutoff frequency.
+            highcut (float): The upper cutoff frequency.
+            order (int): The filter order.
+
+        Returns:
+            np.ndarray: The filtered  signal.
+        """
+        nyquist = 0.5 * fs
+        low = lowcut / nyquist
+        high = highcut / nyquist
+        sos = butter(order, [low, high], btype='bandpass', output='sos')
+        filtered_data = sosfiltfilt(sos, data)
+        return filtered_data
     def __str__(self):
         """String representation of the EdfSignals object."""
         if not self.signals:
