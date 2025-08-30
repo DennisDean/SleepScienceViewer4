@@ -103,6 +103,7 @@ class SignalWindow(QMainWindow):
         # Initialize Filter
         self.initialize_filter_variables()
         self.ui.pushButton_filter.toggled.connect(self.filter_button_toggled)
+        self.ui.pushButton_notch.toggled.connect(self.notch_button_toggled)
         self.filter_param = [-1, -1, -1]  # Setting filtering off
 
         # Draw signals in graphic view
@@ -112,8 +113,6 @@ class SignalWindow(QMainWindow):
         # Connect change in combo box
         self.ui.comboBox_signals.currentTextChanged[str].connect(self.update_signal_combobox)
         self.ui.comboBox_epoch.currentTextChanged[str].connect(self.update_epoch_combobox)
-
-
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -279,12 +278,19 @@ class SignalWindow(QMainWindow):
         if checked:
             lowcut = self.filter_low_menu_val[self.ui.comboBox_filter_low.currentIndex()]
             highcut = self.filter_high_menu_val[self.ui.comboBox_filter_high.currentIndex()]
-            notch = self.filter_notch_val[self.ui.comboBox_filter_notch.currentIndex()]
-            self.filter_param = [lowcut, highcut, notch]
-            logger.info(f'Setting filtering parameters: lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
+            self.filter_param = [lowcut, highcut, self.filter_param[2]]
+            logger.info(f'Setting filtering parameters: lowcut = {lowcut}, highcut  = {highcut}')
         else:
-            self.filter_param = [-1, -1, -1]
+            self.filter_param = [-1, -1, self.filter_param[2]]
             logger.info(f'Turning filter Setting Off')
+    def notch_button_toggled(self, checked:bool):
+        if checked:
+            notch = self.filter_notch_val[self.ui.comboBox_filter_notch.currentIndex()]
+            self.filter_param = [self.filter_param[0], self.filter_param[1], notch]
+            logger.info(f'Setting notch parameter: notch = {notch}')
+        else:
+            self.filter_param = [-1, -1, self.filter_param[2]]
+            logger.info(f'Turning Notch Setting Off')
     # Epoch Buttons
     def set_epoch_to_first(self):
         """

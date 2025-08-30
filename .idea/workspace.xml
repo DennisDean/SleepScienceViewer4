@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Threshold adaptation not working. Not worth the time when there is py-ecg-detectors">
-      <change afterPath="$PROJECT_DIR$/EcgDetectors.py" afterDir="false" />
+    <list default="true" id="6ab80d68-aa2d-461a-aac8-c43bfd078bb9" name="Changes" comment="Fixed filtering. This is working well. Now controls to make sure filtering is applied only to appropriate signals. User interface for appling is clunky. Should add notch filtering for completion. &#10;&#10;Nice feature is that two signal views can be generated. A nice feature may be to overly signals in signal viewer. It may be that ECG is contamnated with moverment data suggesting emg could be deconvolved from ECG.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EdfFileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdfFileClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PanTomkinsClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/PanTomkinsClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignalViewer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/SignalViewer.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignalWindowClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignalWindowClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SleepScienceViewerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/SleepScienceViewerApp.py" afterDir="false" />
     </list>
@@ -81,14 +77,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753098816748</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Added licene information. Did some basic testing of all functionality.">
-      <option name="closed" value="true" />
-      <created>1754051749840</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1754051749840</updated>
     </task>
     <task id="LOCAL-00034" summary="Update signal plot to remove axis warning.  Plotting could use some work. good for now.">
       <option name="closed" value="true" />
@@ -474,11 +462,18 @@
       <option name="project" value="LOCAL" />
       <updated>1756294827465</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Fixed filtering. This is working well. Now controls to make sure filtering is applied only to appropriate signals. User interface for appling is clunky. Should add notch filtering for completion. &#10;&#10;Nice feature is that two signal views can be generated. A nice feature may be to overly signals in signal viewer. It may be that ECG is contamnated with moverment data suggesting emg could be deconvolved from ECG.">
+      <option name="closed" value="true" />
+      <created>1756508393733</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1756508393733</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added color to text in annotaiton list from settings. Automatically inverted colors to show up on gray background. A couple of hard coded parameters." />
     <MESSAGE value="turned off color text in annotation. Just not worth the work." />
     <MESSAGE value="removed debugging print statements to test install." />
     <MESSAGE value="Added distribution wheel." />
@@ -503,7 +498,8 @@
     <MESSAGE value="Pan Tomkins r peak identification working with partial algorithm working." />
     <MESSAGE value="Threshold adaptation not working. I moved it to the PamTomkinClass2.py. Partway rebuilding the script version which I will reimplement as a class. I can then slowly add the thresholding for lookback." />
     <MESSAGE value="Threshold adaptation not working. Not worth the time when there is py-ecg-detectors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Threshold adaptation not working. Not worth the time when there is py-ecg-detectors" />
+    <MESSAGE value="Fixed filtering. This is working well. Now controls to make sure filtering is applied only to appropriate signals. User interface for appling is clunky. Should add notch filtering for completion. &#10;&#10;Nice feature is that two signal views can be generated. A nice feature may be to overly signals in signal viewer. It may be that ECG is contamnated with moverment data suggesting emg could be deconvolved from ECG." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed filtering. This is working well. Now controls to make sure filtering is applied only to appropriate signals. User interface for appling is clunky. Should add notch filtering for completion. &#10;&#10;Nice feature is that two signal views can be generated. A nice feature may be to overly signals in signal viewer. It may be that ECG is contamnated with moverment data suggesting emg could be deconvolved from ECG." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -515,18 +511,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>322</line>
+          <line>328</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/SignalWindowClass.py</url>
-          <line>319</line>
+          <line>325</line>
           <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
-          <line>461</line>
-          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/PanTomkinsClass.py</url>
@@ -545,13 +536,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EdfFileClass.py</url>
-          <line>592</line>
-          <option name="timeStamp" value="64" />
+          <line>659</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/SleepScienceViewerApp.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/EdfFileClass.py</url>
-          <line>651</line>
-          <option name="timeStamp" value="65" />
+          <line>342</line>
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

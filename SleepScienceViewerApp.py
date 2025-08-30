@@ -40,24 +40,19 @@ from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBr
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QWidget
 from PySide6.QtGui import QColor, QBrush
 from PySide6.QtWidgets import QListWidgetItem
-
 # System Imports
 import os
 import sys
 import logging
 import math
 from functools import partial
-
 # Utilites
 import pyrsdameraulevenshtein as dl
-
 # EDF and Annotation Classes
 from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
 from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal, EdfSignalAnalysis, EdfFile
-
 # Configure the logger
 from logging_config import logger
-
 # To Do List
 # TODO: Disable menu items according to files that are loaded
 
@@ -74,7 +69,6 @@ class NumericTextEditFilter(QObject):
             else:
                 return True  # Filter out non-numeric input
 from SignalWindowClass import SignalWindow
-
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
     def __init__(self, parent=None):
@@ -602,7 +596,6 @@ class MainApp(QMainWindow):
             logger.info(
                 f"Message Dialog Box - Cancel clicked, Msg: {'Writing signals to disk may take a while. \n\nDo you want to proceed?'} ")
             return False
-
     def show_signal_completed_dialog(parent=None, location:str = ""):
         msg_box = QMessageBox(parent)
         msg_box.setWindowTitle("Update")

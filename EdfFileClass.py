@@ -34,26 +34,34 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # TODO: Add support of selecting signals to load
 
 # Import Modules
+# OS Imports
 import os
 import logging
 from typing import List, Dict, Tuple
+from pathlib import Path
+
+# Logic support
+from sympy.logic.boolalg import Boolean
+
+# Interface  and Plotting
+from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+
+# Scientific Computing
+import numpy as np
+from scipy.signal import butter, sosfiltfilt
+from scipy.signal import iirnotch, filtfilt
+import math
+
+# Data Types
 import datetime
 import pandas as pd
 import csv
 import json
-from pathlib import Path
 
-from sympy.logic.boolalg import Boolean
-
+# Methods
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
-from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
-import numpy as np
-import math
-
-from scipy.signal import butter, sosfiltfilt
-import numpy as np
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -638,24 +646,26 @@ class EdfSignals:
 
             # Check if filtering parameters are provided
             filter_test = True in [ x>0 for x in filter_param]
-            print(f'Testing Filter Parameters: filter_test = {filter_test}, filter_param = {filter_param}')
+            #print(f'Testing Filter Parameters: filter_test = {filter_test}, filter_param = {filter_param}')
             if filter_test:
                 lowcut  = filter_param[0]
                 highcut = filter_param[1]
                 notch   = filter_param[2]
-                print('Extracted filter value')
-                if lowcut>0 and highcut>0:
+                #print('Extracted filter value')
+                if lowcut>0 and highcut>0 and highcut>lowcut:
                     fs = 1/sampling_time
                     logger.info(
                         f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
-                    print(signal_segment)
+                    #print(signal_segment)
                     signal_segment_np = self.apply_bandpass_filter(np.array(signal_segment), fs, lowcut, highcut)
                     signal_segment    = signal_segment_np.tolist()
                     logger.info(
                         f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
 
                 if notch >0:
-                    pass
+                    fs = 1 / sampling_time
+                    logger.info(f'Filtering {signal_key} notch parameters: notch = {notch}')
+                    self.apply_notch_filter(np.array(signal_segment), fs, notch_freq = notch)
 
         # Create figure and axis
         fig = Figure(figsize=(12, 2))
@@ -779,6 +789,30 @@ class EdfSignals:
         sos = butter(order, [low, high], btype='bandpass', output='sos')
         filtered_data = sosfiltfilt(sos, data)
         return filtered_data
+    def apply_notch_filter(self, signal, fs, notch_freq:int = 60, Q=30.0):
+        """
+        Apply a 50 Hz (Europe) or 60 Hz (US) notch filter to EEG/sleep study data.
+
+        Parameters
+        ----------
+        signal : array_like
+            Input signal.
+        fs : float
+            Sampling frequency in Hz.
+        notch_freq : 60Hz US and 50Hz for Europe
+            "US" for 60 Hz or "EU" for 50 Hz.
+        Q : float 20-35 common, <20 wider and frequency drift, 40-50 narrow incomplete filtering
+            Quality factor. Higher = narrower notch.
+
+        Returns
+        -------
+        filtered_signal : ndarray
+            Filtered output.
+        """
+        notch_freq = notch_freq
+        b, a = iirnotch(w0=notch_freq, Q=Q, fs=fs)
+        return filtfilt(b, a, signal)
+    # Python
     def __str__(self):
         """String representation of the EdfSignals object."""
         if not self.signals:
