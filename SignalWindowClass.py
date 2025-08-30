@@ -188,7 +188,11 @@ class SignalWindow(QMainWindow):
         # Set variables
         current_epoch = int(self.ui.textEdit_epoch.toPlainText())
         for i, label in enumerate(epoch_labels):
-            label.setText(str(current_epoch+i))
+            if current_epoch+i <= self.max_epoch:
+                label.setText(str(current_epoch+i))
+            else:
+                label.setText(" ")
+
 
         # Update graphic view
         epoch_num               = current_epoch - 1  # function expect zero indexing, reset epoch to signal start
@@ -225,6 +229,8 @@ class SignalWindow(QMainWindow):
                 signal_label = ""
 
             # Plot signal segment
+            if epoch_num+i >= self.max_epoch:
+                signal_label = ""
             self.edf_obj.edf_signals.plot_signal_segment(signal_label,
                                                               signal_type, epoch_num+i, epoch_width, graphic_view,
                                                               x_tick_settings       = epoch_display_axis_grid,
