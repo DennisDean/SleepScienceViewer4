@@ -34,7 +34,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 - **Signal Viewer**
   - Page through a signal to view signal, recording distruptions, and noise
   - Signal x axis moved to the bottom of the page
-  - *Not Implemented:* Interface set up to extract and display annotations computationally
+  - Includes Band Pass and Notch Filtering which checks to ensure filtering parameters are appropriate
 
 ![Signal Viewer](Media/signal_viewer_beta.png)
 

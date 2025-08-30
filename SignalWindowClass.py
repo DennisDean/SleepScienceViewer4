@@ -322,8 +322,7 @@ class SignalWindow(QMainWindow):
 
         # Turn off epoc buttons
         self.activate_epoch_buttons(activate_buttons=False)
-
-        print(f"Epoch set to next ({self.current_epoch})")
+        #print(f"Epoch set to next ({self.current_epoch})")
         # Example: Set an internal index
         if self.current_epoch + self.number_of_epochs_on_screen < self.max_epoch:
             self.current_epoch += self.number_of_epochs_on_screen

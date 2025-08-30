@@ -652,7 +652,7 @@ class EdfSignals:
                 lowcut  = filter_param[0]
                 highcut = filter_param[1]
                 notch   = filter_param[2]
-                print('Extracted filter value')
+                # print('Extracted filter value')
                 if lowcut>0 and highcut>0 and highcut>lowcut:
                     fs = 1/sampling_time
                     logger.info(
