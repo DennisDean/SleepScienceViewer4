@@ -40,6 +40,7 @@ import logging
 from typing import List, Dict, Tuple
 from pathlib import Path
 
+from IPython.core.pylabtools import retina_figure
 # Logic support
 from sympy.logic.boolalg import Boolean
 
@@ -651,7 +652,7 @@ class EdfSignals:
                 lowcut  = filter_param[0]
                 highcut = filter_param[1]
                 notch   = filter_param[2]
-                #print('Extracted filter value')
+                print('Extracted filter value')
                 if lowcut>0 and highcut>0 and highcut>lowcut:
                     fs = 1/sampling_time
                     logger.info(
@@ -783,12 +784,58 @@ class EdfSignals:
         Returns:
             np.ndarray: The filtered  signal.
         """
-        nyquist = 0.5 * fs
-        low = lowcut / nyquist
-        high = highcut / nyquist
-        sos = butter(order, [low, high], btype='bandpass', output='sos')
-        filtered_data = sosfiltfilt(sos, data)
+
+        if self.validate_bandpass_params(fs, lowcut, highcut, order):
+            nyquist = 0.5 * fs
+            low = lowcut / nyquist
+            high = highcut / nyquist
+            sos = butter(order, [low, high], btype='bandpass', output='sos')
+            filtered_data = sosfiltfilt(sos, data)
+            logger.error(f'Band pass filter applied.')
+        else:
+            filtered_data = data
+            logger.error(f'Band pass filter not applied. Parameters are not valid')
         return filtered_data
+    def validate_bandpass_params(self, fs, lowcut, highcut, order)->Boolean:
+        # Set return value
+        valid_params = True
+
+        # Check parameter values
+        if fs is None or fs <= 0:
+            valid_params = False
+            logger.error("fs (sampling rate) must be a positive number.")
+        if lowcut is None or highcut is None:
+            valid_params = False
+            logger.error("Both lowcut and highcut must be provided for a bandpass filter.")
+        if not (np.isfinite(lowcut) and np.isfinite(highcut)):
+            valid_params = False
+            logger.error("lowcut and highcut must be finite numbers.")
+        if lowcut <= 0:
+            valid_params = False
+            logger.errorf(f"lowcut must be > 0 Hz. got lowcut={lowcut}")
+        if highcut <= 0:
+            valid_params = False
+            logger.error(f"highcut must be > 0 Hz. got highcut={highcut}")
+        if lowcut >= highcut:
+            valid_params = False
+            logger.error(f"lowcut must be less than highcut. got lowcut={lowcut}, highcut={highcut}")
+
+        # Check frequency values
+        nyq  = 0.5*fs
+        low  = lowcut/nyq
+        high = highcut/nyq
+        if not (0 < low < 1):
+            valid_params = False
+            logger.error(f"Normalized low frequency must be between 0 and 1. lowcut={lowcut} Hz -> {low:.6f}")
+        if not (0 < high < 1):
+            valid_params = False
+            logger.error(
+                f"Normalized high frequency must be between 0 and 1. highcut={highcut} Hz -> {high:.6f}")
+        if not (low < high):
+            valid_params = False
+            logger.errorf(f"Normalized low must be less than normalized high. low={low:.6f}, high={high:.6f}")
+
+        return valid_params
     def apply_notch_filter(self, signal, fs, notch_freq:int = 60, Q=30.0):
         """
         Apply a 50 Hz (Europe) or 60 Hz (US) notch filter to EEG/sleep study data.
@@ -809,9 +856,17 @@ class EdfSignals:
         filtered_signal : ndarray
             Filtered output.
         """
-        notch_freq = notch_freq
-        b, a = iirnotch(w0=notch_freq, Q=Q, fs=fs)
-        return filtfilt(b, a, signal)
+        nyquist = fs/2
+
+        if (0 < notch_freq < nyquist):
+            notch_freq = notch_freq
+            b, a = iirnotch(w0=notch_freq, Q=Q, fs=fs)
+            return_signal = filtfilt(b, a, signal)
+            logger.info(f'Notch filter applied: notch = {notch_freq}')
+        else:
+            return_signal = signal
+            logger.error('Notch filter not applied: Sampling rate too low to apply filter')
+        return return_signal
     # Python
     def __str__(self):
         """String representation of the EdfSignals object."""
