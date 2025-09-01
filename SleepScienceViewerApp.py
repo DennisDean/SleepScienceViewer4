@@ -228,6 +228,7 @@ class MainApp(QMainWindow):
         # Load Buttons
         self.ui.load_edf_pushButton.clicked.connect(self.load_edf_file)
         self.ui.load_annotation_pushButton.clicked.connect(self.load_xml_file)
+        self.last_fn_path = os.getcwd()
 
         # Spectrogram Buttons
         self.ui.compute_spectrogram_pushButton.clicked.connect(self.compute_and_display_spectrogram)
@@ -319,7 +320,7 @@ class MainApp(QMainWindow):
         self.signal_view_window = None
     # Initialize EDF
     def load_edf_file(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", "", "EDF Files (*.edf *.EDF)")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", self.last_fn_path , "EDF Files (*.edf *.EDF)")
         try:
             # Create XML Object
             self.edf_file_obj = EdfFile(file_path)
@@ -327,6 +328,9 @@ class MainApp(QMainWindow):
 
             # Update interface
             self.ui.load_edf_textEdit.setText(f"{file_path}")
+
+            # Store last working directory
+            self.last_fn_path = os.path.dirname(file_path)
 
             # QMessageBox.information(self, "XML Loaded", f"Loaded: {file_path}")
             logger.info(f"Loaded EDF: {file_path}")
@@ -485,83 +489,10 @@ class MainApp(QMainWindow):
             logger.info('Computing spectrogram: Computation completed')
 
             # Turn off busy cursor
-            QApplication.setOverrideCursor()
+            QApplication.restoreOverrideCursor()
 
             # Turn on signal update
             self.automatic_signal_redraw = True
-    def draw_signals_in_graphic_views(self, annotation_marker=None):
-
-        if self.automatic_signal_redraw == False:
-            return
-
-        signal_combo_boxes = [self.ui.signal_1_comboBox, self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
-                              self.ui.signal_4_comboBox, self.ui.signal_5_comboBox, self.ui.signal_6_comboBox,
-                              self.ui.signal_7_comboBox, self.ui.signal_8_comboBox, self.ui.signal_9_comboBox,
-                              self.ui.signal_10_comboBox]
-
-        graphic_views = [self.ui.signal_1_graphicsView, self.ui.signal_2_graphicsView,
-                         self.ui.signal_3_graphicsView,
-                         self.ui.signal_4_graphicsView, self.ui.signal_5_graphicsView,
-                         self.ui.signal_6_graphicsView,
-                         self.ui.signal_7_graphicsView, self.ui.signal_8_graphicsView,
-                         self.ui.signal_9_graphicsView,
-                         self.ui.signal_10_graphicsView]
-
-        # Turn off change signal while updating combobox list following selection of a new edf file
-        for combo_box in signal_combo_boxes:
-            combo_box.blockSignals(True)
-
-        # get combo boxes labels
-        combo_box_signal_labels = [combo_box.currentText() for combo_box in signal_combo_boxes]
-        graphic_views_to_update_id = []
-        for i, label in enumerate(
-                combo_box_signal_labels):  # not needed since plot in EDF handles no signal key present
-            graphic_views_to_update_id.append(i)
-
-        # Set variables
-        current_epoch = int(self.ui.epochs_textEdit.toPlainText())
-
-        # Update graphic view
-        epoch_num               = current_epoch - 1  # function expect zero indexing, reset epoch to signal start
-        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
-        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
-        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
-        convert_time_f          = self.time_convert_f[epoch_width_index]
-        time_axis_units         = self.epoch_axis_units[epoch_width_index]
-        signal_type = ""
-
-        for i in graphic_views_to_update_id:
-            # Select graphic view
-            signal_label = combo_box_signal_labels[i]
-            graphic_view = graphic_views[i]
-
-            # Set stepped variables
-            stepped_dict      = {}
-            is_signal_stepped = False
-            if self.annotation_xml_obj != None:
-                is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
-                if is_signal_stepped:
-                    stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
-
-            # Plot signal segment
-            self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
-                                                              signal_type, epoch_num, epoch_width, graphic_view,
-                                                              x_tick_settings   = epoch_display_axis_grid,
-                                                              annotation_marker = annotation_marker,
-                                                              convert_time_f    = convert_time_f,
-                                                              time_axis_units   = time_axis_units,
-                                                              is_signal_stepped = is_signal_stepped,
-                                                              stepped_dict      = stepped_dict )
-
-        # Turn on combo box signal change
-        for combo_box in signal_combo_boxes:
-            combo_box.blockSignals(False)
-
-        # Update epoch label string
-        epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
-        self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
-        time_str       = self.return_time_string(current_epoch, epoch_width)
-        self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
     def show_ok_cancel_dialog(parent=None):
         msg_box = QMessageBox(parent)
         msg_box.setWindowTitle("Confirm Action")
@@ -622,7 +553,7 @@ class MainApp(QMainWindow):
         logger.info(f'Preparing to loading annotation file.')
 
         # Initiate annotation file selection
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open XML File", "", "XML Files (*.xml *.XML)")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open XML File", self.last_fn_path, "XML Files (*.xml *.XML)")
 
         try:
             # Create XML Object
@@ -634,7 +565,11 @@ class MainApp(QMainWindow):
 
             # Turn on XML actions
             self.turn_on_xml_actions()
-            #QMessageBox.information(self, "XML Loaded", f"Loaded: {file_path}")
+
+            # Store last working directory
+            self.last_fn_path = os.path.dirname(file_path)
+
+            # Write XML load information to log
             logger.info(f"Loaded XML: {file_path}")
         except:
             logger.error('SleepScienceViewer: Error loading XML file.')
@@ -1156,6 +1091,80 @@ class MainApp(QMainWindow):
                 return None
         else:
             logger.info(f'Sleep Stages Export Menu Item: Annotation File not loaded. Summary not created')
+    # Visualization
+    def draw_signals_in_graphic_views(self, annotation_marker=None):
+
+        if self.automatic_signal_redraw == False:
+            return
+
+        signal_combo_boxes = [self.ui.signal_1_comboBox, self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
+                              self.ui.signal_4_comboBox, self.ui.signal_5_comboBox, self.ui.signal_6_comboBox,
+                              self.ui.signal_7_comboBox, self.ui.signal_8_comboBox, self.ui.signal_9_comboBox,
+                              self.ui.signal_10_comboBox]
+
+        graphic_views = [self.ui.signal_1_graphicsView, self.ui.signal_2_graphicsView,
+                         self.ui.signal_3_graphicsView,
+                         self.ui.signal_4_graphicsView, self.ui.signal_5_graphicsView,
+                         self.ui.signal_6_graphicsView,
+                         self.ui.signal_7_graphicsView, self.ui.signal_8_graphicsView,
+                         self.ui.signal_9_graphicsView,
+                         self.ui.signal_10_graphicsView]
+
+        # Turn off change signal while updating combobox list following selection of a new edf file
+        for combo_box in signal_combo_boxes:
+            combo_box.blockSignals(True)
+
+        # get combo boxes labels
+        combo_box_signal_labels = [combo_box.currentText() for combo_box in signal_combo_boxes]
+        graphic_views_to_update_id = []
+        for i, label in enumerate(
+                combo_box_signal_labels):  # not needed since plot in EDF handles no signal key present
+            graphic_views_to_update_id.append(i)
+
+        # Set variables
+        current_epoch = int(self.ui.epochs_textEdit.toPlainText())
+
+        # Update graphic view
+        epoch_num               = current_epoch - 1  # function expect zero indexing, reset epoch to signal start
+        epoch_width_index       = self.ui.epoch_comboBox.currentIndex()
+        epoch_width             = float(self.epoch_display_options_width_sec[epoch_width_index])
+        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        convert_time_f          = self.time_convert_f[epoch_width_index]
+        time_axis_units         = self.epoch_axis_units[epoch_width_index]
+        signal_type = ""
+
+        for i in graphic_views_to_update_id:
+            # Select graphic view
+            signal_label = combo_box_signal_labels[i]
+            graphic_view = graphic_views[i]
+
+            # Set stepped variables
+            stepped_dict      = {}
+            is_signal_stepped = False
+            if self.annotation_xml_obj != None:
+                is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
+                if is_signal_stepped:
+                    stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
+
+            # Plot signal segment
+            self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
+                                                              signal_type, epoch_num, epoch_width, graphic_view,
+                                                              x_tick_settings   = epoch_display_axis_grid,
+                                                              annotation_marker = annotation_marker,
+                                                              convert_time_f    = convert_time_f,
+                                                              time_axis_units   = time_axis_units,
+                                                              is_signal_stepped = is_signal_stepped,
+                                                              stepped_dict      = stepped_dict )
+
+        # Turn on combo box signal change
+        for combo_box in signal_combo_boxes:
+            combo_box.blockSignals(False)
+
+        # Update epoch label string
+        epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
+        time_str       = self.return_time_string(current_epoch, epoch_width)
+        self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
     # Window
     def open_signal_view(self):
         # Get index value for first signal graphic view
