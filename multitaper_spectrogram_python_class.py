@@ -48,6 +48,7 @@ import logging
 # Visualization imports
 import colorcet  # this import is necessary to add rainbow colormap to matplotlib
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.ticker import FuncFormatter
 
 # from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
@@ -459,6 +460,10 @@ class MultitaperSpectrogram:
     def plot(self, parent_widget=None):
         # Plot multitaper spectrogram
 
+        # Bringing some plotting parameters to the top
+        label_fontsize = 6
+
+        # Get spectrogram information from class
         mt_spectrogram = self.mt_spectrogram
         spect_data = self.nanpow2db(mt_spectrogram)
         stimes = self.stimes
@@ -489,20 +494,24 @@ class MultitaperSpectrogram:
         ax.set_ylabel(y_label)
         im.set_cmap(cm.get_cmap('cet_rainbow4'))
         ax.invert_yaxis()
+        yticks = ax.get_yticks()
+        ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} Hz"))
+        #ax.set_yticklabels([f"{int(y)} Hz" for y in yticks])
+        ax.tick_params(axis='y', labelsize=label_fontsize)
 
         if self.clim_scale:
             clim = np.percentile(spect_data, [5, 98])
             im.set_clim(clim)
 
         # Embed canvas into the provided QWidget
-
         if parent_widget:
             # Create the canvas
             canvas = FigureCanvas(fig)
             canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             canvas.updateGeometry()
 
-            fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+            # fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+            fig.subplots_adjust(left=0.03, right=0.99, top=0.94, bottom=0.06)
 
             # Remove existing layout and widgets if they exist
             existing_layout = parent_widget.layout()

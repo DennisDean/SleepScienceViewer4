@@ -691,7 +691,7 @@ class EdfSignals:
             ax.set_yticklabels(y_tick_labels)
             ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
         else:
-            print(signal_segment)
+            #print(signal_segment)
             y_min = np.min(signal_segment)
             y_max = np.max(signal_segment)
             y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)

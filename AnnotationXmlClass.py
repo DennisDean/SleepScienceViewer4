@@ -418,7 +418,6 @@ class SleepStages:
         max_label_len = max([len(label) for label in stage_map.values()])
         left_margin = min(0.03, 0.02 * max_label_len)
         fig.subplots_adjust(left=left_margin, right=0.99, top=0.95, bottom=0.05)
-        # fig.subplots_adjust(left=0.08, right=0.98, top=0.95, bottom=0.18)
 
         if parent_widget:
             # Create a new Figure Canvas
