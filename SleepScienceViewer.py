@@ -110,9 +110,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.horizontalLayout_17.setSizeConstraint(QLayout.SetDefaultConstraint)
-        self.horizontalSpacer_10 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        self.hypnogram_comboBox = QComboBox(self.centralwidget)
+        self.hypnogram_comboBox.setObjectName(u"hypnogram_comboBox")
+        self.hypnogram_comboBox.setMinimumSize(QSize(125, 0))
+        self.hypnogram_comboBox.setMaximumSize(QSize(125, 16777215))
 
-        self.horizontalLayout_17.addItem(self.horizontalSpacer_10)
+        self.horizontalLayout_17.addWidget(self.hypnogram_comboBox)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -132,12 +135,9 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_17.addItem(self.horizontalSpacer_11)
 
-        self.hypnogram_comboBox = QComboBox(self.centralwidget)
-        self.hypnogram_comboBox.setObjectName(u"hypnogram_comboBox")
-        self.hypnogram_comboBox.setMinimumSize(QSize(125, 0))
-        self.hypnogram_comboBox.setMaximumSize(QSize(125, 16777215))
+        self.horizontalSpacer_10 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_17.addWidget(self.hypnogram_comboBox)
+        self.horizontalLayout_17.addItem(self.horizontalSpacer_10)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_17)
@@ -165,29 +165,38 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_19 = QHBoxLayout()
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.compute_spectrogram_pushButton = QPushButton(self.centralwidget)
-        self.compute_spectrogram_pushButton.setObjectName(u"compute_spectrogram_pushButton")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        self.spectrogram_comboBox = QComboBox(self.centralwidget)
+        self.spectrogram_comboBox.setObjectName(u"spectrogram_comboBox")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.compute_spectrogram_pushButton.sizePolicy().hasHeightForWidth())
-        self.compute_spectrogram_pushButton.setSizePolicy(sizePolicy3)
+        sizePolicy3.setHeightForWidth(self.spectrogram_comboBox.sizePolicy().hasHeightForWidth())
+        self.spectrogram_comboBox.setSizePolicy(sizePolicy3)
+        self.spectrogram_comboBox.setMinimumSize(QSize(125, 0))
+        self.spectrogram_comboBox.setMaximumSize(QSize(125, 16777215))
+
+        self.horizontalLayout_19.addWidget(self.spectrogram_comboBox)
+
+        self.compute_spectrogram_pushButton = QPushButton(self.centralwidget)
+        self.compute_spectrogram_pushButton.setObjectName(u"compute_spectrogram_pushButton")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.compute_spectrogram_pushButton.sizePolicy().hasHeightForWidth())
+        self.compute_spectrogram_pushButton.setSizePolicy(sizePolicy4)
         self.compute_spectrogram_pushButton.setMinimumSize(QSize(125, 0))
         self.compute_spectrogram_pushButton.setMaximumSize(QSize(125, 16777215))
 
         self.horizontalLayout_19.addWidget(self.compute_spectrogram_pushButton)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_5)
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_13)
 
         self.spectrogram_label = QLabel(self.centralwidget)
         self.spectrogram_label.setObjectName(u"spectrogram_label")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.spectrogram_label.sizePolicy().hasHeightForWidth())
-        self.spectrogram_label.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.spectrogram_label.sizePolicy().hasHeightForWidth())
+        self.spectrogram_label.setSizePolicy(sizePolicy3)
 
         self.horizontalLayout_19.addWidget(self.spectrogram_label)
 
@@ -195,14 +204,13 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_19.addItem(self.horizontalSpacer_4)
 
-        self.spectrogram_comboBox = QComboBox(self.centralwidget)
-        self.spectrogram_comboBox.setObjectName(u"spectrogram_comboBox")
-        sizePolicy4.setHeightForWidth(self.spectrogram_comboBox.sizePolicy().hasHeightForWidth())
-        self.spectrogram_comboBox.setSizePolicy(sizePolicy4)
-        self.spectrogram_comboBox.setMinimumSize(QSize(125, 0))
-        self.spectrogram_comboBox.setMaximumSize(QSize(125, 16777215))
+        self.horizontalSpacer_14 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_19.addWidget(self.spectrogram_comboBox)
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_14)
+
+        self.horizontalSpacer_5 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_5)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_19)
@@ -276,8 +284,8 @@ class Ui_MainWindow(object):
 
         self.previous_pushButton = QPushButton(self.centralwidget)
         self.previous_pushButton.setObjectName(u"previous_pushButton")
-        sizePolicy3.setHeightForWidth(self.previous_pushButton.sizePolicy().hasHeightForWidth())
-        self.previous_pushButton.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.previous_pushButton.sizePolicy().hasHeightForWidth())
+        self.previous_pushButton.setSizePolicy(sizePolicy4)
         self.previous_pushButton.setMinimumSize(QSize(0, 25))
         self.previous_pushButton.setMaximumSize(QSize(50, 25))
 
@@ -285,8 +293,8 @@ class Ui_MainWindow(object):
 
         self.last_epoch_pushButton = QPushButton(self.centralwidget)
         self.last_epoch_pushButton.setObjectName(u"last_epoch_pushButton")
-        sizePolicy3.setHeightForWidth(self.last_epoch_pushButton.sizePolicy().hasHeightForWidth())
-        self.last_epoch_pushButton.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.last_epoch_pushButton.sizePolicy().hasHeightForWidth())
+        self.last_epoch_pushButton.setSizePolicy(sizePolicy4)
         self.last_epoch_pushButton.setMinimumSize(QSize(0, 25))
         self.last_epoch_pushButton.setMaximumSize(QSize(50, 25))
 
@@ -298,8 +306,8 @@ class Ui_MainWindow(object):
 
         self.epoch_comboBox = QComboBox(self.centralwidget)
         self.epoch_comboBox.setObjectName(u"epoch_comboBox")
-        sizePolicy4.setHeightForWidth(self.epoch_comboBox.sizePolicy().hasHeightForWidth())
-        self.epoch_comboBox.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.epoch_comboBox.sizePolicy().hasHeightForWidth())
+        self.epoch_comboBox.setSizePolicy(sizePolicy3)
         self.epoch_comboBox.setMinimumSize(QSize(100, 25))
         self.epoch_comboBox.setMaximumSize(QSize(100, 25))
 

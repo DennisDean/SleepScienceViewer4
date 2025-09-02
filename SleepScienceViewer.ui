@@ -129,20 +129,20 @@
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
             <item>
-             <spacer name="horizontalSpacer_10">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
+             <widget class="QComboBox" name="hypnogram_comboBox">
+              <property name="minimumSize">
                <size>
                 <width>125</width>
-                <height>20</height>
+                <height>0</height>
                </size>
               </property>
-             </spacer>
+              <property name="maximumSize">
+               <size>
+                <width>125</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
             </item>
             <item>
              <spacer name="horizontalSpacer_3">
@@ -184,20 +184,20 @@
              </spacer>
             </item>
             <item>
-             <widget class="QComboBox" name="hypnogram_comboBox">
-              <property name="minimumSize">
+             <spacer name="horizontalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>125</width>
-                <height>0</height>
+                <height>20</height>
                </size>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>125</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
+             </spacer>
             </item>
            </layout>
           </item>
@@ -248,6 +248,28 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_19">
             <item>
+             <widget class="QComboBox" name="spectrogram_comboBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>125</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>125</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="compute_spectrogram_pushButton">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -273,7 +295,7 @@
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_5">
+             <spacer name="horizontalSpacer_13">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -312,26 +334,36 @@
              </spacer>
             </item>
             <item>
-             <widget class="QComboBox" name="spectrogram_comboBox">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-              <property name="minimumSize">
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>125</width>
-                <height>0</height>
+                <height>20</height>
                </size>
               </property>
-              <property name="maximumSize">
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>125</width>
-                <height>16777215</height>
+                <height>20</height>
                </size>
               </property>
-             </widget>
+             </spacer>
             </item>
            </layout>
           </item>

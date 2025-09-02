@@ -2,6 +2,9 @@
 # Generates and independent window with a copy of the edf and xml object loaded by the Sleep Science Window.
 #
 
+# TODO: time does not update with epoch
+# TODO: Fix np.min in plot signal so going to last epoch does not crash. Use same fix as main viewer
+
 # Modules
 import logging
 
@@ -71,11 +74,11 @@ class SignalWindow(QMainWindow):
         s_to_s = lambda s: int(s)
 
         # Set up epoch controls
-        self.epoch_display_options_text:List       = ['30 s', '1 min', '4 min', '8 min', '1 hr']
-        self.epoch_display_options_width_sec:List  = [ 30,     60,      240,     480,      3600]
-        self.epoch_display_axis_grid:List          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
-        self.epoch_axis_units:List                 = ['s', 's', 'm', 'm', 'm']
-        self.time_convert_f:List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min]
+        self.epoch_display_options_text:List       = ['30 s', '1 min', '2 min', '4 min', '8 min', '1 hr']
+        self.epoch_display_options_width_sec:List  = [ 30,     60,    120,    240,     480,      3600]
+        self.epoch_display_axis_grid:List          = [ [5,1],  [10,2], [60,10],  [60, 10], [120, 30],[600, 50] ]
+        self.epoch_axis_units:List                 = ['s', 's', 'm', 'm', 'm', 'm']
+        self.time_convert_f:List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min]
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
@@ -185,7 +188,7 @@ class SignalWindow(QMainWindow):
                          self.ui.graphicsView_signal_13, self.ui.graphicsView_signal_14, self.ui.graphicsView_signal_15]
 
 
-        # Set variables
+        # Set epoch numbers on interface to correspond to graphic view
         current_epoch = int(self.ui.textEdit_epoch.toPlainText())
         for i, label in enumerate(epoch_labels):
             if current_epoch+i <= self.max_epoch:
@@ -208,7 +211,10 @@ class SignalWindow(QMainWindow):
 
         # Get filtering parameters
         filter_param = self.filter_param
-        print('Got filter parameters')
+        #print('Got filter parameters')
+
+        # Get common y max and y min
+
 
         for i, graphic_view in enumerate(graphic_views):
             # Select graphic view
@@ -337,8 +343,7 @@ class SignalWindow(QMainWindow):
 
             # update Signals
             self.draw_signal_in_graphic_views(epochs_to_draw = self.number_of_epochs_on_screen)
-            print(f"Epoch set to next ({self.current_epoch})")
-            print(f"Epoch set to next ({self.current_epoch})")
+            #print(f"Epoch set to next ({self.current_epoch})")
         # Turn of epoc buttons
         self.activate_epoch_buttons()
 

@@ -25,7 +25,7 @@ class Ui_SignalWindow(object):
     def setupUi(self, SignalWindow):
         if not SignalWindow.objectName():
             SignalWindow.setObjectName(u"SignalWindow")
-        SignalWindow.resize(1279, 881)
+        SignalWindow.resize(1185, 881)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -100,6 +100,18 @@ class Ui_SignalWindow(object):
         self.pushButton_notch.setCheckable(True)
 
         self.horizontalLayout_controls.addWidget(self.pushButton_notch)
+
+        self.horizontalSpacer_46 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_controls.addItem(self.horizontalSpacer_46)
+
+        self.pushButton_sync_y = QPushButton(self.centralwidget)
+        self.pushButton_sync_y.setObjectName(u"pushButton_sync_y")
+        self.pushButton_sync_y.setMinimumSize(QSize(70, 25))
+        self.pushButton_sync_y.setMaximumSize(QSize(70, 40))
+        self.pushButton_sync_y.setCheckable(True)
+
+        self.horizontalLayout_controls.addWidget(self.pushButton_sync_y)
 
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -765,7 +777,7 @@ class Ui_SignalWindow(object):
         SignalWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(SignalWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1279, 23))
+        self.menubar.setGeometry(QRect(0, 0, 1185, 23))
         SignalWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(SignalWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -780,6 +792,7 @@ class Ui_SignalWindow(object):
         SignalWindow.setWindowTitle(QCoreApplication.translate("SignalWindow", u"Signal Window", None))
         self.pushButton_filter.setText(QCoreApplication.translate("SignalWindow", u"Filter", None))
         self.pushButton_notch.setText(QCoreApplication.translate("SignalWindow", u"Notch", None))
+        self.pushButton_sync_y.setText(QCoreApplication.translate("SignalWindow", u"Sync Y", None))
         self.pushButton_save.setText(QCoreApplication.translate("SignalWindow", u"Save", None))
         self.pushButton_load.setText(QCoreApplication.translate("SignalWindow", u"Load", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"First", None))

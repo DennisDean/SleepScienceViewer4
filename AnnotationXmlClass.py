@@ -474,6 +474,20 @@ class SignalAnnotations:
         for key in self.scoredEventSettings.keys():
            self.scored_event_color_dict[key] = self.color_24_to_hex_f(self.scored_event_color_f(key))
 
+        # Colors from file didn't always work. Generated a list to try
+        annotation_colors = [
+            "#E41A1C",  # red
+            "#FF7F00",  # orange
+            "#FFD700",  # gold
+            "#4DAF4A",  # green
+            "#00BFC4",  # teal
+            "#984EA3",  # purple
+            "#F781BF",  # magenta
+            "#A65628",  # brown
+            "#999933",  # olive
+            "#666666"  # dark gray
+        ]
+
         # Process Scored Events
         self.scoredEvents          = scoredEvents
         self.scoredEvents_sum_dict = self.summarize_scoredEvents(self.scoredEvents)

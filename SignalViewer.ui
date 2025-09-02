@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1279</width>
+    <width>1185</width>
     <height>881</height>
    </rect>
   </property>
@@ -201,6 +201,41 @@
         </property>
         <property name="text">
          <string>Notch</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_46">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_sync_y">
+        <property name="minimumSize">
+         <size>
+          <width>70</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Sync Y</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -1987,7 +2022,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1279</width>
+     <width>1185</width>
      <height>23</height>
     </rect>
    </property>
