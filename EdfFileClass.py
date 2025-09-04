@@ -49,6 +49,7 @@ from sympy.logic.boolalg import Boolean
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+from matplotlib.ticker import FuncFormatter
 
 # Scientific Computing
 import numpy as np
@@ -637,8 +638,8 @@ class EdfSignals:
                             parent_widget=None, x_tick_settings:list[int, int] = [5,1], annotation_marker=None,
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
                             stepped_dict: dict | None = None, turn_xaxis_labels_off = False,
-                            filter_param:list[float, float, float] =[-1,-1,-1],
-                            y_limits:list[float,float] | None = None):
+                            filter_param:list[float, float, float] =[-1,-1,-1], y_limits:list[float,float] | None = None,
+                            y_axis_units:str|None = None):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -730,11 +731,9 @@ class EdfSignals:
             if y_limits != None:
                 y_min = y_limits[0]
                 y_max = y_limits[1]
-                print(f'page limit: y_min = {y_min}, y_max = {y_max}')
             else:
                 y_min = np.min(signal_segment)
                 y_max = np.max(signal_segment)
-            print(f'y_min = {y_min}, y_max = {y_max}')
             y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
             if turn_xaxis_labels_off:
                 # take back the room for labels
@@ -742,6 +741,10 @@ class EdfSignals:
                 y_pad = 0.02 * (y_max - y_min if y_max != y_min else 1)
             ax.set_ylim(y_min - y_top_bottom_padding_factor*y_pad, y_max + y_pad)
             ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
+
+            # Set y_Axis units
+            if y_axis_units != None:
+                ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} {y_axis_units}"))
 
         # Force x limit
         epoch_width     = int(epoch_width)

@@ -220,10 +220,15 @@ class SignalWindow(QMainWindow):
                 signal_label, "not implemented", current_epoch, current_epoch+epochs_to_draw-1, epoch_width)
             y_page_min   = min(page_signals)
             y_page_max   = max(page_signals)
-            print(f'Signal Window Class: y_page_min = {y_page_min}, y_page_max = {y_page_max}')
             y_axis_page_limits = [y_page_min, y_page_max]
         else:
             y_axis_page_limits = None
+
+        # Get units
+        signal_units = self.edf_obj.edf_signals.signal_units_dict[signal_label]
+        signal_units.strip()
+        if signal_units == "":
+            signal_units = None
 
         for i, graphic_view in enumerate(graphic_views):
             # Select graphic view
@@ -256,7 +261,8 @@ class SignalWindow(QMainWindow):
                                                               stepped_dict          = stepped_dict,
                                                               turn_xaxis_labels_off = True,
                                                               filter_param          = filter_param,
-                                                              y_limits              = y_axis_page_limits)
+                                                              y_limits              = y_axis_page_limits,
+                                                              y_axis_units          = signal_units)
 
         # Create x axis for reference
         signal_label = "" # force no signal

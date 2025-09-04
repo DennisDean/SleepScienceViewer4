@@ -148,6 +148,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setSpacing(0)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalSpacer_2 = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+
+        self.verticalLayout_5.addItem(self.verticalSpacer_2)
+
         self.hypnogram_label = QLabel(self.centralwidget)
         self.hypnogram_label.setObjectName(u"hypnogram_label")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
@@ -168,7 +172,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.hypnogram_comboBox)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        self.verticalSpacer = QSpacerItem(20, 25, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
         self.verticalLayout_5.addItem(self.verticalSpacer)
 

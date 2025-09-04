@@ -233,7 +233,7 @@ class MultitaperSpectrogram:
             self.n_jobs = max(cpu_count() - 1, 1) if self.n_jobs is None else self.n_jobs
             mt_spectrogram = np.vstack(Parallel(n_jobs=self.n_jobs)(delayed(self.calc_mts_segment)(
                 data_segments[num_window, :], *mts_params) for num_window in range(num_windows)))
-
+            logger.info(f'Computing multi-process spectrogram with {self.n_jobs} job(s)')
         else:  # if no multiprocessing, compute normally
             mt_spectrogram = np.apply_along_axis(self.calc_mts_segment, 1, data_segments, *mts_params)
 

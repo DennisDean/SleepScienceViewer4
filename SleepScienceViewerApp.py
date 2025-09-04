@@ -31,6 +31,9 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # TODO: clean up video
 # TODO: Custom response to return key when editing the epoch
 # TODO: Create marker support for hypnogram plotting to respond to epoch changes and annotation selection
+# TODO: Add support for y axis values and units
+# TODO: Add Annotation plot
+# TODO: Revisit Annotation Colors
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
