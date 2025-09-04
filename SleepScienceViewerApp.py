@@ -836,6 +836,9 @@ class MainApp(QMainWindow):
             if is_signal_stepped:
                 stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
 
+        # Signal Units
+        signal_units = self.edf_file_obj.edf_signals.signal_units_dict[signal_label]
+
         # Plot signal
         self.edf_file_obj.edf_signals.plot_signal_segment(
             signal_label,
@@ -847,7 +850,8 @@ class MainApp(QMainWindow):
             is_signal_stepped=is_signal_stepped,
             stepped_dict=stepped_dict,
             convert_time_f=convert_time_f,
-            time_axis_units=time_axis_units
+            time_axis_units=time_axis_units,
+            y_axis_units = signal_units
         )
 
         if text == '':
@@ -1150,6 +1154,13 @@ class MainApp(QMainWindow):
                 if is_signal_stepped:
                     stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
 
+            # Get units
+            signal_units = self.edf_file_obj.edf_signals.signal_units_dict[signal_label]
+            signal_units.strip()
+            if signal_units == "":
+                signal_units = None
+            print(f'signal units = {signal_units}')
+
             # Plot signal segment
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
                                                               signal_type, epoch_num, epoch_width, graphic_view,
@@ -1158,7 +1169,8 @@ class MainApp(QMainWindow):
                                                               convert_time_f    = convert_time_f,
                                                               time_axis_units   = time_axis_units,
                                                               is_signal_stepped = is_signal_stepped,
-                                                              stepped_dict      = stepped_dict )
+                                                              stepped_dict      = stepped_dict,
+                                                              y_axis_units      = signal_units)
 
         # Turn on combo box signal change
         for combo_box in signal_combo_boxes:

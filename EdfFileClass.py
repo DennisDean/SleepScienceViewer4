@@ -735,16 +735,16 @@ class EdfSignals:
                 y_min = np.min(signal_segment)
                 y_max = np.max(signal_segment)
             y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
-            if turn_xaxis_labels_off:
-                # take back the room for labels
-                y_top_bottom_padding_factor = 1
-                y_pad = 0.02 * (y_max - y_min if y_max != y_min else 1)
-            ax.set_ylim(y_min - y_top_bottom_padding_factor*y_pad, y_max + y_pad)
-            ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
-
             # Set y_Axis units
             if y_axis_units != None:
                 ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} {y_axis_units}"))
+            if turn_xaxis_labels_off:
+                # take back the room for labels
+                y_top_bottom_padding_factor = 1
+                y_pad = 0.03 * (y_max - y_min if y_max != y_min else 1)
+            ax.set_ylim(y_min - y_top_bottom_padding_factor*y_pad, y_max + y_pad)
+            ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
+
 
         # Force x limit
         epoch_width     = int(epoch_width)
@@ -771,7 +771,8 @@ class EdfSignals:
         if turn_xaxis_labels_off == True:
             ax.set_xticklabels([])
         else:
-            ax.set_yticklabels([])
+            pass
+            # ax.set_yticklabels([])
 
         # Enable grid lines for major and minor ticks
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
