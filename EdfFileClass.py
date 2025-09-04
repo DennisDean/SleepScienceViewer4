@@ -375,6 +375,10 @@ class EdfSignals:
         self.stepped_signal_cutoff   = 10      # temporary approach to guess continuous signals
         self.stepped_sampling_cutoff = 0.05   # temporary approach to guess continuous signals
         self.stepped_signal_dict     = {}
+
+        # Plotting
+        ymax_recent = None
+        ymin_recent = None
     # Setup
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -415,6 +419,35 @@ class EdfSignals:
         # Calculate sample indices for the epoch
         start_index = int(epoch_num * epoch_width * sampling_frequency)
         end_index = int((epoch_num + 1) * epoch_width * sampling_frequency)
+
+        # Slice the signal array
+        signal_segment = edf_signal[start_index:end_index]
+
+        return signal_segment
+    def return_signal_segments(self, signal_key: str, signal_type: str, epoch_start, epoch_end, epoch_width):
+        """
+         Return the signal segment for a given epoch number and epoch width.
+
+         Parameters:
+             signal_key (str): Key for the signal in the signals dictionary.
+             signal_type (str): Type of signal (not used here but passed for potential future logic).
+             epoch_num (int): Epoch index (0-based).
+             epoch_width (float): Epoch duration in seconds.
+
+         Returns:
+             np.ndarray: Segment of the signal for the given epoch.
+         """
+        edf_signal    = self.signals_dict[signal_key]
+        signal_units  = self.signal_units_dict[signal_key]
+        sampling_time = self.signal_sampling_time_dict[signal_key]  # in seconds
+
+        # Convert sampling time to sampling frequency
+        sampling_frequency = 1.0 / sampling_time
+
+
+        # Calculate sample indices for the epoch
+        start_index   = int(epoch_start * epoch_width * sampling_frequency)
+        end_index     = int((epoch_end + 1) * epoch_width * sampling_frequency)
 
         # Slice the signal array
         signal_segment = edf_signal[start_index:end_index]
@@ -604,7 +637,8 @@ class EdfSignals:
                             parent_widget=None, x_tick_settings:list[int, int] = [5,1], annotation_marker=None,
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
                             stepped_dict: dict | None = None, turn_xaxis_labels_off = False,
-                            filter_param:list[float, float, float] =[-1,-1,-1]):
+                            filter_param:list[float, float, float] =[-1,-1,-1],
+                            y_limits:list[float,float] | None = None):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -693,8 +727,14 @@ class EdfSignals:
             ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
         else:
             #print(signal_segment)
-            y_min = np.min(signal_segment)
-            y_max = np.max(signal_segment)
+            if y_limits != None:
+                y_min = y_limits[0]
+                y_max = y_limits[1]
+                print(f'page limit: y_min = {y_min}, y_max = {y_max}')
+            else:
+                y_min = np.min(signal_segment)
+                y_max = np.max(signal_segment)
+            print(f'y_min = {y_min}, y_max = {y_max}')
             y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
             if turn_xaxis_labels_off:
                 # take back the room for labels
@@ -732,9 +772,7 @@ class EdfSignals:
 
         # Enable grid lines for major and minor ticks
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
-        ax.grid(axis='x', which='minor', linestyle='--', linewidth=0.5, color='lightgray')
-
-
+        ax.grid(axis='x', which='minor', linestyle='--', linewidth=0.5, color='darkgray')
 
         # Remove ticks and labels, but preserve gridlines
         for spine in ax.spines.values():

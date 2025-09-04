@@ -4,6 +4,7 @@
 
 # TODO: time does not update with epoch
 # TODO: Fix np.min in plot signal so going to last epoch does not crash. Use same fix as main viewer
+# TODO: Started writing return_signal_segments: for a multi epoch return
 
 # Modules
 import logging
@@ -116,6 +117,9 @@ class SignalWindow(QMainWindow):
         # Connect change in combo box
         self.ui.comboBox_signals.currentTextChanged[str].connect(self.update_signal_combobox)
         self.ui.comboBox_epoch.currentTextChanged[str].connect(self.update_epoch_combobox)
+
+        # Connect sync push button to response
+        self.ui.pushButton_sync_y.clicked.connect(self.sync_y_pushbutton_response)
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -180,13 +184,11 @@ class SignalWindow(QMainWindow):
                          self.ui.label_signal_7,  self.ui.label_signal_8,  self.ui.label_signal_9,
                          self.ui.label_signal_10, self.ui.label_signal_11, self.ui.label_signal_12,
                          self.ui.label_signal_13, self.ui.label_signal_14, self.ui.label_signal_15]
-
         graphic_views = [self.ui.graphicsView_signal_1,  self.ui.graphicsView_signal_2,  self.ui.graphicsView_signal_3,
                          self.ui.graphicsView_signal_4,  self.ui.graphicsView_signal_5,  self.ui.graphicsView_signal_6,
                          self.ui.graphicsView_signal_7,  self.ui.graphicsView_signal_8,  self.ui.graphicsView_signal_9,
                          self.ui.graphicsView_signal_10, self.ui.graphicsView_signal_11, self.ui.graphicsView_signal_12,
                          self.ui.graphicsView_signal_13, self.ui.graphicsView_signal_14, self.ui.graphicsView_signal_15]
-
 
         # Set epoch numbers on interface to correspond to graphic view
         current_epoch = int(self.ui.textEdit_epoch.toPlainText())
@@ -211,10 +213,17 @@ class SignalWindow(QMainWindow):
 
         # Get filtering parameters
         filter_param = self.filter_param
-        #print('Got filter parameters')
 
-        # Get common y max and y min
-
+        # Determine y limits
+        if self.ui.pushButton_sync_y.isChecked():
+            page_signals = self.edf_obj.edf_signals.return_signal_segments(
+                signal_label, "not implemented", current_epoch, current_epoch+epochs_to_draw-1, epoch_width)
+            y_page_min   = min(page_signals)
+            y_page_max   = max(page_signals)
+            print(f'Signal Window Class: y_page_min = {y_page_min}, y_page_max = {y_page_max}')
+            y_axis_page_limits = [y_page_min, y_page_max]
+        else:
+            y_axis_page_limits = None
 
         for i, graphic_view in enumerate(graphic_views):
             # Select graphic view
@@ -246,7 +255,8 @@ class SignalWindow(QMainWindow):
                                                               is_signal_stepped     = is_signal_stepped,
                                                               stepped_dict          = stepped_dict,
                                                               turn_xaxis_labels_off = True,
-                                                              filter_param          = filter_param)
+                                                              filter_param          = filter_param,
+                                                              y_limits              = y_axis_page_limits)
 
         # Create x axis for reference
         signal_label = "" # force no signal
@@ -262,8 +272,6 @@ class SignalWindow(QMainWindow):
                                                      stepped_dict          = stepped_dict,
                                                      turn_xaxis_labels_off = False,
                                                      filter_param          = filter_param)
-
-
 
         #Turn on combo box signal change
         self.ui.comboBox_signals.blockSignals(False)
@@ -303,6 +311,8 @@ class SignalWindow(QMainWindow):
         else:
             self.filter_param = [-1, -1, self.filter_param[2]]
             logger.info(f'Turning Notch Setting Off')
+    def sync_y_pushbutton_response(self):
+        self.draw_signal_in_graphic_views()
     # Epoch Buttons
     def set_epoch_to_first(self):
         """
