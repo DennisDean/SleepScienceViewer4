@@ -8695,3 +8695,132 @@
 [2025-09-04 16:03:05,986] INFO - SleepScienceViewer - Computing spectrogram (EEG(sec)): computation may be time consuming
 [2025-09-04 16:03:10,183] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.09 seconds
 [2025-09-04 16:03:10,529] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-09-04 16:12:01,542] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-04 16:12:01,854] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-04 16:12:01,855] INFO - EdfFileClass - input list (['SaO2', 'PR', 'EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG', 'AIRFLOW', 'THOR RES', 'ABDO RES', 'POSITION', 'LIGHT', 'OX STAT']), continuous (['EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG'])
+[2025-09-04 16:12:01,855] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-04 16:12:01,873] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:01,873] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-04 16:12:01,873] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-04 16:12:01,886] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:01,886] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-04 16:12:01,886] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-04 16:12:01,899] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:01,899] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-04 16:12:01,899] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-04 16:12:01,912] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:01,912] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-04 16:12:01,913] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-04 16:12:01,926] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:01,926] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-04 16:12:01,926] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-04 16:12:01,938] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:01,939] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-04 16:12:01,939] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-04 16:12:01,952] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:01,952] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-04 16:12:01,952] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-04 16:12:02,012] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:02,012] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-04 16:12:02,013] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-04 16:12:02,025] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:02,026] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-04 16:12:02,026] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-04 16:12:02,039] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:12:02,039] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-04 16:12:02,677] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-09-04 16:12:04,507] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-09-04 16:12:04,515] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-04 16:12:04,515] INFO - SleepScienceViewer - Annotation combobox text changed to All
+[2025-09-04 16:12:04,536] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-04 16:12:04,536] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-09-04 16:12:08,799] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-09-04 16:12:08,817] INFO - SleepScienceViewer - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-09-04 16:12:12,835] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.91 seconds
+[2025-09-04 16:12:13,181] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-09-04 16:13:43,098] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-04 16:13:43,389] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-04 16:13:43,389] INFO - EdfFileClass - input list (['SaO2', 'PR', 'EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG', 'AIRFLOW', 'THOR RES', 'ABDO RES', 'POSITION', 'LIGHT', 'OX STAT']), continuous (['EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG'])
+[2025-09-04 16:13:43,390] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-04 16:13:43,408] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,408] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-04 16:13:43,408] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-04 16:13:43,421] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,421] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-04 16:13:43,421] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-04 16:13:43,434] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,434] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-04 16:13:43,434] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-04 16:13:43,447] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,447] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-04 16:13:43,447] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-04 16:13:43,460] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,460] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-04 16:13:43,460] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-04 16:13:43,473] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,473] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-04 16:13:43,473] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-04 16:13:43,486] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,486] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-04 16:13:43,486] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-04 16:13:43,547] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,548] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-04 16:13:43,548] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-04 16:13:43,561] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,561] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-04 16:13:43,561] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-04 16:13:43,574] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:13:43,574] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-04 16:13:44,396] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-09-04 16:13:47,290] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-09-04 16:13:47,298] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-04 16:13:47,299] INFO - SleepScienceViewer - Annotation combobox text changed to All
+[2025-09-04 16:13:47,321] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-04 16:13:47,321] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-09-04 16:13:51,580] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-09-04 16:13:51,599] INFO - SleepScienceViewer - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-09-04 16:13:55,591] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.86 seconds
+[2025-09-04 16:13:55,947] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-09-04 16:16:14,130] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-04 16:16:14,483] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-04 16:16:14,483] INFO - EdfFileClass - input list (['SaO2', 'PR', 'EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG', 'AIRFLOW', 'THOR RES', 'ABDO RES', 'POSITION', 'LIGHT', 'OX STAT']), continuous (['EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG'])
+[2025-09-04 16:16:14,484] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-04 16:16:14,502] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,503] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-04 16:16:14,503] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-04 16:16:14,516] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,516] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-04 16:16:14,516] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-04 16:16:14,529] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,529] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-04 16:16:14,529] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-04 16:16:14,543] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,543] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-04 16:16:14,543] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-04 16:16:14,556] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,557] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-04 16:16:14,557] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-04 16:16:14,569] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,570] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-04 16:16:14,570] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-04 16:16:14,583] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,583] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-04 16:16:14,583] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-04 16:16:14,644] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,645] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-04 16:16:14,645] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-04 16:16:14,657] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,658] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-04 16:16:14,658] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-04 16:16:14,671] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-04 16:16:14,671] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-04 16:16:15,727] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-09-04 16:16:18,341] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-09-04 16:16:18,350] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-04 16:16:18,350] INFO - SleepScienceViewer - Annotation combobox text changed to All
+[2025-09-04 16:16:18,370] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-04 16:16:18,370] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-09-04 16:16:21,701] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-09-04 16:16:21,717] INFO - SleepScienceViewer - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-09-04 16:16:25,821] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.00 seconds
+[2025-09-04 16:16:26,158] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
