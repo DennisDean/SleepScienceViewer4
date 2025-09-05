@@ -103,30 +103,37 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        self.verticalSpacer_3 = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
         self.verticalLayout.addItem(self.verticalSpacer_3)
 
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.verticalLayout_7 = QVBoxLayout()
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-
-        self.horizontalLayout_20.addLayout(self.verticalLayout_7)
-
         self.graphicsView_annotation = QGraphicsView(self.centralwidget)
         self.graphicsView_annotation.setObjectName(u"graphicsView_annotation")
-        self.graphicsView_annotation.setMinimumSize(QSize(0, 50))
-        self.graphicsView_annotation.setMaximumSize(QSize(16777215, 50))
+        self.graphicsView_annotation.setMinimumSize(QSize(0, 25))
+        self.graphicsView_annotation.setMaximumSize(QSize(16777215, 25))
 
         self.horizontalLayout_20.addWidget(self.graphicsView_annotation)
 
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.pushButton_legend = QPushButton(self.centralwidget)
+        self.pushButton_legend.setObjectName(u"pushButton_legend")
+        self.pushButton_legend.setMinimumSize(QSize(25, 0))
+        self.pushButton_legend.setMaximumSize(QSize(25, 16777215))
+
+        self.horizontalLayout_6.addWidget(self.pushButton_legend)
+
         self.annotation_comboBox = QComboBox(self.centralwidget)
         self.annotation_comboBox.setObjectName(u"annotation_comboBox")
-        self.annotation_comboBox.setMinimumSize(QSize(125, 0))
-        self.annotation_comboBox.setMaximumSize(QSize(125, 16777215))
+        self.annotation_comboBox.setMinimumSize(QSize(96, 25))
+        self.annotation_comboBox.setMaximumSize(QSize(96, 25))
 
-        self.horizontalLayout_20.addWidget(self.annotation_comboBox)
+        self.horizontalLayout_6.addWidget(self.annotation_comboBox)
+
+
+        self.horizontalLayout_20.addLayout(self.horizontalLayout_6)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_20)
@@ -262,7 +269,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
-        self.verticalSpacer_4 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        self.verticalSpacer_4 = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
         self.verticalLayout.addItem(self.verticalSpacer_4)
 
@@ -651,6 +658,7 @@ class Ui_MainWindow(object):
         self.actionOpen_Signal_Window.setText(QCoreApplication.translate("MainWindow", u"Open Signal Window", None))
         self.load_edf_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load EDF", None))
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
+        self.pushButton_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.compute_spectrogram_pushButton.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
         self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multi-Taper Spectrogram", None))

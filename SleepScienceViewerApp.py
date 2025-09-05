@@ -322,6 +322,9 @@ class MainApp(QMainWindow):
 
         # Save space for windows
         self.signal_view_window = None
+
+        # Set up annotation legend push button
+        self.ui.pushButton_legend.clicked.connect(self.show_annotation_legend_popup)
     # Initialize EDF
     def load_edf_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", self.last_fn_path , "EDF Files (*.edf *.EDF)")
@@ -703,12 +706,14 @@ class MainApp(QMainWindow):
         self.ui.actionAnnotation_Export.setEnabled(False)
         self.ui.actionSleep_Stages_Export.setEnabled(False)
         self.ui.actionOpen_Signal_Window.setEnabled(False)
+        self.ui.pushButton_legend.setEnabled(False)
     def turn_on_xml_actions(self):
         # Turn off signal related menu items
         self.ui.actionAnnotation_Summary.setEnabled(True)
         self.ui.actionAnnotation_Export.setEnabled(True)
         self.ui.actionSleep_Stages_Export.setEnabled(True)
         self.ui.actionOpen_Signal_Window.setEnabled(True)
+        self.ui.pushButton_legend.setEnabled(True)
     # Epochs
     def set_epoch_to_first(self):
         """
@@ -898,6 +903,9 @@ class MainApp(QMainWindow):
         self.draw_signals_in_graphic_views(annotation_marker = annotation_epoch_offset_start)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
+    def show_annotation_legend_popup(self):
+        if self.annotation_xml_obj != None:
+            self.annotation_xml_obj.scored_event_obj.show_annotation_legend()
     # Menu Item
     # File
     def open_edf_menu_item(self):

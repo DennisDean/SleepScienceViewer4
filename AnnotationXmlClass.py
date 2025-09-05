@@ -61,10 +61,15 @@ from sympy.logic.boolalg import Boolean
 import numpy as np
 
 # Required for plotting
-# import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+
+# User Interface
 from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
+from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
+                                QPushButton, QScrollArea, QWidget, QFrame)
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QPalette, QFont
 
 # To Do List
 # TODO: Add N3 collapse summary to json export
@@ -146,6 +151,121 @@ def generate_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> s
     """
     filename = f"{prefix}{ext}"
     return os.path.join(output_dir, filename) if output_dir else filename
+# Sleep annotation Dialog Boxes
+class AnnotationLegendDialog(QDialog):
+    """
+    Pop-up dialog that displays annotation names with their corresponding colors.
+    """
+
+    def __init__(self, color_map, parent=None):
+        """
+        Initialize the dialog.
+
+        Args:
+            color_map (dict): Dictionary mapping annotation names to color strings
+            parent: Parent widget
+        """
+        super().__init__(parent)
+        self.color_map = color_map
+        self.setup_ui()
+
+    def setup_ui(self):
+        """Set up the user interface."""
+        self.setWindowTitle("Annotation Legend")
+        self.setModal(True)  # Make it modal
+        self.resize(300, 400)  # Default size
+
+        # Main layout
+        main_layout = QVBoxLayout(self)
+
+        # Title
+        title_label = QLabel("Annotation Legend")
+        title_font = QFont()
+        title_font.setBold(True)
+        title_font.setPointSize(12)
+        title_label.setFont(title_font)
+        title_label.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(title_label)
+
+        # Scroll area for legend items
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+        # Widget to hold legend items
+        legend_widget = QWidget()
+        legend_layout = QVBoxLayout(legend_widget)
+        legend_layout.setSpacing(5)
+        legend_layout.setContentsMargins(10, 10, 10, 10)
+
+        # Create legend items
+        for annotation_name, color in sorted(self.color_map.items()):
+            legend_item = self.create_legend_item(annotation_name, color)
+            legend_layout.addWidget(legend_item)
+
+        # Add stretch to push items to top
+        legend_layout.addStretch()
+
+        scroll_area.setWidget(legend_widget)
+        main_layout.addWidget(scroll_area)
+
+        # Close button
+        button_layout = QHBoxLayout()
+        button_layout.addStretch()
+
+        close_button = QPushButton("Close")
+        close_button.setMinimumWidth(80)
+        close_button.clicked.connect(self.accept)
+        button_layout.addWidget(close_button)
+
+        main_layout.addLayout(button_layout)
+
+    def create_legend_item(self, annotation_name, color):
+        """
+        Create a legend item with color box and label.
+
+        Args:
+            annotation_name (str): Name of the annotation
+            color (str): Color hex string
+
+        Returns:
+            QWidget: Widget containing the legend item
+        """
+        item_widget = QWidget()
+        item_layout = QHBoxLayout(item_widget)
+        item_layout.setContentsMargins(5, 2, 5, 2)
+        item_layout.setSpacing(10)
+
+        # Color box
+        color_box = QFrame()
+        color_box.setFixedSize(20, 15)
+        color_box.setStyleSheet(f"""
+            QFrame {{
+                background-color: {color};
+                border: 1px solid #666666;
+                border-radius: 2px;
+            }}
+        """)
+
+        # Annotation name label
+        name_label = QLabel(annotation_name)
+        name_label.setStyleSheet("QLabel { color: black; }")
+
+        # Add to layout
+        item_layout.addWidget(color_box)
+        item_layout.addWidget(name_label)
+        item_layout.addStretch()  # Push everything to the left
+
+        # Add hover effect
+        item_widget.setStyleSheet("""
+            QWidget:hover {
+                background-color: #f0f0f0;
+                border-radius: 3px;
+            }
+        """)
+
+        return item_widget
 # Sleep annotation classes
 class SleepStages:
     def __init__(self, epoch:int, num_stages:list,
@@ -488,6 +608,8 @@ class SignalAnnotations:
             "#999933",  # olive
             "#666666"  # dark gray
         ]
+        self.color_map:dict[str,str]|None = None # Color map generated on the fly from plot annotations.
+                                                 # TODO: Move color map generation code to init
 
         # Process Scored Events
         self.scoredEvents          = scoredEvents
@@ -561,6 +683,7 @@ class SignalAnnotations:
 
         # Get unique annotation names and assign colors
         unique_annotations = self.scored_event_unique_names
+        unique_annotations = unique_annotations[1:]
 
         start_times = [float(entry) for entry in list(self.sleep_events_df['Start'])]
         names       = list(self.sleep_events_df['Name'])
@@ -569,17 +692,15 @@ class SignalAnnotations:
         color_map = {}
         for i, annotation in enumerate(unique_annotations):
             color_map[annotation] = annotation_colors[i % len(annotation_colors)]
+        self.color_map = color_map  # safe color map for automated legend generation
+
 
         # Use the provided total time parameter
         max_time = max(total_time_in_seconds)
         min_time = 0
 
-        print(f"Debug: Using time range: {min_time} to {max_time}")
-        print(f"Debug: Found {len(start_times)} events with {len(unique_annotations)} unique annotations")
-
-        # # Create figure and axis
-        # fig = Figure(figsize=(12, 2))
-        # ax = fig.add_subplot(111)
+        # print(f"Debug: Using time range: {min_time} to {max_time}")
+        # print(f"Debug: Found {len(start_times)} events with {len(unique_annotations)} unique annotations")
 
         # Set up the plot area
         ax.set_xlim(min_time, max_time)
@@ -612,18 +733,19 @@ class SignalAnnotations:
         ax.set_xticks(x_ticks)
         ax.set_xticklabels(x_labels, fontsize=label_fontsize)
 
-
-
         # Add light vertical grid lines for hours
         for x_tick in x_ticks:
             ax.axvline(x=x_tick, color=grid_color, linewidth=grid_linewidth,
                        linestyle='--', alpha=0.5, zorder=0)
 
         # Remove spines
-        for spine in ax.spines.values():
-            spine.set_visible(True)
-            spine.set_color('gray')
-            spine.set_linewidth(0.5)
+        for i, spine in enumerate(ax.spines.values()):
+            if i > 1:
+                spine.set_visible(True)
+                spine.set_color('gray')
+                spine.set_linewidth(0.5)
+            else:
+                spine.set_visible(False)
 
         # Add legend if there are annotations
         if plotted_annotations and not turn_off_legend:
@@ -633,7 +755,6 @@ class SignalAnnotations:
 
         # Adjust layout
         fig.subplots_adjust(left=0.03, right=0.99, top=0.95, bottom=0.05)
-        #fig.tight_layout()
 
         # Handle widget integration
         if parent_widget:
@@ -662,6 +783,20 @@ class SignalAnnotations:
             plt.show()
 
         return fig, ax
+    def show_annotation_legend(self, parent=None):
+        """
+        Convenience function to show the annotation legend dialog.
+
+        Args:
+            color_map (dict): Dictionary mapping annotation names to color strings
+            parent: Parent widget
+
+        Returns:
+            int: Dialog result (QDialog.Accepted or QDialog.Rejected)
+        """
+        color_map = self.color_map
+        dialog = AnnotationLegendDialog(color_map, parent)
+        return dialog.exec()
     # Summarize
     def summary_scored_events(self)->None:
         """
