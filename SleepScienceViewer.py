@@ -116,8 +116,8 @@ class Ui_MainWindow(object):
 
         self.graphicsView_annotation = QGraphicsView(self.centralwidget)
         self.graphicsView_annotation.setObjectName(u"graphicsView_annotation")
-        self.graphicsView_annotation.setMinimumSize(QSize(0, 25))
-        self.graphicsView_annotation.setMaximumSize(QSize(16777215, 25))
+        self.graphicsView_annotation.setMinimumSize(QSize(0, 50))
+        self.graphicsView_annotation.setMaximumSize(QSize(16777215, 50))
 
         self.horizontalLayout_20.addWidget(self.graphicsView_annotation)
 

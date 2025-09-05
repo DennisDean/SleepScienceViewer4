@@ -54,6 +54,7 @@ import logging
 import traceback
 from typing import List, Dict
 from lxml import etree
+from mpmath.libmp import mpf_rdiv_int
 from sympy.logic.boolalg import Boolean
 
 # Plotting support
@@ -68,6 +69,7 @@ from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
 # To Do List
 # TODO: Add N3 collapse summary to json export
 # TODO: Use color for annotation
+# TODO: Copied hypnogram plotting to SignalAnnotationClass. Need to finish.
 
 
 # Set up a module-level logger
@@ -453,17 +455,17 @@ class SleepStages:
         # Override default class description
         return f'SleepStages(number of epochs = {len(self.num_stages)}, epoch duration = {self.sleep_epoch }")'
 class SignalAnnotations:
-    def __init__(self, scoredEvents, scoredEventSettings: Dict[str,Dict[str,str]]):
+    def __init__(self, scoredEvents:List[Dict[str,any]], scoredEventSettings: Dict[str,Dict[str,str]]):
 
         # Define some variables set during initialization
-        self.scored_events_sum_dict     = {}
-        self.scored_event_unique_names  = []
-        self.scored_event_unique_inputs = []
-        self.scored_event_unique_keys   = []
-        self.scored_event_types         = []
+        self.scored_events_sum_dict                       = {} # Annotation summary dictionary
+        self.scored_event_unique_names:list[str,...]      = [] # types of annotations
+        self.scored_event_unique_inputs:list[str,...]     = [] # Signals used during scoring
+        self.scored_event_unique_keys:list[str,...]       = [] # Unique annotation-signal pairs
+        self.scored_event_types                           = []
 
         # Process Scored Event Settings
-        self.scoredEventSettings        = scoredEventSettings
+        self.scoredEventSettings:Dict[str, Dict[str, str]] = scoredEventSettings
         self.color_dict                 = self.summarize_scored_settings()
 
         # Create an annotation dictionary
@@ -474,7 +476,7 @@ class SignalAnnotations:
            self.scored_event_color_dict[key] = self.color_24_to_hex_f(self.scored_event_color_f(key))
 
         # Colors from file didn't always work. Generated a list to try
-        annotation_colors = [
+        self.annotation_colors = [
             "#E41A1C",  # red
             "#FF7F00",  # orange
             "#FFD700",  # gold
@@ -497,6 +499,9 @@ class SignalAnnotations:
 
         # Output Control
         self.output_dir            = os.getcwd()
+
+        # Save External Values
+        total_time_in_seconds:float = None
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
@@ -516,6 +521,147 @@ class SignalAnnotations:
         elif self.scored_event_types != []:
             logger.info(f'Scored events identified previously')
         return self.scored_event_types
+    # Plot Annotation
+    def plot_annotation(self, total_time_in_seconds: float, parent_widget=None, stage_index = 0):
+        """
+        Plots vertical lines for scored events into a QGraphicsView if provided,
+        or as a standalone matplotlib figure. Each annotation type gets a different color.
+        The plot background is white, auto-scales, and fills available width.
+        """
+        # Controls
+        turn_off_legend = True
+
+        # Set Plot defaults
+        annotation_colors = self.annotation_colors
+
+        # Set Plot defaults
+        grid_color = '#cccccc'  # light gray
+        y_pad_c = 0.05
+        label_fontsize = 8
+        grid_linewidth = 0.8
+        line_width = 1.5
+        alpha = 0.8
+
+        # Check if we have scored events
+        if not hasattr(self, 'scoredEvents') or not self.scoredEvents:
+            print("No scored events to plot")
+            return
+
+        # Create figure and axis
+        fig = Figure(figsize=(12, 2))
+        ax = fig.add_subplot(111)
+
+        # # Get unique annotation names and assign colors
+        # unique_annotations = set()
+        # for event_list in self.scoredEvents.values():
+        #     for event in event_list:
+        #         if 'Name' in event:
+        #             unique_annotations.add(event['Name'])
+
+
+        # Get unique annotation names and assign colors
+        unique_annotations = self.scored_event_unique_names
+
+        start_times = [float(entry) for entry in list(self.sleep_events_df['Start'])]
+        names       = list(self.sleep_events_df['Name'])
+
+        unique_annotations = sorted(list(unique_annotations))
+        color_map = {}
+        for i, annotation in enumerate(unique_annotations):
+            color_map[annotation] = annotation_colors[i % len(annotation_colors)]
+
+        # Use the provided total time parameter
+        max_time = max(total_time_in_seconds)
+        min_time = 0
+
+        print(f"Debug: Using time range: {min_time} to {max_time}")
+        print(f"Debug: Found {len(start_times)} events with {len(unique_annotations)} unique annotations")
+
+        # # Create figure and axis
+        # fig = Figure(figsize=(12, 2))
+        # ax = fig.add_subplot(111)
+
+        # Set up the plot area
+        ax.set_xlim(min_time, max_time)
+        ax.set_ylim(-0.5, 0.5)  # Narrow vertical range for line display
+
+        # Plot vertical lines for each event
+        plotted_annotations = set()
+        for start_time, annotation_name in zip(start_times, names):
+            color = color_map[annotation_name]
+
+            # Plot vertical line
+            ax.axvline(x=start_time, color=color, linewidth=line_width,
+                       alpha=alpha, label=annotation_name if annotation_name not in plotted_annotations else "")
+
+            plotted_annotations.add(annotation_name)
+
+        # Configure axis
+        ax.set_xlabel('')
+        ax.set_ylabel('')
+        ax.tick_params(axis='both', labelsize=label_fontsize)
+
+        # Set y tick label to white to align with hypnogram
+        # ax.set_yticks([0])  # Single tick at center
+        # ax.set_yticklabels(['REM'], fontsize=label_fontsize, color='white')
+        ax.set_yticks([])
+
+        # Draw custom x-axis labels (hours)
+        x_ticks = range(3600, int(max_time), 3600)
+        x_labels = [f'{int(x / 3600)}h' for x in x_ticks]
+        ax.set_xticks(x_ticks)
+        ax.set_xticklabels(x_labels, fontsize=label_fontsize)
+
+
+
+        # Add light vertical grid lines for hours
+        for x_tick in x_ticks:
+            ax.axvline(x=x_tick, color=grid_color, linewidth=grid_linewidth,
+                       linestyle='--', alpha=0.5, zorder=0)
+
+        # Remove spines
+        for spine in ax.spines.values():
+            spine.set_visible(True)
+            spine.set_color('gray')
+            spine.set_linewidth(0.5)
+
+        # Add legend if there are annotations
+        if plotted_annotations and not turn_off_legend:
+            legend = ax.legend(loc='upper right', fontsize=label_fontsize - 1,
+                               framealpha=0.8, fancybox=True, shadow=True)
+            legend.get_frame().set_facecolor('white')
+
+        # Adjust layout
+        fig.subplots_adjust(left=0.03, right=0.99, top=0.95, bottom=0.05)
+        #fig.tight_layout()
+
+        # Handle widget integration
+        if parent_widget:
+            # Create a new Figure Canvas
+            canvas = FigureCanvas(fig)
+            canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            canvas.updateGeometry()
+            canvas.setStyleSheet("background-color: white;")  # Qt background
+
+            # Clear existing layout
+            existing_layout = parent_widget.layout()
+            if existing_layout:
+                while existing_layout.count():
+                    item = existing_layout.takeAt(0)
+                    widget = item.widget()
+                    if widget:
+                        widget.setParent(None)
+            else:
+                existing_layout = QVBoxLayout(parent_widget)
+                parent_widget.setLayout(existing_layout)
+
+            existing_layout.setContentsMargins(0, 0, 0, 0)
+            existing_layout.addWidget(canvas)
+        else:
+            # Show as standalone plot
+            plt.show()
+
+        return fig, ax
     # Summarize
     def summary_scored_events(self)->None:
         """

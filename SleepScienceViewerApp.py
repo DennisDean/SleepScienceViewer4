@@ -631,6 +631,10 @@ class MainApp(QMainWindow):
             # Turn on hypnogram combobox
             self.ui.hypnogram_comboBox.setEnabled(True)
             self.automatic_histogram_redraw = True
+
+            # Plot annotations
+            total_time_in_seconds = self.annotation_xml_obj.sleep_stages_obj.time_seconds
+            self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds, self.ui.graphicsView_annotation)
     def on_hypnogram_changed(self, index):
         # Update Variables
         if self.automatic_histogram_redraw:
