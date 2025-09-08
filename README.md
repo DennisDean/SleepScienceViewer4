@@ -19,7 +19,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 - **Annotation Interaction**
    - Filter listed annotations by type
    - Double-click on an annotation to jump to the corresponding epoch
-   - Hypnogram aligned annotation plot with automatically assigned colors ([legend](Media/Annotation Legend.png))
+   - Hypnogram aligned annotation plot with [automatically assigned colors](Media/Annotation Legend.png) 
 - **Custom Display Options**
    - Change epoch duration for signal navigation
    - Toggle how sleep stages are displayed in the hypnogram
