@@ -179,13 +179,13 @@ class AnnotationLegendDialog(QDialog):
         main_layout = QVBoxLayout(self)
 
         # Title
-        title_label = QLabel("Annotation Legend")
-        title_font = QFont()
-        title_font.setBold(True)
-        title_font.setPointSize(12)
-        title_label.setFont(title_font)
-        title_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(title_label)
+        # title_label = QLabel("Annotation Legend")
+        # title_font = QFont()
+        # title_font.setBold(True)
+        # title_font.setPointSize(12)
+        # title_label.setFont(title_font)
+        # title_label.setAlignment(Qt.AlignCenter)
+        # main_layout.addWidget(title_label)
 
         # Scroll area for legend items
         scroll_area = QScrollArea()

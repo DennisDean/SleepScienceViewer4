@@ -350,6 +350,7 @@ class MainApp(QMainWindow):
             if self.annotation_xml_obj != None:
                 self.clear_annotation_widgets()
             clear_spectrogram_plot(parent_widget=self.ui.spectrogram_graphicsView)
+            clear_spectrogram_plot(parent_widget=self.ui.graphicsView_annotation)
 
             # Set Spectrogram Signal Labels
             signal_labels = self.edf_file_obj.edf_signals.signal_labels
