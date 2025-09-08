@@ -638,7 +638,7 @@ class MainApp(QMainWindow):
             # Plot annotations
             total_time_in_seconds = self.annotation_xml_obj.sleep_stages_obj.time_seconds
             cur_annotation_setting = self.ui.annotation_comboBox.currentText()
-            print(f'cur_annotation_setting = "{cur_annotation_setting}"')
+            # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                                      self.ui.graphicsView_annotation,
                                                                      cur_annotation_setting = cur_annotation_setting)

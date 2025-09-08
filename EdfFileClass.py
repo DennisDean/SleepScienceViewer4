@@ -50,6 +50,7 @@ from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from matplotlib.ticker import FuncFormatter
+from matplotlib.patches import Rectangle
 
 # Scientific Computing
 import numpy as np
@@ -380,6 +381,17 @@ class EdfSignals:
         # Plotting
         ymax_recent = None
         ymin_recent = None
+
+        self.default_stage_colors = {
+            'W': '#FFE4B5',  # Light orange
+            'Wake': '#FFE4B5',  # Light orange
+            'REM': '#FFB6C1',  # Light pink
+            'N1': '#E6E6FA',  # Lavender
+            'N2': '#B0E0E6',  # Powder blue
+            'N3': '#98FB98',  # Pale green
+            'NREM': '#87CEEB',  # Sky blue
+            'Artifact': '#FFB6C1'  # Light coral
+        }
     # Setup
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -639,7 +651,7 @@ class EdfSignals:
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
                             stepped_dict: dict | None = None, turn_xaxis_labels_off = False,
                             filter_param:list[float, float, float] =[-1,-1,-1], y_limits:list[float,float] | None = None,
-                            y_axis_units:str|None = None):
+                            y_axis_units:str|None = None, sleep_stages: list[dict] | None = None):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -650,6 +662,12 @@ class EdfSignals:
             epoch_width (float): Width of the epoch in seconds.
             parent_widget (QWidget or None): If provided, embed plot in this widget.
         """
+        # Stages for plotting rectangles
+        # sleep_stages = [
+        #     {'start_time': 0, 'end_time': 10, 'stage': 'Wake'},
+        #     {'start_time': 10, 'end_time': 20, 'stage': 'NREM'},  # Will use sky blue
+        #     {'start_time': 20, 'end_time': 30, 'stage': 'REM'}
+        # ]
 
         # Set Plot defaults
         grid_color                  = 'gray'
@@ -658,6 +676,7 @@ class EdfSignals:
         tick_label_fontsize         = 6.5
         annotation_line_width       = 1.5
         y_top_bottom_padding_factor = 2
+        default_stage_colors        = self.default_stage_colors
 
         if stepped_dict is None:
             stepped_dict = {}
@@ -707,10 +726,58 @@ class EdfSignals:
         # Create figure and axis
         fig = Figure(figsize=(12, 2))
         ax = fig.add_subplot(111)
-        ax.plot(time_axis, signal_segment, color=signal_color, linewidth=1)
+
+        # ADD SLEEP STAGE RECTANGLES BEFORE PLOTTING THE SIGNAL
+        if sleep_stages:
+            # Get the y-axis limits first (we'll need them for rectangle height)
+            #print('sleep_stages in plotting')
+            if is_signal_stepped:
+                y_min_temp = 0
+                y_max_temp = len(stepped_dict)
+            else:
+                if y_limits != None:
+                    y_min_temp = y_limits[0]
+                    y_max_temp = y_limits[1]
+                else:
+                    y_min_temp = np.min(signal_segment)
+                    y_max_temp = np.max(signal_segment)
+
+            # Add rectangles for each sleep stage
+            for stage_info in sleep_stages:
+                #print(stage_info)
+                start_time = stage_info.get('start_time', 0)
+                end_time = stage_info.get('end_time', epoch_width)
+                stage_name = stage_info.get('stage', 'Unknown')
+
+                # Get color - use provided color, default for stage, or gray fallback
+                if 'color' in stage_info:
+                    rect_color = stage_info['color']
+                elif stage_name in default_stage_colors:
+                    rect_color = default_stage_colors[stage_name]
+                else:
+                    rect_color = '#D3D3D3'  # Light gray for unknown stages
+                #print(rect_color)
+
+                # Create rectangle
+                width = end_time - start_time
+                height = y_max_temp - y_min_temp
+
+                rect = Rectangle(
+                    (start_time, y_min_temp),
+                    width,
+                    height,
+                    facecolor=rect_color,
+                    alpha=0.99,  # Semi-transparent
+                    edgecolor='none',
+                    zorder=0  # Put rectangles behind the signal
+                )
+                #print(rect)
+                ax.add_patch(rect)
+
+        ax.plot(time_axis, signal_segment, color=signal_color, linewidth=1, zorder=2)
 
         # Format plot
-        ax.grid(True)
+        ax.grid(True, zorder=1)
 
         # Compute vertical padding (5% headroom above and below)
         if is_signal_stepped:

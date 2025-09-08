@@ -75,11 +75,11 @@ class SignalWindow(QMainWindow):
         s_to_s = lambda s: int(s)
 
         # Set up epoch controls
-        self.epoch_display_options_text:List       = ['30 s', '1 min', '2 min', '4 min', '8 min', '1 hr']
-        self.epoch_display_options_width_sec:List  = [ 30,     60,    120,    240,     480,      3600]
-        self.epoch_display_axis_grid:List          = [ [5,1],  [10,2], [60,10],  [60, 10], [120, 30],[600, 50] ]
-        self.epoch_axis_units:List                 = ['s', 's', 'm', 'm', 'm', 'm']
-        self.time_convert_f:List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min]
+        self.epoch_display_options_text:List        = ['30 s', '1 min', '2 min', '4 min', '5 min','8 min', '10 min', '1 hr']
+        self.epoch_display_options_width_sec:List  = [ 30,     60,    120,    240,   300,  480,   600,   3600]
+        self.epoch_display_axis_grid:List           = [ [5,1],  [10,2], [60,10],  [60, 10], [60, 10], [120, 30],[120, 30], [600, 50] ]
+        self.epoch_axis_units:List                  = ['s', 's', 'm', 'm', 'm', 'm']
+        self.time_convert_f:List                    = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min]
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
@@ -248,6 +248,14 @@ class SignalWindow(QMainWindow):
                 # force zero signal
                 signal_label = ""
 
+            # Get sleep stages
+            epoch_start = epoch_num+i
+            epoch_end   = epoch_start + int(epoch_num+epoch_width/self.xml_obj.epochLength)
+            #print(f'epoch_start = {epoch_start}, epoch_end = {epoch_end}')
+            sleep_stage_dict_list = self.xml_obj.sleep_stages_obj.return_zeroed_sleep_stage_time_dictionary(
+                epoch_start, epoch_end)
+            #print(f'sleep_stage_dict_list = {sleep_stage_dict_list}')
+
             # Plot signal segment
             if epoch_num+i >= self.max_epoch:
                 signal_label = ""
@@ -262,7 +270,8 @@ class SignalWindow(QMainWindow):
                                                               turn_xaxis_labels_off = True,
                                                               filter_param          = filter_param,
                                                               y_limits              = y_axis_page_limits,
-                                                              y_axis_units          = signal_units)
+                                                              y_axis_units          = signal_units,
+                                                              sleep_stages          = sleep_stage_dict_list)
 
         # Create x axis for reference
         signal_label = "" # force no signal

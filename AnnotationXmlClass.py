@@ -358,7 +358,57 @@ class SleepStages:
     def return_sleep_stage_mappings(self):
         sleep_stages_labels = [self.num_stage_to_text_dict, self.num_stage_to_nremrem_dict ]
         return sleep_stages_labels
-    # Summarize and export
+    def return_zeroed_sleep_stage_time_dictionary(self, start_epoch:int, epoch_end:int|None):
+        """
+            Convert text-based sleep stages to time-based dictionary format for plotting.
+            Maintains individual epoch boundaries for interactive scoring.
+
+            Parameters:
+                epoch (int): Starting epoch number
+                epoch_end (int | None): Ending epoch number (if None, uses just the single epoch)
+                epoch_width (float): Width of each epoch in seconds (default 30 seconds)
+
+            Returns:
+                list[dict]: List of sleep stage dictionaries with start_time, end_time, and stage
+            """
+        epoch_width     = self.sleep_epoch
+        sleep_stages_N3 = self.sleep_stages_N3
+
+        print(f'start_epoch = {start_epoch}, epoch end = {epoch_end}, epoch_width = {epoch_width}, sleep_stages_N3 = {sleep_stages_N3}')
+
+        # Determine the range of epochs to process
+        if epoch_end is None:
+            start_epoch = int(start_epoch)
+            end_epoch   = int(start_epoch)
+        else:
+            start_epoch = int(start_epoch)
+            end_epoch   = int(epoch_end)
+
+        sleep_stages = []
+
+        # Convert each epoch's text stage to time-based dictionary
+        for current_epoch in range(start_epoch, end_epoch):
+            # Check if we have data for this epoch
+            #print(current_epoch)
+            if current_epoch < len(sleep_stages_N3):
+                stage_text = sleep_stages_N3[current_epoch]
+
+                # Calculate time boundaries for this epoch
+                start_time = (current_epoch - start_epoch) * epoch_width
+                end_time = start_time + epoch_width
+
+                # Create dictionary entry
+                stage_dict = {
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'stage': stage_text
+                }
+
+                sleep_stages.append(stage_dict)
+
+        return sleep_stages
+
+        # Summarize and export
     def summarize_sleep_stages(self, stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
         """
         Generate a dictionary that contains counts for each sleep stage in the included dictionary.
@@ -703,7 +753,7 @@ class SignalAnnotations:
         # Plot vertical lines for each event
         plotted_annotations = set()
         for start_time, annotation_name in zip(start_times, names):
-            print(f'annotation_name = {annotation_name}')
+            # print(f'annotation_name = {annotation_name}')
             if annotation_name == cur_annotation_setting or cur_annotation_setting in [None, 'All']:
                 color = color_map[annotation_name]
 
