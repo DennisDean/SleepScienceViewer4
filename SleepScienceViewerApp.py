@@ -616,7 +616,6 @@ class MainApp(QMainWindow):
             self.annotations_list = annotations_list
 
             # Plot Hypnogram
-            # self.draw_hypnogram_in_view(self.annotation_xml_obj.sleep_stages_obj, self.ui.hypnogram_graphicsView)
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView)
 
             # Annotation File Loaded
@@ -638,7 +637,11 @@ class MainApp(QMainWindow):
 
             # Plot annotations
             total_time_in_seconds = self.annotation_xml_obj.sleep_stages_obj.time_seconds
-            self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds, self.ui.graphicsView_annotation)
+            cur_annotation_setting = self.ui.annotation_comboBox.currentText()
+            print(f'cur_annotation_setting = "{cur_annotation_setting}"')
+            self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
+                                                                     self.ui.graphicsView_annotation,
+                                                                     cur_annotation_setting = cur_annotation_setting)
     def on_hypnogram_changed(self, index):
         # Update Variables
         if self.automatic_histogram_redraw:
@@ -654,6 +657,7 @@ class MainApp(QMainWindow):
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
+        # Text Update
         if self.annotations_list:
             # Clear the current list in the widget
             self.ui.annotation_listWidget.clear()
@@ -671,6 +675,15 @@ class MainApp(QMainWindow):
                 for item in self.annotations_list[1:]:
                     if text in item:
                         self.ui.annotation_listWidget.addItem(item)
+
+
+            # Update annotations plot
+            total_time_in_seconds = self.annotation_xml_obj.sleep_stages_obj.time_seconds
+            cur_annotation_setting = self.ui.annotation_comboBox.currentText()
+            print(f'cur_annotation_setting = "{cur_annotation_setting}"')
+            self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
+                                                                     self.ui.graphicsView_annotation,
+                                                                     cur_annotation_setting = cur_annotation_setting)
     def clear_annotation_widgets(self):
         # Clear annotation histogram and object
         self.automatic_histogram_redraw = False

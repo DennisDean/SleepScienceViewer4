@@ -644,7 +644,9 @@ class SignalAnnotations:
             logger.info(f'Scored events identified previously')
         return self.scored_event_types
     # Plot Annotation
-    def plot_annotation(self, total_time_in_seconds: float, parent_widget=None, stage_index = 0):
+    def plot_annotation(self, total_time_in_seconds: float,
+                        parent_widget=None, stage_index = 0, cur_annotation_setting:str|None = None):
+
         """
         Plots vertical lines for scored events into a QGraphicsView if provided,
         or as a standalone matplotlib figure. Each annotation type gets a different color.
@@ -672,14 +674,6 @@ class SignalAnnotations:
         # Create figure and axis
         fig = Figure(figsize=(12, 2))
         ax = fig.add_subplot(111)
-
-        # # Get unique annotation names and assign colors
-        # unique_annotations = set()
-        # for event_list in self.scoredEvents.values():
-        #     for event in event_list:
-        #         if 'Name' in event:
-        #             unique_annotations.add(event['Name'])
-
 
         # Get unique annotation names and assign colors
         unique_annotations = self.scored_event_unique_names
@@ -709,13 +703,15 @@ class SignalAnnotations:
         # Plot vertical lines for each event
         plotted_annotations = set()
         for start_time, annotation_name in zip(start_times, names):
-            color = color_map[annotation_name]
+            print(f'annotation_name = {annotation_name}')
+            if annotation_name == cur_annotation_setting or cur_annotation_setting in [None, 'All']:
+                color = color_map[annotation_name]
 
-            # Plot vertical line
-            ax.axvline(x=start_time, color=color, linewidth=line_width,
+                # Plot vertical line
+                ax.axvline(x=start_time, color=color, linewidth=line_width,
                        alpha=alpha, label=annotation_name if annotation_name not in plotted_annotations else "")
 
-            plotted_annotations.add(annotation_name)
+                plotted_annotations.add(annotation_name)
 
         # Configure axis
         ax.set_xlabel('')
