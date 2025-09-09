@@ -616,7 +616,9 @@ class MainApp(QMainWindow):
             self.annotations_list = annotations_list
 
             # Plot Hypnogram
-            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView)
+            hypnogram_marker = 0
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                    hypnogram_marker=hypnogram_marker)
 
             # Annotation File Loaded
             logger.info(f'Annotation file loaded {file_path}')
@@ -742,6 +744,11 @@ class MainApp(QMainWindow):
         # update Signals
         self.draw_signals_in_graphic_views()
 
+        # Plot Hypnogram
+        hypnogram_marker = 0
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                hypnogram_marker=hypnogram_marker)
+
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to first ({self.current_epoch})")
     def set_epoch_to_next(self):
@@ -758,6 +765,13 @@ class MainApp(QMainWindow):
             # update Signals
             self.draw_signals_in_graphic_views()
 
+            # Plot Hypnogram
+            cbox_val         = self.ui.epoch_comboBox.currentIndex()
+            epoch_width_sec  = self.epoch_display_options_width_sec[cbox_val]
+            hypnogram_marker = epoch_width_sec*self.current_epoch
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                    hypnogram_marker=hypnogram_marker)
+
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to next ({self.current_epoch})")
     def set_epoch_from_text(self):
@@ -771,9 +785,17 @@ class MainApp(QMainWindow):
                 new_epoch = self.max_epoch
             self.ui.epochs_textEdit.setText(f"{new_epoch}")
             self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+            self.current_epoch = new_epoch
 
             # update Signals
             self.draw_signals_in_graphic_views()
+
+            # Plot Hypnogram
+            cbox_val         = self.ui.epoch_comboBox.currentIndex()
+            epoch_width_sec  = self.epoch_display_options_width_sec[cbox_val]
+            hypnogram_marker = epoch_width_sec*self.current_epoch
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                    hypnogram_marker=hypnogram_marker)
         self.ui.update_epoch_pushButton.setEnabled(True)
     def set_epoch_to_prev(self):
         """
@@ -789,6 +811,13 @@ class MainApp(QMainWindow):
             # update Signals
             self.draw_signals_in_graphic_views()
 
+            # Plot Hypnogram
+            cbox_val = self.ui.epoch_comboBox.currentIndex()
+            epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
+            hypnogram_marker = epoch_width_sec * self.current_epoch
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                    hypnogram_marker=hypnogram_marker)
+
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to prev ({self.current_epoch})")
     def set_epoch_to_last(self):
@@ -803,6 +832,13 @@ class MainApp(QMainWindow):
 
         # update Signals
         self.draw_signals_in_graphic_views()
+
+        # Plot Hypnogram
+        cbox_val = self.ui.epoch_comboBox.currentIndex()
+        epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
+        hypnogram_marker = epoch_width_sec * self.current_epoch
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                hypnogram_marker=hypnogram_marker)
 
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to last ({self.max_epoch})")
@@ -910,11 +946,15 @@ class MainApp(QMainWindow):
         annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch))*epoch_window_in_seconds
         new_epoch = math.floor(new_epoch) + 1
         self.ui.epochs_textEdit.setText(str(new_epoch))
-
-
+        self.current_epoch = new_epoch
 
         # Update signal graphic views to annotation epoch
         self.draw_signals_in_graphic_views(annotation_marker = annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                hypnogram_marker=hypnogram_marker)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_annotation_legend_popup(self):
@@ -1185,7 +1225,7 @@ class MainApp(QMainWindow):
             signal_units.strip()
             if signal_units == "":
                 signal_units = None
-            print(f'signal units = {signal_units}')
+            #print(f'signal units = {signal_units}')
 
             # Plot signal segment
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,

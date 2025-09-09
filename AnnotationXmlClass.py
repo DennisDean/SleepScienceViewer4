@@ -506,7 +506,7 @@ class SleepStages:
         except Exception as e:
             logger.error(f'*** Could not export sleep stages: {filename}, error: {e}')
     # Plotting functions
-    def plot_hypnogram(self, parent_widget=None, stage_index = 0):
+    def plot_hypnogram(self, parent_widget=None, stage_index = 0, hypnogram_marker:float|None=None):
         """
             Plots a hypnogram into a QGraphicsView if provided, or as a standalone matplotlib figure.
             The plot background is white, auto-scales, and fills available width.
@@ -515,14 +515,16 @@ class SleepStages:
         #    raise ValueError("Missing required data: 'sleep_stages' and 'epoch_times'")
 
         # Set Plot defaults
-        grid_color      = '#cccccc'  # light gray
-        signal_color    = 'blue'
-        y_pad_c         = 0.25
-        label_fontsize  = 8
-        xlabel_offset_dict = {0:1, 1:0, 2:0.5}
-        xlabel_offset   = xlabel_offset_dict[stage_index]
-        ylabel_offset   = 0.02*self.recording_duration_hr*3600
-        grid_linewidth  = 0.8
+        grid_color             = '#cccccc'  # light gray
+        signal_color           = 'blue'
+        y_pad_c                = 0.25
+        label_fontsize         = 8
+        xlabel_offset_dict     = {0:1, 1:0, 2:0.5}
+        xlabel_offset          = xlabel_offset_dict[stage_index]
+        ylabel_offset          = 0.02*self.recording_duration_hr*3600
+        grid_linewidth         = 0.8
+        marker_line_width      = 0.8
+        hypnogram_marker_color = 'purple'
 
         # Get hypnogram information
         stages    = self.num_stages
@@ -550,7 +552,7 @@ class SleepStages:
         # Plot hypnogram
         ax.step(time_axis, stages, color=signal_color, linewidth=1)
 
-        ax.set_xlim(min(times), max(times))
+        ax.set_xlim(min(times), max(times)+self.sleep_epoch*2)
         ax.set_ylim(min(y_ticks) - 0.5, max(y_ticks) + 0.5)
         ax.tick_params(axis='both', labelsize=label_fontsize)
 
@@ -589,6 +591,10 @@ class SleepStages:
         max_label_len = max([len(label) for label in stage_map.values()])
         left_margin = min(0.03, 0.02 * max_label_len)
         fig.subplots_adjust(left=left_margin, right=0.99, top=0.95, bottom=0.05)
+
+        if hypnogram_marker != None:
+            ax.axvline(x=hypnogram_marker, color=hypnogram_marker_color, linestyle='-', label=f'Set Point: {hypnogram_marker}',
+                       linewidth=marker_line_width)
 
         if parent_widget:
             # Create a new Figure Canvas

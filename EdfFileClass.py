@@ -677,6 +677,7 @@ class EdfSignals:
         annotation_line_width       = 1.5
         y_top_bottom_padding_factor = 2
         default_stage_colors        = self.default_stage_colors
+        hypnogram_marker_color      = 'purple'
 
         if stepped_dict is None:
             stepped_dict = {}
@@ -739,8 +740,11 @@ class EdfSignals:
                     y_min_temp = y_limits[0]
                     y_max_temp = y_limits[1]
                 else:
+                    print(f'signal_segment = {signal_segment}, signal_key = {signal_key}')
                     y_min_temp = np.min(signal_segment)
                     y_max_temp = np.max(signal_segment)
+                    if y_min_temp == y_max_temp:
+                        print(f'y_min_temp = {y_min_temp}')
 
             # Add rectangles for each sleep stage
             for stage_info in sleep_stages:
@@ -856,7 +860,7 @@ class EdfSignals:
             fig.subplots_adjust(left=.03, right=0.99, top=0.93, bottom=0.35)
 
         if annotation_marker != None:
-            ax.axvline(x=annotation_marker, color='r', linestyle='-', label=f'Set Point: {annotation_marker}',
+            ax.axvline(x=annotation_marker, color=hypnogram_marker_color, linestyle='-', label=f'Set Point: {annotation_marker}',
                        linewidth=annotation_line_width)
 
         if parent_widget:
