@@ -30,7 +30,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-# TODO: Add support for color signals
 # TODO: Add support of selecting signals to load
 # TODO: Add a safe minimum for ymin during signal plot as done in prior calls
 
@@ -651,7 +650,7 @@ class EdfSignals:
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
                             stepped_dict: dict | None = None, turn_xaxis_labels_off = False,
                             filter_param:list[float, float, float] =[-1,-1,-1], y_limits:list[float,float] | None = None,
-                            y_axis_units:str|None = None, sleep_stages: list[dict] | None = None):
+                            y_axis_units:str|None = None, sleep_stages: list[dict] | None = None, signal_color:str|None = None):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
@@ -671,7 +670,7 @@ class EdfSignals:
 
         # Set Plot defaults
         grid_color                  = 'gray'
-        signal_color                = 'blue'
+        signal_color                = 'blue' if signal_type == None else signal_color
         y_pad_c                     = 0.05
         tick_label_fontsize         = 6.5
         annotation_line_width       = 1.5

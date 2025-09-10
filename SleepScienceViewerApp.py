@@ -27,12 +27,8 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-# TODO: Support for changing signal color
 # TODO: clean up video
 # TODO: Custom response to return key when editing the epoch
-# TODO: Create marker support for hypnogram plotting to respond to epoch changes and annotation selection
-# TODO: Add support for y axis values and units
-# TODO: Add Annotation plot
 # TODO: Revisit Annotation Colors
 
 # PySide6 imports
@@ -42,7 +38,7 @@ from PySide6.QtGui import QFont, QFontDatabase
 from PySide6.QtCore import QEvent, Qt, QObject
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QWidget
-from PySide6.QtGui import QColor, QBrush
+from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon, QPainterPath, QPen
 from PySide6.QtWidgets import QListWidgetItem
 # System Imports
 import os
@@ -272,7 +268,6 @@ class MainApp(QMainWindow):
             self.ui.signal_9_graphicsView,
             self.ui.signal_10_graphicsView,
         ]
-
         self.signal_comboboxes = [
             self.ui.signal_1_comboBox,
             self.ui.signal_2_comboBox,
@@ -285,10 +280,17 @@ class MainApp(QMainWindow):
             self.ui.signal_9_comboBox,
             self.ui.signal_10_comboBox,
         ]
+        self.signal_color_comboboxes = [
+            self.ui.comboBox_sig1_color, self.ui.comboBox_sig2_color, self.ui.comboBox_sig3_color,
+            self.ui.comboBox_sig4_color, self.ui.comboBox_sig5_color, self.ui.comboBox_sig6_color,
+            self.ui.comboBox_sig7_color, self.ui.comboBox_sig8_color, self.ui.comboBox_sig9_color,
+            self.ui.comboBox_sig10_color
+        ]
 
         # Connect Combo Box Change
-        for i, cb in enumerate(self.signal_comboboxes):
+        for i, (cb, ccb) in enumerate(zip(self.signal_comboboxes, self.signal_color_comboboxes)):
             cb.currentTextChanged.connect(partial(self.on_signal_combobox_changed, i))
+            ccb.currentTextChanged.connect(partial(self.on_signal_color_combobox_changed, i))
 
         # Set Up list widget
         font = self.ui.annotation_listWidget.font()
@@ -393,6 +395,41 @@ class MainApp(QMainWindow):
 
         # Set epoch combo box to 30 second window
         self.ui.epoch_comboBox.setCurrentIndex(self.current_epoch_width_index)
+    def initialize_signal_color_combobox(self):
+       # Define variables signal color variables
+       ########## take a closer look
+
+        self.signal_colors = [
+            "#0000FF",  # blue
+            "#4ECDC4",  # turquoise
+            "#45B7D1",  # sky blue
+            "#96CEB4",  # mint green
+            "#FECA57",  # sunny yellow
+            "#FF9FF3",  # pink
+            "#54A0FF",  # royal blue
+            "#EE82EE",  # violet
+            "#00D2D3",  # cyan
+            "#FF9F43"  # orange
+        ]
+        # Define color names for display
+        self.signal_color_names = [
+            "CBlue", "Turquoise", "Sky Blue", "Mint Green", "Sunny Yellow",
+            "Pink", "Royal Blue", "Violet", "Cyan", "Orange"
+        ]
+
+        # Define initial color
+        for i, cbox in enumerate(self.signal_color_comboboxes):
+            cbox.clear()
+            cbox.addItems(self.signal_color_names)
+            cbox.setCurrentIndex(i)
+
+            cbox.clear()
+            for j, (color, name) in enumerate(zip(self.signal_colors, self.signal_color_names)):
+                icon = self.create_line_icon(color, width=32, height=16, line_width=15)
+                #name = "" # no text for now
+                cbox.addItem(icon, name, color)
+
+            cbox.setCurrentIndex(i)
     def turn_off_edf_actions(self):
         # Turn off edf signal related widgets
         self.ui.compute_spectrogram_pushButton.setEnabled(False)
@@ -432,6 +469,9 @@ class MainApp(QMainWindow):
     def set_signal_combo_boxes(self):
         # Turn off signal plot update
         self.automatic_signal_redraw = False
+
+        # Set colors
+        self.initialize_signal_color_combobox()
 
         # Get signal labels
         signal_labels = self.edf_file_obj.edf_signals.signal_labels
@@ -682,7 +722,7 @@ class MainApp(QMainWindow):
             # Update annotations plot
             total_time_in_seconds = self.annotation_xml_obj.sleep_stages_obj.time_seconds
             cur_annotation_setting = self.ui.annotation_comboBox.currentText()
-            print(f'cur_annotation_setting = "{cur_annotation_setting}"')
+            #print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                                      self.ui.graphicsView_annotation,
                                                                      cur_annotation_setting = cur_annotation_setting)
@@ -898,6 +938,10 @@ class MainApp(QMainWindow):
         # Signal Units
         signal_units = self.edf_file_obj.edf_signals.signal_units_dict[signal_label]
 
+        # Get signal color
+        color_combo_box = self.signal_color_comboboxes[index]
+        signal_color = self.signal_colors[color_combo_box.currentIndex()]
+
         # Plot signal
         self.edf_file_obj.edf_signals.plot_signal_segment(
             signal_label,
@@ -910,11 +954,40 @@ class MainApp(QMainWindow):
             stepped_dict=stepped_dict,
             convert_time_f=convert_time_f,
             time_axis_units=time_axis_units,
-            y_axis_units = signal_units
+            y_axis_units = signal_units,
+            signal_color = signal_color
         )
 
         if text == '':
             text = "''"
+        logger.info(f"Signal {index + 1} combo box changed to {text}")
+    def create_line_icon(self, color, width=32, height=16, line_width=3):
+        """Create a horizontal line icon with specified color"""
+        pixmap = QPixmap(width, height)
+        pixmap.fill(Qt.transparent)  # Transparent background
+
+        painter = QPainter(pixmap)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Create pen with the specified color and width
+        pen = painter.pen()
+        pen.setColor(color)
+        pen.setWidth(line_width)
+        pen.setCapStyle(Qt.RoundCap)  # Rounded line ends
+        painter.setPen(pen)
+
+        # Draw horizontal line centered vertically
+        y_center = height // 2
+        margin = 4  # Small margin from edges
+        painter.drawLine(margin, y_center, width - margin, y_center)
+        painter.end()
+
+        return QIcon(pixmap)
+    def on_signal_color_combobox_changed(self, index, text):
+        logger.info(f"Signal {index + 1} color combo box changed to {text}")
+        signal_combo_box = self.signal_comboboxes[index]
+        signal_label = signal_combo_box.currentText()
+        self.on_signal_combobox_changed(index, signal_label)
         logger.info(f"Signal {index + 1} combo box changed to {text}")
     # Annotation
     def annotation_list_widget_double_click(self, item):
@@ -1184,9 +1257,14 @@ class MainApp(QMainWindow):
                          self.ui.signal_9_graphicsView,
                          self.ui.signal_10_graphicsView]
 
+        # Get signal color widgets and
+        signal_color_combo_boxes = self.signal_color_comboboxes
+        signal_colors            = self.signal_colors
+
         # Turn off change signal while updating combobox list following selection of a new edf file
-        for combo_box in signal_combo_boxes:
+        for combo_box, color_box in zip(signal_combo_boxes, signal_color_combo_boxes):
             combo_box.blockSignals(True)
+            color_box.blockSignals(True)
 
         # get combo boxes labels
         combo_box_signal_labels = [combo_box.currentText() for combo_box in signal_combo_boxes]
@@ -1227,6 +1305,10 @@ class MainApp(QMainWindow):
                 signal_units = None
             #print(f'signal units = {signal_units}')
 
+            # Get color
+            signal_color = signal_colors[i]
+            #print(f'signal_color = {signal_color}')
+
             # Plot signal segment
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
                                                               signal_type, epoch_num, epoch_width, graphic_view,
@@ -1236,17 +1318,57 @@ class MainApp(QMainWindow):
                                                               time_axis_units   = time_axis_units,
                                                               is_signal_stepped = is_signal_stepped,
                                                               stepped_dict      = stepped_dict,
-                                                              y_axis_units      = signal_units)
+                                                              y_axis_units      = signal_units,
+                                                              signal_color      = signal_color)
 
         # Turn on combo box signal change
-        for combo_box in signal_combo_boxes:
+        for combo_box, color_box in zip(signal_combo_boxes, signal_color_combo_boxes):
             combo_box.blockSignals(False)
+            color_box.blockSignals(False)
 
         # Update epoch label string
         epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
         self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
         time_str       = self.return_time_string(current_epoch, epoch_width)
         self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
+    def create_signal_line_icon(self, color, width=40, height=20, line_width=2):
+        """Create a signal-like wavy line icon (alternative option)"""
+        pixmap = QPixmap(width, height)
+        pixmap.fill(Qt.transparent)
+
+        painter = QPainter(pixmap)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Create pen
+        pen = painter.pen()
+        pen.setColor(color)
+        pen.setWidth(line_width)
+        pen.setCapStyle(Qt.RoundCap)
+        painter.setPen(pen)
+
+        # Create a simple wave pattern
+        path = QPainterPath()
+
+        # Start point
+        y_center = height // 2
+        path.moveTo(2, y_center)
+
+        # Create wave points
+        segments = 4
+        segment_width = (width - 4) // segments
+
+        for i in range(segments + 1):
+            x = 2 + i * segment_width
+            if i % 2 == 0:
+                y = y_center + (height // 4 if i % 4 == 0 else -height // 4)
+            else:
+                y = y_center
+            path.lineTo(x, y)
+
+        painter.drawPath(path)
+        painter.end()
+
+        return QIcon(pixmap)
     # Window
     def open_signal_view(self):
         # Get index value for first signal graphic view

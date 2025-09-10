@@ -74,7 +74,6 @@ from PySide6.QtGui import QPalette, QFont
 # To Do List
 # TODO: Add N3 collapse summary to json export
 # TODO: Use color for annotation
-# TODO: Copied hypnogram plotting to SignalAnnotationClass. Need to finish.
 
 
 # Set up a module-level logger
