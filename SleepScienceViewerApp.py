@@ -28,6 +28,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # To Do List
 # TODO: Revisit Annotation Colors
+# TODO: Respond to double/click on hypnogram
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
@@ -220,6 +221,10 @@ class MainApp(QMainWindow):
         self.ui.annotation_comboBox.currentTextChanged.connect(self.on_annotation_combobox_text_changed)
         self.annotations_list:str= None
 
+        # Set files status edit boxes to read only
+        self.ui.load_edf_textEdit.setReadOnly(True)
+        self.ui.load_annotation_textEdit.setReadOnly(True)
+
         # Load Buttons
         self.ui.load_edf_pushButton.clicked.connect(self.load_edf_file)
         self.ui.load_annotation_pushButton.clicked.connect(self.load_xml_file)
@@ -284,6 +289,7 @@ class MainApp(QMainWindow):
             self.ui.comboBox_sig10_color
         ]
 
+        self.ui.hypnogram_graphicsView
         # Connect Combo Box Change
         for i, (cb, ccb) in enumerate(zip(self.signal_comboboxes, self.signal_color_comboboxes)):
             cb.currentTextChanged.connect(partial(self.on_signal_combobox_changed, i))
@@ -344,6 +350,9 @@ class MainApp(QMainWindow):
             logger.error('SleepScienceViewer: Error loading XML file.')
 
         if file_path:
+            #Changing code to be more modular in managing gui signals
+            self.turn_off_signal_comboboxes_signals()
+
             # Set epoch display options
             self.initialize_epoch_variables()
             if self.annotation_xml_obj != None:
@@ -376,6 +385,7 @@ class MainApp(QMainWindow):
 
             # Turn on signal related buttons
             self.turn_on_edf_actions()
+            self.turn_on_signal_comboboxes_signals()
 
             # Turn off actions
             self.turn_off_xml_actions()
@@ -463,6 +473,16 @@ class MainApp(QMainWindow):
 
         # Enable xml open action
         self.ui.actionOpen_XML.setEnabled(True)
+    def turn_on_signal_comboboxes_signals(self):
+        # Get signal and color comboboxes
+        for scb, sccb in zip(self.signal_comboboxes,self.signal_color_comboboxes):
+            scb.blockSignals(False)
+            sccb.blockSignals(False)
+    def turn_off_signal_comboboxes_signals(self):
+        # Get signal and color comboboxes
+        for scb, sccb in zip(self.signal_comboboxes,self.signal_color_comboboxes):
+            scb.blockSignals(True)
+            sccb.blockSignals(True)
     def set_signal_combo_boxes(self):
         # Turn off signal plot update
         self.automatic_signal_redraw = False
@@ -634,8 +654,13 @@ class MainApp(QMainWindow):
             # Set annotation types
             annotations_type_list = self.annotation_xml_obj.scored_event_obj.scored_event_unique_names
             annotations_type_list.insert(0, 'All')
+
+            # Update annotation marker
+            self.ui.annotation_comboBox.setEnabled(False)
+            self.ui.annotation_comboBox.blockSignals(True)
             self.ui.annotation_comboBox.clear()
             self.ui.annotation_comboBox.addItems(annotations_type_list)
+
             self.ui.annotation_listWidget.clear()
             annotations_list = self.annotation_xml_obj.scored_event_obj.scored_event_name_source_time_list
             t_start, t_end = self.extract_event_indexes(annotations_list[0])
@@ -681,6 +706,8 @@ class MainApp(QMainWindow):
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                                      self.ui.graphicsView_annotation,
                                                                      cur_annotation_setting = cur_annotation_setting)
+            self.ui.annotation_comboBox.setEnabled(True)
+            self.ui.annotation_comboBox.blockSignals(False)
     def on_hypnogram_changed(self, index):
         # Update Variables
         if self.automatic_histogram_redraw:

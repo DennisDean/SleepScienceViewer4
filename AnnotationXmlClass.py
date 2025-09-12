@@ -61,6 +61,11 @@ from sympy.logic.boolalg import Boolean
 import numpy as np
 
 # Required for plotting
+import matplotlib
+matplotlib.use('QtAgg')
+import matplotlib.pyplot as plt
+plt.ioff()
+
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
@@ -155,7 +160,6 @@ class AnnotationLegendDialog(QDialog):
     """
     Pop-up dialog that displays annotation names with their corresponding colors.
     """
-
     def __init__(self, color_map, parent=None):
         """
         Initialize the dialog.
@@ -167,7 +171,6 @@ class AnnotationLegendDialog(QDialog):
         super().__init__(parent)
         self.color_map = color_map
         self.setup_ui()
-
     def setup_ui(self):
         """Set up the user interface."""
         self.setWindowTitle("Annotation Legend")
@@ -219,7 +222,6 @@ class AnnotationLegendDialog(QDialog):
         button_layout.addWidget(close_button)
 
         main_layout.addLayout(button_layout)
-
     def create_legend_item(self, annotation_name, color):
         """
         Create a legend item with color box and label.
@@ -830,9 +832,6 @@ class SignalAnnotations:
 
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
-        else:
-            # Show as standalone plot
-            plt.show()
 
         return fig, ax
     def show_annotation_legend(self, parent=None):
