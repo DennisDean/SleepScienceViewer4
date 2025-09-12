@@ -2,9 +2,8 @@
 # Generates and independent window with a copy of the edf and xml object loaded by the Sleep Science Window.
 #
 
-# TODO: time does not update with epoch
+# TODO: time does not update with epoch, check max epoch, likely same issue
 # TODO: Fix np.min in plot signal so going to last epoch does not crash. Use same fix as main viewer
-# TODO: Started writing return_signal_segments: for a multi epoch return
 
 # Modules
 import logging
@@ -15,7 +14,8 @@ from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
 
 # Interface packages and modules
 from PySide6.QtWidgets import QMainWindow
-from PySide6.QtCore import QEvent, Qt, QObject
+from PySide6.QtCore import QEvent, Qt, QObject,Signal
+from PySide6.QtGui import QKeyEvent
 
 # GUI Interface
 from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
@@ -24,14 +24,17 @@ from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
 logger = logging.getLogger(__name__)
 
 # To Do List
-# TODO: Set y min-max across plots
 # TODO: Custom response to a return withing the edit field
 
 
 # Utilities
 class NumericTextEditFilter(QObject):
+    enterPressed = Signal()
     def eventFilter(self, obj, event):
         if event.type() == QEvent.KeyPress:
+            if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:  # Qt.Key.Key_Return in PySide6
+                self.enterPressed.emit()  # Emit signal when Enter is pressed
+                return True  # Consume the event so it doesn't insert a newline
             if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
                 return False  # Allow backspace and delete
             if event.text().isdigit():
@@ -152,6 +155,7 @@ class SignalWindow(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.textEdit_epoch.installEventFilter(self.numeric_filter)
+        self.numeric_filter.enterPressed.connect(self.enter_pressed_epoch_edit)
     def initialize_filter_variables(self):
         # Define filter combo box entries
         self.filter_low_menu_text  = ['', '0.1 Hz', '0.5 Hz', '1.0 Hz', '10 Hz']
@@ -445,6 +449,25 @@ class SignalWindow(QMainWindow):
 
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to page ({self.current_epoch})")
+    def enter_pressed_epoch_edit(self):
+        # Get information to evaluate user entry
+        text_field_epoch = int(self.ui.textEdit_epoch.toPlainText())
+        epoch_width = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+        max_time = self.xml_obj.sleep_stages_obj.max_time_sec
+
+        # check for valid epoch
+        epoch_min_test = text_field_epoch >= 1
+        epoch_change_test = self.current_epoch != text_field_epoch
+        epoch_max_test = text_field_epoch * epoch_width <= max_time
+
+        # Respond to checks
+        if not epoch_min_test:
+            self.set_epoch_to_first()
+        elif not epoch_max_test:
+            self.set_epoch_to_last()
+        else:
+            self.set_epoch_from_text()
+        logger.info(f'Responding to user enter within epoch text field')
     def activate_epoch_buttons(self, activate_buttons = True):
         self.ui.pushButton_first.setEnabled(activate_buttons)
         self.ui.pushButton_next.setEnabled(activate_buttons)

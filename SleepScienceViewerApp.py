@@ -27,8 +27,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-# TODO: clean up video
-# TODO: Custom response to return key when editing the epoch
 # TODO: Revisit Annotation Colors
 
 # PySide6 imports
@@ -60,16 +58,7 @@ from logging_config import logger
 
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
-from SignalViewer import Ui_SignalWindow
-# class NumericTextEditFilter(QObject):
-#     def eventFilter(self, obj, event):
-#         if event.type() == QEvent.KeyPress:
-#             if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
-#                 return False  # Allow backspace and delete
-#             if event.text().isdigit():
-#                 return False  # Allow digits
-#             else:
-#                 return True  # Filter out non-numeric input
+# from SignalViewer import Ui_SignalWindow
 from SignalWindowClass import SignalWindow
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
@@ -771,17 +760,28 @@ class MainApp(QMainWindow):
         return "#{:02X}{:02X}{:02X}".format(*i_rgb)
     def turn_off_xml_actions(self):
         # Turn on signal related menu items
+
+        # Menu items
         self.ui.actionAnnotation_Summary.setEnabled(False)
         self.ui.actionAnnotation_Export.setEnabled(False)
         self.ui.actionSleep_Stages_Export.setEnabled(False)
         self.ui.actionOpen_Signal_Window.setEnabled(False)
+
+        # UI widgets
         self.ui.pushButton_legend.setEnabled(False)
+        self.ui.hypnogram_comboBox.setEnabled(False)
+        self.ui.annotation_comboBox.setEnabled(False)
     def turn_on_xml_actions(self):
         # Turn off signal related menu items
         self.ui.actionAnnotation_Summary.setEnabled(True)
         self.ui.actionAnnotation_Export.setEnabled(True)
         self.ui.actionSleep_Stages_Export.setEnabled(True)
         self.ui.actionOpen_Signal_Window.setEnabled(True)
+        self.ui.pushButton_legend.setEnabled(True)
+
+        # UI Widgets
+        self.ui.hypnogram_comboBox.setEnabled(True)
+        self.ui.annotation_comboBox.setEnabled(True)
         self.ui.pushButton_legend.setEnabled(True)
     # Epochs
     def set_epoch_to_first(self):
