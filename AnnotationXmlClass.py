@@ -316,6 +316,7 @@ class SleepStages:
         self.number_of_epochs        = len(num_stages)
         self.recording_duration_hr   = self.number_of_epochs * self.sleep_epoch / 60 / 60
         self.time_seconds            = [float(i * epoch) for i in range(len(num_stages))]
+        self.max_time_sec            = self.number_of_epochs * self.sleep_epoch
 
         # Labels - will make self describing in another pass
         self.numeric_labels  = list(num_stage_to_text_dict.keys())

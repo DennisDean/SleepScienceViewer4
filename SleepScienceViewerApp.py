@@ -35,11 +35,13 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from PySide6.QtGui import QFont, QFontDatabase
-from PySide6.QtCore import QEvent, Qt, QObject
+from PySide6.QtCore import QEvent, Qt, QObject, QObject, Signal
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QWidget
-from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon, QPainterPath, QPen
+from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon, QPainterPath, QPen, QKeyEvent
 from PySide6.QtWidgets import QListWidgetItem
+
+
 # System Imports
 import os
 import sys
@@ -59,15 +61,15 @@ from logging_config import logger
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
 from SignalViewer import Ui_SignalWindow
-class NumericTextEditFilter(QObject):
-    def eventFilter(self, obj, event):
-        if event.type() == QEvent.KeyPress:
-            if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
-                return False  # Allow backspace and delete
-            if event.text().isdigit():
-                return False  # Allow digits
-            else:
-                return True  # Filter out non-numeric input
+# class NumericTextEditFilter(QObject):
+#     def eventFilter(self, obj, event):
+#         if event.type() == QEvent.KeyPress:
+#             if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
+#                 return False  # Allow backspace and delete
+#             if event.text().isdigit():
+#                 return False  # Allow digits
+#             else:
+#                 return True  # Filter out non-numeric input
 from SignalWindowClass import SignalWindow
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
@@ -160,8 +162,12 @@ def clear_spectrogram_plot(parent_widget = None):
             if widget:
                 widget.setParent(None)
 class NumericTextEditFilter(QObject):
+    enterPressed = Signal()
     def eventFilter(self, obj, event):
         if event.type() == QEvent.KeyPress:
+            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+                self.enterPressed.emit()  # Emit signal when Enter is pressed
+                return True
             if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
                 return False  # Allow backspace and delete
             if event.text().isdigit():
@@ -252,6 +258,8 @@ class MainApp(QMainWindow):
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
         self.ui.epochs_textEdit.installEventFilter(self.numeric_filter)
+        self.numeric_filter.enterPressed.connect(self.enter_pressed_epoch_edit)
+
         #self.ui.epochs_textEdit.addAction()
         self.ui.epoch_comboBox.currentIndexChanged.connect(self.on_epoch_width_change)
 
@@ -413,7 +421,7 @@ class MainApp(QMainWindow):
         ]
         # Define color names for display
         self.signal_color_names = [
-            "CBlue", "Turquoise", "Sky Blue", "Mint Green", "Sunny Yellow",
+            "Blue", "Turquoise", "Sky Blue", "Mint Green", "Sunny Yellow",
             "Pink", "Royal Blue", "Violet", "Cyan", "Orange"
         ]
 
@@ -693,9 +701,14 @@ class MainApp(QMainWindow):
 
             # Update Hypnogram
             if self.sleep_stage_mappings != None:
+                # Get time
+                current_epoch = int(self.ui.epochs_textEdit.toPlainText())
+                window_width_sec = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+                hypnogram_marker = (current_epoch -1)*window_width_sec # zero referenced epoch
+
                 stage_map = index
                 self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
-                                                                    stage_index=stage_map)
+                                                            stage_index=stage_map, hypnogram_marker=hypnogram_marker)
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
@@ -912,6 +925,25 @@ class MainApp(QMainWindow):
 
         # Update current width
         self.current_epoch_width_index = new_epoch_width_index
+    def enter_pressed_epoch_edit(self):
+        # Get information to evaluate user entry
+        text_field_epoch  = int(self.ui.epochs_textEdit.toPlainText())
+        epoch_width = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        max_time    = self.annotation_xml_obj.sleep_stages_obj.max_time_sec
+
+        # check for valid epoch
+        epoch_min_test    = text_field_epoch >= 1
+        epoch_change_test = self.current_epoch != text_field_epoch
+        epoch_max_test    = text_field_epoch*epoch_width <= max_time
+
+        # Respond to checks
+        if not epoch_min_test:
+            self.set_epoch_to_first()
+        elif not epoch_max_test:
+            self.set_epoch_to_last()
+        else:
+            self.set_epoch_from_text()
+        logger.info(f'Responding to user enter within epoch text field')
     # Signals
     def on_signal_combobox_changed(self, index, text):
         logger.info(f"Signal {index + 1} combo box changed to {text}")

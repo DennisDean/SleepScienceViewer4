@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1203, 1086)
+        MainWindow.resize(1203, 1092)
         self.actionOpen_Edf = QAction(MainWindow)
         self.actionOpen_Edf.setObjectName(u"actionOpen_Edf")
         self.actionOpen_XML = QAction(MainWindow)
@@ -107,37 +107,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addItem(self.verticalSpacer_3)
 
-        self.horizontalLayout_20 = QHBoxLayout()
-        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.graphicsView_annotation = QGraphicsView(self.centralwidget)
-        self.graphicsView_annotation.setObjectName(u"graphicsView_annotation")
-        self.graphicsView_annotation.setMinimumSize(QSize(0, 25))
-        self.graphicsView_annotation.setMaximumSize(QSize(16777215, 25))
-
-        self.horizontalLayout_20.addWidget(self.graphicsView_annotation)
-
-        self.horizontalLayout_6 = QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.pushButton_legend = QPushButton(self.centralwidget)
-        self.pushButton_legend.setObjectName(u"pushButton_legend")
-        self.pushButton_legend.setMinimumSize(QSize(25, 0))
-        self.pushButton_legend.setMaximumSize(QSize(25, 16777215))
-
-        self.horizontalLayout_6.addWidget(self.pushButton_legend)
-
-        self.annotation_comboBox = QComboBox(self.centralwidget)
-        self.annotation_comboBox.setObjectName(u"annotation_comboBox")
-        self.annotation_comboBox.setMinimumSize(QSize(96, 25))
-        self.annotation_comboBox.setMaximumSize(QSize(96, 25))
-
-        self.horizontalLayout_6.addWidget(self.annotation_comboBox)
-
-
-        self.horizontalLayout_20.addLayout(self.horizontalLayout_6)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_20)
-
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.verticalLayout_2 = QVBoxLayout()
@@ -193,6 +162,39 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_18)
 
+        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer_5)
+
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_13)
+
+        self.spectrogram_label = QLabel(self.centralwidget)
+        self.spectrogram_label.setObjectName(u"spectrogram_label")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.spectrogram_label.sizePolicy().hasHeightForWidth())
+        self.spectrogram_label.setSizePolicy(sizePolicy3)
+        self.spectrogram_label.setMinimumSize(QSize(0, 20))
+        self.spectrogram_label.setMaximumSize(QSize(16777215, 20))
+
+        self.horizontalLayout_19.addWidget(self.spectrogram_label)
+
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_4)
+
+        self.horizontalSpacer_5 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_5)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout_19)
+
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.horizontalLayout_17.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -209,9 +211,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.spectrogram_comboBox = QComboBox(self.centralwidget)
         self.spectrogram_comboBox.setObjectName(u"spectrogram_comboBox")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.spectrogram_comboBox.sizePolicy().hasHeightForWidth())
         self.spectrogram_comboBox.setSizePolicy(sizePolicy3)
         self.spectrogram_comboBox.setMinimumSize(QSize(125, 25))
@@ -237,37 +236,42 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_17)
 
-        self.horizontalLayout_19 = QHBoxLayout()
-        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_13)
-
-        self.spectrogram_label = QLabel(self.centralwidget)
-        self.spectrogram_label.setObjectName(u"spectrogram_label")
-        sizePolicy3.setHeightForWidth(self.spectrogram_label.sizePolicy().hasHeightForWidth())
-        self.spectrogram_label.setSizePolicy(sizePolicy3)
-        self.spectrogram_label.setMinimumSize(QSize(0, 20))
-        self.spectrogram_label.setMaximumSize(QSize(16777215, 20))
-
-        self.horizontalLayout_19.addWidget(self.spectrogram_label)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_4)
-
-        self.horizontalSpacer_5 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_5)
-
-
-        self.verticalLayout_2.addLayout(self.horizontalLayout_19)
-
 
         self.horizontalLayout_3.addLayout(self.verticalLayout_2)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
+
+        self.horizontalLayout_20 = QHBoxLayout()
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.graphicsView_annotation = QGraphicsView(self.centralwidget)
+        self.graphicsView_annotation.setObjectName(u"graphicsView_annotation")
+        self.graphicsView_annotation.setMinimumSize(QSize(0, 25))
+        self.graphicsView_annotation.setMaximumSize(QSize(16777215, 25))
+
+        self.horizontalLayout_20.addWidget(self.graphicsView_annotation)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.pushButton_legend = QPushButton(self.centralwidget)
+        self.pushButton_legend.setObjectName(u"pushButton_legend")
+        self.pushButton_legend.setMinimumSize(QSize(25, 0))
+        self.pushButton_legend.setMaximumSize(QSize(25, 16777215))
+
+        self.horizontalLayout_6.addWidget(self.pushButton_legend)
+
+        self.annotation_comboBox = QComboBox(self.centralwidget)
+        self.annotation_comboBox.setObjectName(u"annotation_comboBox")
+        self.annotation_comboBox.setMinimumSize(QSize(96, 25))
+        self.annotation_comboBox.setMaximumSize(QSize(96, 25))
+
+        self.horizontalLayout_6.addWidget(self.annotation_comboBox)
+
+
+        self.horizontalLayout_20.addLayout(self.horizontalLayout_6)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_20)
 
         self.verticalSpacer_4 = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
@@ -301,7 +305,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_16.addWidget(self.next_epoch_pushButton)
 
-        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_16.addItem(self.horizontalSpacer_9)
 
@@ -330,7 +334,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_16.addItem(self.horizontalSpacer_12)
 
-        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_8 = QSpacerItem(20, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_16.addItem(self.horizontalSpacer_8)
 
@@ -790,16 +794,16 @@ class Ui_MainWindow(object):
         self.actionOpen_Signal_Window.setText(QCoreApplication.translate("MainWindow", u"Open Signal Window", None))
         self.load_edf_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load EDF", None))
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
-        self.pushButton_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
-        self.compute_spectrogram_pushButton.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
         self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multi-Taper Spectrogram", None))
-        self.first_pushButton.setText(QCoreApplication.translate("MainWindow", u"First", None))
-        self.next_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"Next", None))
+        self.compute_spectrogram_pushButton.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
+        self.pushButton_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
+        self.first_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u2759\u25c0", None))
+        self.next_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u25b6", None))
         self.update_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"U", None))
         self.epochs_label.setText(QCoreApplication.translate("MainWindow", u"/max_epochs", None))
-        self.previous_pushButton.setText(QCoreApplication.translate("MainWindow", u"Prev.", None))
-        self.last_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"Last", None))
+        self.previous_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u25c0", None))
+        self.last_epoch_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u25b6\u2759", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuGenerate.setTitle(QCoreApplication.translate("MainWindow", u"Generate", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
