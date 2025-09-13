@@ -31,16 +31,15 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # To Do List
 # TODO: Add support of selecting signals to load
-# TODO: Add a safe minimum for ymin during signal plot as done in prior calls
+# TODO: Add a safe minimum for y min during signal plot as done in prior calls
 
 # Import Modules
 # OS Imports
 import os
 import logging
-from typing import List, Dict, Tuple
+from typing import List, Dict
 from pathlib import Path
 
-from IPython.core.pylabtools import retina_figure
 # Logic support
 from sympy.logic.boolalg import Boolean
 
@@ -75,7 +74,7 @@ def generate_timestamped_filename(prefix: str, ext: str = ".csv", output_dir: st
 
     prefix: str: File name
     ext: str = File type string
-    output_dir: str = Output directory if set)
+    output_dir: str = Output directory if set
     """
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{prefix}_{timestamp}{ext}"
@@ -85,7 +84,7 @@ def generate_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> s
 
     prefix: str: File name
     ext: str = File type string
-    output_dir: str = Output directory if set)
+    output_dir: str = Output directory if set
     """
     filename = f"{prefix}{ext}"
     return os.path.join(output_dir, filename) if output_dir else filename
@@ -302,7 +301,7 @@ class EdfSignalsStats:
         if time_stamped:
             file_path = file_path or generate_timestamped_filename("edf_signal_stats", ".csv", output_dir)
         else:
-            file_path = file_path or generate_filename("edf_signal_stats", ".csv", output_dir, time_stamped=False)
+            file_path = file_path or generate_filename("edf_signal_stats", ".csv", output_dir)
 
         logger.info(f"Exporting signal stats to CSV: {file_path}")
 
@@ -413,7 +412,7 @@ class EdfSignals:
          Return the signal segment for a given epoch number and epoch width.
 
          Parameters:
-             signal_key (str): Key for the signal in the signals dictionary.
+             signal_key (str): Key for the signal in the signal's dictionary.
              signal_type (str): Type of signal (not used here but passed for potential future logic).
              epoch_num (int): Epoch index (0-based).
              epoch_width (float): Epoch duration in seconds.
@@ -441,9 +440,8 @@ class EdfSignals:
          Return the signal segment for a given epoch number and epoch width.
 
          Parameters:
-             signal_key (str): Key for the signal in the signals dictionary.
+             signal_key (str): Key for the signal in the signal's dictionary.
              signal_type (str): Type of signal (not used here but passed for potential future logic).
-             epoch_num (int): Epoch index (0-based).
              epoch_width (float): Epoch duration in seconds.
 
          Returns:
@@ -739,7 +737,7 @@ class EdfSignals:
                     y_min_temp = y_limits[0]
                     y_max_temp = y_limits[1]
                 else:
-                    print(f'signal_segment = {signal_segment}, signal_key = {signal_key}')
+                    #print(f'signal_segment = {signal_segment}, signal_key = {signal_key}')
                     y_min_temp = np.min(signal_segment)
                     y_max_temp = np.max(signal_segment)
                     if y_min_temp == y_max_temp:
@@ -1023,9 +1021,7 @@ class EdfSignalAnalysis:
         n_jobs         = None
         weighting      = 'unity'
         plot_on        = True
-        return_fig     = False
         clim_scale     = True
-        verbose        = True
         xyflip         = False
         ax             = None
 
@@ -1323,12 +1319,6 @@ def main():
     logger.info('\n-----------------------------------')
     logger.info('NSRR Example')
     edf_file_class4.summary()
-
-    # Simulate EDF signals
-    signals = {
-        'EEG Fz-Cz': np.random.normal(0, 10, 1000),
-        'EEG Pz-Oz': np.random.normal(0, 5, 1000),
-    }
 
     edf_file = EdfFile(os.path.join(edf_file_path4, edf_file_name4))
     edf_file.load()

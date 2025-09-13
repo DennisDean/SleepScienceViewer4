@@ -28,39 +28,42 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # To Do List
 # TODO: Revisit Annotation Colors
-# TODO: Respond to double/click on hypnogram
+# TODO: Respond to double/click on hypnogram, spectrogram, and annotation plots
 
 # PySide6 imports
-from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsTextItem
-from PySide6.QtWidgets import QFileDialog, QMessageBox
-from PySide6.QtGui import QFont, QFontDatabase
-from PySide6.QtCore import QEvent, Qt, QObject, QObject, Signal
+from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtGui import QFont, QFontDatabase, QKeyEvent
+from PySide6.QtCore import QEvent, Qt, QObject, Signal
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
-from PySide6.QtWidgets import QFileDialog, QMessageBox, QWidget
-from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon, QPainterPath, QPen, QKeyEvent
+from PySide6.QtWidgets import QFileDialog, QMessageBox
+from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon
 from PySide6.QtWidgets import QListWidgetItem
 
-
-# System Imports
+# System Import
 import os
 import sys
-import logging
 import math
 from functools import partial
-# Utilites
-import pyrsdameraulevenshtein as dl
-# EDF and Annotation Classes
-from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
-from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignalsStats, EdfSignal, EdfSignalAnalysis, EdfFile
-# Configure the logger
 from logging_config import logger
-# To Do List
+
+# Utilities
+import pyrsdameraulevenshtein as dl
+
+# Analysis
+from multitaper_spectrogram_python_class import MultitaperSpectrogram
+
+# EDF and Annotation Classes
+from AnnotationXmlClass import AnnotationXml
+from EdfFileClass import EdfSignalAnalysis, EdfFile
+
+
+#To Do List
 # TODO: Disable menu items according to files that are loaded
 
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
-# from SignalViewer import Ui_SignalWindow
 from SignalWindowClass import SignalWindow
+
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
     def __init__(self, parent=None):
@@ -142,6 +145,7 @@ class AboutDialog(QDialog):
         btn_close = QPushButton("Close")
         btn_close.clicked.connect(self.close)
         layout.addWidget(btn_close)
+
 # utilities
 def clear_spectrogram_plot(parent_widget = None):
     layout = parent_widget.layout()
@@ -151,19 +155,44 @@ def clear_spectrogram_plot(parent_widget = None):
             widget = item.widget()
             if widget:
                 widget.setParent(None)
+
+
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
+
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.KeyPress:
-            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-                self.enterPressed.emit()  # Emit signal when Enter is pressed
+        # Check if it's a key press event and is actually a QKeyEvent
+        if isinstance(event, QKeyEvent) and event.type() == QEvent.Type.KeyPress:
+            key = event.key()
+            text = event.text()
+
+            # Handle Enter key
+            if key in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+                self.enterPressed.emit()
                 return True
-            if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
-                return False  # Allow backspace and delete
-            if event.text().isdigit():
-                return False  # Allow digits
-            else:
-                return True  # Filter out non-numeric input
+
+            # Allow navigation and editing keys
+            allowed_keys = [
+                Qt.Key.Key_Backspace, Qt.Key.Key_Delete,
+                Qt.Key.Key_Left, Qt.Key.Key_Right,
+                Qt.Key.Key_Home, Qt.Key.Key_End,
+                Qt.Key.Key_Tab
+            ]
+
+            if key in allowed_keys:
+                return False
+
+            # Allow Ctrl combinations (copy, paste, select all, etc.)
+            if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+                return False
+
+            # Allow digits only
+            if text.isdigit():
+                return False
+
+            # Filter out non-numeric input
+            return True
+
         return False
 # Application
 class MainApp(QMainWindow):
@@ -175,13 +204,12 @@ class MainApp(QMainWindow):
         self.ui.setupUi(self)
 
         # Time Unit Converstions
-        s_to_hr  = lambda s:int(s/3600)
         s_to_min = lambda s:int(s/60)
         s_to_s   = lambda s:int(s)
 
         # Initialize control variables
-        self.edf_file_obj:EdfFile                   = None
-        self.annotation_xml_obj: AnnotationXmlClass = None
+        self.edf_file_obj:EdfFile|None                = None
+        self.annotation_xml_obj: AnnotationXml|None   = None
 
         # Setting up for automatic file recomendation selection
         self.text_similarity_threshold             = 0.9
@@ -190,19 +218,19 @@ class MainApp(QMainWindow):
         self.listBoxFontSize                       = 9
 
         # Set up epoch controls
-        self.epoch_display_options_text: List       = ['30 s', '1 min', '5 min', '10 min', '1 hr']
-        self.epoch_display_options_width_sec: List  = [ 30,     60,      300,     600,      3600]
-        self.epoch_display_axis_grid: List          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
-        self.epoch_axis_units: List                 = ['s', 's', 'm', 'm', 'm']
-        self.time_convert_f: List                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min]
+        self.epoch_display_options_text: list       = ['30 s', '1 min', '5 min', '10 min', '1 hr']
+        self.epoch_display_options_width_sec: list  = [ 30,     60,      300,     600,      3600]
+        self.epoch_display_axis_grid: list          = [ [5,1],  [10,2],  [60, 10], [120, 30],[600, 50] ]
+        self.epoch_axis_units: list                 = ['s', 's', 'm', 'm', 'm']
+        self.time_convert_f: list                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min]
 
         # Initialize epoch variables
-        self.max_epoch: int                 = None
-        self.current_epoch: int             = None
-        self.current_epoch_width_index: int = None
-        self.signal_length_seconds: int     = None
-        self.automatic_histogram_redraw     = True
-        self.automatic_signal_redraw        = True
+        self.max_epoch:int|None                  = None
+        self.current_epoch: int|None             = None
+        self.current_epoch_width_index: int|None = None
+        self.signal_length_seconds: int|None     = None
+        self.automatic_histogram_redraw:bool     = True
+        self.automatic_signal_redraw:bool        = True
         self.initialize_epoch_variables()
 
         # Visualization Controls
@@ -219,7 +247,7 @@ class MainApp(QMainWindow):
 
         # Enable updating the annotation list based on user selection
         self.ui.annotation_comboBox.currentTextChanged.connect(self.on_annotation_combobox_text_changed)
-        self.annotations_list:str= None
+        self.annotations_list:str|None = None
 
         # Set files status edit boxes to read only
         self.ui.load_edf_textEdit.setReadOnly(True)
@@ -237,7 +265,7 @@ class MainApp(QMainWindow):
         time_str = self.return_time_string(self.current_epoch, self.epoch_display_options_width_sec[0])
         self.ui.epochs_label.setText(f"of {self.max_epoch} epochs ({time_str})")
         self.ui.epochs_textEdit.setText(f"{self.current_epoch}")
-        self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+        self.ui.epochs_textEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.ui.first_pushButton.clicked.connect(self.set_epoch_to_first)
         self.ui.next_epoch_pushButton.clicked.connect(self.set_epoch_to_next)
         self.ui.update_epoch_pushButton.clicked.connect(self.set_epoch_from_text)
@@ -248,6 +276,7 @@ class MainApp(QMainWindow):
 
         # Combo Box Action
         self.ui.hypnogram_comboBox.currentIndexChanged.connect(self.on_hypnogram_changed)
+        self.hypnogram_combobox_selection = None
 
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
@@ -289,7 +318,6 @@ class MainApp(QMainWindow):
             self.ui.comboBox_sig10_color
         ]
 
-        self.ui.hypnogram_graphicsView
         # Connect Combo Box Change
         for i, (cb, ccb) in enumerate(zip(self.signal_comboboxes, self.signal_color_comboboxes)):
             cb.currentTextChanged.connect(partial(self.on_signal_combobox_changed, i))
@@ -302,7 +330,7 @@ class MainApp(QMainWindow):
         self.ui.annotation_listWidget.itemDoubleClicked.connect(self.annotation_list_widget_double_click)
 
         # Store multi-taper results
-        self.multitaper_spectrogram_obj:MultitaperSpectrogram = None
+        self.multitaper_spectrogram_obj:MultitaperSpectrogram|None = None
 
         # Turn on menu buttons
         self.ui.actionOpen_Edf.triggered.connect(self.open_edf_menu_item)
@@ -327,9 +355,31 @@ class MainApp(QMainWindow):
 
         # Save space for windows
         self.signal_view_window = None
+        self.signal_window = None
 
         # Set up annotation legend push button
         self.ui.pushButton_legend.clicked.connect(self.show_annotation_legend_popup)
+
+        # Signal color support
+        self.signal_colors = [
+            "#0000FF",  # blue
+            "#4ECDC4",  # turquoise
+            "#45B7D1",  # sky blue
+            "#96CEB4",  # mint green
+            "#FECA57",  # sunny yellow
+            "#FF9FF3",  # pink
+            "#54A0FF",  # royal blue
+            "#EE82EE",  # violet
+            "#00D2D3",  # cyan
+            "#FF9F43"  # orange
+        ]
+        self.signal_color_names = [
+            "Blue", "Turquoise", "Sky Blue", "Mint Green", "Sunny Yellow",
+            "Pink", "Royal Blue", "Violet", "Cyan", "Orange"
+        ]
+
+        # Define Signal Window variable
+
     # Initialize EDF
     def load_edf_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", self.last_fn_path , "EDF Files (*.edf *.EDF)")
@@ -346,8 +396,8 @@ class MainApp(QMainWindow):
 
             # QMessageBox.information(self, "XML Loaded", f"Loaded: {file_path}")
             logger.info(f"Loaded EDF: {file_path}")
-        except:
-            logger.error('SleepScienceViewer: Error loading XML file.')
+        except Exception as e:
+            logger.error(f'SleepScienceViewer: Error loading EDF file - {type(e).__name__}: {e}')
 
         if file_path:
             #Changing code to be more modular in managing gui signals
@@ -355,15 +405,13 @@ class MainApp(QMainWindow):
 
             # Set epoch display options
             self.initialize_epoch_variables()
-            if self.annotation_xml_obj != None:
+            if self.annotation_xml_obj is not None:
                 self.clear_annotation_widgets()
             clear_spectrogram_plot(parent_widget=self.ui.spectrogram_graphicsView)
             clear_spectrogram_plot(parent_widget=self.ui.graphicsView_annotation)
 
             # Set Spectrogram Signal Labels
             signal_labels = self.edf_file_obj.edf_signals.signal_labels
-            eeg_labels = self.edf_file_obj.edf_signals.eeg_signal_labels  # Will want a new one with stepped signals
-            stepped_signal_list = self.edf_file_obj.edf_signals.return_stepped_signals_from_list(signal_labels)
             continuous_signal_list = self.edf_file_obj.edf_signals.return_continuous_signals_from_list(
                 signal_labels)
             self.ui.spectrogram_comboBox.clear()
@@ -398,31 +446,11 @@ class MainApp(QMainWindow):
 
         # Set epoch edit box to 1
         self.ui.epochs_textEdit.setText(f"{self.current_epoch}")
-        self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+        self.ui.epochs_textEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
 
-        # Set epoch combo box to 30 second window
+        # Set epoch combo box to 30-second window
         self.ui.epoch_comboBox.setCurrentIndex(self.current_epoch_width_index)
     def initialize_signal_color_combobox(self):
-       # Define variables signal color variables
-       ########## take a closer look
-
-        self.signal_colors = [
-            "#0000FF",  # blue
-            "#4ECDC4",  # turquoise
-            "#45B7D1",  # sky blue
-            "#96CEB4",  # mint green
-            "#FECA57",  # sunny yellow
-            "#FF9FF3",  # pink
-            "#54A0FF",  # royal blue
-            "#EE82EE",  # violet
-            "#00D2D3",  # cyan
-            "#FF9F43"  # orange
-        ]
-        # Define color names for display
-        self.signal_color_names = [
-            "Blue", "Turquoise", "Sky Blue", "Mint Green", "Sunny Yellow",
-            "Pink", "Royal Blue", "Violet", "Cyan", "Orange"
-        ]
 
         # Define initial color
         for i, cbox in enumerate(self.signal_color_comboboxes):
@@ -493,7 +521,6 @@ class MainApp(QMainWindow):
         # Get signal labels
         signal_labels = self.edf_file_obj.edf_signals.signal_labels
         signal_labels.insert(0, '')
-        num_available_signals = len(signal_labels)
 
         # Load signal pop up box
         signal_combo_boxes = [self.ui.signal_1_comboBox, self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
@@ -525,14 +552,15 @@ class MainApp(QMainWindow):
     def compute_and_display_spectrogram(self):
         # Check before starting long computation
 
-        if self.edf_file_obj != None:
+        process_eeg = False
+        if self.edf_file_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
         else:
             self.show_missing_eeg_warning()
 
-        if process_eeg == True:
+        if process_eeg:
             # Turn on busy cursor
-            QApplication.setOverrideCursor(Qt.WaitCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
             # Make sure figures are not inadvertenly generated
             self.automatic_signal_redraw = False
@@ -558,50 +586,51 @@ class MainApp(QMainWindow):
 
             # Turn on signal update
             self.automatic_signal_redraw = True
+    @staticmethod
     def show_ok_cancel_dialog(parent=None):
         msg_box = QMessageBox(parent)
         msg_box.setWindowTitle("Confirm Action")
         msg_box.setText(
             "Computing a multitaper spectrogram can be time consuming. Future versions will include a less computational alternative. \n\nDo you want to proceed?")
-        msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msg_box.setDefaultButton(QMessageBox.Ok)
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+        msg_box.setDefaultButton(QMessageBox.StandardButton.Ok)
 
         result = msg_box.exec()
 
-        if result == QMessageBox.Ok:
+        if result == QMessageBox.StandardButton.Ok:
             logger.info("OK clicked: Will continue ")
             return True
         else:
             logger.info(
                 f"Message Dialog Box - Cancel clicked, Msg: {'Computing a multitaper spectrogram can be time consuming. Do you want to proceed?'} ")
             return False
+    @staticmethod
     def show_signal_export_ok_cancel_dialog(parent=None):
         msg_box = QMessageBox(parent)
         msg_box.setWindowTitle("Confirm Action")
         msg_box.setText(
             "Writing signals to disk may take a while. \n\nDo you want to proceed?")
-        msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msg_box.setDefaultButton(QMessageBox.Ok)
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+        msg_box.setDefaultButton(QMessageBox.StandardButton.Ok)
 
         result = msg_box.exec()
 
-        if result == QMessageBox.Ok:
+        if result == QMessageBox.StandardButton.Ok:
             logger.info("OK clicked: Will continue ")
             return True
         else:
             logger.info(
                 f"Message Dialog Box - Cancel clicked, Msg: {'Writing signals to disk may take a while. \n\nDo you want to proceed?'} ")
             return False
+    @staticmethod
     def show_signal_completed_dialog(parent=None, location:str = ""):
         msg_box = QMessageBox(parent)
         msg_box.setWindowTitle("Update")
         msg_box.setText(
             f"Signal export completed. Files written to: \n\n{location}")
-        msg_box.setStandardButtons(QMessageBox.Ok)
-        msg_box.setDefaultButton(QMessageBox.Ok)
-
-        result = msg_box.exec()
-
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+        msg_box.setDefaultButton(QMessageBox.StandardButton.Ok)
+        msg_box.exec()
 
         logger.info("OK clicked: Signal written acknowledged by users ")
 
@@ -636,8 +665,8 @@ class MainApp(QMainWindow):
 
             # Write XML load information to log
             logger.info(f"Loaded XML: {file_path}")
-        except:
-            logger.error('SleepScienceViewer: Error loading XML file.')
+        except Exception as e:
+            logger.error(f'SleepScienceViewer: Error loading XML file - {type(e).__name__}: {e}')
 
         if file_path:
             # Set Sleep Stage Labels
@@ -686,7 +715,7 @@ class MainApp(QMainWindow):
             logger.info(f'Annotation file loaded {file_path}')
 
             # Copy stepped information into edf object if available
-            if self.edf_file_obj != None:
+            if self.edf_file_obj is not None:
                 # Check if file names differ by extension
                 edf_filename_basename = os.path.basename(self.edf_file_obj.file_name)
                 xml_filename_basename = os.path.basename(self.annotation_xml_obj.file_name)
@@ -716,7 +745,7 @@ class MainApp(QMainWindow):
             logger.info(f"Combo box changed to index {index}: {selected_text}")
 
             # Update Hypnogram
-            if self.sleep_stage_mappings != None:
+            if self.sleep_stage_mappings is not None:
                 # Get time
                 current_epoch = int(self.ui.epochs_textEdit.toPlainText())
                 window_width_sec = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
@@ -772,11 +801,13 @@ class MainApp(QMainWindow):
         self.ui.annotation_listWidget.clear()
 
         # Clear spectrogram
-    def extract_event_indexes(self, entry_text):
+    @staticmethod
+    def extract_event_indexes(entry_text):
         index_start = entry_text.find('Name')
         index_end   = entry_text.find('Input')
-        return (index_start, index_end)
-    def invert_color(self, hex_color):
+        return index_start, index_end
+    @staticmethod
+    def invert_color(hex_color):
         hex_color = hex_color.lstrip('#')
         rgb_color = tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
         i_rgb     = tuple(255 - c for c in rgb_color)
@@ -819,7 +850,7 @@ class MainApp(QMainWindow):
         # Example: Set an internal index
         self.current_epoch = 1
         self.ui.epochs_textEdit.setText(f"{self.current_epoch}")
-        self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+        self.ui.epochs_textEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # update Signals
         self.draw_signals_in_graphic_views()
@@ -840,7 +871,7 @@ class MainApp(QMainWindow):
         if self.current_epoch < self.max_epoch:
             self.current_epoch += 1
             self.ui.epochs_textEdit.setText(f"{self.current_epoch}")
-            self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+            self.ui.epochs_textEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
 
             # update Signals
             self.draw_signals_in_graphic_views()
@@ -864,7 +895,7 @@ class MainApp(QMainWindow):
             elif new_epoch > self.max_epoch:
                 new_epoch = self.max_epoch
             self.ui.epochs_textEdit.setText(f"{new_epoch}")
-            self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+            self.ui.epochs_textEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
             self.current_epoch = new_epoch
 
             # update Signals
@@ -886,7 +917,7 @@ class MainApp(QMainWindow):
         if self.current_epoch > 1:
             self.current_epoch -= 1
             self.ui.epochs_textEdit.setText(f"{self.current_epoch}")
-            self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+            self.ui.epochs_textEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
 
             # update Signals
             self.draw_signals_in_graphic_views()
@@ -908,7 +939,7 @@ class MainApp(QMainWindow):
         # Example: Set an internal index
         self.current_epoch = self.max_epoch
         self.ui.epochs_textEdit.setText(f"{self.max_epoch}")
-        self.ui.epochs_textEdit.setAlignment(Qt.AlignRight)
+        self.ui.epochs_textEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # update Signals
         self.draw_signals_in_graphic_views()
@@ -968,7 +999,7 @@ class MainApp(QMainWindow):
             self.set_epoch_to_first()
         elif not epoch_max_test:
             self.set_epoch_to_last()
-        else:
+        elif epoch_change_test:
             self.set_epoch_from_text()
         logger.info(f'Responding to user enter within epoch text field')
     # Signals
@@ -1020,19 +1051,20 @@ class MainApp(QMainWindow):
         if text == '':
             text = "''"
         logger.info(f"Signal {index + 1} combo box changed to {text}")
-    def create_line_icon(self, color, width=32, height=16, line_width=3):
+    @staticmethod
+    def create_line_icon(color, width=32, height=16, line_width=3):
         """Create a horizontal line icon with specified color"""
         pixmap = QPixmap(width, height)
-        pixmap.fill(Qt.transparent)  # Transparent background
+        pixmap.fill(Qt.GlobalColor.transparent)  # Transparent background
 
         painter = QPainter(pixmap)
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         # Create pen with the specified color and width
         pen = painter.pen()
         pen.setColor(color)
         pen.setWidth(line_width)
-        pen.setCapStyle(Qt.RoundCap)  # Rounded line ends
+        pen.setCapStyle(Qt.PenCapStyle.RoundCap)  # Rounded line ends
         painter.setPen(pen)
 
         # Draw horizontal line centered vertically
@@ -1052,7 +1084,7 @@ class MainApp(QMainWindow):
     def annotation_list_widget_double_click(self, item):
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Annotation list double-clicked: {item.text()}")
-        if self.edf_file_obj == None:
+        if self.edf_file_obj is not None:
             return
 
         # Parse text
@@ -1062,11 +1094,9 @@ class MainApp(QMainWindow):
 
         # Parse text list
         starttime       = text_list[0]
-        annotation_type = text_list[1]
-        signal_label    = text_list[-1]
-        if len(text_list) > 3:
-            annotation_type = text_list[2:-1]
-            annotation_type = ' '.join(annotation_type)
+        #if len(text_list) > 3:
+        #    annotation_type = text_list[2:-1]
+        #    annotation_type = ' '.join(annotation_type)
 
         # Compute start time
         time_list              = starttime.split(':')
@@ -1090,7 +1120,7 @@ class MainApp(QMainWindow):
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_annotation_legend_popup(self):
-        if self.annotation_xml_obj != None:
+        if self.annotation_xml_obj is not None:
             self.annotation_xml_obj.scored_event_obj.show_annotation_legend()
     # Menu Item
     # File
@@ -1102,27 +1132,16 @@ class MainApp(QMainWindow):
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Info")
         msg_box.setText("Settings item is not implemented yet")
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         msg_box.exec()
     # Generate
     def edf_summary_menu_item(self):
         logger.info(f'EDF Summary Menu Item selected')
-        if self.edf_file_obj != None:
-            """
-                Prompts the user to select a file path to save the EDF summary.
-                Displays a message box if the user cancels the dialog.
-
-                Parameters:
-                    parent (QWidget): The parent widget for the dialog.
-
-                Returns:
-                    str or None: The selected file path or None if canceled.
-                """
+        if self.edf_file_obj is not None:
             # Compute Signal Statistics
             self.edf_file_obj.edf_signals = self.edf_file_obj.edf_signals.calc_edf_signal_stats()
 
             # Generate a suggested file name
-            directory           = os.path.dirname(self.edf_file_obj.file_name)  # -> "/home/dennis/data"
             filename            = os.path.basename(self.edf_file_obj.file_name)
             suggested_file_name = os.path.splitext(filename)[0]
             suggested_file_name = suggested_file_name + '_edf_summary.json'
@@ -1141,30 +1160,19 @@ class MainApp(QMainWindow):
                 self.edf_file_obj.export_summary_to_json(file_path)
                 logger.info(f'EDF Summary Menu Item: File written to {file_path}')
             except Exception as e:
-                QMessageBox.critical(parent, "Error", f"Failed to save EDF summary:\n{str(e)}")
+                QMessageBox.critical(self, "Error", f"Failed to save EDF summary:\n{str(e)}")
                 return None
         else:
             logger.info(f'EDF Summary Menu Item: EDF File not loaded. Summary not created')
+            return None
     def edf_signal_export_menu_item(self):
         logger.info(f'EDF Signal Export Menu Item Selected')
-        if self.edf_file_obj != None:
-            """
-                Prompts the user to select a file path to save the EDF summary.
-                Displays a message box if the user cancels the dialog.
-
-                Parameters:
-                    parent (QWidget): The parent widget for the dialog.
-
-                Returns:
-                    str or None: The selected file path or None if canceled.
-                """
-
-
+        if self.edf_file_obj is not None:
             # Select folder
             dialog_title       = 'Select a signal export folder.'
             starting_directory = os.getcwd()
             folder_path = QFileDialog.getExistingDirectory(self, dialog_title,
-                starting_directory, QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+                starting_directory, QFileDialog.Option.DontResolveSymlinks)
 
             if folder_path:
                 # Verify to proceed
@@ -1172,7 +1180,7 @@ class MainApp(QMainWindow):
 
                 if proceed_flag:
                     # Set cursor to busy
-                    QApplication.setOverrideCursor(Qt.WaitCursor)
+                    QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
                     # Write Files
                     self.edf_file_obj.edf_signals.export_signals_to_txt(folder_path, self.edf_file_obj.file_name)
@@ -1187,7 +1195,7 @@ class MainApp(QMainWindow):
         else:
             logger.info(f'EDF Signal Export Menu Item: EDF File not loaded. Export not created not created')
     def annotation_summary_menu_item(self):
-        if self.annotation_xml_obj != None:
+        if self.annotation_xml_obj is not None:
             """
                 Prompts the user to select a file path to save the Annotation summary.
                 Displays a message box if the user cancels the dialog.
@@ -1199,7 +1207,6 @@ class MainApp(QMainWindow):
                     str or None: The selected file path or None if canceled.
                 """
             # Generate a suggested file name
-            directory           = os.path.dirname(self.annotation_xml_obj.annotationFile)  # -> "/home/dennis/data"
             filename            = os.path.basename(self.annotation_xml_obj.annotationFile)
             suggested_file_name = os.path.splitext(filename)[0]
             suggested_file_name = suggested_file_name + '_annotation_summary.json'
@@ -1218,13 +1225,14 @@ class MainApp(QMainWindow):
                 self.annotation_xml_obj.export_summary(filename = file_path)
                 logger.info(f'Annotation Summary Menu Item: File written to {file_path}')
             except Exception as e:
-                QMessageBox.critical(parent, "Error", f"Failed to save EDF summary:\n{str(e)}")
+                QMessageBox.critical(self, "Error", f"Failed to save EDF summary:\n{str(e)}")
                 return None
         else:
             logger.info(f'EDF Annotation Menu Item: Annotation File not loaded. Summary not created')
+            return None
     def annotation_export_menu_item(self):
         pass
-        if self.annotation_xml_obj != None:
+        if self.annotation_xml_obj is not None:
             """
                 Prompts the user to select a file path to save the Annotation Export.
                 Displays a message box if the user cancels the dialog.
@@ -1236,7 +1244,6 @@ class MainApp(QMainWindow):
                     str or None: The selected file path or None if canceled.
                 """
             # Generate a suggested file name
-            directory           = os.path.dirname(self.annotation_xml_obj.annotationFile)  # -> "/home/dennis/data"
             filename            = os.path.basename(self.annotation_xml_obj.annotationFile)
             suggested_file_name = os.path.splitext(filename)[0]
             suggested_file_name = suggested_file_name + '_annotation_export.xlsx'
@@ -1255,12 +1262,13 @@ class MainApp(QMainWindow):
                 self.annotation_xml_obj.scored_event_obj.export_event(filename = file_path)
                 logger.info(f'Annotation Export Menu Item: File written to {file_path}')
             except Exception as e:
-                QMessageBox.critical(parent, "Error", f"Failed to save EDF summary:\n{str(e)}")
+                QMessageBox.critical(self, "Error", f"Failed to save EDF summary:\n{str(e)}")
                 return None
         else:
             logger.info(f'EDF Annotation Export Item: Annotation File not loaded. Export not created')
+            return None
     def sleep_stages_export_menu_item(self):
-        if self.annotation_xml_obj != None:
+        if self.annotation_xml_obj is not None:
             """
                 Prompts the user to select a file path to export sleep stages.
                 Displays a message box if the user cancels the dialog.
@@ -1292,15 +1300,17 @@ class MainApp(QMainWindow):
                 self.annotation_xml_obj.sleep_stages_obj.export_sleep_stages(file_path)
                 self.annotation_xml_obj.sleep_stages_obj.summary_scored_sleep_stages()
                 logger.info(f'Sleep Stages Export Menu Item: File written to {file_path}')
+                return None
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to save Sleep Stages File:\n{str(e)}")
                 return None
         else:
             logger.info(f'Sleep Stages Export Menu Item: Annotation File not loaded. Summary not created')
+            return None
     # Visualization
     def draw_signals_in_graphic_views(self, annotation_marker=None):
 
-        if self.automatic_signal_redraw == False:
+        if not self.automatic_signal_redraw:
             return
 
         signal_combo_boxes = [self.ui.signal_1_comboBox, self.ui.signal_2_comboBox, self.ui.signal_3_comboBox,
@@ -1352,7 +1362,7 @@ class MainApp(QMainWindow):
             # Set stepped variables
             stepped_dict      = {}
             is_signal_stepped = False
-            if self.annotation_xml_obj != None:
+            if self.annotation_xml_obj is not None:
                 is_signal_stepped = signal_label in self.annotation_xml_obj.steppedChannels.keys()
                 if is_signal_stepped:
                     stepped_dict = self.annotation_xml_obj.steppedChannels[signal_label]
@@ -1390,44 +1400,6 @@ class MainApp(QMainWindow):
         self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
         time_str       = self.return_time_string(current_epoch, epoch_width)
         self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
-    def create_signal_line_icon(self, color, width=40, height=20, line_width=2):
-        """Create a signal-like wavy line icon (alternative option)"""
-        pixmap = QPixmap(width, height)
-        pixmap.fill(Qt.transparent)
-
-        painter = QPainter(pixmap)
-        painter.setRenderHint(QPainter.Antialiasing)
-
-        # Create pen
-        pen = painter.pen()
-        pen.setColor(color)
-        pen.setWidth(line_width)
-        pen.setCapStyle(Qt.RoundCap)
-        painter.setPen(pen)
-
-        # Create a simple wave pattern
-        path = QPainterPath()
-
-        # Start point
-        y_center = height // 2
-        path.moveTo(2, y_center)
-
-        # Create wave points
-        segments = 4
-        segment_width = (width - 4) // segments
-
-        for i in range(segments + 1):
-            x = 2 + i * segment_width
-            if i % 2 == 0:
-                y = y_center + (height // 4 if i % 4 == 0 else -height // 4)
-            else:
-                y = y_center
-            path.lineTo(x, y)
-
-        painter.drawPath(path)
-        painter.end()
-
-        return QIcon(pixmap)
     # Window
     def open_signal_view(self):
         # Get index value for first signal graphic view
@@ -1446,7 +1418,8 @@ class MainApp(QMainWindow):
         dlg = AboutDialog(self)
         dlg.exec()
     # Utilities
-    def return_time_string(self, epoch:int, epoch_width:int):
+    @staticmethod
+    def return_time_string(epoch:int, epoch_width:int):
         val     = float((epoch-1)*epoch_width)
         seconds = val
         hours   = int(seconds // 3600)
