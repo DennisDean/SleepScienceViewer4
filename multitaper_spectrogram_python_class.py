@@ -23,7 +23,7 @@ import numpy.typing as npt
 from   openpyxl.pivot.fields import Boolean
 from   scipy.signal.windows import dpss
 from   scipy.signal import detrend
-from   typing import Tuple, TypeAlias, Literal
+from   typing import Tuple, Literal
 
 # Logistical Imports
 import warnings
@@ -36,6 +36,10 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.ticker import FuncFormatter
 from matplotlib.figure import Figure
 from matplotlib import cm
+import matplotlib.colors as mcolors
+import colorcet as cc
+
+# Interface
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 
 # Set up logging
@@ -471,7 +475,8 @@ class MultitaperSpectrogram:
         # fig.colorbar(im, ax=ax, label=color_bar_label, shrink=0.8)
         ax.set_xlabel("Time (HH:MM:SS)")
         ax.set_ylabel(y_label)
-        im.set_cmap(cm.get_cmap('cet_rainbow4'))
+        cmap = mcolors.ListedColormap(cc.rainbow4)
+        im.set_cmap(cmap)
         ax.invert_yaxis()
         yticks = ax.get_yticks()
         ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} Hz"))
