@@ -56,10 +56,6 @@ from multitaper_spectrogram_python_class import MultitaperSpectrogram
 from AnnotationXmlClass import AnnotationXml
 from EdfFileClass import EdfSignalAnalysis, EdfFile
 
-
-#To Do List
-# TODO: Disable menu items according to files that are loaded
-
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
 from SignalWindowClass import SignalWindow
@@ -155,8 +151,6 @@ def clear_spectrogram_plot(parent_widget = None):
             widget = item.widget()
             if widget:
                 widget.setParent(None)
-
-
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
 
@@ -194,6 +188,7 @@ class NumericTextEditFilter(QObject):
             return True
 
         return False
+
 # Application
 class MainApp(QMainWindow):
     # Initialize Windows
@@ -1426,6 +1421,7 @@ class MainApp(QMainWindow):
         minutes = int((seconds % 3600) // 60)
         seconds = int(seconds) % 60
         return f"{hours}:{minutes:02d}:{seconds:02d}"
+
 # Start Application
 def show_main_window():
     app = QApplication(sys.argv)

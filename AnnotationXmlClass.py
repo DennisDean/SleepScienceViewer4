@@ -54,7 +54,6 @@ import logging
 import traceback
 from typing import List, Dict
 from lxml import etree
-from mpmath.libmp import mpf_rdiv_int
 from sympy.logic.boolalg import Boolean
 
 # Plotting support
@@ -70,11 +69,11 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 # User Interface
-from PySide6.QtWidgets import QSizePolicy, QVBoxLayout
+from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
                                 QPushButton, QScrollArea, QWidget, QFrame)
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPalette, QFont
+
 
 # To Do List
 # TODO: Add N3 collapse summary to json export

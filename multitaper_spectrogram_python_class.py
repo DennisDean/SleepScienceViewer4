@@ -16,20 +16,6 @@ This code is companion to the paper:
         BSD 3-Clause License
 """
 
-# Revisions made to the file to align with a class approach
-"""
-Revisions
-- added function variable type to primary definition
-- replaced np.mat with np.asmatrix
-- force matplot lib to use QT(PySide6)
-- restructured to class format
-- added ability to create plot in test and to plot to a widget
-- Subsequently removed plots in test to reduce the potential of using incompatible libraries
-- Converted computation to a class
-- Did not remove the flags no longer required due to the class
-- Removed no  ISO-8859-1 characters in order to generate requirements.txt
-"""
-
 # Analysis Imports
 import math
 import numpy as np
@@ -46,18 +32,11 @@ from   joblib import Parallel, delayed, cpu_count
 import logging
 
 # Visualization imports
-import colorcet  # this import is necessary to add rainbow colormap to matplotlib
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.ticker import FuncFormatter
-
-# from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 from matplotlib import cm
-from PySide6.QtWidgets import QVBoxLayout, QSizePolicy, QWidget
-#from PySide6.QtGui import QImage, QPixmap
-#from PySide6.QtWidgets import QGraphicsScene
-#import matplotlib.pyplot as plt
-from scipy.signal import chirp  # import chirp generation function
+from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 
 # Set up logging
 logger = logging.getLogger(__name__)
