@@ -376,7 +376,7 @@ class SleepStages:
         epoch_width     = self.sleep_epoch
         sleep_stages_N3 = self.sleep_stages_N3
 
-        print(f'start_epoch = {start_epoch}, epoch end = {epoch_end}, epoch_width = {epoch_width}, sleep_stages_N3 = {sleep_stages_N3}')
+        # print(f'start_epoch = {start_epoch}, epoch end = {epoch_end}, epoch_width = {epoch_width}, sleep_stages_N3 = {sleep_stages_N3}')
 
         # Determine the range of epochs to process
         if epoch_end is None:

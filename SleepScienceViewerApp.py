@@ -29,6 +29,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # To Do List
 # TODO: Revisit Annotation Colors
 # TODO: Respond to double/click on hypnogram, spectrogram, and annotation plots
+# TODO: Double click on annotation
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow
@@ -1079,7 +1080,7 @@ class MainApp(QMainWindow):
     def annotation_list_widget_double_click(self, item):
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Annotation list double-clicked: {item.text()}")
-        if self.edf_file_obj is not None:
+        if self.edf_file_obj is None:
             return
 
         # Parse text
