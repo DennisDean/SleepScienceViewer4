@@ -27,9 +27,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-# TODO: Revisit Annotation Colors
-# TODO: Respond to double/click on hypnogram, spectrogram, and annotation plots
-# TODO: Double click on annotation
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow
@@ -570,7 +567,8 @@ class MainApp(QMainWindow):
             # Compute Spectrogram
             logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
-            multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView)
+            multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView,
+                                            double_click_callback = self.on_hypnogram_double_click)
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
             # Record Spectrogram Completions
@@ -731,8 +729,9 @@ class MainApp(QMainWindow):
             cur_annotation_setting = self.ui.annotation_comboBox.currentText()
             # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
-                                                                     self.ui.graphicsView_annotation,
-                                                                     cur_annotation_setting = cur_annotation_setting)
+                                                self.ui.graphicsView_annotation,
+                                                cur_annotation_setting = cur_annotation_setting,
+                                                double_click_callback = self.on_hypnogram_double_click)
             self.ui.annotation_comboBox.setEnabled(True)
             self.ui.annotation_comboBox.blockSignals(False)
     def on_annotation_combobox_text_changed(self,text):
@@ -763,8 +762,9 @@ class MainApp(QMainWindow):
             cur_annotation_setting = self.ui.annotation_comboBox.currentText()
             #print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
-                                                                     self.ui.graphicsView_annotation,
-                                                                     cur_annotation_setting = cur_annotation_setting)
+                                                        self.ui.graphicsView_annotation,
+                                                        cur_annotation_setting = cur_annotation_setting,
+                                                        double_click_callback = self.on_hypnogram_double_click)
     def clear_annotation_widgets(self):
         # Clear annotation histogram and object
         self.automatic_histogram_redraw = False
@@ -840,7 +840,9 @@ class MainApp(QMainWindow):
 
                 stage_map = index
                 self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
-                                                            stage_index=stage_map, hypnogram_marker=hypnogram_marker)
+                                                            stage_index=stage_map,
+                                                            hypnogram_marker=hypnogram_marker,
+                                                            double_click_callback=self.on_hypnogram_double_click)
     def on_hypnogram_double_click(self, x_value, y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.

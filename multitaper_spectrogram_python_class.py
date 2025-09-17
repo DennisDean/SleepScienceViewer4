@@ -157,15 +157,22 @@ class MultitaperSpectrogram:
 
 
         # Computed taper parameters
-        self.winsize_samples: int  = None    # number of samples in single time window
-        self.winstep_samples: int  = None    # number of samples in a single window step
-        self.window_start:np.array = None    # array of timestamps representing the beginning time for each window
-        self.num_windows: int      = None    # Number of windows in the data
-        self.nfft:int              = None    # length of signal to calculate fft on
+        self.winsize_samples: int    = None    # number of samples in single time window
+        self.winstep_samples: int    = None    # number of samples in a single window step
+        self.window_start:np.array        = None    # array of timestamps representing the beginning time for each window
+        self.num_windows: int        = None    # Number of windows in the data
+        self.nfft:int                = None    # length of signal to calculate fft on
 
-        self.window_start: np.array = None    # array of timestamps representing the beginning time for each                                           window -- required
-        self.datawin_size: float    = None    # seconds in one window -- required
+        self.window_start: np.array       = None    # array of timestamps representing the beginning time for each                                           window -- required
+        self.datawin_size: float       = None    # seconds in one window -- required
         self.data_window_params:Tuple[float, float]  = [None, None] # [window length(s), window step size(s)] - - required
+
+        # Visualization Variables
+        self.current_spectrogram_ax            = None
+        self.current_spectrogram_fig           = None
+        self.current_spectrogram_canvas        = None
+        self.spectrogram_double_click_callback = None
+
     def compute_spectrogram(self):
         #  Process user input
         [data, fs, frequency_range, time_bandwidth, num_tapers,
@@ -440,7 +447,7 @@ class MultitaperSpectrogram:
         logger.info('     Frequency Range: ' + str(frequency_range[0]) + "-" + str(frequency_range[1]) + 'Hz')
         logger.info('     NFFT: ' + str(nfft))
         logger.info('     Detrend: ' + detrend_opt + '\n')
-    def plot(self, parent_widget=None):
+    def plot(self, parent_widget=None, double_click_callback=None):
         # Plot multitaper spectrogram
 
         # Bringing some plotting parameters to the top
@@ -461,6 +468,11 @@ class MultitaperSpectrogram:
         fig = Figure()
         ax = fig.add_subplot(111)
         im = ax.imshow(spect_data, extent=extent, aspect='auto')
+
+        # Store references for event handling
+        self.current_spectrogram_ax = ax
+        self.current_spectrogram_fig = fig
+        self.spectrogram_double_click_callback = double_click_callback
 
         # Customize plot
         if parent_widget:
@@ -493,6 +505,12 @@ class MultitaperSpectrogram:
             canvas = FigureCanvas(fig)
             canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             canvas.updateGeometry()
+
+            # Connect double-click event handler
+            canvas.mpl_connect('button_press_event', self._on_spectrogram_double_click)
+
+            # Store canvas reference
+            self.current_spectrogram_canvas = canvas
 
             # fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
             fig.subplots_adjust(left=0.03, right=0.99, top=0.94, bottom=0.06)
@@ -534,6 +552,26 @@ class MultitaperSpectrogram:
         # Optionally return for other use
         if self.return_fig:
             return mt_spectrogram, stimes, sfreqs, (fig, ax)
+    def _on_spectrogram_double_click(self, event):
+        """Handle double-click events on the spectrogram plot."""
+        if event.dblclick and event.inaxes:
+            x_value = event.xdata  # Time in seconds
+            y_value = event.ydata  # Frequency in Hz
+
+            if x_value is not None and y_value is not None:
+                # Convert time to hours:minutes format for display
+                hours = int(x_value // 3600)
+                minutes = int((x_value % 3600) // 60)
+                seconds = int(x_value % 60)
+                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+                # print(f"Spectrogram double-clicked at time: {x_value:.2f}s ({time_str}), frequency: {y_value:.1f}Hz")
+
+                # Call the callback function if provided
+                if (hasattr(self, 'spectrogram_double_click_callback') and
+                        self.spectrogram_double_click_callback is not None):
+                    self.spectrogram_double_click_callback(x_value, y_value)
+
     # HELPER FUNCTIONS
     def nanpow2db(self, y):
         """ Power to dB conversion, setting bad values to nans

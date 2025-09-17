@@ -30,7 +30,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-# TODO: Add support of selecting signals to load
 # TODO: Add a safe minimum for y min during signal plot as done in prior calls
 
 # Import Modules

@@ -80,7 +80,7 @@ from PySide6.QtCore import Qt
 # To Do List
 # TODO: Add N3 collapse summary to json export
 # TODO: Use color for annotation
-# TODO: Double click on graph
+
 
 
 # Set up a module-level logger
@@ -724,6 +724,12 @@ class SignalAnnotations:
 
         # Save External Values
         total_time_in_seconds:float = None
+
+        # Initialize annotation plot references (add these lines)
+        self.current_annotation_ax            = None
+        self.current_annotation_fig           = None
+        self.current_annotation_canvas        = None
+        self.annotation_double_click_callback = None
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
@@ -745,12 +751,15 @@ class SignalAnnotations:
         return self.scored_event_types
     # Plot Annotation
     def plot_annotation(self, total_time_in_seconds: float,
-                        parent_widget=None, stage_index = 0, cur_annotation_setting:str|None = None):
+                        parent_widget=None, stage_index = 0,
+                        cur_annotation_setting:str|None = None,
+                        double_click_callback = None):
 
         """
         Plots vertical lines for scored events into a QGraphicsView if provided,
         or as a standalone matplotlib figure. Each annotation type gets a different color.
         The plot background is white, auto-scales, and fills available width.
+        Now includes double-click functionality to capture x-axis values.  # <- Updated docstring
         """
         # Controls
         turn_off_legend = True
@@ -774,6 +783,11 @@ class SignalAnnotations:
         # Create figure and axis
         fig = Figure(figsize=(12, 2))
         ax = fig.add_subplot(111)
+
+        # Store references for event handling
+        self.current_annotation_ax            = ax
+        self.current_annotation_fig           = fig
+        self.annotation_double_click_callback = double_click_callback
 
         # Get unique annotation names and assign colors
         unique_annotations = self.scored_event_unique_names
@@ -860,6 +874,12 @@ class SignalAnnotations:
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
 
+            # Connect double-click event handler
+            canvas.mpl_connect('button_press_event', self._on_annotation_double_click)
+
+            # Store canvas reference
+            self.current_annotation_canvas = canvas
+
             # Clear existing layout
             existing_layout = parent_widget.layout()
             if existing_layout:
@@ -890,6 +910,25 @@ class SignalAnnotations:
         color_map = self.color_map
         dialog = AnnotationLegendDialog(color_map, parent)
         return dialog.exec()
+    def _on_annotation_double_click(self, event):
+        """Handle double-click events on the annotation plot."""
+        if event.dblclick and event.inaxes:
+            x_value = event.xdata  # Time in seconds
+            y_value = event.ydata  # Y position (not meaningful for annotation plot)
+
+            if x_value is not None:
+                # Convert time to hours:minutes format for display
+                hours = int(x_value // 3600)
+                minutes = int((x_value % 3600) // 60)
+                seconds = int(x_value % 60)
+                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+                # print(f"Annotation plot double-clicked at time: {x_value:.2f}s ({time_str})")
+
+                # Call the callback function if provided
+                if (hasattr(self, 'annotation_double_click_callback') and
+                        self.annotation_double_click_callback is not None):
+                    self.annotation_double_click_callback(x_value, y_value)
     # Summarize
     def summary_scored_events(self)->None:
         """
