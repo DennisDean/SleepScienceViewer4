@@ -637,6 +637,7 @@ class MainApp(QMainWindow):
             "Missing EEG Signal",
             "Please load an EDF file with an EEG signal."
         )
+
     # Initialize Annotations
     def load_xml_file(self):
         # Write to log
@@ -705,7 +706,8 @@ class MainApp(QMainWindow):
             # Plot Hypnogram
             hypnogram_marker = 0
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
-                                                                    hypnogram_marker=hypnogram_marker)
+                                                                    hypnogram_marker=hypnogram_marker,
+                                                                    double_click_callback=self.on_hypnogram_double_click)
 
             # Annotation File Loaded
             logger.info(f'Annotation file loaded {file_path}')
@@ -733,23 +735,6 @@ class MainApp(QMainWindow):
                                                                      cur_annotation_setting = cur_annotation_setting)
             self.ui.annotation_comboBox.setEnabled(True)
             self.ui.annotation_comboBox.blockSignals(False)
-    def on_hypnogram_changed(self, index):
-        # Update Variables
-        if self.automatic_histogram_redraw:
-            selected_text = self.ui.hypnogram_comboBox.itemText(index)
-            self.hypnogram_combobox_selection = index
-            logger.info(f"Combo box changed to index {index}: {selected_text}")
-
-            # Update Hypnogram
-            if self.sleep_stage_mappings is not None:
-                # Get time
-                current_epoch = int(self.ui.epochs_textEdit.toPlainText())
-                window_width_sec = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
-                hypnogram_marker = (current_epoch -1)*window_width_sec # zero referenced epoch
-
-                stage_map = index
-                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
-                                                            stage_index=stage_map, hypnogram_marker=hypnogram_marker)
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
@@ -837,6 +822,98 @@ class MainApp(QMainWindow):
         self.ui.hypnogram_comboBox.setEnabled(True)
         self.ui.annotation_comboBox.setEnabled(True)
         self.ui.pushButton_legend.setEnabled(True)
+
+    # Hypnogram
+    def on_hypnogram_changed(self, index):
+        # Update Variables
+        if self.automatic_histogram_redraw:
+            selected_text = self.ui.hypnogram_comboBox.itemText(index)
+            self.hypnogram_combobox_selection = index
+            logger.info(f"Combo box changed to index {index}: {selected_text}")
+
+            # Update Hypnogram
+            if self.sleep_stage_mappings is not None:
+                # Get time
+                current_epoch = int(self.ui.epochs_textEdit.toPlainText())
+                window_width_sec = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+                hypnogram_marker = (current_epoch -1)*window_width_sec # zero referenced epoch
+
+                stage_map = index
+                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                            stage_index=stage_map, hypnogram_marker=hypnogram_marker)
+    def on_hypnogram_double_click(self, x_value, y_value):
+        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
+        # Slot to handle double-click events on QListWidget items.
+        logger.info(f"Hypnogram plot double-clicked: time in seconds {x_value}")
+        if self.edf_file_obj is None:
+            return
+
+
+        annotation_time_in_sec = x_value
+
+        # Change Current epoch
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
+        new_epoch = math.floor(new_epoch) + 1
+        self.ui.epochs_textEdit.setText(str(new_epoch))
+        self.current_epoch = new_epoch
+
+        # Update signal graphic views to annotation epoch
+        self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                hypnogram_marker=hypnogram_marker,
+                                                                double_click_callback=self.on_hypnogram_double_click)
+
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
+
+    # Annotation
+    def annotation_list_widget_double_click(self, item):
+        # Slot to handle double-click events on QListWidget items.
+        logger.info(f"Annotation list double-clicked: {item.text()}")
+        if self.edf_file_obj is None:
+            return
+
+        # Parse text
+        self.ui.annotation_listWidget.currentItem()
+        text_list = item.text()
+        text_list = text_list.split()
+
+        # Parse text list
+        starttime = text_list[0]
+        # if len(text_list) > 3:
+        #    annotation_type = text_list[2:-1]
+        #    annotation_type = ' '.join(annotation_type)
+
+        # Compute start time
+        time_list = starttime.split(':')
+        annotation_time_in_sec = int(time_list[0]) * 3600 + int(time_list[1]) * 60 + int(time_list[2])
+
+        # Change Current epoch
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
+        new_epoch = math.floor(new_epoch) + 1
+        self.ui.epochs_textEdit.setText(str(new_epoch))
+        self.current_epoch = new_epoch
+
+        # Update signal graphic views to annotation epoch
+        self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                                                                hypnogram_marker=hypnogram_marker,
+                                                                double_click_callback=self.on_hypnogram_double_click)
+
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
+    def show_annotation_legend_popup(self):
+        if self.annotation_xml_obj is not None:
+            self.annotation_xml_obj.scored_event_obj.show_annotation_legend()
+
     # Epochs
     def set_epoch_to_first(self):
         """
@@ -998,6 +1075,7 @@ class MainApp(QMainWindow):
         elif epoch_change_test:
             self.set_epoch_from_text()
         logger.info(f'Responding to user enter within epoch text field')
+
     # Signals
     def on_signal_combobox_changed(self, index, text):
         logger.info(f"Signal {index + 1} combo box changed to {text}")
@@ -1076,48 +1154,7 @@ class MainApp(QMainWindow):
         signal_label = signal_combo_box.currentText()
         self.on_signal_combobox_changed(index, signal_label)
         logger.info(f"Signal {index + 1} combo box changed to {text}")
-    # Annotation
-    def annotation_list_widget_double_click(self, item):
-        # Slot to handle double-click events on QListWidget items.
-        logger.info(f"Annotation list double-clicked: {item.text()}")
-        if self.edf_file_obj is None:
-            return
 
-        # Parse text
-        self.ui.annotation_listWidget.currentItem()
-        text_list       = item.text()
-        text_list       = text_list.split()
-
-        # Parse text list
-        starttime       = text_list[0]
-        #if len(text_list) > 3:
-        #    annotation_type = text_list[2:-1]
-        #    annotation_type = ' '.join(annotation_type)
-
-        # Compute start time
-        time_list              = starttime.split(':')
-        annotation_time_in_sec = int(time_list[0])*3600 + int(time_list[1])*60 + int(time_list[2])
-
-        # Change Current epoch
-        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
-        new_epoch = float(annotation_time_in_sec)/epoch_window_in_seconds
-        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch))*epoch_window_in_seconds
-        new_epoch = math.floor(new_epoch) + 1
-        self.ui.epochs_textEdit.setText(str(new_epoch))
-        self.current_epoch = new_epoch
-
-        # Update signal graphic views to annotation epoch
-        self.draw_signals_in_graphic_views(annotation_marker = annotation_epoch_offset_start)
-
-        # Plot Hypnogram
-        hypnogram_marker = annotation_time_in_sec
-        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
-                                                                hypnogram_marker=hypnogram_marker)
-
-        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
-    def show_annotation_legend_popup(self):
-        if self.annotation_xml_obj is not None:
-            self.annotation_xml_obj.scored_event_obj.show_annotation_legend()
     # Menu Item
     # File
     def open_edf_menu_item(self):
@@ -1413,6 +1450,7 @@ class MainApp(QMainWindow):
     def about_menu_item(self):
         dlg = AboutDialog(self)
         dlg.exec()
+
     # Utilities
     @staticmethod
     def return_time_string(epoch:int, epoch_width:int):

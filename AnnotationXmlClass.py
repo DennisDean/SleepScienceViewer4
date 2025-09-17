@@ -53,6 +53,8 @@ import csv
 import logging
 import traceback
 from typing import List, Dict
+
+from IPython.terminal.shortcuts import next_history_or_next_completion
 from lxml import etree
 from sympy.logic.boolalg import Boolean
 
@@ -336,6 +338,12 @@ class SleepStages:
 
         # Output Control
         self.output_dir = os.getcwd()
+
+        # Store hypnogram plotting information
+        self.current_hypnogram_ax = None
+        self.current_hypnogram_fig = None
+        self.current_hypnogram_canvas = None
+        self.hypnogram_double_click_callback = None
     # Utilities
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -508,7 +516,8 @@ class SleepStages:
         except Exception as e:
             logger.error(f'*** Could not export sleep stages: {filename}, error: {e}')
     # Plotting functions
-    def plot_hypnogram(self, parent_widget=None, stage_index = 0, hypnogram_marker:float|None=None):
+    def plot_hypnogram(self, parent_widget=None, stage_index = 0, hypnogram_marker:float|None=None,
+                       double_click_callback=None):
         """
             Plots a hypnogram into a QGraphicsView if provided, or as a standalone matplotlib figure.
             The plot background is white, auto-scales, and fills available width.
@@ -598,12 +607,23 @@ class SleepStages:
             ax.axvline(x=hypnogram_marker, color=hypnogram_marker_color, linestyle='-', label=f'Set Point: {hypnogram_marker}',
                        linewidth=marker_line_width)
 
+        # Store reference to axes and figure
+        self.current_hypnogram_ax = ax
+        self.current_hypnogram_fig = fig
+        self.hypnogram_double_click_callback = double_click_callback
+
         if parent_widget:
             # Create a new Figure Canvas
             canvas = FigureCanvas(fig)
             canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
+
+            # Double click handler
+            canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
+
+            # Store canvas
+            self.current_hypnogram_canvas = canvas
 
             existing_layout = parent_widget.layout()
             if existing_layout:
@@ -628,6 +648,28 @@ class SleepStages:
                 widget = item.widget()
                 if widget:
                     widget.setParent(None)
+    def _on_hypnogram_double_click(self, event):
+        """
+        Handle double-click events on the hypnogram plot.
+        Captures the x-axis value (time) where the user double-clicked.
+        """
+        # Check if it's a double-click and within the axes
+        if event.dblclick and event.inaxes and hasattr(self, 'current_hypnogram_ax'):
+            x_value = event.xdata  # Time in seconds
+            y_value = event.ydata  # Sleep stage value
+
+            if x_value is not None and y_value is not None:
+                # Convert time to hours:minutes format for display
+                hours = int(x_value // 3600)
+                minutes = int((x_value % 3600) // 60)
+                seconds = int(x_value % 60)
+                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+                # print(f"Hypnogram double-clicked at time: {x_value:.2f}s ({time_str})")
+
+                # Call callback method if it exists
+                if hasattr(self, 'hypnogram_double_click_callback'):
+                    self.hypnogram_double_click_callback(x_value, y_value)
     # Class Functions
     def __str__(self)->str:
         # Override default class description

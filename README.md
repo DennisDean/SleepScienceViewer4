@@ -35,7 +35,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 ## Feature in Development
 - **Signal Viewer**
   - View a signal one page at a time with the ability to visually identify disruption and noise
-  - Signal x axis moved to the bottom of the page allowing for more of the signal to be viewed on a single page
+  - Signal x-axis moved to the bottom of the page allowing for more of the signal to be viewed on a single page
   - Turn user selected Band Pass and Notch Filtering on off from a selection of common values
 
 ![Signal Viewer](Media/signal_viewer_beta.png)
