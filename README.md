@@ -18,7 +18,6 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
    - View and interact with a full hypnogram display
 - **Annotation Interaction**
    - Filter listed annotations by type
-   - Double-click on an annotation to jump to the corresponding epoch
    - Hypnogram aligned annotation plot with [automatically assigned colors](Media/annotation_legend.png) 
 - **Custom Display Options**
    - Change epoch duration for signal navigation
@@ -31,8 +30,14 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
       - A [full annotation listing](Media/sleep_event_export.png)
       - [Sleep stage timeline](Media/sleep_stages.png)
       - [Summary reports](Media/sleep_event_summary.png) for review and documentation
+- **Navigation**
+  - Double click on hypnogram, spectrogram, or annotation plots to move signals to selected time
+  - Double clik on annotation list show annotation start
 
-## Feature in Development
+## Development Status
+- **Sleep Science Viewer
+  - Viewing function complete
+  - Considering adding color to annotation text list
 - **Signal Viewer**
   - View a signal one page at a time with the ability to visually identify disruption and noise
   - Signal x-axis moved to the bottom of the page allowing for more of the signal to be viewed on a single page
