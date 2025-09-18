@@ -123,6 +123,14 @@ class SignalWindow(QMainWindow):
 
         # Connect sync push button to response
         self.ui.pushButton_sync_y.clicked.connect(self.sync_y_pushbutton_response)
+
+        # State Control
+        self.combo_boxes_mark = [self.ui.comboBox_mark_1,  self.ui.comboBox_mark_2,  self.ui.comboBox_mark_3,
+                                 self.ui.comboBox_mark_4,  self.ui.comboBox_mark_5,  self.ui.comboBox_mark_6,
+                                 self.ui.comboBox_mark_7,  self.ui.comboBox_mark_8,  self.ui.comboBox_mark_9,
+                                 self.ui.comboBox_mark_10, self.ui.comboBox_mark_11, self.ui.comboBox_mark_12,
+                                 self.ui.comboBox_mark_13, self.ui.comboBox_mark_14, self.ui.comboBox_mark_15]
+        self.hide_mark_combo_boxes()
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -300,6 +308,13 @@ class SignalWindow(QMainWindow):
         # self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
         #time_str       = self.return_time_string(current_epoch, epoch_width)
         #self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
+    # State Control
+    def hide_mark_combo_boxes(self):
+        for cb in self.combo_boxes_mark:
+            cb.hide()
+    def show_mark_combo_boxes(self):
+        for cb in self.combo_boxes_mark:
+            cb.show()
     # Signal Actions
     def update_signal_combobox (self, signal_label):
         # turn off update signal combobox

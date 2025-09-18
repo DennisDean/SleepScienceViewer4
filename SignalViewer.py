@@ -25,7 +25,7 @@ class Ui_SignalWindow(object):
     def setupUi(self, SignalWindow):
         if not SignalWindow.objectName():
             SignalWindow.setObjectName(u"SignalWindow")
-        SignalWindow.resize(1185, 881)
+        SignalWindow.resize(1185, 1028)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -37,7 +37,7 @@ class Ui_SignalWindow(object):
         self.centralwidget.setSizePolicy(sizePolicy)
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalSpacer_2 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
+        self.verticalSpacer_2 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout.addItem(self.verticalSpacer_2)
 
@@ -48,16 +48,15 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_controls.addItem(self.horizontalSpacer)
 
-        self.comboBox_signals = QComboBox(self.centralwidget)
-        self.comboBox_signals.setObjectName(u"comboBox_signals")
-        self.comboBox_signals.setMinimumSize(QSize(150, 25))
-        self.comboBox_signals.setMaximumSize(QSize(150, 25))
+        self.pushButton_mark = QPushButton(self.centralwidget)
+        self.pushButton_mark.setObjectName(u"pushButton_mark")
+        self.pushButton_mark.setCheckable(True)
 
-        self.horizontalLayout_controls.addWidget(self.comboBox_signals)
+        self.horizontalLayout_controls.addWidget(self.pushButton_mark)
 
-        self.horizontalSpacer_2 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_48 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_controls.addItem(self.horizontalSpacer_2)
+        self.horizontalLayout_controls.addItem(self.horizontalSpacer_48)
 
         self.comboBox_filter_low = QComboBox(self.centralwidget)
         self.comboBox_filter_low.setObjectName(u"comboBox_filter_low")
@@ -135,6 +134,17 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_controls.addWidget(self.pushButton_load)
 
+        self.horizontalSpacer_2 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_controls.addItem(self.horizontalSpacer_2)
+
+        self.comboBox_signals = QComboBox(self.centralwidget)
+        self.comboBox_signals.setObjectName(u"comboBox_signals")
+        self.comboBox_signals.setMinimumSize(QSize(150, 25))
+        self.comboBox_signals.setMaximumSize(QSize(150, 25))
+
+        self.horizontalLayout_controls.addWidget(self.comboBox_signals)
+
         self.horizontalSpacer_3 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_controls.addItem(self.horizontalSpacer_3)
@@ -142,9 +152,87 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_controls)
 
-        self.verticalSpacer = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
+        self.verticalSpacer = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout.addItem(self.verticalSpacer)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.verticalLayout_5 = QVBoxLayout()
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setMinimumSize(QSize(0, 20))
+        self.label.setMaximumSize(QSize(16777215, 20))
+        self.label.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.label, 0, Qt.AlignTop)
+
+        self.graphicsView = QGraphicsView(self.centralwidget)
+        self.graphicsView.setObjectName(u"graphicsView")
+        self.graphicsView.setMinimumSize(QSize(0, 60))
+        self.graphicsView.setMaximumSize(QSize(16777215, 60))
+
+        self.verticalLayout_5.addWidget(self.graphicsView, 0, Qt.AlignTop)
+
+
+        self.horizontalLayout.addLayout(self.verticalLayout_5)
+
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setMinimumSize(QSize(0, 20))
+        self.label_2.setMaximumSize(QSize(16777215, 20))
+
+        self.verticalLayout_3.addWidget(self.label_2, 0, Qt.AlignTop)
+
+        self.comboBox_2 = QComboBox(self.centralwidget)
+        self.comboBox_2.setObjectName(u"comboBox_2")
+
+        self.verticalLayout_3.addWidget(self.comboBox_2)
+
+        self.pushButton_2 = QPushButton(self.centralwidget)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+
+        self.verticalLayout_3.addWidget(self.pushButton_2)
+
+
+        self.horizontalLayout.addLayout(self.verticalLayout_3)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.graphicsView_2 = QGraphicsView(self.centralwidget)
+        self.graphicsView_2.setObjectName(u"graphicsView_2")
+        self.graphicsView_2.setMinimumSize(QSize(0, 90))
+        self.graphicsView_2.setMaximumSize(QSize(16777215, 90))
+
+        self.horizontalLayout_3.addWidget(self.graphicsView_2, 0, Qt.AlignTop)
+
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.comboBox = QComboBox(self.centralwidget)
+        self.comboBox.setObjectName(u"comboBox")
+
+        self.verticalLayout_4.addWidget(self.comboBox, 0, Qt.AlignTop)
+
+        self.pushButton = QPushButton(self.centralwidget)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.verticalLayout_4.addWidget(self.pushButton, 0, Qt.AlignTop)
+
+
+        self.horizontalLayout_3.addLayout(self.verticalLayout_4)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_3)
 
         self.horizontalLayout_data = QHBoxLayout()
         self.horizontalLayout_data.setObjectName(u"horizontalLayout_data")
@@ -174,13 +262,13 @@ class Ui_SignalWindow(object):
         self.pushButton_first.setMinimumSize(QSize(0, 25))
         self.pushButton_first.setMaximumSize(QSize(16777215, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.pushButton_first)
+        self.horizontalLayout_signal_controls.addWidget(self.pushButton_first, 0, Qt.AlignTop)
 
         self.pushButton_next = QPushButton(self.centralwidget)
         self.pushButton_next.setObjectName(u"pushButton_next")
         self.pushButton_next.setMinimumSize(QSize(0, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.pushButton_next)
+        self.horizontalLayout_signal_controls.addWidget(self.pushButton_next, 0, Qt.AlignTop)
 
         self.horizontalSpacer_6 = QSpacerItem(40, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -191,14 +279,14 @@ class Ui_SignalWindow(object):
         self.pushButton_update.setMinimumSize(QSize(40, 25))
         self.pushButton_update.setMaximumSize(QSize(40, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.pushButton_update)
+        self.horizontalLayout_signal_controls.addWidget(self.pushButton_update, 0, Qt.AlignTop)
 
         self.textEdit_epoch = QTextEdit(self.centralwidget)
         self.textEdit_epoch.setObjectName(u"textEdit_epoch")
         self.textEdit_epoch.setMinimumSize(QSize(75, 25))
         self.textEdit_epoch.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.textEdit_epoch)
+        self.horizontalLayout_signal_controls.addWidget(self.textEdit_epoch, 0, Qt.AlignTop)
 
         self.horizontalSpacer_23 = QSpacerItem(6, 10, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
@@ -209,7 +297,7 @@ class Ui_SignalWindow(object):
         self.label_page.setMinimumSize(QSize(0, 25))
         self.label_page.setMaximumSize(QSize(16777215, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.label_page)
+        self.horizontalLayout_signal_controls.addWidget(self.label_page, 0, Qt.AlignTop)
 
         self.horizontalSpacer_7 = QSpacerItem(40, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -220,14 +308,14 @@ class Ui_SignalWindow(object):
         self.pushButton_previous.setMinimumSize(QSize(0, 25))
         self.pushButton_previous.setMaximumSize(QSize(16777215, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.pushButton_previous)
+        self.horizontalLayout_signal_controls.addWidget(self.pushButton_previous, 0, Qt.AlignTop)
 
         self.pushButton_last = QPushButton(self.centralwidget)
         self.pushButton_last.setObjectName(u"pushButton_last")
         self.pushButton_last.setMinimumSize(QSize(0, 25))
         self.pushButton_last.setMaximumSize(QSize(16777215, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.pushButton_last)
+        self.horizontalLayout_signal_controls.addWidget(self.pushButton_last, 0, Qt.AlignTop)
 
         self.horizontalSpacer_25 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -235,10 +323,10 @@ class Ui_SignalWindow(object):
 
         self.comboBox_epoch = QComboBox(self.centralwidget)
         self.comboBox_epoch.setObjectName(u"comboBox_epoch")
-        self.comboBox_epoch.setMinimumSize(QSize(100, 25))
-        self.comboBox_epoch.setMaximumSize(QSize(100, 25))
+        self.comboBox_epoch.setMinimumSize(QSize(75, 25))
+        self.comboBox_epoch.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_signal_controls.addWidget(self.comboBox_epoch)
+        self.horizontalLayout_signal_controls.addWidget(self.comboBox_epoch, 0, Qt.AlignTop)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_controls)
@@ -269,9 +357,17 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_1 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_1.setObjectName(u"graphicsView_signal_1")
         self.graphicsView_signal_1.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_1.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_1.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_1.addWidget(self.graphicsView_signal_1)
+
+        self.comboBox_mark_1 = QComboBox(self.centralwidget)
+        self.comboBox_mark_1.setObjectName(u"comboBox_mark_1")
+        self.comboBox_mark_1.setEnabled(False)
+        self.comboBox_mark_1.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_1.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_1.addWidget(self.comboBox_mark_1)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_1)
@@ -300,9 +396,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_2 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_2.setObjectName(u"graphicsView_signal_2")
         self.graphicsView_signal_2.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_2.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_2.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_2.addWidget(self.graphicsView_signal_2)
+
+        self.comboBox_mark_2 = QComboBox(self.centralwidget)
+        self.comboBox_mark_2.setObjectName(u"comboBox_mark_2")
+        self.comboBox_mark_2.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_2.setMaximumSize(QSize(40, 16777215))
+
+        self.horizontalLayout_signal_2.addWidget(self.comboBox_mark_2)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_2)
@@ -331,9 +434,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_3 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_3.setObjectName(u"graphicsView_signal_3")
         self.graphicsView_signal_3.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_3.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_3.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_3.addWidget(self.graphicsView_signal_3)
+
+        self.comboBox_mark_3 = QComboBox(self.centralwidget)
+        self.comboBox_mark_3.setObjectName(u"comboBox_mark_3")
+        self.comboBox_mark_3.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_3.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_3.addWidget(self.comboBox_mark_3)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_3)
@@ -362,9 +472,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_4 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_4.setObjectName(u"graphicsView_signal_4")
         self.graphicsView_signal_4.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_4.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_4.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_4.addWidget(self.graphicsView_signal_4)
+
+        self.comboBox_mark_4 = QComboBox(self.centralwidget)
+        self.comboBox_mark_4.setObjectName(u"comboBox_mark_4")
+        self.comboBox_mark_4.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_4.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_4.addWidget(self.comboBox_mark_4)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_4)
@@ -395,9 +512,16 @@ class Ui_SignalWindow(object):
         sizePolicy.setHeightForWidth(self.graphicsView_signal_5.sizePolicy().hasHeightForWidth())
         self.graphicsView_signal_5.setSizePolicy(sizePolicy)
         self.graphicsView_signal_5.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_5.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_5.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_5.addWidget(self.graphicsView_signal_5)
+
+        self.comboBox_mark_5 = QComboBox(self.centralwidget)
+        self.comboBox_mark_5.setObjectName(u"comboBox_mark_5")
+        self.comboBox_mark_5.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_5.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_5.addWidget(self.comboBox_mark_5)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_5)
@@ -426,9 +550,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_6 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_6.setObjectName(u"graphicsView_signal_6")
         self.graphicsView_signal_6.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_6.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_6.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_6.addWidget(self.graphicsView_signal_6)
+
+        self.comboBox_mark_6 = QComboBox(self.centralwidget)
+        self.comboBox_mark_6.setObjectName(u"comboBox_mark_6")
+        self.comboBox_mark_6.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_6.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_6.addWidget(self.comboBox_mark_6)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_6)
@@ -457,9 +588,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_7 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_7.setObjectName(u"graphicsView_signal_7")
         self.graphicsView_signal_7.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_7.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_7.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_7.addWidget(self.graphicsView_signal_7)
+
+        self.comboBox_mark_7 = QComboBox(self.centralwidget)
+        self.comboBox_mark_7.setObjectName(u"comboBox_mark_7")
+        self.comboBox_mark_7.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_7.setMaximumSize(QSize(40, 16777215))
+
+        self.horizontalLayout_signal_7.addWidget(self.comboBox_mark_7)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_7)
@@ -488,9 +626,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_8 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_8.setObjectName(u"graphicsView_signal_8")
         self.graphicsView_signal_8.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_8.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_8.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_8.addWidget(self.graphicsView_signal_8)
+
+        self.comboBox_mark_8 = QComboBox(self.centralwidget)
+        self.comboBox_mark_8.setObjectName(u"comboBox_mark_8")
+        self.comboBox_mark_8.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_8.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_8.addWidget(self.comboBox_mark_8)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_8)
@@ -519,9 +664,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_9 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_9.setObjectName(u"graphicsView_signal_9")
         self.graphicsView_signal_9.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_9.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_9.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_9.addWidget(self.graphicsView_signal_9)
+
+        self.comboBox_mark_9 = QComboBox(self.centralwidget)
+        self.comboBox_mark_9.setObjectName(u"comboBox_mark_9")
+        self.comboBox_mark_9.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_9.setMaximumSize(QSize(40, 16777215))
+
+        self.horizontalLayout_signal_9.addWidget(self.comboBox_mark_9)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_9)
@@ -550,9 +702,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_10 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_10.setObjectName(u"graphicsView_signal_10")
         self.graphicsView_signal_10.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_10.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_10.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_10.addWidget(self.graphicsView_signal_10)
+
+        self.comboBox_mark_10 = QComboBox(self.centralwidget)
+        self.comboBox_mark_10.setObjectName(u"comboBox_mark_10")
+        self.comboBox_mark_10.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_10.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_10.addWidget(self.comboBox_mark_10)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_10)
@@ -581,9 +740,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_11 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_11.setObjectName(u"graphicsView_signal_11")
         self.graphicsView_signal_11.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_11.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_11.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_11.addWidget(self.graphicsView_signal_11)
+
+        self.comboBox_mark_11 = QComboBox(self.centralwidget)
+        self.comboBox_mark_11.setObjectName(u"comboBox_mark_11")
+        self.comboBox_mark_11.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_11.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_11.addWidget(self.comboBox_mark_11)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_11)
@@ -612,9 +778,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_12 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_12.setObjectName(u"graphicsView_signal_12")
         self.graphicsView_signal_12.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_12.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_12.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_12.addWidget(self.graphicsView_signal_12)
+
+        self.comboBox_mark_12 = QComboBox(self.centralwidget)
+        self.comboBox_mark_12.setObjectName(u"comboBox_mark_12")
+        self.comboBox_mark_12.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_12.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_12.addWidget(self.comboBox_mark_12)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_12)
@@ -643,9 +816,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_13 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_13.setObjectName(u"graphicsView_signal_13")
         self.graphicsView_signal_13.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_13.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_13.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_13.addWidget(self.graphicsView_signal_13)
+
+        self.comboBox_mark_13 = QComboBox(self.centralwidget)
+        self.comboBox_mark_13.setObjectName(u"comboBox_mark_13")
+        self.comboBox_mark_13.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_13.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_13.addWidget(self.comboBox_mark_13)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_13)
@@ -674,9 +854,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_14 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_14.setObjectName(u"graphicsView_signal_14")
         self.graphicsView_signal_14.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_14.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_14.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_14.addWidget(self.graphicsView_signal_14)
+
+        self.comboBox_mark_14 = QComboBox(self.centralwidget)
+        self.comboBox_mark_14.setObjectName(u"comboBox_mark_14")
+        self.comboBox_mark_14.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_14.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_14.addWidget(self.comboBox_mark_14)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_14)
@@ -710,9 +897,16 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_15 = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_15.setObjectName(u"graphicsView_signal_15")
         self.graphicsView_signal_15.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_15.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_15.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_15.addWidget(self.graphicsView_signal_15)
+
+        self.comboBox_mark_15 = QComboBox(self.centralwidget)
+        self.comboBox_mark_15.setObjectName(u"comboBox_mark_15")
+        self.comboBox_mark_15.setMinimumSize(QSize(75, 40))
+        self.comboBox_mark_15.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_signal_15.addWidget(self.comboBox_mark_15)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_15)
@@ -741,9 +935,13 @@ class Ui_SignalWindow(object):
         self.graphicsView_signal_axis = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_axis.setObjectName(u"graphicsView_signal_axis")
         self.graphicsView_signal_axis.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_axis.setMaximumSize(QSize(16777215, 40))
+        self.graphicsView_signal_axis.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout_signal_time.addWidget(self.graphicsView_signal_axis)
+
+        self.horizontalSpacer_47 = QSpacerItem(75, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_signal_time.addItem(self.horizontalSpacer_47)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_time)
@@ -790,11 +988,16 @@ class Ui_SignalWindow(object):
 
     def retranslateUi(self, SignalWindow):
         SignalWindow.setWindowTitle(QCoreApplication.translate("SignalWindow", u"Signal Window", None))
+        self.pushButton_mark.setText(QCoreApplication.translate("SignalWindow", u"Mark", None))
         self.pushButton_filter.setText(QCoreApplication.translate("SignalWindow", u"Filter", None))
         self.pushButton_notch.setText(QCoreApplication.translate("SignalWindow", u"Notch", None))
         self.pushButton_sync_y.setText(QCoreApplication.translate("SignalWindow", u"Sync Y", None))
         self.pushButton_save.setText(QCoreApplication.translate("SignalWindow", u"Save", None))
         self.pushButton_load.setText(QCoreApplication.translate("SignalWindow", u"Load", None))
+        self.label.setText(QCoreApplication.translate("SignalWindow", u"Multi-Taper Spectrogram", None))
+        self.label_2.setText("")
+        self.pushButton_2.setText(QCoreApplication.translate("SignalWindow", u"Show", None))
+        self.pushButton.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"First", None))
         self.pushButton_next.setText(QCoreApplication.translate("SignalWindow", u"Next", None))
         self.pushButton_update.setText(QCoreApplication.translate("SignalWindow", u"U", None))
