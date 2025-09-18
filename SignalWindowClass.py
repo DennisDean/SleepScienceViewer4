@@ -13,7 +13,7 @@ from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignals, EdfSignal, EdfF
 from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
 
 # Interface packages and modules
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow, QSizePolicy
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QKeyEvent
 
@@ -131,6 +131,7 @@ class SignalWindow(QMainWindow):
                                  self.ui.comboBox_mark_10, self.ui.comboBox_mark_11, self.ui.comboBox_mark_12,
                                  self.ui.comboBox_mark_13, self.ui.comboBox_mark_14, self.ui.comboBox_mark_15]
         self.hide_mark_combo_boxes()
+        self.ui.pushButton_mark.toggled.connect(self.pushbutton_mark_toggled)
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -312,9 +313,17 @@ class SignalWindow(QMainWindow):
     def hide_mark_combo_boxes(self):
         for cb in self.combo_boxes_mark:
             cb.hide()
+        self.ui.horizonatal_spacer_signal_combo_mark.changeSize(0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
     def show_mark_combo_boxes(self):
         for cb in self.combo_boxes_mark:
             cb.show()
+        self.ui.horizonatal_spacer_signal_combo_mark.changeSize(75, 20, QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.ui.horizontalLayout_signal_time.update()
+    def pushbutton_mark_toggled(self, checked):
+        if checked:
+            self.show_mark_combo_boxes()
+        else:
+            self.hide_mark_combo_boxes()
     # Signal Actions
     def update_signal_combobox (self, signal_label):
         # turn off update signal combobox

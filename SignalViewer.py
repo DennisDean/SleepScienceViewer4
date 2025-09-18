@@ -207,8 +207,8 @@ class Ui_SignalWindow(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.graphicsView_2 = QGraphicsView(self.centralwidget)
         self.graphicsView_2.setObjectName(u"graphicsView_2")
-        self.graphicsView_2.setMinimumSize(QSize(0, 90))
-        self.graphicsView_2.setMaximumSize(QSize(16777215, 90))
+        self.graphicsView_2.setMinimumSize(QSize(0, 70))
+        self.graphicsView_2.setMaximumSize(QSize(16777215, 70))
 
         self.horizontalLayout_3.addWidget(self.graphicsView_2, 0, Qt.AlignTop)
 
@@ -363,7 +363,7 @@ class Ui_SignalWindow(object):
 
         self.comboBox_mark_1 = QComboBox(self.centralwidget)
         self.comboBox_mark_1.setObjectName(u"comboBox_mark_1")
-        self.comboBox_mark_1.setEnabled(False)
+        self.comboBox_mark_1.setEnabled(True)
         self.comboBox_mark_1.setMinimumSize(QSize(75, 40))
         self.comboBox_mark_1.setMaximumSize(QSize(75, 16777215))
 
@@ -939,9 +939,9 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_signal_time.addWidget(self.graphicsView_signal_axis)
 
-        self.horizontalSpacer_47 = QSpacerItem(75, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        self.horizonatal_spacer_signal_combo_mark = QSpacerItem(75, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_signal_time.addItem(self.horizontalSpacer_47)
+        self.horizontalLayout_signal_time.addItem(self.horizonatal_spacer_signal_combo_mark)
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_time)
