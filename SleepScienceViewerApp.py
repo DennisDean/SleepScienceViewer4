@@ -25,8 +25,10 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
+from sympy.plotting import plot3d_parametric_surface
 
 # To Do List
+TODO: Show and Hide plots
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow
