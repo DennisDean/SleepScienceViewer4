@@ -218,6 +218,15 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addWidget(self.spectrogram_comboBox)
 
+        self.horizontalLayout_21 = QHBoxLayout()
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.pushButton_spectrogra_legend = QPushButton(self.centralwidget)
+        self.pushButton_spectrogra_legend.setObjectName(u"pushButton_spectrogra_legend")
+        self.pushButton_spectrogra_legend.setMinimumSize(QSize(25, 25))
+        self.pushButton_spectrogra_legend.setMaximumSize(QSize(25, 25))
+
+        self.horizontalLayout_21.addWidget(self.pushButton_spectrogra_legend)
+
         self.compute_spectrogram_pushButton = QPushButton(self.centralwidget)
         self.compute_spectrogram_pushButton.setObjectName(u"compute_spectrogram_pushButton")
         sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
@@ -225,10 +234,13 @@ class Ui_MainWindow(object):
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.compute_spectrogram_pushButton.sizePolicy().hasHeightForWidth())
         self.compute_spectrogram_pushButton.setSizePolicy(sizePolicy4)
-        self.compute_spectrogram_pushButton.setMinimumSize(QSize(125, 25))
-        self.compute_spectrogram_pushButton.setMaximumSize(QSize(125, 25))
+        self.compute_spectrogram_pushButton.setMinimumSize(QSize(96, 25))
+        self.compute_spectrogram_pushButton.setMaximumSize(QSize(96, 25))
 
-        self.verticalLayout_6.addWidget(self.compute_spectrogram_pushButton)
+        self.horizontalLayout_21.addWidget(self.compute_spectrogram_pushButton)
+
+
+        self.verticalLayout_6.addLayout(self.horizontalLayout_21)
 
 
         self.horizontalLayout_17.addLayout(self.verticalLayout_6)
@@ -255,8 +267,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.pushButton_legend = QPushButton(self.centralwidget)
         self.pushButton_legend.setObjectName(u"pushButton_legend")
-        self.pushButton_legend.setMinimumSize(QSize(25, 0))
-        self.pushButton_legend.setMaximumSize(QSize(25, 16777215))
+        self.pushButton_legend.setMinimumSize(QSize(25, 25))
+        self.pushButton_legend.setMaximumSize(QSize(25, 25))
 
         self.horizontalLayout_6.addWidget(self.pushButton_legend)
 
@@ -796,6 +808,7 @@ class Ui_MainWindow(object):
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multi-Taper Spectrogram", None))
+        self.pushButton_spectrogra_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
         self.compute_spectrogram_pushButton.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
         self.pushButton_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
         self.first_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u2759\u25c0", None))

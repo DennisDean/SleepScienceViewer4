@@ -33,6 +33,7 @@ import logging
 
 # Visualization imports
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.qt_compat import QtWidgets
 from matplotlib.ticker import FuncFormatter
 from matplotlib.figure import Figure
 from matplotlib import cm
@@ -40,7 +41,8 @@ import matplotlib.colors as mcolors
 import colorcet as cc
 
 # Interface
-from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
+from PySide6.QtWidgets import QVBoxLayout, QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
+from PySide6.QtCore import Qt
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -167,12 +169,17 @@ class MultitaperSpectrogram:
         self.datawin_size: float       = None    # seconds in one window -- required
         self.data_window_params:Tuple[float, float]  = [None, None] # [window length(s), window step size(s)] - - required
 
+
+        # Store Result information
+        self.mt_spectrogram          = None
+        self.stimes                  = None
+        self.sfreqs                  = None
+
         # Visualization Variables
         self.current_spectrogram_ax            = None
         self.current_spectrogram_fig           = None
         self.current_spectrogram_canvas        = None
         self.spectrogram_double_click_callback = None
-
     def compute_spectrogram(self):
         #  Process user input
         [data, fs, frequency_range, time_bandwidth, num_tapers,
@@ -552,6 +559,66 @@ class MultitaperSpectrogram:
         # Optionally return for other use
         if self.return_fig:
             return mt_spectrogram, stimes, sfreqs, (fig, ax)
+    def show_colorbar_legend_dialog(self):
+        # Check that spectrogram was computed
+        if not hasattr(self, 'mt_spectrogram') or self.mt_spectrogram is None:
+            logger.error("Error: Spectrogram data not available. Generate spectrogram first.")
+            return
+
+        # Create dialog
+        dialog = QDialog()
+        dialog.setWindowTitle("Spectrogram Colorbar Legend")
+        dialog.setModal(True)
+        dialog.resize(300, 400)  # Adjust size as needed
+
+        # Create layout
+        layout = QVBoxLayout()
+
+        # Create matplotlib figure for colorbar only
+        fig = Figure(figsize=(2, 6))
+        canvas = FigureCanvas(fig)
+
+        # Get the same data range and colormap as your spectrogram
+        mt_spectrogram = self.mt_spectrogram
+        spect_data = self.nanpow2db(mt_spectrogram)
+
+        # Use the same colormap as in your plot function
+        cmap = mcolors.ListedColormap(cc.rainbow4)
+
+        # Set data range
+        if hasattr(self, 'clim_scale') and self.clim_scale:
+            clim = np.percentile(spect_data, [5, 98])
+            vmin, vmax = clim
+        else:
+            vmin, vmax = np.nanmin(spect_data), np.nanmax(spect_data)
+
+        # Create a simple axes for the colorbar
+        ax = fig.add_axes([0.1, 0.1, 0.3, 0.8])  # [left, bottom, width, height]
+
+        # Create colorbar directly
+        norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
+        sm = cm.ScalarMappable(norm=norm, cmap=cmap)
+        sm.set_array([])
+
+        cbar = fig.colorbar(sm, cax=ax)
+        cbar.set_label('PSD (dB)', fontsize=12)
+        cbar.ax.tick_params(labelsize=10)
+
+        # Make sure the canvas draws
+        canvas.draw()
+
+        # Add canvas to dialog
+        layout.addWidget(canvas)
+
+        # Add close button
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+        buttons.accepted.connect(dialog.accept)
+        layout.addWidget(buttons)
+
+        dialog.setLayout(layout)
+
+        # Show dialog
+        dialog.exec_()
     def _on_spectrogram_double_click(self, event):
         """Handle double-click events on the spectrogram plot."""
         if event.dblclick and event.inaxes:
@@ -571,7 +638,6 @@ class MultitaperSpectrogram:
                 if (hasattr(self, 'spectrogram_double_click_callback') and
                         self.spectrogram_double_click_callback is not None):
                     self.spectrogram_double_click_callback(x_value, y_value)
-
     # HELPER FUNCTIONS
     def nanpow2db(self, y):
         """ Power to dB conversion, setting bad values to nans

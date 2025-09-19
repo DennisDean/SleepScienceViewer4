@@ -253,6 +253,7 @@ class MainApp(QMainWindow):
 
         # Spectrogram Buttons
         self.ui.compute_spectrogram_pushButton.clicked.connect(self.compute_and_display_spectrogram)
+        self.ui.pushButton_spectrogra_legend.clicked.connect(self.show_spectrogram_legend)
 
         # Epoch Buttons
         time_str = self.return_time_string(self.current_epoch, self.epoch_display_options_width_sec[0])
@@ -402,6 +403,8 @@ class MainApp(QMainWindow):
                 self.clear_annotation_widgets()
             clear_spectrogram_plot(parent_widget=self.ui.spectrogram_graphicsView)
             clear_spectrogram_plot(parent_widget=self.ui.graphicsView_annotation)
+            self.multitaper_spectrogram_obj = None
+            self.ui.pushButton_spectrogra_legend.setEnabled(False)
 
             # Set Spectrogram Signal Labels
             signal_labels = self.edf_file_obj.edf_signals.signal_labels
@@ -542,44 +545,6 @@ class MainApp(QMainWindow):
                 combo.setCurrentIndex(0)  # Default to the empty string if no signal available
         # Turn auto redraw back on
         self.automatic_signal_redraw = True
-    def compute_and_display_spectrogram(self):
-        # Check before starting long computation
-
-        process_eeg = False
-        if self.edf_file_obj is not None:
-            process_eeg = self.show_ok_cancel_dialog()
-        else:
-            self.show_missing_eeg_warning()
-
-        if process_eeg:
-            # Turn on busy cursor
-            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
-
-            # Make sure figures are not inadvertenly generated
-            self.automatic_signal_redraw = False
-
-            # Get Continuous Signals
-            signal_label = self.ui.spectrogram_comboBox.currentText()
-            signal_type = 'continuous'
-            signal_obj = self.edf_file_obj.edf_signals.return_edf_signal(signal_label, signal_type)
-            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
-
-            # Compute Spectrogram
-            logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
-            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
-            multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView,
-                                            double_click_callback = self.on_hypnogram_double_click)
-            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-
-            # Record Spectrogram Completions
-            self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
-            logger.info('Computing spectrogram: Computation completed')
-
-            # Turn off busy cursor
-            QApplication.restoreOverrideCursor()
-
-            # Turn on signal update
-            self.automatic_signal_redraw = True
     @staticmethod
     def show_ok_cancel_dialog(parent=None):
         msg_box = QMessageBox(parent)
@@ -916,7 +881,61 @@ class MainApp(QMainWindow):
         if self.annotation_xml_obj is not None:
             self.annotation_xml_obj.scored_event_obj.show_annotation_legend()
 
-    # Epochs
+    # Spectrogram
+    def compute_and_display_spectrogram(self):
+        # Check before starting long computation
+
+        process_eeg = False
+        if self.edf_file_obj is not None:
+            process_eeg = self.show_ok_cancel_dialog()
+        else:
+            self.show_missing_eeg_warning()
+
+        if process_eeg:
+            # Turn on busy cursor
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+            # Make sure figures are not inadvertenly generated
+            self.automatic_signal_redraw = False
+
+            # Get Continuous Signals
+            signal_label = self.ui.spectrogram_comboBox.currentText()
+            signal_type = 'continuous'
+            signal_obj = self.edf_file_obj.edf_signals.return_edf_signal(signal_label, signal_type)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+
+            # Compute Spectrogram
+            logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
+            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+            multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView,
+                                            double_click_callback = self.on_hypnogram_double_click)
+            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+
+            # Record Spectrogram Completions
+            self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
+            logger.info('Computing spectrogram: Computation completed')
+
+            # Turn off busy cursor
+            QApplication.restoreOverrideCursor()
+
+            # Turn on signal update
+            self.automatic_signal_redraw = True
+
+            # Turn on Legend Pushbutton
+            self.ui.pushButton_spectrogra_legend.setEnabled(True)
+    def show_spectrogram_legend(self):
+        pass
+        if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
+            print("Error: Spectrogram data not available. Generate spectrogram first.")
+            return
+
+        # Display legend dialog
+        self.multitaper_spectrogram_obj.show_colorbar_legend_dialog()
+
+        # Update log
+        logger.info('Sleep Science Viewer: Spectrogram dialog plotted')
+
+        # Epochs
     def set_epoch_to_first(self):
         """
         Set the current epoch to the first one (index 1).
