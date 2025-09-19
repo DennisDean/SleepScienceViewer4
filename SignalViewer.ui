@@ -301,7 +301,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="pushButton_show_spectrogram_2">
         <property name="minimumSize">
          <size>
           <width>35</width>
@@ -323,10 +323,13 @@
         <property name="checkable">
          <bool>true</bool>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="pushButton_show_hypnogram">
         <property name="minimumSize">
          <size>
           <width>35</width>
@@ -346,6 +349,9 @@
          <string>Hyp</string>
         </property>
         <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
          <bool>true</bool>
         </property>
        </widget>

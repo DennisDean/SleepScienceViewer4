@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1203</width>
-    <height>1092</height>
+    <height>1620</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,13 +16,13 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_master">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QTextEdit" name="load_edf_textEdit">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -66,7 +66,7 @@
            <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Maximum</enum>
+           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -79,7 +79,7 @@
         <item>
          <widget class="QTextEdit" name="load_annotation_textEdit">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -118,20 +118,20 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="pushButton_show_hypnogram">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <property name="minimumSize">
            <size>
             <width>38</width>
-            <height>0</height>
+            <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>38</width>
-            <height>16777215</height>
+            <height>25</height>
            </size>
           </property>
           <property name="toolTip">
@@ -143,20 +143,23 @@
           <property name="checkable">
            <bool>true</bool>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="pushButton_show_spectrogram">
           <property name="minimumSize">
            <size>
             <width>38</width>
-            <height>0</height>
+            <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>38</width>
-            <height>16777215</height>
+            <height>25</height>
            </size>
           </property>
           <property name="toolTip">
@@ -168,14 +171,17 @@
           <property name="checkable">
            <bool>true</bool>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="pushButton_show_annotation">
           <property name="minimumSize">
            <size>
             <width>38</width>
-            <height>0</height>
+            <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -193,12 +199,15 @@
           <property name="checkable">
            <bool>true</bool>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <spacer name="verticalSpacer_3">
+       <spacer name="verticalSpacer_hypnogram_up">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -242,7 +251,7 @@
              </widget>
             </item>
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
+             <layout class="QVBoxLayout" name="verticalLayout_hypnogram_commands">
               <property name="spacing">
                <number>0</number>
               </property>
@@ -327,20 +336,7 @@
            </layout>
           </item>
           <item>
-           <spacer name="verticalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_hypnogram_text">
+           <layout class="QHBoxLayout" name="horizontalLayout_spectrogram_text">
             <item>
              <spacer name="horizontalSpacer_13">
               <property name="orientation">
@@ -411,7 +407,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_hypnogram_plot">
+           <layout class="QHBoxLayout" name="horizontalLayout_spectrogram_plot">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
@@ -438,7 +434,7 @@
              </widget>
             </item>
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
+             <layout class="QVBoxLayout" name="verticalLayout_spectrogram_commands">
               <item>
                <widget class="QComboBox" name="spectrogram_comboBox">
                 <property name="sizePolicy">
@@ -462,7 +458,7 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_21">
+               <layout class="QHBoxLayout" name="horizontalLayout_spectrogram_command_2">
                 <item>
                  <widget class="QPushButton" name="pushButton_spectrogra_legend">
                   <property name="minimumSize">
@@ -521,6 +517,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_annotation_plot">
         <item>
          <widget class="QGraphicsView" name="graphicsView_annotation">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -536,7 +538,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <layout class="QHBoxLayout" name="horizontalLayout_annotation_commands">
           <item>
            <widget class="QPushButton" name="pushButton_legend">
             <property name="minimumSize">
@@ -577,7 +579,7 @@
        </layout>
       </item>
       <item>
-       <spacer name="verticalSpacer_4">
+       <spacer name="verticalSpacer_annotation_down">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -618,6 +620,9 @@
              <spacer name="horizontalSpacer_7">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -683,6 +688,12 @@
             </item>
             <item>
              <widget class="QPushButton" name="update_epoch_pushButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>30</width>
@@ -724,6 +735,18 @@
             </item>
             <item>
              <widget class="QLabel" name="epochs_label">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>25</height>
+               </size>
+              </property>
               <property name="text">
                <string>/max_epochs</string>
               </property>
@@ -816,6 +839,9 @@
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
               <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
@@ -852,7 +878,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_15">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_7">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_1_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -873,7 +899,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig1_color">
                 <property name="minimumSize">
                  <size>
@@ -894,7 +920,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_1_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -908,7 +934,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -919,7 +945,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_14">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_2_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -940,7 +966,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig2_color">
                 <property name="minimumSize">
                  <size>
@@ -961,7 +987,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_2_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -975,7 +1001,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -986,7 +1012,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_13">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_3_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1007,7 +1033,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig3_color">
                 <property name="minimumSize">
                  <size>
@@ -1028,7 +1054,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_3_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1036,13 +1062,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>0</height>
+                <height>50</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -1053,7 +1079,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_12">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_4_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1074,7 +1100,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig4_color">
                 <property name="minimumSize">
                  <size>
@@ -1095,7 +1121,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_4_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1103,13 +1129,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>0</height>
+                <height>50</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -1120,7 +1146,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_11">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_11">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_5_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1141,7 +1167,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig5_color">
                 <property name="minimumSize">
                  <size>
@@ -1162,7 +1188,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_5_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1170,13 +1196,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>0</height>
+                <height>50</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -1187,7 +1213,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_10">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_12">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_6_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1208,7 +1234,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig6_color">
                 <property name="minimumSize">
                  <size>
@@ -1229,7 +1255,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_6_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1243,7 +1269,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -1254,7 +1280,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_13">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_7_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1275,7 +1301,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig7_color">
                 <property name="minimumSize">
                  <size>
@@ -1296,7 +1322,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_7_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1304,13 +1330,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>0</height>
+                <height>50</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -1321,7 +1347,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_14">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_8_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1342,7 +1368,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig8_color">
                 <property name="minimumSize">
                  <size>
@@ -1363,7 +1389,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_8_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1377,7 +1403,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -1388,7 +1414,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_7">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_15">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_9_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1409,7 +1435,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig9_color">
                 <property name="minimumSize">
                  <size>
@@ -1430,7 +1456,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_9_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1444,7 +1470,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
@@ -1455,7 +1481,7 @@
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_16">
-              <item>
+              <item alignment="Qt::AlignTop">
                <widget class="QComboBox" name="signal_10_comboBox">
                 <property name="minimumSize">
                  <size>
@@ -1476,7 +1502,7 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignRight">
+              <item alignment="Qt::AlignRight|Qt::AlignTop">
                <widget class="QComboBox" name="comboBox_sig10_color">
                 <property name="minimumSize">
                  <size>
@@ -1497,7 +1523,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_10_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1511,7 +1537,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>200</height>
                </size>
               </property>
              </widget>
