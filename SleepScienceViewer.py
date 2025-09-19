@@ -100,6 +100,31 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.load_annotation_pushButton)
 
+        self.pushButton_3 = QPushButton(self.centralwidget)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setEnabled(True)
+        self.pushButton_3.setMinimumSize(QSize(38, 0))
+        self.pushButton_3.setMaximumSize(QSize(38, 16777215))
+        self.pushButton_3.setCheckable(True)
+
+        self.horizontalLayout_2.addWidget(self.pushButton_3)
+
+        self.pushButton_2 = QPushButton(self.centralwidget)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setMinimumSize(QSize(38, 0))
+        self.pushButton_2.setMaximumSize(QSize(38, 16777215))
+        self.pushButton_2.setCheckable(True)
+
+        self.horizontalLayout_2.addWidget(self.pushButton_2)
+
+        self.pushButton = QPushButton(self.centralwidget)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setMinimumSize(QSize(38, 0))
+        self.pushButton.setMaximumSize(QSize(38, 16777215))
+        self.pushButton.setCheckable(True)
+
+        self.horizontalLayout_2.addWidget(self.pushButton)
+
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
@@ -111,8 +136,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.horizontalLayout_18 = QHBoxLayout()
-        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.horizontalLayout_hypnogram = QHBoxLayout()
+        self.horizontalLayout_hypnogram.setObjectName(u"horizontalLayout_hypnogram")
         self.hypnogram_graphicsView = QGraphicsView(self.centralwidget)
         self.hypnogram_graphicsView.setObjectName(u"hypnogram_graphicsView")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -123,7 +148,7 @@ class Ui_MainWindow(object):
         self.hypnogram_graphicsView.setMinimumSize(QSize(0, 90))
         self.hypnogram_graphicsView.setMaximumSize(QSize(16777215, 90))
 
-        self.horizontalLayout_18.addWidget(self.hypnogram_graphicsView)
+        self.horizontalLayout_hypnogram.addWidget(self.hypnogram_graphicsView)
 
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setSpacing(0)
@@ -157,20 +182,20 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addItem(self.verticalSpacer)
 
 
-        self.horizontalLayout_18.addLayout(self.verticalLayout_5)
+        self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_5)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout_18)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_hypnogram)
 
         self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_5)
 
-        self.horizontalLayout_19 = QHBoxLayout()
-        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalLayout_hypnogram_text = QHBoxLayout()
+        self.horizontalLayout_hypnogram_text.setObjectName(u"horizontalLayout_hypnogram_text")
         self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_13)
+        self.horizontalLayout_hypnogram_text.addItem(self.horizontalSpacer_13)
 
         self.spectrogram_label = QLabel(self.centralwidget)
         self.spectrogram_label.setObjectName(u"spectrogram_label")
@@ -182,22 +207,22 @@ class Ui_MainWindow(object):
         self.spectrogram_label.setMinimumSize(QSize(0, 20))
         self.spectrogram_label.setMaximumSize(QSize(16777215, 20))
 
-        self.horizontalLayout_19.addWidget(self.spectrogram_label)
+        self.horizontalLayout_hypnogram_text.addWidget(self.spectrogram_label)
 
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_4)
+        self.horizontalLayout_hypnogram_text.addItem(self.horizontalSpacer_4)
 
         self.horizontalSpacer_5 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_19.addItem(self.horizontalSpacer_5)
+        self.horizontalLayout_hypnogram_text.addItem(self.horizontalSpacer_5)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout_19)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_hypnogram_text)
 
-        self.horizontalLayout_17 = QHBoxLayout()
-        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.horizontalLayout_17.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.horizontalLayout_hypnogram_plot = QHBoxLayout()
+        self.horizontalLayout_hypnogram_plot.setObjectName(u"horizontalLayout_hypnogram_plot")
+        self.horizontalLayout_hypnogram_plot.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.spectrogram_graphicsView = QGraphicsView(self.centralwidget)
         self.spectrogram_graphicsView.setObjectName(u"spectrogram_graphicsView")
         sizePolicy1.setHeightForWidth(self.spectrogram_graphicsView.sizePolicy().hasHeightForWidth())
@@ -205,7 +230,7 @@ class Ui_MainWindow(object):
         self.spectrogram_graphicsView.setMinimumSize(QSize(0, 60))
         self.spectrogram_graphicsView.setMaximumSize(QSize(16777215, 60))
 
-        self.horizontalLayout_17.addWidget(self.spectrogram_graphicsView)
+        self.horizontalLayout_hypnogram_plot.addWidget(self.spectrogram_graphicsView)
 
         self.verticalLayout_6 = QVBoxLayout()
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
@@ -243,10 +268,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addLayout(self.horizontalLayout_21)
 
 
-        self.horizontalLayout_17.addLayout(self.verticalLayout_6)
+        self.horizontalLayout_hypnogram_plot.addLayout(self.verticalLayout_6)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout_17)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_hypnogram_plot)
 
 
         self.horizontalLayout_3.addLayout(self.verticalLayout_2)
@@ -254,14 +279,14 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
-        self.horizontalLayout_20 = QHBoxLayout()
-        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.horizontalLayout_annotation_plot = QHBoxLayout()
+        self.horizontalLayout_annotation_plot.setObjectName(u"horizontalLayout_annotation_plot")
         self.graphicsView_annotation = QGraphicsView(self.centralwidget)
         self.graphicsView_annotation.setObjectName(u"graphicsView_annotation")
         self.graphicsView_annotation.setMinimumSize(QSize(0, 25))
         self.graphicsView_annotation.setMaximumSize(QSize(16777215, 25))
 
-        self.horizontalLayout_20.addWidget(self.graphicsView_annotation)
+        self.horizontalLayout_annotation_plot.addWidget(self.graphicsView_annotation)
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
@@ -280,10 +305,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.annotation_comboBox)
 
 
-        self.horizontalLayout_20.addLayout(self.horizontalLayout_6)
+        self.horizontalLayout_annotation_plot.addLayout(self.horizontalLayout_6)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_20)
+        self.verticalLayout.addLayout(self.horizontalLayout_annotation_plot)
 
         self.verticalSpacer_4 = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
@@ -806,6 +831,18 @@ class Ui_MainWindow(object):
         self.actionOpen_Signal_Window.setText(QCoreApplication.translate("MainWindow", u"Open Signal Window", None))
         self.load_edf_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load EDF", None))
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_3.setToolTip(QCoreApplication.translate("MainWindow", u"Show Hypnogram Plot", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Hyp", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_2.setToolTip(QCoreApplication.translate("MainWindow", u"Show Spectrogram Plot", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Spt", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton.setToolTip(QCoreApplication.translate("MainWindow", u"Show Annotation Plot", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Ann", None))
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multi-Taper Spectrogram", None))
         self.pushButton_spectrogra_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))

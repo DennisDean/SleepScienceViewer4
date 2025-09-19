@@ -117,6 +117,84 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>38</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>38</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Show Hypnogram Plot</string>
+          </property>
+          <property name="text">
+           <string>Hyp</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="minimumSize">
+           <size>
+            <width>38</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>38</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Show Spectrogram Plot</string>
+          </property>
+          <property name="text">
+           <string>Spt</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>38</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>38</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Show Annotation Plot</string>
+          </property>
+          <property name="text">
+           <string>Ann</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -140,7 +218,7 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <layout class="QHBoxLayout" name="horizontalLayout_hypnogram">
             <item>
              <widget class="QGraphicsView" name="hypnogram_graphicsView">
               <property name="sizePolicy">
@@ -262,7 +340,7 @@
            </spacer>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <layout class="QHBoxLayout" name="horizontalLayout_hypnogram_text">
             <item>
              <spacer name="horizontalSpacer_13">
               <property name="orientation">
@@ -333,7 +411,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <layout class="QHBoxLayout" name="horizontalLayout_hypnogram_plot">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
@@ -440,7 +518,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_20">
+       <layout class="QHBoxLayout" name="horizontalLayout_annotation_plot">
         <item>
          <widget class="QGraphicsView" name="graphicsView_annotation">
           <property name="minimumSize">
