@@ -30,12 +30,14 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
       - A [full annotation listing](Media/sleep_event_export.png)
       - [Sleep stage timeline](Media/sleep_stages.png)
       - [Summary reports](Media/sleep_event_summary.png) for review and documentation
+- **Interface**
+  - Show/Hide historgram, spectrogram, and annotation plots
 - **Navigation**
   - Double click on hypnogram, spectrogram, or annotation plots to move signals to selected time
   - Double clik on annotation list show annotation start
 
 ## Development Status
-- **Sleep Science Viewer
+- **Sleep Science Viewer**
   - Viewing function complete
   - Considering adding color to annotation text list
 - **Signal Viewer**

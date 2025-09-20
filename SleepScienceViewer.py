@@ -145,9 +145,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_hypnogram_commands = QVBoxLayout()
         self.verticalLayout_hypnogram_commands.setSpacing(0)
         self.verticalLayout_hypnogram_commands.setObjectName(u"verticalLayout_hypnogram_commands")
-        self.verticalSpacer_2 = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.label_3 = QLabel(self.centralwidget)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setMinimumSize(QSize(20, 15))
+        self.label_3.setMaximumSize(QSize(20, 15))
 
-        self.verticalLayout_hypnogram_commands.addItem(self.verticalSpacer_2)
+        self.verticalLayout_hypnogram_commands.addWidget(self.label_3)
 
         self.hypnogram_label = QLabel(self.centralwidget)
         self.hypnogram_label.setObjectName(u"hypnogram_label")
@@ -169,9 +172,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_hypnogram_commands.addWidget(self.hypnogram_comboBox)
 
-        self.verticalSpacer = QSpacerItem(20, 15, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setMinimumSize(QSize(20, 15))
+        self.label_2.setMaximumSize(QSize(20, 15))
 
-        self.verticalLayout_hypnogram_commands.addItem(self.verticalSpacer)
+        self.verticalLayout_hypnogram_commands.addWidget(self.label_2)
 
 
         self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_hypnogram_commands)
@@ -198,9 +204,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_spectrogram_text.addItem(self.horizontalSpacer_4)
 
-        self.horizontalSpacer_5 = QSpacerItem(125, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setMinimumSize(QSize(125, 20))
+        self.label.setMaximumSize(QSize(125, 20))
 
-        self.horizontalLayout_spectrogram_text.addItem(self.horizontalSpacer_5)
+        self.horizontalLayout_spectrogram_text.addWidget(self.label)
 
 
         self.verticalLayout_master.addLayout(self.horizontalLayout_spectrogram_text)
@@ -832,8 +841,11 @@ class Ui_MainWindow(object):
         self.pushButton_show_annotation.setToolTip(QCoreApplication.translate("MainWindow", u"Show Annotation Plot", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_annotation.setText(QCoreApplication.translate("MainWindow", u"Ann", None))
+        self.label_3.setText("")
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
+        self.label_2.setText("")
         self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multi-Taper Spectrogram", None))
+        self.label.setText("")
         self.pushButton_spectrogra_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
         self.compute_spectrogram_pushButton.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
         self.pushButton_legend.setText(QCoreApplication.translate("MainWindow", u"Legend", None))
