@@ -562,11 +562,7 @@ class SleepStages:
         ax.invert_yaxis()
 
         # Plot hypnogram
-        print(f'    stage_map = {stage_map}')
         plot_y_labels, plot_stages = self.reorder_labels_stages(stage_map, stages)
-        print(f'       stages = {stages}')
-        print(f'  plot_stages = {plot_stages}')
-        print(f'plot_y_labels = {plot_y_labels}')
         ax.step(time_axis, plot_stages, color=signal_color, linewidth=1)
 
         ax.set_xlim(min(times), max(times)+self.sleep_epoch*2)
