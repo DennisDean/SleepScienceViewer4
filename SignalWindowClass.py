@@ -14,6 +14,7 @@ import math
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QColor, QBrush
+from PySide6.QtGui import QFont, QFontDatabase
 
 # Sleep Science Classes
 from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignals, EdfSignal, EdfFile
@@ -144,6 +145,14 @@ class SignalWindow(QMainWindow):
         self.sleep_stage_mappings = None
         self.annotations_list     = None
         self.initialize_hypnogram_and_annotations()
+
+        # Assign the annotation list widget to a fixed width font
+        all_families = QFontDatabase.families()
+        monospace_fonts = [f for f in all_families if QFontDatabase.isFixedPitch(f)]
+        selected_font = monospace_fonts[0] if monospace_fonts else "Courier"
+        font = QFont(selected_font, 10)
+        font.setStyleHint(QFont.StyleHint.Monospace)
+        self.ui.listWidget_annotation.setFont(font)
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1

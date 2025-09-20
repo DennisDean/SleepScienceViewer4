@@ -197,13 +197,6 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout_hypnogram_commands.addWidget(self.comboBox_hypnogram, 0, Qt.AlignTop)
 
-        self._hypnogram_legend = QPushButton(self.centralwidget)
-        self._hypnogram_legend.setObjectName(u"_hypnogram_legend")
-        self._hypnogram_legend.setMinimumSize(QSize(95, 0))
-        self._hypnogram_legend.setMaximumSize(QSize(95, 16777215))
-
-        self.verticalLayout_hypnogram_commands.addWidget(self._hypnogram_legend, 0, Qt.AlignTop)
-
 
         self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_hypnogram_commands)
 
@@ -965,15 +958,15 @@ class Ui_SignalWindow(object):
         self.verticalLayout_annotation.setSizeConstraint(QLayout.SetMaximumSize)
         self.comboBox_annotation = QComboBox(self.centralwidget)
         self.comboBox_annotation.setObjectName(u"comboBox_annotation")
-        self.comboBox_annotation.setMinimumSize(QSize(250, 25))
-        self.comboBox_annotation.setMaximumSize(QSize(250, 25))
+        self.comboBox_annotation.setMinimumSize(QSize(300, 25))
+        self.comboBox_annotation.setMaximumSize(QSize(300, 25))
 
         self.verticalLayout_annotation.addWidget(self.comboBox_annotation)
 
         self.listWidget_annotation = QListWidget(self.centralwidget)
         self.listWidget_annotation.setObjectName(u"listWidget_annotation")
-        self.listWidget_annotation.setMinimumSize(QSize(250, 0))
-        self.listWidget_annotation.setMaximumSize(QSize(250, 16777215))
+        self.listWidget_annotation.setMinimumSize(QSize(300, 0))
+        self.listWidget_annotation.setMaximumSize(QSize(300, 16777215))
 
         self.verticalLayout_annotation.addWidget(self.listWidget_annotation)
 
@@ -1014,7 +1007,6 @@ class Ui_SignalWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_spectrogram_plot.setText(QCoreApplication.translate("SignalWindow", u"Spc", None))
         self.pushButton_show_annotation_panel.setText(QCoreApplication.translate("SignalWindow", u"Ann", None))
-        self._hypnogram_legend.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
         self.pushButton_show_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Spectrogram", None))
         self.pushButton_spectrogram_legend.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"\u2759\u25c0", None))

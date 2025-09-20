@@ -467,25 +467,6 @@
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignTop">
-         <widget class="QPushButton" name="_hypnogram_legend">
-          <property name="minimumSize">
-           <size>
-            <width>95</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>95</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Legend</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
@@ -2467,13 +2448,13 @@
          <widget class="QComboBox" name="comboBox_annotation">
           <property name="minimumSize">
            <size>
-            <width>250</width>
+            <width>300</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>250</width>
+            <width>300</width>
             <height>25</height>
            </size>
           </property>
@@ -2483,13 +2464,13 @@
          <widget class="QListWidget" name="listWidget_annotation">
           <property name="minimumSize">
            <size>
-            <width>250</width>
+            <width>300</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>250</width>
+            <width>300</width>
             <height>16777215</height>
            </size>
           </property>
