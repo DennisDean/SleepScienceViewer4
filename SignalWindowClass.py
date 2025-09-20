@@ -132,6 +132,10 @@ class SignalWindow(QMainWindow):
                                  self.ui.comboBox_mark_13, self.ui.comboBox_mark_14, self.ui.comboBox_mark_15]
         self.hide_mark_combo_boxes()
         self.ui.pushButton_mark.toggled.connect(self.pushbutton_mark_toggled)
+
+        # Section show/hide buttons
+        self.ui.pushButton_show_spectrogram_plot.clicked.connect(self.show_spectrogram_push)
+        self.ui.pushButton_show_hypnogram.clicked.connect(self.show_hypnogram_push)
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -180,6 +184,26 @@ class SignalWindow(QMainWindow):
         self.ui.comboBox_filter_low.addItems(self.filter_low_menu_text)
         self.ui.comboBox_filter_high.addItems(self.filter_high_menu_text)
         self.ui.comboBox_filter_notch.addItems(self.filter_notch_text)
+
+    # Interface
+    def show_spectrogram_push(self,checked: bool):
+        print('Show/Hide  spectrogram')
+        # Recursively hide widgets in layouts
+        self.set_layout_visible(self.ui.horizontalLayout_spectrogam,checked)
+        self.set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
+    def show_hypnogram_push(self,checked: bool):
+        print('Show/Hide  hypnogram')
+        # Recursively hide widgets in layouts
+        self.set_layout_visible(self.ui.horizontalLayout_hypnogram,checked)
+        self.set_layout_visible(self.ui.verticalLayout_hypnogram_commands , checked)
+    @staticmethod
+    def set_layout_visible(layout, visible: bool):
+        for i in range(layout.count()):
+            item = layout.itemAt(i)
+            widget = item.widget()
+            if widget:
+                widget.setVisible(visible)
+
     # Visualization
     def draw_signal_in_graphic_views(self, annotation_marker:float=None,
                                      epochs_to_draw:int=None):

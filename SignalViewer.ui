@@ -301,7 +301,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_show_spectrogram_2">
+       <widget class="QPushButton" name="pushButton_show_spectrogram_plot">
         <property name="minimumSize">
          <size>
           <width>35</width>
@@ -407,29 +407,25 @@
      </spacer>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_Spectrogam">
+     <layout class="QHBoxLayout" name="horizontalLayout_spectrogam">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item alignment="Qt::AlignTop">
-         <widget class="QGraphicsView" name="graphicsView_spectrogram">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>60</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QGraphicsView" name="graphicsView_spectrogram">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>60</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_spectrogram_commands">
         <item alignment="Qt::AlignTop">
          <widget class="QPushButton" name="pushButton_show_spectrogram">
           <property name="minimumSize">
@@ -491,7 +487,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_hypnogram_commands">
         <item alignment="Qt::AlignTop">
          <widget class="QComboBox" name="comboBox_hypnogram">
           <property name="minimumSize">

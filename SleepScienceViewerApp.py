@@ -385,36 +385,14 @@ class MainApp(QMainWindow):
         self.set_layout_visible(self.ui.horizontalLayout_spectrogram_text, checked)
         self.set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
         self.set_layout_visible(self.ui.horizontalLayout_spectrogram_command_2, checked)
-
-        # Turn off spacer if two or more plots are turned off
-        self.toggle_plot_vertical_spacers()
     def show_hypnogram_push(self,checked: bool):
         # Recursively hide widgets in layouts
         self.set_layout_visible(self.ui.horizontalLayout_hypnogram,checked)
         self.set_layout_visible(self.ui.verticalLayout_hypnogram_commands, checked)
-
-        # Turn off spacer if two or more plots are turned off
-        self.toggle_plot_vertical_spacers()
     def show_annotation_push(self,checked: bool):
         # Recursively hide widgets in layouts
         self.set_layout_visible(self.ui.horizontalLayout_annotation_plot,checked)
         self.set_layout_visible(self.ui.horizontalLayout_annotation_commands, checked)
-
-        # Turn off spacer if two or more plots are turned off
-        self.toggle_plot_vertical_spacers()
-    def toggle_plot_vertical_spacers(self):
-        # Turn off spacer if two or more plots are turned off
-        annotation_shown  = self.ui.pushButton_show_annotation.isChecked()
-        hypnogram_shown   = self.ui.pushButton_show_hypnogram.isChecked()
-        spectrogram_shown = self.ui.pushButton_show_spectrogram.isChecked()
-        if sum([annotation_shown, hypnogram_shown,spectrogram_shown]) <= 1:
-            self.ui.verticalSpacer_annotation_down.changeSize(0,0)
-            self.ui.verticalSpacer_hypnogram_up.changeSize(0, 0)
-            self.ui.centralwidget.update()
-        else:
-            self.ui.verticalSpacer_annotation_down.changeSize(15, 15)
-            self.ui.verticalSpacer_hypnogram_up.changeSize(15, 15)
-            self.ui.centralwidget.update()
     @staticmethod
     def set_layout_visible(layout, visible: bool):
         for i in range(layout.count()):
@@ -422,6 +400,7 @@ class MainApp(QMainWindow):
             widget = item.widget()
             if widget:
                 widget.setVisible(visible)
+
     # Initialize EDF
     def load_edf_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", self.last_fn_path , "EDF Files (*.edf *.EDF)")

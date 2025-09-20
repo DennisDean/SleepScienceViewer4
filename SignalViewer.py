@@ -134,14 +134,14 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_controls.addItem(self.horizontalSpacer_3)
 
-        self.pushButton_show_spectrogram_2 = QPushButton(self.centralwidget)
-        self.pushButton_show_spectrogram_2.setObjectName(u"pushButton_show_spectrogram_2")
-        self.pushButton_show_spectrogram_2.setMinimumSize(QSize(35, 0))
-        self.pushButton_show_spectrogram_2.setMaximumSize(QSize(35, 16777215))
-        self.pushButton_show_spectrogram_2.setCheckable(True)
-        self.pushButton_show_spectrogram_2.setChecked(True)
+        self.pushButton_show_spectrogram_plot = QPushButton(self.centralwidget)
+        self.pushButton_show_spectrogram_plot.setObjectName(u"pushButton_show_spectrogram_plot")
+        self.pushButton_show_spectrogram_plot.setMinimumSize(QSize(35, 0))
+        self.pushButton_show_spectrogram_plot.setMaximumSize(QSize(35, 16777215))
+        self.pushButton_show_spectrogram_plot.setCheckable(True)
+        self.pushButton_show_spectrogram_plot.setChecked(True)
 
-        self.horizontalLayout_controls.addWidget(self.pushButton_show_spectrogram_2)
+        self.horizontalLayout_controls.addWidget(self.pushButton_show_spectrogram_plot)
 
         self.pushButton_show_hypnogram = QPushButton(self.centralwidget)
         self.pushButton_show_hypnogram.setObjectName(u"pushButton_show_hypnogram")
@@ -170,41 +170,36 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
-        self.horizontalLayout_Spectrogam = QHBoxLayout()
-        self.horizontalLayout_Spectrogam.setObjectName(u"horizontalLayout_Spectrogam")
-        self.verticalLayout_5 = QVBoxLayout()
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.horizontalLayout_spectrogam = QHBoxLayout()
+        self.horizontalLayout_spectrogam.setObjectName(u"horizontalLayout_spectrogam")
         self.graphicsView_spectrogram = QGraphicsView(self.centralwidget)
         self.graphicsView_spectrogram.setObjectName(u"graphicsView_spectrogram")
         self.graphicsView_spectrogram.setMinimumSize(QSize(0, 60))
         self.graphicsView_spectrogram.setMaximumSize(QSize(16777215, 60))
 
-        self.verticalLayout_5.addWidget(self.graphicsView_spectrogram, 0, Qt.AlignTop)
+        self.horizontalLayout_spectrogam.addWidget(self.graphicsView_spectrogram)
 
-
-        self.horizontalLayout_Spectrogam.addLayout(self.verticalLayout_5)
-
-        self.verticalLayout_3 = QVBoxLayout()
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_spectrogram_commands = QVBoxLayout()
+        self.verticalLayout_spectrogram_commands.setObjectName(u"verticalLayout_spectrogram_commands")
         self.pushButton_show_spectrogram = QPushButton(self.centralwidget)
         self.pushButton_show_spectrogram.setObjectName(u"pushButton_show_spectrogram")
         self.pushButton_show_spectrogram.setMinimumSize(QSize(95, 0))
         self.pushButton_show_spectrogram.setMaximumSize(QSize(95, 16777215))
 
-        self.verticalLayout_3.addWidget(self.pushButton_show_spectrogram, 0, Qt.AlignTop)
+        self.verticalLayout_spectrogram_commands.addWidget(self.pushButton_show_spectrogram, 0, Qt.AlignTop)
 
         self.pushButton_spectrogram_legend = QPushButton(self.centralwidget)
         self.pushButton_spectrogram_legend.setObjectName(u"pushButton_spectrogram_legend")
         self.pushButton_spectrogram_legend.setMinimumSize(QSize(95, 0))
         self.pushButton_spectrogram_legend.setMaximumSize(QSize(95, 16777215))
 
-        self.verticalLayout_3.addWidget(self.pushButton_spectrogram_legend)
+        self.verticalLayout_spectrogram_commands.addWidget(self.pushButton_spectrogram_legend)
 
 
-        self.horizontalLayout_Spectrogam.addLayout(self.verticalLayout_3)
+        self.horizontalLayout_spectrogam.addLayout(self.verticalLayout_spectrogram_commands)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_Spectrogam)
+        self.verticalLayout.addLayout(self.horizontalLayout_spectrogam)
 
         self.horizontalLayout_hypnogram = QHBoxLayout()
         self.horizontalLayout_hypnogram.setObjectName(u"horizontalLayout_hypnogram")
@@ -215,24 +210,24 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_hypnogram.addWidget(self.graphicsView_hypnogram, 0, Qt.AlignTop)
 
-        self.verticalLayout_4 = QVBoxLayout()
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_hypnogram_commands = QVBoxLayout()
+        self.verticalLayout_hypnogram_commands.setObjectName(u"verticalLayout_hypnogram_commands")
         self.comboBox_hypnogram = QComboBox(self.centralwidget)
         self.comboBox_hypnogram.setObjectName(u"comboBox_hypnogram")
         self.comboBox_hypnogram.setMinimumSize(QSize(95, 0))
         self.comboBox_hypnogram.setMaximumSize(QSize(95, 16777215))
 
-        self.verticalLayout_4.addWidget(self.comboBox_hypnogram, 0, Qt.AlignTop)
+        self.verticalLayout_hypnogram_commands.addWidget(self.comboBox_hypnogram, 0, Qt.AlignTop)
 
         self._hypnogram_legend = QPushButton(self.centralwidget)
         self._hypnogram_legend.setObjectName(u"_hypnogram_legend")
         self._hypnogram_legend.setMinimumSize(QSize(95, 0))
         self._hypnogram_legend.setMaximumSize(QSize(95, 16777215))
 
-        self.verticalLayout_4.addWidget(self._hypnogram_legend, 0, Qt.AlignTop)
+        self.verticalLayout_hypnogram_commands.addWidget(self._hypnogram_legend, 0, Qt.AlignTop)
 
 
-        self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_4)
+        self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_hypnogram_commands)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_hypnogram)
@@ -1002,9 +997,9 @@ class Ui_SignalWindow(object):
         self.pushButton_save.setText(QCoreApplication.translate("SignalWindow", u"Save", None))
         self.pushButton_load.setText(QCoreApplication.translate("SignalWindow", u"Load", None))
 #if QT_CONFIG(tooltip)
-        self.pushButton_show_spectrogram_2.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Spectrogram Plot", None))
+        self.pushButton_show_spectrogram_plot.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Spectrogram Plot", None))
 #endif // QT_CONFIG(tooltip)
-        self.pushButton_show_spectrogram_2.setText(QCoreApplication.translate("SignalWindow", u"Spc", None))
+        self.pushButton_show_spectrogram_plot.setText(QCoreApplication.translate("SignalWindow", u"Spc", None))
 #if QT_CONFIG(tooltip)
         self.pushButton_show_hypnogram.setToolTip(QCoreApplication.translate("SignalWindow", u"show Hypnogram Plot", None))
 #endif // QT_CONFIG(tooltip)
