@@ -157,6 +157,7 @@ def generate_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> s
     """
     filename = f"{prefix}{ext}"
     return os.path.join(output_dir, filename) if output_dir else filename
+
 # Sleep annotation Dialog Boxes
 class AnnotationLegendDialog(QDialog):
     """
@@ -269,6 +270,7 @@ class AnnotationLegendDialog(QDialog):
         """)
 
         return item_widget
+
 # Sleep annotation classes
 class SleepStages:
     def __init__(self, epoch:int, num_stages:list,
@@ -550,7 +552,6 @@ class SleepStages:
         stage_map = stage_mapping[stage_index]
         stages    = stage_arrays[stage_index]
 
-
         # Stage to Y-axis mapping (traditional inverted)
         y_ticks   = list(stage_map.keys())
         y_ticks.sort()
@@ -561,7 +562,12 @@ class SleepStages:
         ax.invert_yaxis()
 
         # Plot hypnogram
-        ax.step(time_axis, stages, color=signal_color, linewidth=1)
+        print(f'    stage_map = {stage_map}')
+        plot_y_labels, plot_stages = self.reorder_labels_stages(stage_map, stages)
+        print(f'       stages = {stages}')
+        print(f'  plot_stages = {plot_stages}')
+        print(f'plot_y_labels = {plot_y_labels}')
+        ax.step(time_axis, plot_stages, color=signal_color, linewidth=1)
 
         ax.set_xlim(min(times), max(times)+self.sleep_epoch*2)
         ax.set_ylim(min(y_ticks) - 0.5, max(y_ticks) + 0.5)
@@ -574,13 +580,14 @@ class SleepStages:
         ax.set_yticks([])
 
         # Horizontal grid lines (Y-axis)
-        y_labels = stage_map
-        for y, label in y_labels.items():
+        y_labels = plot_y_labels
+
+        for y, label in plot_y_labels.items():
             ax.axhline(y=y, color=grid_color, linewidth=grid_linewidth, linestyle='-', zorder=0)
 
         # Draw custom y-axis labels
-        ax.set_yticks(list(stage_map.keys()))
-        ax.set_yticklabels(list(stage_map.values()), fontsize=label_fontsize)
+        ax.set_yticks(list(plot_y_labels.keys()))
+        ax.set_yticklabels(list(plot_y_labels.values()), fontsize=label_fontsize)
 
         # Draw custom x-axis labels
         x_ticks  = range(3600, int(max(times)), 3600)
@@ -640,6 +647,87 @@ class SleepStages:
             existing_layout.addWidget(canvas)
         else:
             pass
+    @staticmethod
+    def reorder_labels_stages(y_labels:dict[int,str], stages:list[int]):
+        """
+            Reorders sleep stage labels and stages for hypnogram plotting.
+            Desired order: Wake, REM, then NREM stages (N1, N2, N3, N4, or NREM)
+
+            Works with various labeling schemes:
+            - Individual NREM stages: N1, N2, N3, N4
+            - Reduced NREM stages: N1, N2, N3 (no N4)
+            - Consolidated NREM: just "NREM"
+            - 3-stage system: W, NREM, REM
+            - Alternative formats: Stage 1, S1, etc.
+
+            Args:
+                y_labels: Dictionary mapping original stage numbers to stage labels
+                stages: List of stage numbers from sleep data
+
+            Returns:
+                plot_labels_plot: Dictionary mapping new stage numbers to stage labels
+                plot_stages: List of remapped stage numbers for plotting
+            """
+        plot_labels_plot = {}
+        plot_stages = []
+
+        # Create mapping from original stage number to new plot position
+        original_to_plot = {}
+        plot_position = 0
+
+        # Step 1: Find and map Wake stages first
+        wake_patterns = ['W', 'WAKE', 'AWAKE']
+        for original_stage_num, label in y_labels.items():
+            if any(pattern in label.upper() for pattern in wake_patterns):
+                original_to_plot[original_stage_num] = plot_position
+                plot_labels_plot[plot_position] = label
+                plot_position += 1
+
+        # Step 2: Find and map REM stages second
+        rem_patterns = ['REM', 'R']
+        for original_stage_num, label in y_labels.items():
+            if (label.upper().strip() == "REM" and
+                    original_stage_num not in original_to_plot):
+                original_to_plot[original_stage_num] = plot_position
+                plot_labels_plot[plot_position] = label
+                plot_position += 1
+
+        # Step 3: Find and map NREM stages in order (N1, N2, N3, N4, or NREM)
+        # First try specific NREM stages in numerical order
+        nrem_patterns = ['N1', 'N2', 'N3', 'N4', 'STAGE 1', 'STAGE 2', 'STAGE 3', 'STAGE 4', 'S1', 'S2', 'S3', 'S4']
+        for nrem_pattern in nrem_patterns:
+            for original_stage_num, label in y_labels.items():
+                if (label.upper().strip() == nrem_pattern and
+                        original_stage_num not in original_to_plot):
+                    original_to_plot[original_stage_num] = plot_position
+                    plot_labels_plot[plot_position] = label
+                    plot_position += 1
+                    break  # Only add the first match for each pattern
+
+        # Step 4: Handle general NREM label (if present and no specific N1-N4 found)
+        # Check if we have any specific NREM stages in the original labels
+        has_specific_nrem = any('N' in label.upper() and any(char.isdigit() for char in label)
+                                for label in y_labels.values())
+
+        if not has_specific_nrem:  # Only add general NREM if no specific stages exist
+            for original_stage_num, label in y_labels.items():
+                if ('NREM' in label.upper() and
+                        original_stage_num not in original_to_plot):
+                    original_to_plot[original_stage_num] = plot_position
+                    plot_labels_plot[plot_position] = label
+                    plot_position += 1
+
+        # Step 5: Add any remaining stages that weren't categorized
+        for original_stage_num, label in y_labels.items():
+            if original_stage_num not in original_to_plot:
+                original_to_plot[original_stage_num] = plot_position
+                plot_labels_plot[plot_position] = label
+                plot_position += 1
+
+        # Remap the stages array using the new mapping
+        plot_stages = [original_to_plot[stage] for stage in stages]
+
+        return plot_labels_plot, plot_stages
     def clear_hypnogram_plot(self, parent_widget = None):
         layout = parent_widget.layout()
         if layout:

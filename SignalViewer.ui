@@ -49,9 +49,21 @@
        <enum>QLayout::SetMinimumSize</enum>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton_mark">
+       <widget class="QPushButton" name="pushButton_sync_y">
+        <property name="minimumSize">
+         <size>
+          <width>70</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
-         <string>Mark</string>
+         <string>Sync Y</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -59,7 +71,7 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_48">
+       <spacer name="horizontalSpacer_46">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -183,41 +195,6 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_46">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_sync_y">
-        <property name="minimumSize">
-         <size>
-          <width>70</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>70</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Sync Y</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="horizontalSpacer_5">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -285,6 +262,29 @@
        </widget>
       </item>
       <item>
+       <spacer name="horizontalSpacer_48">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_mark">
+        <property name="text">
+         <string>Mark</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -299,6 +299,34 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_show_hypnogram">
+        <property name="minimumSize">
+         <size>
+          <width>35</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>35</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>show Hypnogram Plot</string>
+        </property>
+        <property name="text">
+         <string>Hyp</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_show_spectrogram_plot">
@@ -329,7 +357,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_show_hypnogram">
+       <widget class="QPushButton" name="pushButton_show_annotation_panel">
         <property name="minimumSize">
          <size>
           <width>35</width>
@@ -342,11 +370,8 @@
           <height>16777215</height>
          </size>
         </property>
-        <property name="toolTip">
-         <string>show Hypnogram Plot</string>
-        </property>
         <property name="text">
-         <string>Hyp</string>
+         <string>Ann</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -407,6 +432,65 @@
      </spacer>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_hypnogram">
+      <item alignment="Qt::AlignTop">
+       <widget class="QGraphicsView" name="graphicsView_hypnogram">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>90</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>90</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_hypnogram_commands">
+        <item alignment="Qt::AlignTop">
+         <widget class="QComboBox" name="comboBox_hypnogram">
+          <property name="minimumSize">
+           <size>
+            <width>95</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>95</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item alignment="Qt::AlignTop">
+         <widget class="QPushButton" name="_hypnogram_legend">
+          <property name="minimumSize">
+           <size>
+            <width>95</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>95</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Legend</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_spectrogam">
       <item>
        <widget class="QGraphicsView" name="graphicsView_spectrogram">
@@ -447,65 +531,6 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_spectrogram_legend">
-          <property name="minimumSize">
-           <size>
-            <width>95</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>95</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Legend</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_hypnogram">
-      <item alignment="Qt::AlignTop">
-       <widget class="QGraphicsView" name="graphicsView_hypnogram">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>70</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_hypnogram_commands">
-        <item alignment="Qt::AlignTop">
-         <widget class="QComboBox" name="comboBox_hypnogram">
-          <property name="minimumSize">
-           <size>
-            <width>95</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>95</width>
-            <height>16777215</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignTop">
-         <widget class="QPushButton" name="_hypnogram_legend">
           <property name="minimumSize">
            <size>
             <width>95</width>
@@ -621,7 +646,7 @@
              </size>
             </property>
             <property name="text">
-             <string>First</string>
+             <string>❙◀</string>
             </property>
            </widget>
           </item>
@@ -634,7 +659,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Next</string>
+             <string>▶</string>
             </property>
            </widget>
           </item>
@@ -749,7 +774,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Previous</string>
+             <string>◀</string>
             </property>
            </widget>
           </item>
@@ -768,7 +793,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Last</string>
+             <string>▶❙</string>
             </property>
            </widget>
           </item>

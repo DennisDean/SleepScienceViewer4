@@ -8,14 +8,16 @@
 # Modules
 import logging
 
+import math
+
+# Interface packages and modules
+from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem
+from PySide6.QtCore import QEvent, Qt, QObject,Signal
+from PySide6.QtGui import QColor, QBrush
+
 # Sleep Science Classes
 from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignals, EdfSignal, EdfFile
 from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
-
-# Interface packages and modules
-from PySide6.QtWidgets import QMainWindow, QSizePolicy
-from PySide6.QtCore import QEvent, Qt, QObject,Signal
-from PySide6.QtGui import QKeyEvent
 
 # GUI Interface
 from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
@@ -136,6 +138,12 @@ class SignalWindow(QMainWindow):
         # Section show/hide buttons
         self.ui.pushButton_show_spectrogram_plot.clicked.connect(self.show_spectrogram_push)
         self.ui.pushButton_show_hypnogram.clicked.connect(self.show_hypnogram_push)
+        self.ui.pushButton_show_annotation_panel.clicked.connect(self.show_annotation_push)
+
+        # Set up hypnogram and annotation list
+        self.sleep_stage_mappings = None
+        self.annotations_list     = None
+        self.initialize_hypnogram_and_annotations()
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -184,18 +192,65 @@ class SignalWindow(QMainWindow):
         self.ui.comboBox_filter_low.addItems(self.filter_low_menu_text)
         self.ui.comboBox_filter_high.addItems(self.filter_high_menu_text)
         self.ui.comboBox_filter_notch.addItems(self.filter_notch_text)
+    def initialize_hypnogram_and_annotations(self):
+        # Set Sleep Stage Labels
+        sleep_stage_labels = self.xml_obj.sleep_stages_obj.return_sleep_stage_labels()
+        sleep_stage_labels.remove(sleep_stage_labels[0])
+        self.ui.comboBox_hypnogram.blockSignals(True)
+        self.ui.comboBox_hypnogram.clear()
+        self.ui.comboBox_hypnogram.addItems(sleep_stage_labels)
+        self.ui.comboBox_hypnogram.blockSignals(False)
+
+        # Get Sleep Stage Mappings
+        self.sleep_stage_mappings = self.xml_obj.sleep_stages_obj.return_sleep_stage_mappings()
+
+        # Set annotation types
+        annotations_type_list = self.xml_obj.scored_event_obj.scored_event_unique_names
+        annotations_type_list.insert(0, 'All')
+
+        # Update annotation marker
+        self.ui.comboBox_annotation.setEnabled(False)
+        self.ui.comboBox_annotation.blockSignals(True)
+        self.ui.comboBox_annotation.clear()
+        self.ui.comboBox_annotation.addItems(annotations_type_list)
+
+        self.ui.listWidget_annotation.clear()
+        annotations_list = self.xml_obj.scored_event_obj.scored_event_name_source_time_list
+        t_start, t_end = self.extract_event_indexes(annotations_list[0])
+        color_dict = self.xml_obj.scored_event_obj.scored_event_color_dict
+        for item_text in annotations_list:
+            item = QListWidgetItem(item_text)
+            event_type = item_text[t_start:t_end].strip()
+            # item.setBackground(QBrush(QColor("black")))
+            if event_type in color_dict.keys():
+                text_color = 'black'
+            else:
+                text_color = 'black'
+            item.setForeground(QBrush(QColor(text_color)))
+            self.ui.listWidget_annotation.addItem(item)
+        self.annotations_list = annotations_list
+
+        # Plot Hypnogram
+        hypnogram_marker = 0
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     hypnogram_marker=hypnogram_marker,
+                                                     double_click_callback=self.on_hypnogram_double_click)
 
     # Interface
     def show_spectrogram_push(self,checked: bool):
-        print('Show/Hide  spectrogram')
-        # Recursively hide widgets in layouts
+        logger.info('Show/Hide  spectrogram')
+        # Recursively show/hide widgets in layouts
         self.set_layout_visible(self.ui.horizontalLayout_spectrogam,checked)
         self.set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
     def show_hypnogram_push(self,checked: bool):
-        print('Show/Hide  hypnogram')
-        # Recursively hide widgets in layouts
+        logger.info('Show/Hide  hypnogram')
+        # Recursively show/hide widgets in layouts
         self.set_layout_visible(self.ui.horizontalLayout_hypnogram,checked)
         self.set_layout_visible(self.ui.verticalLayout_hypnogram_commands , checked)
+    def show_annotation_push(self,checked: bool):
+        logger.info('Show/Hide  annotation')
+        # Recursively show/hide widgets in layouts
+        self.set_layout_visible(self.ui.verticalLayout_annotation,checked)
     @staticmethod
     def set_layout_visible(layout, visible: bool):
         for i in range(layout.count()):
@@ -348,6 +403,7 @@ class SignalWindow(QMainWindow):
             self.show_mark_combo_boxes()
         else:
             self.hide_mark_combo_boxes()
+
     # Signal Actions
     def update_signal_combobox (self, signal_label):
         # turn off update signal combobox
@@ -380,6 +436,43 @@ class SignalWindow(QMainWindow):
             logger.info(f'Turning Notch Setting Off')
     def sync_y_pushbutton_response(self):
         self.draw_signal_in_graphic_views()
+
+    # Hypnogram
+    def on_hypnogram_double_click(self, x_value, y_value):
+        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
+        # Slot to handle double-click events on QListWidget items.
+        logger.info(f"Hypnogram plot double-clicked: time in seconds {x_value}")
+        if self.edf_obj is None:
+            return
+
+        annotation_time_in_sec = x_value
+
+        # Change Current epoch
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
+        new_epoch = math.floor(new_epoch) + 1
+        self.ui.textEdit_epoch.setText(str(new_epoch))
+        self.current_epoch = new_epoch
+
+        # Update signal graphic views to annotation epoch
+        # self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     hypnogram_marker=hypnogram_marker,
+                                                     double_click_callback=self.on_hypnogram_double_click)
+
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
+
+    # Annotations
+    @staticmethod
+    def extract_event_indexes(entry_text):
+        index_start = entry_text.find('Name')
+        index_end   = entry_text.find('Input')
+        return index_start, index_end
+
     # Epoch Buttons
     def set_epoch_to_first(self):
         """
