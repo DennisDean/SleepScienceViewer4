@@ -153,6 +153,12 @@ class SignalWindow(QMainWindow):
         font = QFont(selected_font, 10)
         font.setStyleHint(QFont.StyleHint.Monospace)
         self.ui.listWidget_annotation.setFont(font)
+
+        # Hypnogram
+        self.hypnogram_combobox_selection = None
+        self.ui.comboBox_hypnogram.currentIndexChanged.connect(self.on_hypnogram_changed)
+
+        # Setuo Interface
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -474,6 +480,25 @@ class SignalWindow(QMainWindow):
                                                      double_click_callback=self.on_hypnogram_double_click)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
+    def on_hypnogram_changed(self, index):
+        # Update Variables
+        if self.automatic_histogram_redraw:
+            selected_text = self.ui.comboBox_hypnogram.itemText(index)
+            self.hypnogram_combobox_selection = index
+            logger.info(f"Combo box changed to index {index}: {selected_text}")
+
+            # Update Hypnogram
+            if self.sleep_stage_mappings is not None:
+                # Get time
+                current_epoch = int(self.ui.textEdit_epoch.toPlainText())
+                window_width_sec = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+                hypnogram_marker = (current_epoch -1)*window_width_sec # zero referenced epoch
+
+                stage_map = index
+                self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                            stage_index=stage_map,
+                                                            hypnogram_marker=hypnogram_marker,
+                                                            double_click_callback=self.on_hypnogram_double_click)
 
     # Annotations
     @staticmethod
