@@ -25,12 +25,13 @@ class Ui_SignalWindow(object):
     def setupUi(self, SignalWindow):
         if not SignalWindow.objectName():
             SignalWindow.setObjectName(u"SignalWindow")
-        SignalWindow.resize(1185, 1028)
+        SignalWindow.resize(1282, 1000)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(SignalWindow.sizePolicy().hasHeightForWidth())
         SignalWindow.setSizePolicy(sizePolicy)
+        SignalWindow.setMinimumSize(QSize(20, 20))
         self.centralwidget = QWidget(SignalWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
@@ -203,6 +204,40 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_hypnogram)
 
+        self.horizontalLayout_spectrogram_label = QHBoxLayout()
+        self.horizontalLayout_spectrogram_label.setObjectName(u"horizontalLayout_spectrogram_label")
+        self.label_4 = QLabel(self.centralwidget)
+        self.label_4.setObjectName(u"label_4")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
+        self.label_4.setSizePolicy(sizePolicy1)
+
+        self.horizontalLayout_spectrogram_label.addWidget(self.label_4)
+
+        self.label_spectrogram = QLabel(self.centralwidget)
+        self.label_spectrogram.setObjectName(u"label_spectrogram")
+
+        self.horizontalLayout_spectrogram_label.addWidget(self.label_spectrogram, 0, Qt.AlignHCenter)
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        sizePolicy1.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy1)
+
+        self.horizontalLayout_spectrogram_label.addWidget(self.label_2)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setMinimumSize(QSize(95, 0))
+        self.label.setMaximumSize(QSize(95, 16777215))
+
+        self.horizontalLayout_spectrogram_label.addWidget(self.label)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_spectrogram_label)
+
         self.horizontalLayout_spectrogam = QHBoxLayout()
         self.horizontalLayout_spectrogam.setObjectName(u"horizontalLayout_spectrogam")
         self.graphicsView_spectrogram = QGraphicsView(self.centralwidget)
@@ -274,7 +309,7 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_signal_controls.addWidget(self.pushButton_next, 0, Qt.AlignTop)
 
-        self.horizontalSpacer_6 = QSpacerItem(40, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_6 = QSpacerItem(20, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_signal_controls.addItem(self.horizontalSpacer_6)
 
@@ -303,7 +338,11 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_signal_controls.addWidget(self.label_page, 0, Qt.AlignTop)
 
-        self.horizontalSpacer_7 = QSpacerItem(40, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_signal_controls.addItem(self.horizontalSpacer)
+
+        self.horizontalSpacer_7 = QSpacerItem(30, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_signal_controls.addItem(self.horizontalSpacer_7)
 
@@ -979,7 +1018,7 @@ class Ui_SignalWindow(object):
         SignalWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(SignalWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1185, 23))
+        self.menubar.setGeometry(QRect(0, 0, 1282, 23))
         SignalWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(SignalWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -1007,6 +1046,10 @@ class Ui_SignalWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_spectrogram_plot.setText(QCoreApplication.translate("SignalWindow", u"Spc", None))
         self.pushButton_show_annotation_panel.setText(QCoreApplication.translate("SignalWindow", u"Ann", None))
+        self.label_4.setText("")
+        self.label_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Multi-Taper Spectrogram", None))
+        self.label_2.setText("")
+        self.label.setText("")
         self.pushButton_show_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Spectrogram", None))
         self.pushButton_spectrogram_legend.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"\u2759\u25c0", None))

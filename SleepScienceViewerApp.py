@@ -963,6 +963,8 @@ class MainApp(QMainWindow):
         logger.info('Sleep Science Viewer: Spectrogram dialog plotted')
 
         # Epochs
+
+    # Epoch control
     def set_epoch_to_first(self):
         """
         Set the current epoch to the first one (index 1).

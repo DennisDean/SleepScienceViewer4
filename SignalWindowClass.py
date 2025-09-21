@@ -11,14 +11,16 @@ import logging
 import math
 
 # Interface packages and modules
-from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem
+from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
-from PySide6.QtGui import QColor, QBrush
-from PySide6.QtGui import QFont, QFontDatabase
+from PySide6.QtGui import QColor, QBrush, QFont, QFontDatabase
 
 # Sleep Science Classes
-from EdfFileClass import EdfHeader, EdfSignalHeader, EdfSignals, EdfSignal, EdfFile
-from AnnotationXmlClass import AnnotationXml, SignalAnnotations, SleepStages
+from EdfFileClass import EdfFile, EdfSignalAnalysis
+from AnnotationXmlClass import AnnotationXml
+
+# Analysis
+from multitaper_spectrogram_python_class import MultitaperSpectrogram
 
 # GUI Interface
 from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
@@ -126,6 +128,10 @@ class SignalWindow(QMainWindow):
 
         # Connect sync push button to response
         self.ui.pushButton_sync_y.clicked.connect(self.sync_y_pushbutton_response)
+
+        # Spectrogram Buttons
+        self.ui.pushButton_show_spectrogram.clicked.connect(self.compute_and_display_spectrogram)
+        self.ui.pushButton_spectrogram_legend.clicked.connect(self.show_spectrogram_legend)
 
         # State Control
         self.combo_boxes_mark = [self.ui.comboBox_mark_1,  self.ui.comboBox_mark_2,  self.ui.comboBox_mark_3,
@@ -380,7 +386,7 @@ class SignalWindow(QMainWindow):
                                                               y_axis_units          = signal_units,
                                                               sleep_stages          = sleep_stage_dict_list)
 
-        # Create x axis for reference
+        # Create x-axis for reference
         signal_label = "" # force no signal
         graphic_view = self.ui.graphicsView_signal_axis
         is_signal_stepped = False
@@ -499,6 +505,80 @@ class SignalWindow(QMainWindow):
                                                             stage_index=stage_map,
                                                             hypnogram_marker=hypnogram_marker,
                                                             double_click_callback=self.on_hypnogram_double_click)
+
+    # Spectrogram
+    def compute_and_display_spectrogram(self):
+        # Check before starting long computation
+
+        process_eeg = False
+        if self.edf_obj is not None:
+            process_eeg = self.show_ok_cancel_dialog()
+        else:
+            self.show_missing_eeg_warning()
+
+        if process_eeg:
+            # Turn on busy cursor
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+            # Make sure figures are not inadvertenly generated
+            self.automatic_signal_redraw = False
+
+            # Get Continuous Signals
+            signal_label = self.ui.comboBox_signals.currentText()
+            signal_type = 'continuous'
+            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label, signal_type)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+
+            # Compute Spectrogram
+            logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
+            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+            multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
+                                            double_click_callback = self.on_hypnogram_double_click)
+            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+
+            # Record Spectrogram Completions
+            self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
+            logger.info('Computing spectrogram: Computation completed')
+
+            # Turn off busy cursor
+            QApplication.restoreOverrideCursor()
+
+            # Turn on signal update
+            self.automatic_signal_redraw = True
+
+            # Turn on Legend Pushbutton
+            self.ui.pushButton_spectrogram_legend.setEnabled(True)
+    def show_spectrogram_legend(self):
+        pass
+        if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
+            print("Error: Spectrogram data not available. Generate spectrogram first.")
+            return
+
+        # Display legend dialog
+        self.multitaper_spectrogram_obj.show_colorbar_legend_dialog()
+
+        # Update log
+        logger.info('Sleep Science Viewer: Spectrogram dialog plotted')
+
+        # Epochs
+    @staticmethod
+    def show_ok_cancel_dialog(parent=None):
+        msg_box = QMessageBox(parent)
+        msg_box.setWindowTitle("Confirm Action")
+        msg_box.setText(
+            "Computing a multitaper spectrogram can be time consuming. Future versions will include a less computational alternative. \n\nDo you want to proceed?")
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+        msg_box.setDefaultButton(QMessageBox.StandardButton.Ok)
+
+        result = msg_box.exec()
+
+        if result == QMessageBox.StandardButton.Ok:
+            logger.info("OK clicked: Will continue ")
+            return True
+        else:
+            logger.info(
+                f"Message Dialog Box - Cancel clicked, Msg: {'Computing a multitaper spectrogram can be time consuming. Do you want to proceed?'} ")
+            return False
 
     # Annotations
     @staticmethod
@@ -661,8 +741,10 @@ class SignalWindow(QMainWindow):
 
         # log action
         logger.info(f'Signal combobox changed to {epoch_str}')
+
     # Utilities
-    def return_time_string(self, epoch:int, epoch_width:int):
+    @staticmethod
+    def return_time_string(epoch:int, epoch_width:int):
         val     = float((epoch-1)*epoch_width)
         seconds = val
         hours   = int(seconds // 3600)
