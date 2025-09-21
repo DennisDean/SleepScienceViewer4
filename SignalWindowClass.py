@@ -33,6 +33,14 @@ logger = logging.getLogger(__name__)
 
 
 # Utilities
+def clear_spectrogram_plot(parent_widget = None):
+    layout = parent_widget.layout()
+    if layout:
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget:
+                widget.setParent(None)
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
     def eventFilter(self, obj, event):
@@ -263,6 +271,7 @@ class SignalWindow(QMainWindow):
         # Recursively show/hide widgets in layouts
         self.set_layout_visible(self.ui.horizontalLayout_spectrogam,checked)
         self.set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
+        self.set_layout_visible(self.ui.horizontalLayout_spectrogram_label, checked)
     def show_hypnogram_push(self,checked: bool):
         logger.info('Show/Hide  hypnogram')
         # Recursively show/hide widgets in layouts
@@ -433,6 +442,9 @@ class SignalWindow(QMainWindow):
         # Update signal graphic views
         self.draw_signal_in_graphic_views()
 
+        # Clear Spectrogram
+        clear_spectrogram_plot(parent_widget=self.ui.graphicsView_spectrogram)
+
         # turn off update signal combobox
         self.ui.comboBox_signals.blockSignals(False)
 
@@ -532,12 +544,21 @@ class SignalWindow(QMainWindow):
             # Compute Spectrogram
             logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
-            multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
+            if multitaper_spectrogram_obj.spectrogram_computed:
+                # Plot spectrogram if computer
+                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
                                             double_click_callback = self.on_hypnogram_double_click)
+                # Update log
+                logger.info(f'Spectrogram plotted')
+            else:
+                # Plot signal heatmap if can not compute spectrogram
+                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
+                                                double_click_callback=self.on_hypnogram_double_click)
+                logger.info(f'Plotted heatmap instead')
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
             # Record Spectrogram Completions
-            self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
+            self.ui.label_spectrogram.setText(f'Multitaper Spectrogram - {signal_label}')
             logger.info('Computing spectrogram: Computation completed')
 
             # Turn off busy cursor

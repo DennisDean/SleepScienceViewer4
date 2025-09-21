@@ -174,6 +174,7 @@ class MultitaperSpectrogram:
         self.mt_spectrogram          = None
         self.stimes                  = None
         self.sfreqs                  = None
+        self.spectrogram_computed    = None
 
         # Visualization Variables
         self.current_spectrogram_ax            = None
@@ -209,8 +210,13 @@ class MultitaperSpectrogram:
         #     STEP 4: Take the mean of the tapered spectra
 
         # Compute DPSS tapers (STEP 1)
-        dpss_tapers, dpss_eigen = dpss(winsize_samples, time_bandwidth, num_tapers, return_ratios=True)
-        dpss_eigen = np.reshape(dpss_eigen, (num_tapers, 1))
+        try:
+            dpss_tapers, dpss_eigen = dpss(winsize_samples, time_bandwidth, num_tapers, return_ratios=True)
+            dpss_eigen = np.reshape(dpss_eigen, (num_tapers, 1))
+        except ValueError as e:
+            print(f'Invalid parameters: {e}')
+            self.spectrogram_computed = False
+            return
 
         # pre-compute weights
         if self.weighting == 'eigen':
@@ -259,6 +265,7 @@ class MultitaperSpectrogram:
         self.mt_spectrogram = mt_spectrogram
         self.stimes = stimes
         self.sfreqs = sfreqs
+        self.spectrogram_computed = True
     def process_input(self):
         """ Helper function to process multitaper_spectrogram() arguments
                 Arguments:
@@ -559,6 +566,133 @@ class MultitaperSpectrogram:
         # Optionally return for other use
         if self.return_fig:
             return mt_spectrogram, stimes, sfreqs, (fig, ax)
+    def plot_data(self, parent_widget=None, double_click_callback=None):
+        """
+        Plot data as a heatmap alternative to spectrogram.
+
+        Parameters:
+        -----------
+        data : array-like
+            Time series data to plot as heatmap
+        fs : float
+            Sampling frequency
+        parent_widget : QWidget, optional
+            Parent widget to embed the plot (PySide6)
+        double_click_callback : callable, optional
+            Callback function for double-click events
+        """
+
+        # Get data input
+        data = self.data
+        fs = self.fs
+
+        # Bringing some plotting parameters to the top
+        label_fontsize = 6
+
+        # Convert 1D data to single row heatmap for display
+        if data.ndim == 1:
+            # Reshape 1D data to single row (1 x N) for heatmap
+            heatmap_data = data.reshape(1, -1)
+        else:
+            heatmap_data = data
+
+        # Create time axis
+        total_duration = len(data) / fs
+        time_points = np.linspace(0, total_duration, heatmap_data.shape[1])
+
+        # Set up extent for imshow - single row heatmap
+        dt = time_points[1] - time_points[0] if len(time_points) > 1 else 1/fs
+        extent = [time_points[0] - dt/2, time_points[-1] + dt/2,
+                  0.5, -0.5]  # Single row from -0.5 to 0.5
+
+        # Create the figure and canvas
+        fig = Figure()
+        ax = fig.add_subplot(111)
+
+        # Plot heatmap
+        im = ax.imshow(heatmap_data, extent=extent, aspect='auto', origin='upper')
+
+        # Store references for event handling
+        self.current_spectrogram_ax = ax
+        self.current_spectrogram_fig = fig
+        self.spectrogram_double_click_callback = double_click_callback
+
+        # Customize plot
+        if parent_widget:
+            # Enable expanding to fill the parent widget
+            y_label = ""
+            color_bar_label = 'Amplitude'
+        else:
+            y_label = "Data"
+            color_bar_label = 'Amplitude'
+            fig.colorbar(im, ax=ax, label=color_bar_label, shrink=0.8)
+
+        ax.set_xlabel("Time (s)")
+        ax.set_ylabel(y_label)
+
+        # Apply colormap
+        cmap = mcolors.ListedColormap(cc.rainbow4)
+        im.set_cmap(cmap)
+
+        # Set y-axis to show single row
+        ax.set_yticks([0])
+        ax.set_yticklabels([''])
+        ax.set_ylim(-0.5, 0.5)
+
+        ax.tick_params(axis='y', labelsize=label_fontsize)
+
+        # Set color limits based on data percentiles
+        if hasattr(self, 'clim_scale') and self.clim_scale:
+            clim = np.percentile(heatmap_data, [5, 95])
+            im.set_clim(clim)
+
+        # Embed canvas into the provided QWidget
+        if parent_widget:
+            from PySide6.QtWidgets import QVBoxLayout
+            from PySide6.QtCore import Qt
+
+            # Create the canvas
+            canvas = FigureCanvas(fig)
+            # canvas.setSizePolicy(canvas.sizePolicy().Expanding, canvas.sizePolicy().Expanding)
+            canvas.updateGeometry()
+
+            # Connect double-click event handler
+            canvas.mpl_connect('button_press_event', self._on_spectrogram_double_click)
+
+            # Store canvas reference
+            self.current_spectrogram_canvas = canvas
+
+            fig.subplots_adjust(left=0.03, right=0.99, top=0.94, bottom=0.06)
+
+            # Remove existing layout and widgets if they exist
+            existing_layout = parent_widget.layout()
+            if existing_layout:
+                while existing_layout.count():
+                    item = existing_layout.takeAt(0)
+                    widget = item.widget()
+                    if widget is not None:
+                        widget.setParent(None)
+            else:
+                existing_layout = QVBoxLayout(parent_widget)
+                parent_widget.setLayout(existing_layout)
+
+            # Add new canvas
+            existing_layout.setContentsMargins(0, 0, 0, 0)
+            existing_layout.addWidget(canvas)
+
+            ax.set_xlabel("")
+            ax.set_ylabel("")
+            im.set_cmap(cm.get_cmap('cet_rainbow4'))
+
+            if hasattr(self, 'clim_scale') and self.clim_scale:
+                clim = np.percentile(heatmap_data, [5, 95])
+                im.set_clim(clim)
+
+        # Optionally return for other use
+        if hasattr(self, 'return_fig') and self.return_fig:
+            return heatmap_data, time_points, None, (fig, ax)
+
+        return fig, ax
     def show_colorbar_legend_dialog(self):
         # Check that spectrogram was computed
         if not hasattr(self, 'mt_spectrogram') or self.mt_spectrogram is None:
