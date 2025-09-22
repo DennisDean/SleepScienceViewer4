@@ -181,6 +181,15 @@ class MultitaperSpectrogram:
         self.current_spectrogram_fig           = None
         self.current_spectrogram_canvas        = None
         self.spectrogram_double_click_callback = None
+
+        # Save heatmap data and parameters for legend
+        self.heatmap_data          = None
+        self.heatmap_fs            = None
+        self.heatmap_original_data = None
+        self.heatmap_time_points   = None
+        self.heatmap_cmap          = None
+        self.clim_scale            = None
+        self.heatmap_clim          = None
     def compute_spectrogram(self):
         #  Process user input
         [data, fs, frequency_range, time_bandwidth, num_tapers,
@@ -214,7 +223,7 @@ class MultitaperSpectrogram:
             dpss_tapers, dpss_eigen = dpss(winsize_samples, time_bandwidth, num_tapers, return_ratios=True)
             dpss_eigen = np.reshape(dpss_eigen, (num_tapers, 1))
         except ValueError as e:
-            print(f'Invalid parameters: {e}')
+            logger.info(f'Invalid parameters: {e}')
             self.spectrogram_computed = False
             return
 
@@ -566,6 +575,85 @@ class MultitaperSpectrogram:
         # Optionally return for other use
         if self.return_fig:
             return mt_spectrogram, stimes, sfreqs, (fig, ax)
+    def show_colorbar_legend_dialog(self):
+        # Check that spectrogram was computed
+        if not hasattr(self, 'mt_spectrogram') or self.mt_spectrogram is None:
+            logger.error("Error: Spectrogram data not available. Generate spectrogram first.")
+            return
+
+        # Create dialog
+        dialog = QDialog()
+        dialog.setWindowTitle("Spectrogram Colorbar Legend")
+        dialog.setModal(True)
+        dialog.resize(300, 400)  # Adjust size as needed
+
+        # Create layout
+        layout = QVBoxLayout()
+
+        # Create matplotlib figure for colorbar only
+        fig = Figure(figsize=(2, 6))
+        canvas = FigureCanvas(fig)
+
+        # Get the same data range and colormap as your spectrogram
+        mt_spectrogram = self.mt_spectrogram
+        spect_data = self.nanpow2db(mt_spectrogram)
+
+        # Use the same colormap as in your plot function
+        cmap = mcolors.ListedColormap(cc.rainbow4)
+
+        # Set data range
+        if hasattr(self, 'clim_scale') and self.clim_scale:
+            clim = np.percentile(spect_data, [5, 98])
+            vmin, vmax = clim
+        else:
+            vmin, vmax = np.nanmin(spect_data), np.nanmax(spect_data)
+
+        # Create a simple axes for the colorbar
+        ax = fig.add_axes([0.1, 0.1, 0.3, 0.8])  # [left, bottom, width, height]
+
+        # Create colorbar directly
+        norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
+        sm = cm.ScalarMappable(norm=norm, cmap=cmap)
+        sm.set_array([])
+
+        cbar = fig.colorbar(sm, cax=ax)
+        cbar.set_label('PSD (dB)', fontsize=12)
+        cbar.ax.tick_params(labelsize=10)
+
+        # Make sure the canvas draws
+        canvas.draw()
+
+        # Add canvas to dialog
+        layout.addWidget(canvas)
+
+        # Add close button
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+        buttons.accepted.connect(dialog.accept)
+        layout.addWidget(buttons)
+
+        dialog.setLayout(layout)
+
+        # Show dialog
+        dialog.exec_()
+    def _on_spectrogram_double_click(self, event):
+        """Handle double-click events on the spectrogram plot."""
+        if event.dblclick and event.inaxes:
+            x_value = event.xdata  # Time in seconds
+            y_value = event.ydata  # Frequency in Hz
+
+            if x_value is not None and y_value is not None:
+                # Convert time to hours:minutes format for display
+                hours = int(x_value // 3600)
+                minutes = int((x_value % 3600) // 60)
+                seconds = int(x_value % 60)
+                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+                # print(f"Spectrogram double-clicked at time: {x_value:.2f}s ({time_str}), frequency: {y_value:.1f}Hz")
+
+                # Call the callback function if provided
+                if (hasattr(self, 'spectrogram_double_click_callback') and
+                        self.spectrogram_double_click_callback is not None):
+                    self.spectrogram_double_click_callback(x_value, y_value)
     def plot_data(self, parent_widget=None, double_click_callback=None):
         """
         Plot data as a heatmap alternative to spectrogram.
@@ -604,6 +692,20 @@ class MultitaperSpectrogram:
         dt = time_points[1] - time_points[0] if len(time_points) > 1 else 1/fs
         extent = [time_points[0] - dt/2, time_points[-1] + dt/2,
                   0.5, -0.5]  # Single row from -0.5 to 0.5
+
+        # Save heatmap data and parameters for legend
+        self.heatmap_data = heatmap_data
+        self.heatmap_fs = fs
+        self.heatmap_original_data = data
+        self.heatmap_time_points = time_points
+
+        # Save colormap and limits after setting them
+        # Store the colormap - create it the same way as in the plot
+        self.heatmap_cmap = mcolors.ListedColormap(cc.rainbow4)
+        if hasattr(self, 'clim_scale') and self.clim_scale:
+            self.heatmap_clim = np.percentile(heatmap_data, [5, 95])
+        else:
+            self.heatmap_clim = (np.nanmin(heatmap_data), np.nanmax(heatmap_data))
 
         # Create the figure and canvas
         fig = Figure()
@@ -693,15 +795,18 @@ class MultitaperSpectrogram:
             return heatmap_data, time_points, None, (fig, ax)
 
         return fig, ax
-    def show_colorbar_legend_dialog(self):
-        # Check that spectrogram was computed
-        if not hasattr(self, 'mt_spectrogram') or self.mt_spectrogram is None:
-            logger.error("Error: Spectrogram data not available. Generate spectrogram first.")
+    def show_heatmap_legend_dialog(self):
+        """
+        Show a colorbar legend dialog for the data heatmap.
+        """
+        # Check that heatmap data is available
+        if not hasattr(self, 'heatmap_data') or self.heatmap_data is None:
+            logger.error("Error: Heatmap data not available. Generate heatmap first.")
             return
 
         # Create dialog
         dialog = QDialog()
-        dialog.setWindowTitle("Spectrogram Colorbar Legend")
+        dialog.setWindowTitle("Data Heatmap Colorbar Legend")
         dialog.setModal(True)
         dialog.resize(300, 400)  # Adjust size as needed
 
@@ -712,19 +817,15 @@ class MultitaperSpectrogram:
         fig = Figure(figsize=(2, 6))
         canvas = FigureCanvas(fig)
 
-        # Get the same data range and colormap as your spectrogram
-        mt_spectrogram = self.mt_spectrogram
-        spect_data = self.nanpow2db(mt_spectrogram)
-
-        # Use the same colormap as in your plot function
-        cmap = mcolors.ListedColormap(cc.rainbow4)
-
-        # Set data range
-        if hasattr(self, 'clim_scale') and self.clim_scale:
-            clim = np.percentile(spect_data, [5, 98])
-            vmin, vmax = clim
+        # Get the same colormap as your heatmap
+        if hasattr(self, 'heatmap_cmap'):
+            cmap = self.heatmap_cmap
         else:
-            vmin, vmax = np.nanmin(spect_data), np.nanmax(spect_data)
+            # Fallback to default colormap
+            cmap = mcolors.ListedColormap(cc.rainbow4)
+
+        # Get data range from saved heatmap info
+        vmin, vmax = self.heatmap_clim
 
         # Create a simple axes for the colorbar
         ax = fig.add_axes([0.1, 0.1, 0.3, 0.8])  # [left, bottom, width, height]
@@ -735,7 +836,7 @@ class MultitaperSpectrogram:
         sm.set_array([])
 
         cbar = fig.colorbar(sm, cax=ax)
-        cbar.set_label('PSD (dB)', fontsize=12)
+        cbar.set_label('Amplitude', fontsize=12)
         cbar.ax.tick_params(labelsize=10)
 
         # Make sure the canvas draws
@@ -745,33 +846,32 @@ class MultitaperSpectrogram:
         layout.addWidget(canvas)
 
         # Add close button
-        buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok)
         buttons.accepted.connect(dialog.accept)
         layout.addWidget(buttons)
 
         dialog.setLayout(layout)
 
         # Show dialog
-        dialog.exec_()
-    def _on_spectrogram_double_click(self, event):
-        """Handle double-click events on the spectrogram plot."""
-        if event.dblclick and event.inaxes:
-            x_value = event.xdata  # Time in seconds
-            y_value = event.ydata  # Frequency in Hz
+        dialog.exec()
+    def get_heatmap_info(self):
+        """
+        Get information about the current heatmap for display or debugging.
+        Returns dictionary with heatmap parameters.
+        """
+        if not hasattr(self, 'heatmap_data'):
+            return None
 
-            if x_value is not None and y_value is not None:
-                # Convert time to hours:minutes format for display
-                hours = int(x_value // 3600)
-                minutes = int((x_value % 3600) // 60)
-                seconds = int(x_value % 60)
-                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+        info = {
+            'data_shape': self.heatmap_data.shape,
+            'sampling_frequency': self.heatmap_fs,
+            'duration_seconds': len(self.heatmap_original_data) / self.heatmap_fs,
+            'data_range': self.heatmap_clim,
+            'total_samples': len(self.heatmap_original_data),
+            'time_resolution': self.heatmap_time_points[1] - self.heatmap_time_points[0] if len(self.heatmap_time_points) > 1 else 1/self.heatmap_fs
+        }
+        return info
 
-                # print(f"Spectrogram double-clicked at time: {x_value:.2f}s ({time_str}), frequency: {y_value:.1f}Hz")
-
-                # Call the callback function if provided
-                if (hasattr(self, 'spectrogram_double_click_callback') and
-                        self.spectrogram_double_click_callback is not None):
-                    self.spectrogram_double_click_callback(x_value, y_value)
     # HELPER FUNCTIONS
     def nanpow2db(self, y):
         """ Power to dB conversion, setting bad values to nans
