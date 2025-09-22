@@ -389,11 +389,13 @@ class EdfSignals:
             'NREM': '#87CEEB',  # Sky blue
             'Artifact': '#FFB6C1'  # Light coral
         }
+
     # Setup
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
         self.output_dir = output_dir
+
     # Return signals
     def return_edf_signal(self, signal_key: str, signal_type: str):
         edf_signal = self.signals_dict[signal_key]
@@ -462,6 +464,7 @@ class EdfSignals:
         signal_segment = edf_signal[start_index:end_index]
 
         return signal_segment
+
     # Return signal information
     def return_num_epochs(self, signal_key, epoch_width):
         num_samples = len(self.signals_dict[signal_key])
@@ -520,11 +523,13 @@ class EdfSignals:
                 self.continuous_signal_list.append(signal_key)
 
         return self.continuous_signal_list
+
     # Calculate
     def calc_edf_signal_stats(self):
         """Calculate statistics for each signal."""
         self.edf_signals_stats = self.edf_signals_stats.calculate(self.signals_dict)
         return self
+
     # Summarize and export
     def summary(self):
         """Summarize EDF signals using logger."""
@@ -641,6 +646,7 @@ class EdfSignals:
             obj.signal_sampling_time[i] = sampling_time[i]
             obj.signal_units[label] = units[i]
         return obj
+
     # Visualization
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
                             parent_widget=None, x_tick_settings:list[int, int] = [5,1], annotation_marker=None,
@@ -880,6 +886,7 @@ class EdfSignals:
 
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
+
     # Utilities
     def apply_bandpass_filter(self,data, fs, lowcut, highcut, order=5):
         """
@@ -978,6 +985,7 @@ class EdfSignals:
             return_signal = signal
             logger.error('Notch filter not applied: Sampling rate too low to apply filter')
         return return_signal
+
     # Python
     def __str__(self):
         """String representation of the EdfSignals object."""

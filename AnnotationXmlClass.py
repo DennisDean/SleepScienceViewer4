@@ -346,6 +346,18 @@ class SleepStages:
         self.current_hypnogram_fig = None
         self.current_hypnogram_canvas = None
         self.hypnogram_double_click_callback = None
+
+        # Default colors for stages
+        self.default_stage_colors = {
+            'W': '#FFE4B5',  # Light orange
+            'Wake': '#FFE4B5',  # Light orange
+            'REM': '#FFB6C1',  # Light pink
+            'N1': '#E6E6FA',  # Lavender
+            'N2': '#B0E0E6',  # Powder blue
+            'N3': '#98FB98',  # Pale green
+            'NREM': '#87CEEB',  # Sky blue
+            'Artifact': '#FFB6C1'  # Light coral
+        }
     # Utilities
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -363,6 +375,7 @@ class SleepStages:
         # Use dictionary to map numerical stages to text.
         stage_str_list = [stage_dict[x] for x in stage_num_list]
         return stage_str_list
+
     # Return values
     def return_sleep_stage_labels(self):
         sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels, self.text_n3_labels ]
@@ -517,13 +530,18 @@ class SleepStages:
                     file.write(f"{self.num_stages[i]}\t{self.sleep_stages_text[i]}\t{self.sleep_stages_NremRem[i]}\t{self.sleep_stages_N3[i]}\n")
         except Exception as e:
             logger.error(f'*** Could not export sleep stages: {filename}, error: {e}')
+
     # Plotting functions
     def plot_hypnogram(self, parent_widget=None, stage_index = 0, hypnogram_marker:float|None=None,
-                       double_click_callback=None):
+                       double_click_callback=None, show_stage_colors = False):
         """
-            Plots a hypnogram into a QGraphicsView if provided, or as a standalone matplotlib figure.
-            The plot background is white, auto-scales, and fills available width.
-            """
+        Plots a hypnogram into a QGraphicsView if provided, or as a standalone matplotlib figure.
+        The plot background is white, auto-scales, and fills available width.
+
+        Parameters:
+        - show_stage_colors: If True, plots colored rectangles behind the hypnogram
+                           corresponding to each sleep stage
+        """
         # if not hasattr(self, 'sleep_stages') or not hasattr(self, 'epoch_times'):
         #    raise ValueError("Missing required data: 'sleep_stages' and 'epoch_times'")
 
@@ -538,6 +556,9 @@ class SleepStages:
         grid_linewidth         = 0.8
         marker_line_width      = 0.8
         hypnogram_marker_color = 'purple'
+
+        # Get stage color information
+        stage_color = self.default_stage_colors
 
         # Get hypnogram information
         stages    = self.num_stages
@@ -561,9 +582,33 @@ class SleepStages:
         ax = fig.add_subplot(111)
         ax.invert_yaxis()
 
+        # Plot colored rectangles for each stage if enabled
+        if show_stage_colors:
+            stage_colors = self.default_stage_colors
+            for i, stage_num in enumerate(stages):
+                if i < len(stages) - 1:
+                    # Get stage text label
+                    stage_label = stage_map.get(stage_num, 'Unknown')
+                    stage_color = stage_colors.get(stage_label, '#F0F0F0')  # Default light gray
+
+                    # Calculate rectangle boundaries
+                    x_start = time_axis[i]
+                    x_end = time_axis[i + 1] if i + 1 < len(time_axis) else time_axis[i] + self.sleep_epoch
+                    y_bottom = min(y_ticks) - 0.5
+                    y_top = max(y_ticks) + 0.5
+
+                    # Draw rectangle
+                    ax.add_patch(plt.Rectangle((x_start, y_bottom),
+                                               x_end - x_start,
+                                               y_top - y_bottom,
+                                               facecolor=stage_color,
+                                               alpha=0.8,
+                                               edgecolor='none',
+                                               zorder=0))
+
         # Plot hypnogram
         plot_y_labels, plot_stages = self.reorder_labels_stages(stage_map, stages)
-        ax.step(time_axis, plot_stages, color=signal_color, linewidth=1)
+        ax.step(time_axis, plot_stages, color=signal_color, linewidth=1, zorder=2)
 
         ax.set_xlim(min(times), max(times)+self.sleep_epoch*2)
         ax.set_ylim(min(y_ticks) - 0.5, max(y_ticks) + 0.5)
@@ -579,7 +624,7 @@ class SleepStages:
         y_labels = plot_y_labels
 
         for y, label in plot_y_labels.items():
-            ax.axhline(y=y, color=grid_color, linewidth=grid_linewidth, linestyle='-', zorder=0)
+            ax.axhline(y=y, color=grid_color, linewidth=grid_linewidth, linestyle='-', zorder=1)
 
         # Draw custom y-axis labels
         ax.set_yticks(list(plot_y_labels.keys()))
@@ -608,7 +653,7 @@ class SleepStages:
 
         if hypnogram_marker != None:
             ax.axvline(x=hypnogram_marker, color=hypnogram_marker_color, linestyle='-', label=f'Set Point: {hypnogram_marker}',
-                       linewidth=marker_line_width)
+                       linewidth=marker_line_width, zorder=3)
 
         # Store reference to axes and figure
         self.current_hypnogram_ax = ax
@@ -754,6 +799,7 @@ class SleepStages:
                 # Call callback method if it exists
                 if hasattr(self, 'hypnogram_double_click_callback'):
                     self.hypnogram_double_click_callback(x_value, y_value)
+
     # Class Functions
     def __str__(self)->str:
         # Override default class description

@@ -38,13 +38,22 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 
 ## Development Status
 - **Sleep Science Viewer**
-  - Viewing function complete
-  - Considering adding color to annotation text list
+  - Considering 
+    - adding color to annotation text list
+    - displaying annotations on signals
 - **Signal Viewer**
-  - View a signal one page at a time with the ability to visually identify disruption and noise
-  - Signal x-axis moved to the bottom of the page allowing for more of the signal to be viewed on a single page
-  - Turn user selected Band Pass and Notch Filtering on off from a selection of common values
-
+  - Signals
+    - View a signal one page at a time with the ability to visually identify disruption and noise
+    - Signal x-axis moved to the bottom of the page allowing for more of the signal to be viewed on a single page
+  - Interface/Plotting
+    - Hypnogram shown
+    - Sleep staging shown as background rectangle on signal plot
+  - Processing-Analysis
+    - Spectrogram plots. Spectrogram defaults to data heatmap if spectrogram can not be computed dues to insufficent signal sampling frequency.
+    - Turn user selected Band Pass and Notch Filtering on off from a selection of common values
+  - Considering
+    - Displaying annotations on signal
+    - Support for marking epochs underway. 
 ![Signal Viewer](Media/signal_viewer_beta.png)
 
 ## Getting Started

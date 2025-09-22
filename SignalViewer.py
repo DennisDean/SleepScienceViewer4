@@ -191,12 +191,30 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout_hypnogram_commands = QVBoxLayout()
         self.verticalLayout_hypnogram_commands.setObjectName(u"verticalLayout_hypnogram_commands")
+        self.label_3 = QLabel(self.centralwidget)
+        self.label_3.setObjectName(u"label_3")
+
+        self.verticalLayout_hypnogram_commands.addWidget(self.label_3, 0, Qt.AlignHCenter|Qt.AlignTop)
+
         self.comboBox_hypnogram = QComboBox(self.centralwidget)
         self.comboBox_hypnogram.setObjectName(u"comboBox_hypnogram")
         self.comboBox_hypnogram.setMinimumSize(QSize(95, 0))
         self.comboBox_hypnogram.setMaximumSize(QSize(95, 16777215))
 
         self.verticalLayout_hypnogram_commands.addWidget(self.comboBox_hypnogram, 0, Qt.AlignTop)
+
+        self.pushButton_show_hypnogram_stages_in_color = QPushButton(self.centralwidget)
+        self.pushButton_show_hypnogram_stages_in_color.setObjectName(u"pushButton_show_hypnogram_stages_in_color")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(20)
+        sizePolicy1.setHeightForWidth(self.pushButton_show_hypnogram_stages_in_color.sizePolicy().hasHeightForWidth())
+        self.pushButton_show_hypnogram_stages_in_color.setSizePolicy(sizePolicy1)
+        self.pushButton_show_hypnogram_stages_in_color.setMinimumSize(QSize(95, 20))
+        self.pushButton_show_hypnogram_stages_in_color.setMaximumSize(QSize(95, 25))
+        self.pushButton_show_hypnogram_stages_in_color.setCheckable(True)
+
+        self.verticalLayout_hypnogram_commands.addWidget(self.pushButton_show_hypnogram_stages_in_color)
 
 
         self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_hypnogram_commands)
@@ -208,11 +226,11 @@ class Ui_SignalWindow(object):
         self.horizontalLayout_spectrogram_label.setObjectName(u"horizontalLayout_spectrogram_label")
         self.label_4 = QLabel(self.centralwidget)
         self.label_4.setObjectName(u"label_4")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
-        self.label_4.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
+        self.label_4.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_spectrogram_label.addWidget(self.label_4)
 
@@ -223,8 +241,8 @@ class Ui_SignalWindow(object):
 
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
-        sizePolicy1.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy2)
 
         self.horizontalLayout_spectrogram_label.addWidget(self.label_2)
 
@@ -1046,6 +1064,11 @@ class Ui_SignalWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_spectrogram_plot.setText(QCoreApplication.translate("SignalWindow", u"Spc", None))
         self.pushButton_show_annotation_panel.setText(QCoreApplication.translate("SignalWindow", u"Ann", None))
+        self.label_3.setText(QCoreApplication.translate("SignalWindow", u"Hypnogram", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_show_hypnogram_stages_in_color.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Stages", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_show_hypnogram_stages_in_color.setText(QCoreApplication.translate("SignalWindow", u"Show", None))
         self.label_4.setText("")
         self.label_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Multi-Taper Spectrogram", None))
         self.label_2.setText("")

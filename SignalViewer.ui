@@ -457,6 +457,13 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_hypnogram_commands">
+        <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Hypnogram</string>
+          </property>
+         </widget>
+        </item>
         <item alignment="Qt::AlignTop">
          <widget class="QComboBox" name="comboBox_hypnogram">
           <property name="minimumSize">
@@ -470,6 +477,37 @@
             <width>95</width>
             <height>16777215</height>
            </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_show_hypnogram_stages_in_color">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>20</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>95</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>95</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Show Stages</string>
+          </property>
+          <property name="text">
+           <string>Show</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
           </property>
          </widget>
         </item>

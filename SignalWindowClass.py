@@ -261,9 +261,15 @@ class SignalWindow(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = 0
+
+        # Determine whether to show colored staged rectangles
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
+
+        # Plot Hypnogram
         self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
-                                                     double_click_callback=self.on_hypnogram_double_click)
+                                                     double_click_callback=self.on_hypnogram_double_click,
+                                                     show_stage_colors = show_stage_colors)
 
     # Interface
     def show_spectrogram_push(self,checked: bool):
@@ -290,6 +296,7 @@ class SignalWindow(QMainWindow):
                 widget.setVisible(visible)
 
     # Visualization
+
     def draw_signal_in_graphic_views(self, annotation_marker:float=None,
                                      epochs_to_draw:int=None):
 
@@ -505,6 +512,9 @@ class SignalWindow(QMainWindow):
             self.hypnogram_combobox_selection = index
             logger.info(f"Combo box changed to index {index}: {selected_text}")
 
+            # Determine whether to show colored staged rectangles
+            show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
+
             # Update Hypnogram
             if self.sleep_stage_mappings is not None:
                 # Get time
@@ -516,7 +526,8 @@ class SignalWindow(QMainWindow):
                 self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
                                                             stage_index=stage_map,
                                                             hypnogram_marker=hypnogram_marker,
-                                                            double_click_callback=self.on_hypnogram_double_click)
+                                                            double_click_callback=self.on_hypnogram_double_click,
+                                                            show_stage_colors = show_stage_colors)
 
     # Spectrogram
     def compute_and_display_spectrogram(self):
