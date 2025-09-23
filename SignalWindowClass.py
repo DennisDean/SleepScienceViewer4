@@ -181,6 +181,7 @@ class SignalWindow(QMainWindow):
         # Set up hypnogram and annotation list
         self.sleep_stage_mappings = None
         self.annotations_list     = None
+        self.ui.listWidget_annotation.clear()
         self.initialize_hypnogram_and_annotations()
 
         # Assign the annotation list widget to a fixed width font
@@ -269,6 +270,7 @@ class SignalWindow(QMainWindow):
         self.ui.comboBox_annotation.clear()
         self.ui.comboBox_annotation.addItems(annotations_type_list)
 
+        # Update Annotation Text in List Widget
         self.ui.listWidget_annotation.clear()
         annotations_list = self.xml_obj.scored_event_obj.scored_event_name_source_time_list
         t_start, t_end = self.extract_event_indexes(annotations_list[0])
@@ -300,6 +302,9 @@ class SignalWindow(QMainWindow):
         # Set up show stages button
         self.ui.pushButton_show_hypnogram_stages_in_color.clicked.connect(self.show_stages_on_hypnogram)
 
+        # Turn on annotations
+        self.ui.comboBox_annotation.setEnabled(True)
+        self.ui.comboBox_annotation.blockSignals(False)
     # Interface
     def show_spectrogram_push(self,checked: bool):
         logger.info('Show/Hide  spectrogram')
