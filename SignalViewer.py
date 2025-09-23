@@ -193,6 +193,8 @@ class Ui_SignalWindow(object):
         self.verticalLayout_hypnogram_commands.setObjectName(u"verticalLayout_hypnogram_commands")
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
+        self.label_3.setMinimumSize(QSize(0, 25))
+        self.label_3.setMaximumSize(QSize(16777215, 25))
 
         self.verticalLayout_hypnogram_commands.addWidget(self.label_3, 0, Qt.AlignHCenter|Qt.AlignTop)
 

@@ -276,6 +276,9 @@ class SignalWindow(QMainWindow):
                                                      double_click_callback=self.on_hypnogram_double_click,
                                                      show_stage_colors = show_stage_colors)
 
+        # Set up show stages button
+        self.ui.pushButton_show_hypnogram_stages_in_color.clicked.connect(self.show_stages_on_hypnogram)
+
     # Interface
     def show_spectrogram_push(self,checked: bool):
         logger.info('Show/Hide  spectrogram')
@@ -533,6 +536,11 @@ class SignalWindow(QMainWindow):
                                                             hypnogram_marker=hypnogram_marker,
                                                             double_click_callback=self.on_hypnogram_double_click,
                                                             show_stage_colors = show_stage_colors)
+    def show_stages_on_hypnogram(self):
+        # Pretend hypnogram combobox change to update
+        if self.automatic_histogram_redraw:
+            index = self.ui.comboBox_hypnogram.currentIndex()
+            self.on_hypnogram_changed(index)
 
     # Spectrogram
     def compute_and_display_spectrogram(self):
