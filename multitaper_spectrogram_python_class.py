@@ -190,6 +190,7 @@ class MultitaperSpectrogram:
         self.heatmap_cmap          = None
         self.clim_scale            = None
         self.heatmap_clim          = None
+    # Computer
     def compute_spectrogram(self):
         #  Process user input
         [data, fs, frequency_range, time_bandwidth, num_tapers,
@@ -435,6 +436,8 @@ class MultitaperSpectrogram:
         window_idxs = window_idxs.astype(int)
 
         return [window_idxs, stimes, sfreqs, freq_inds]
+
+    # Command Line
     def display_spectrogram_props(self):
         """ Prints spectrogram properties
             Arguments:
@@ -470,6 +473,8 @@ class MultitaperSpectrogram:
         logger.info('     Frequency Range: ' + str(frequency_range[0]) + "-" + str(frequency_range[1]) + 'Hz')
         logger.info('     NFFT: ' + str(nfft))
         logger.info('     Detrend: ' + detrend_opt + '\n')
+
+    # Spectrogram Functions
     def plot(self, parent_widget=None, double_click_callback=None):
         # Plot multitaper spectrogram
 
@@ -654,6 +659,8 @@ class MultitaperSpectrogram:
                 if (hasattr(self, 'spectrogram_double_click_callback') and
                         self.spectrogram_double_click_callback is not None):
                     self.spectrogram_double_click_callback(x_value, y_value)
+
+    # Data Heatmap to support data visualization without spectrogram
     def plot_data(self, parent_widget=None, double_click_callback=None):
         """
         Plot data as a heatmap alternative to spectrogram.
@@ -871,6 +878,15 @@ class MultitaperSpectrogram:
             'time_resolution': self.heatmap_time_points[1] - self.heatmap_time_points[0] if len(self.heatmap_time_points) > 1 else 1/self.heatmap_fs
         }
         return info
+    def clear_data_heatmap_variables(self):
+        # Clear heatmap information
+        self.heatmap_data          = None
+        self.heatmap_fs            = None
+        self.heatmap_original_data = None
+        self.heatmap_time_points   = None
+        self.heatmap_cmap          = None
+        self.clim_scale            = None
+        self.heatmap_clim          = None
 
     # HELPER FUNCTIONS
     def nanpow2db(self, y):

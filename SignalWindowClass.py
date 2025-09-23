@@ -296,7 +296,6 @@ class SignalWindow(QMainWindow):
                 widget.setVisible(visible)
 
     # Visualization
-
     def draw_signal_in_graphic_views(self, annotation_marker:float=None,
                                      epochs_to_draw:int=None):
 
@@ -451,6 +450,7 @@ class SignalWindow(QMainWindow):
 
         # Clear Spectrogram
         clear_spectrogram_plot(parent_widget=self.ui.graphicsView_spectrogram)
+        self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
 
         # turn off update signal combobox
         self.ui.comboBox_signals.blockSignals(False)
