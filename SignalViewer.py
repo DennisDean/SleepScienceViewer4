@@ -213,6 +213,7 @@ class Ui_SignalWindow(object):
         self.pushButton_show_hypnogram_stages_in_color.setMinimumSize(QSize(95, 20))
         self.pushButton_show_hypnogram_stages_in_color.setMaximumSize(QSize(95, 25))
         self.pushButton_show_hypnogram_stages_in_color.setCheckable(True)
+        self.pushButton_show_hypnogram_stages_in_color.setChecked(True)
 
         self.verticalLayout_hypnogram_commands.addWidget(self.pushButton_show_hypnogram_stages_in_color)
 
@@ -224,34 +225,34 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_spectrogram_label = QHBoxLayout()
         self.horizontalLayout_spectrogram_label.setObjectName(u"horizontalLayout_spectrogram_label")
-        self.label_4 = QLabel(self.centralwidget)
-        self.label_4.setObjectName(u"label_4")
+        self.label_mt_spacer_3 = QLabel(self.centralwidget)
+        self.label_mt_spacer_3.setObjectName(u"label_mt_spacer_3")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
-        self.label_4.setSizePolicy(sizePolicy2)
+        sizePolicy2.setHeightForWidth(self.label_mt_spacer_3.sizePolicy().hasHeightForWidth())
+        self.label_mt_spacer_3.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout_spectrogram_label.addWidget(self.label_4)
+        self.horizontalLayout_spectrogram_label.addWidget(self.label_mt_spacer_3)
 
         self.label_spectrogram = QLabel(self.centralwidget)
         self.label_spectrogram.setObjectName(u"label_spectrogram")
 
         self.horizontalLayout_spectrogram_label.addWidget(self.label_spectrogram, 0, Qt.AlignHCenter)
 
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-        sizePolicy2.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy2)
+        self.label_mt_spacer_2 = QLabel(self.centralwidget)
+        self.label_mt_spacer_2.setObjectName(u"label_mt_spacer_2")
+        sizePolicy2.setHeightForWidth(self.label_mt_spacer_2.sizePolicy().hasHeightForWidth())
+        self.label_mt_spacer_2.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout_spectrogram_label.addWidget(self.label_2)
+        self.horizontalLayout_spectrogram_label.addWidget(self.label_mt_spacer_2)
 
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        self.label.setMinimumSize(QSize(95, 0))
-        self.label.setMaximumSize(QSize(95, 16777215))
+        self.label_mt_spacer = QLabel(self.centralwidget)
+        self.label_mt_spacer.setObjectName(u"label_mt_spacer")
+        self.label_mt_spacer.setMinimumSize(QSize(95, 0))
+        self.label_mt_spacer.setMaximumSize(QSize(95, 16777215))
 
-        self.horizontalLayout_spectrogram_label.addWidget(self.label)
+        self.horizontalLayout_spectrogram_label.addWidget(self.label_mt_spacer)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_spectrogram_label)
@@ -267,19 +268,43 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout_spectrogram_commands = QVBoxLayout()
         self.verticalLayout_spectrogram_commands.setObjectName(u"verticalLayout_spectrogram_commands")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.pushButton_show_spectrogram = QPushButton(self.centralwidget)
         self.pushButton_show_spectrogram.setObjectName(u"pushButton_show_spectrogram")
-        self.pushButton_show_spectrogram.setMinimumSize(QSize(95, 0))
-        self.pushButton_show_spectrogram.setMaximumSize(QSize(95, 16777215))
+        self.pushButton_show_spectrogram.setMinimumSize(QSize(62, 0))
+        self.pushButton_show_spectrogram.setMaximumSize(QSize(62, 16777215))
 
-        self.verticalLayout_spectrogram_commands.addWidget(self.pushButton_show_spectrogram, 0, Qt.AlignTop)
+        self.horizontalLayout_2.addWidget(self.pushButton_show_spectrogram)
 
         self.pushButton_spectrogram_legend = QPushButton(self.centralwidget)
         self.pushButton_spectrogram_legend.setObjectName(u"pushButton_spectrogram_legend")
-        self.pushButton_spectrogram_legend.setMinimumSize(QSize(95, 0))
-        self.pushButton_spectrogram_legend.setMaximumSize(QSize(95, 16777215))
+        self.pushButton_spectrogram_legend.setMinimumSize(QSize(25, 0))
+        self.pushButton_spectrogram_legend.setMaximumSize(QSize(25, 16777215))
 
-        self.verticalLayout_spectrogram_commands.addWidget(self.pushButton_spectrogram_legend)
+        self.horizontalLayout_2.addWidget(self.pushButton_spectrogram_legend)
+
+
+        self.verticalLayout_spectrogram_commands.addLayout(self.horizontalLayout_2)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.pushButton_heatmap = QPushButton(self.centralwidget)
+        self.pushButton_heatmap.setObjectName(u"pushButton_heatmap")
+        self.pushButton_heatmap.setMinimumSize(QSize(62, 0))
+        self.pushButton_heatmap.setMaximumSize(QSize(62, 16777215))
+
+        self.horizontalLayout.addWidget(self.pushButton_heatmap)
+
+        self.pushButton_heat_legend = QPushButton(self.centralwidget)
+        self.pushButton_heat_legend.setObjectName(u"pushButton_heat_legend")
+        self.pushButton_heat_legend.setMinimumSize(QSize(25, 0))
+        self.pushButton_heat_legend.setMaximumSize(QSize(25, 16777215))
+
+        self.horizontalLayout.addWidget(self.pushButton_heat_legend)
+
+
+        self.verticalLayout_spectrogram_commands.addLayout(self.horizontalLayout)
 
 
         self.horizontalLayout_spectrogam.addLayout(self.verticalLayout_spectrogram_commands)
@@ -1069,12 +1094,14 @@ class Ui_SignalWindow(object):
         self.pushButton_show_hypnogram_stages_in_color.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Stages", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_hypnogram_stages_in_color.setText(QCoreApplication.translate("SignalWindow", u"Show", None))
-        self.label_4.setText("")
+        self.label_mt_spacer_3.setText("")
         self.label_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Multi-Taper Spectrogram", None))
-        self.label_2.setText("")
-        self.label.setText("")
-        self.pushButton_show_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Spectrogram", None))
-        self.pushButton_spectrogram_legend.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
+        self.label_mt_spacer_2.setText("")
+        self.label_mt_spacer.setText("")
+        self.pushButton_show_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Spect.", None))
+        self.pushButton_spectrogram_legend.setText(QCoreApplication.translate("SignalWindow", u"L", None))
+        self.pushButton_heatmap.setText(QCoreApplication.translate("SignalWindow", u"Heat", None))
+        self.pushButton_heat_legend.setText(QCoreApplication.translate("SignalWindow", u"L", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"\u2759\u25c0", None))
         self.pushButton_next.setText(QCoreApplication.translate("SignalWindow", u"\u25b6", None))
         self.pushButton_update.setText(QCoreApplication.translate("SignalWindow", u"U", None))

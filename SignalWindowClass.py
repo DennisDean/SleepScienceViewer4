@@ -140,6 +140,8 @@ class SignalWindow(QMainWindow):
         # Spectrogram Buttons
         self.ui.pushButton_show_spectrogram.clicked.connect(self.compute_and_display_spectrogram)
         self.ui.pushButton_spectrogram_legend.clicked.connect(self.show_spectrogram_legend)
+        self.ui.pushButton_heatmap.clicked.connect(self.show_heatmap)
+        self.ui.pushButton_heat_legend.clicked.connect(self.show_heapmap_legend)
 
         # State Control
         self.combo_boxes_mark = [self.ui.comboBox_mark_1,  self.ui.comboBox_mark_2,  self.ui.comboBox_mark_3,
@@ -173,6 +175,9 @@ class SignalWindow(QMainWindow):
         self.ui.comboBox_hypnogram.currentIndexChanged.connect(self.on_hypnogram_changed)
 
         # Setuo Interface
+
+        # Store Spectrogram Object
+        multitaper_spectrogram_obj = None
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -570,9 +575,11 @@ class SignalWindow(QMainWindow):
 
             # Record Spectrogram Completions
             if self.multitaper_spectrogram_obj.spectrogram_computed:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
                 self.ui.label_spectrogram.setText(f'Multitaper Spectrogram - {signal_label}')
                 logger.info('Computing spectrogram: Computation completed')
             else:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
                 self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
                 logger.info('Computing spectrogram: Computation completed')
 
@@ -596,6 +603,52 @@ class SignalWindow(QMainWindow):
         else:
             self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
             logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
+    def show_heatmap(self):
+        # Check before starting long computation
+
+        # Turn on busy cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        # Make sure figures are not inadvertenly generated
+        self.automatic_signal_redraw = False
+
+        # Get Continuous Signals
+        signal_label = self.ui.comboBox_signals.currentText()
+        signal_type = 'continuous'
+        signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label, signal_type)
+        signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+
+        # Compute Spectrogram
+        logger.info(f'Plotting heatmap: ({signal_label})')
+        multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+
+        # Plot signal heatmap if can not compute spectrogram
+        multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
+                                        double_click_callback=self.on_hypnogram_double_click)
+        self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+
+        print(self.multitaper_spectrogram_obj.heatmap_fs)
+
+        # Record Spectrogram Completions
+        self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
+        logger.info('Computing spectrogram: Computation completed')
+
+        # Turn off busy cursor
+        QApplication.restoreOverrideCursor()
+
+        # Turn on signal update
+        self.automatic_signal_redraw = True
+
+        # Turn on Legend Pushbutton
+        self.ui.pushButton_spectrogram_legend.setEnabled(True)
+    def show_heapmap_legend(self):
+        if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
+            print(f"Signal Window Error: Heapmap data not available.")
+            return
+
+        # Display legend dialog
+        self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
+        logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
 
     # Epochs
     @staticmethod
