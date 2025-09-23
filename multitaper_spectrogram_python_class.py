@@ -807,7 +807,7 @@ class MultitaperSpectrogram:
         Show a colorbar legend dialog for the data heatmap.
         """
         # Check that heatmap data is available
-        print('show heatmap legend')
+        #print('show heatmap legend')
         if not hasattr(self, 'heatmap_data') or self.heatmap_data is None:
             logger.error(f"Error: Heatmap data not available. Generate heatmap first: {self.heatmap_data}.")
             return
