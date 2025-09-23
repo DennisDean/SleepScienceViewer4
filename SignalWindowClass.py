@@ -177,6 +177,7 @@ class SignalWindow(QMainWindow):
         self.ui.pushButton_show_spectrogram_plot.clicked.connect(self.show_spectrogram_push)
         self.ui.pushButton_show_hypnogram.clicked.connect(self.show_hypnogram_push)
         self.ui.pushButton_show_annotation_panel.clicked.connect(self.show_annotation_push)
+        self.ui.pushButton_hypnogram_legend.clicked.connect(self.show_hypnogram_legend)
 
         # Set up hypnogram and annotation list
         self.sleep_stage_mappings = None
@@ -305,6 +306,7 @@ class SignalWindow(QMainWindow):
         # Turn on annotations
         self.ui.comboBox_annotation.setEnabled(True)
         self.ui.comboBox_annotation.blockSignals(False)
+
     # Interface
     def show_spectrogram_push(self,checked: bool):
         logger.info('Show/Hide  spectrogram')
@@ -582,6 +584,8 @@ class SignalWindow(QMainWindow):
         if self.automatic_histogram_redraw:
             index = self.ui.comboBox_hypnogram.currentIndex()
             self.on_hypnogram_changed(index)
+    def show_hypnogram_legend(self):
+        self.xml_obj.sleep_stages_obj.show_sleep_stages_legend()
 
     # Spectrogram
     def compute_and_display_spectrogram(self):

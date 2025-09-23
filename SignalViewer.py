@@ -205,6 +205,8 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout_hypnogram_commands.addWidget(self.comboBox_hypnogram, 0, Qt.AlignTop)
 
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.pushButton_show_hypnogram_stages_in_color = QPushButton(self.centralwidget)
         self.pushButton_show_hypnogram_stages_in_color.setObjectName(u"pushButton_show_hypnogram_stages_in_color")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
@@ -212,12 +214,22 @@ class Ui_SignalWindow(object):
         sizePolicy1.setVerticalStretch(20)
         sizePolicy1.setHeightForWidth(self.pushButton_show_hypnogram_stages_in_color.sizePolicy().hasHeightForWidth())
         self.pushButton_show_hypnogram_stages_in_color.setSizePolicy(sizePolicy1)
-        self.pushButton_show_hypnogram_stages_in_color.setMinimumSize(QSize(95, 20))
-        self.pushButton_show_hypnogram_stages_in_color.setMaximumSize(QSize(95, 25))
+        self.pushButton_show_hypnogram_stages_in_color.setMinimumSize(QSize(62, 20))
+        self.pushButton_show_hypnogram_stages_in_color.setMaximumSize(QSize(62, 25))
         self.pushButton_show_hypnogram_stages_in_color.setCheckable(True)
         self.pushButton_show_hypnogram_stages_in_color.setChecked(True)
 
-        self.verticalLayout_hypnogram_commands.addWidget(self.pushButton_show_hypnogram_stages_in_color)
+        self.horizontalLayout_3.addWidget(self.pushButton_show_hypnogram_stages_in_color)
+
+        self.pushButton_hypnogram_legend = QPushButton(self.centralwidget)
+        self.pushButton_hypnogram_legend.setObjectName(u"pushButton_hypnogram_legend")
+        self.pushButton_hypnogram_legend.setMinimumSize(QSize(25, 0))
+        self.pushButton_hypnogram_legend.setMaximumSize(QSize(25, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_hypnogram_legend, 0, Qt.AlignRight|Qt.AlignTop)
+
+
+        self.verticalLayout_hypnogram_commands.addLayout(self.horizontalLayout_3)
 
 
         self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_hypnogram_commands)
@@ -1096,6 +1108,7 @@ class Ui_SignalWindow(object):
         self.pushButton_show_hypnogram_stages_in_color.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Stages", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_hypnogram_stages_in_color.setText(QCoreApplication.translate("SignalWindow", u"Show", None))
+        self.pushButton_hypnogram_legend.setText(QCoreApplication.translate("SignalWindow", u"L", None))
         self.label_mt_spacer_3.setText("")
         self.label_spectrogram.setText(QCoreApplication.translate("SignalWindow", u"Multi-Taper Spectrogram", None))
         self.label_mt_spacer_2.setText("")

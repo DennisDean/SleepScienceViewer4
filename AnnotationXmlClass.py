@@ -72,10 +72,10 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 # User Interface
 from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtGui import QColor, QPalette
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
                                 QPushButton, QScrollArea, QWidget, QFrame)
 from PySide6.QtCore import Qt
-
 
 # To Do List
 # TODO: Add N3 collapse summary to json export
@@ -270,6 +270,46 @@ class AnnotationLegendDialog(QDialog):
         """)
 
         return item_widget
+class StageColorDialog(QDialog):
+    def __init__(self, owner, parent=None):
+        super().__init__(parent)  # parent must be QWidget or None
+
+        self.setWindowTitle("Sleep Stage Colors")
+        self.setModal(True)
+        self.resize(320, 300)
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(12, 12, 12, 12)
+        layout.setSpacing(8)
+
+        # Pull colors directly from owner
+        stage_colors = getattr(owner, "default_stage_colors", {})
+
+        if not stage_colors:
+            msg = QLabel("No stage colors defined.")
+            layout.addWidget(msg, alignment=Qt.AlignCenter)
+        else:
+            for stage, hex_color in stage_colors.items():
+                row = QHBoxLayout()
+
+                label = QLabel(stage)
+                label.setMinimumWidth(80)
+
+                swatch = QLabel()
+                swatch.setFixedSize(40, 20)
+                swatch.setStyleSheet(
+                    f"background-color: {hex_color}; "
+                    "border: 1px solid #444; border-radius: 3px;"
+                )
+
+                row.addWidget(label)
+                row.addWidget(swatch)
+                row.addStretch()
+                layout.addLayout(row)
+
+        close_btn = QPushButton("Close")
+        close_btn.clicked.connect(self.accept)
+        layout.addWidget(close_btn, alignment=Qt.AlignCenter)
 
 # Sleep annotation classes
 class SleepStages:
@@ -355,8 +395,9 @@ class SleepStages:
             'N1': '#E6E6FA',  # Lavender
             'N2': '#B0E0E6',  # Powder blue
             'N3': '#98FB98',  # Pale green
+            'N4': '#3CB371',     # Medium sea green (darker than N3)
             'NREM': '#87CEEB',  # Sky blue
-            'Artifact': '#FFB6C1'  # Light coral
+            'Artifact': '#FF6347' # Tomato red (stronger, distinct from Wake)
         }
     # Utilities
     def set_output_dir(self, output_dir: str):
@@ -799,6 +840,10 @@ class SleepStages:
                 # Call callback method if it exists
                 if hasattr(self, 'hypnogram_double_click_callback'):
                     self.hypnogram_double_click_callback(x_value, y_value)
+    def show_sleep_stages_legend(self, qtparent = None):
+        dialog = StageColorDialog(owner=self, parent=qtparent)
+        dialog.exec()
+
 
     # Class Functions
     def __str__(self)->str:
