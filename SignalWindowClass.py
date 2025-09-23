@@ -41,6 +41,27 @@ def clear_spectrogram_plot(parent_widget = None):
             widget = item.widget()
             if widget:
                 widget.setParent(None)
+def set_layout_visible(layout, visible: bool):
+    """
+    Recursively set visibility for all widgets in a layout and its nested layouts.
+
+    Args:
+        layout: QLayout object to process
+        visible: Boolean indicating whether to show (True) or hide (False) widgets
+    """
+    for i in range(layout.count()):
+        item = layout.itemAt(i)
+
+        # Check if the item is a widget
+        widget = item.widget()
+        if widget:
+            widget.setVisible(visible)
+
+        # Check if the item is a nested layout
+        nested_layout = item.layout()
+        if nested_layout:
+            # Recursively process the nested layout
+            set_layout_visible(nested_layout, visible)
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
     def eventFilter(self, obj, event):
@@ -297,11 +318,26 @@ class SignalWindow(QMainWindow):
         self.set_layout_visible(self.ui.verticalLayout_annotation,checked)
     @staticmethod
     def set_layout_visible(layout, visible: bool):
+        """
+        Recursively set visibility for all widgets in a layout and its nested layouts.
+
+        Args:
+            layout: QLayout object to process
+            visible: Boolean indicating whether to show (True) or hide (False) widgets
+        """
         for i in range(layout.count()):
             item = layout.itemAt(i)
+
+            # Check if the item is a widget
             widget = item.widget()
             if widget:
                 widget.setVisible(visible)
+
+            # Check if the item is a nested layout
+            nested_layout = item.layout()
+            if nested_layout:
+                # Recursively process the nested layout
+                set_layout_visible(nested_layout, visible)
 
     # Visualization
     def draw_signal_in_graphic_views(self, annotation_marker:float=None,

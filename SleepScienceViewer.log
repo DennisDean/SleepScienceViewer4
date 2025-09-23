@@ -489,3 +489,490 @@
 [2025-09-23 11:52:56,390] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.78 seconds
 [2025-09-23 11:52:56,585] INFO - SignalWindowClass - Spectrogram plotted
 [2025-09-23 11:52:56,585] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:55:41,201] INFO - SignalWindowClass - Setting filtering parameters: lowcut = 0.1, highcut  = 50.0
+[2025-09-23 11:55:45,268] INFO - SignalWindowClass - Setting notch parameter: notch = 50.0
+[2025-09-23 11:55:56,209] INFO - SignalWindowClass - Plotting heatmap: (EEG(sec))
+[2025-09-23 11:56:00,206] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.89 seconds
+[2025-09-23 11:56:00,258] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:56:17,323] INFO - SignalWindowClass - Sleep Science Signal Viewer: Data heatmap plotted
+[2025-09-23 11:56:25,059] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,059] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,059] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,060] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,060] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,060] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,089] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,089] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,089] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,089] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,089] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,089] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,089] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,102] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,102] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,102] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,102] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,103] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,103] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,103] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,115] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,115] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,115] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,115] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,115] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,115] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,115] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,128] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,128] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,128] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,128] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,128] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,128] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,128] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,141] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,141] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,141] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,141] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,141] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,141] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,141] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,274] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,275] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,275] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,275] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,275] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,275] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,275] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,288] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,289] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,289] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,289] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,289] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,289] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,289] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,302] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,302] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,302] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,302] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,302] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,302] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,302] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,315] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,316] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,316] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,316] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,316] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,316] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,316] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,329] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,329] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,329] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,329] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,329] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,329] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,330] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,343] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,343] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,343] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,343] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,343] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,343] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,343] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,356] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,356] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,356] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,356] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,356] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,356] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,356] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,369] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,370] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,370] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,370] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,370] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,370] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,370] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,383] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,383] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,383] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:25,383] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:25,383] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:25,383] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-09-23 11:56:25,383] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:25,396] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,396] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-23 11:56:25,408] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:25,409] INFO - SignalWindowClass - Signal combobox changed to SaO2
+[2025-09-23 11:56:28,052] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-09-23 11:56:28,053] INFO - SignalWindowClass - Computing spectrogram (SaO2): computation may be time consuming
+[2025-09-23 11:56:28,056] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-09-23 11:56:28,074] INFO - SignalWindowClass - Plotted heatmap instead
+[2025-09-23 11:56:28,077] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:56:37,119] INFO - SignalWindowClass - Plotting heatmap: (SaO2)
+[2025-09-23 11:56:37,122] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-09-23 11:56:37,130] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:56:40,739] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,739] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,739] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,740] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,740] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,740] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,767] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,767] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,767] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,767] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,767] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,767] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,767] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,781] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,781] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,781] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,781] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,782] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,782] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,782] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,794] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,795] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,795] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,795] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,795] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,795] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,795] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,807] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,808] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,808] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,808] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,808] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,808] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,808] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,820] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,820] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,820] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,820] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,820] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,820] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,820] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,833] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,833] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,833] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,833] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,833] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,833] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,833] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,846] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,846] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,846] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,846] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,846] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,846] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,846] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,859] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,859] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,859] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,859] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,859] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,859] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,859] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,872] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,872] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,872] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,872] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,872] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,872] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,872] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,885] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,885] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,885] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,885] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,885] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,885] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,885] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,898] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,898] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,898] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,898] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,898] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,898] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,898] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:40,912] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:40,912] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,912] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:40,912] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:40,912] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:40,912] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:40,912] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:41,068] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:41,068] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:41,068] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:41,068] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:41,068] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:41,068] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:41,068] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:41,082] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:41,082] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:41,082] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 100.000000
+[2025-09-23 11:56:41,082] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:56:41,082] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:56:41,082] INFO - EdfFileClass - Filtering PR notch parameters: notch = 50.0
+[2025-09-23 11:56:41,082] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:56:41,095] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:41,095] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-23 11:56:41,108] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:56:41,109] INFO - SignalWindowClass - Signal combobox changed to PR
+[2025-09-23 11:56:42,557] INFO - SignalWindowClass - Plotting heatmap: (PR)
+[2025-09-23 11:56:42,560] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-09-23 11:56:42,576] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:56:48,685] INFO - SignalWindowClass - Sleep Science Signal Viewer: Data heatmap plotted
+[2025-09-23 11:56:57,037] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-09-23 11:56:57,039] INFO - SignalWindowClass - Computing spectrogram (PR): computation may be time consuming
+[2025-09-23 11:56:57,041] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-09-23 11:56:57,056] INFO - SignalWindowClass - Plotted heatmap instead
+[2025-09-23 11:56:57,056] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:57:04,770] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-09-23 11:57:04,772] INFO - SignalWindowClass - Computing spectrogram (PR): computation may be time consuming
+[2025-09-23 11:57:04,803] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-09-23 11:57:04,819] INFO - SignalWindowClass - Plotted heatmap instead
+[2025-09-23 11:57:04,820] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:57:09,984] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:09,984] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:09,984] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:09,985] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:09,985] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:09,985] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,026] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,026] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,026] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,026] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,026] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,026] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,026] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,039] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,040] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,040] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,040] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,040] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,040] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,040] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,053] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,054] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,054] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,054] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,054] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,054] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,054] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,067] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,067] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,067] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,067] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,067] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,067] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,067] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,080] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,080] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,080] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,080] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,080] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,080] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,080] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,093] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,093] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,094] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,094] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,094] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,094] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,094] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,106] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,107] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,107] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,107] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,107] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,107] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,107] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,120] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,120] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,120] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,120] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,120] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,120] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,120] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,133] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,133] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,133] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,133] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,133] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,133] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,133] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,146] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,146] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,146] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,146] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,146] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,146] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,146] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,159] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,159] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,159] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,159] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,159] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,160] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,160] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,172] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,173] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,173] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,173] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,173] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,173] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,173] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,186] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,186] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,186] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,186] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,186] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,186] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,186] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,199] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,199] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,199] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=50.0 Hz -> 2.000000
+[2025-09-23 11:57:10,199] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-09-23 11:57:10,199] INFO - EdfFileClass - Setting filtering parameters: fs = 50.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-23 11:57:10,200] INFO - EdfFileClass - Filtering EOG(R) notch parameters: notch = 50.0
+[2025-09-23 11:57:10,200] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-09-23 11:57:10,213] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,213] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-23 11:57:10,226] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 11:57:10,227] INFO - SignalWindowClass - Signal combobox changed to EOG(R)
+[2025-09-23 11:57:12,774] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-09-23 11:57:12,776] INFO - SignalWindowClass - Computing spectrogram (EOG(R)): computation may be time consuming
+[2025-09-23 11:57:15,191] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.36 seconds
+[2025-09-23 11:57:15,244] INFO - SignalWindowClass - Spectrogram plotted
+[2025-09-23 11:57:15,244] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 11:58:08,718] INFO - SignalWindowClass - Show/Hide  hypnogram
+[2025-09-23 11:58:09,649] INFO - SignalWindowClass - Show/Hide  hypnogram
+[2025-09-23 11:58:12,518] INFO - SignalWindowClass - Show/Hide  spectrogram
+[2025-09-23 11:58:14,601] INFO - SignalWindowClass - Show/Hide  spectrogram
+[2025-09-23 11:58:32,202] INFO - SignalWindowClass - Show/Hide  spectrogram
+[2025-09-23 11:58:33,234] INFO - SignalWindowClass - Show/Hide  spectrogram
+[2025-09-23 12:02:23,037] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-23 12:02:23,335] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-23 12:02:23,335] INFO - EdfFileClass - input list (['SaO2', 'PR', 'EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG', 'AIRFLOW', 'THOR RES', 'ABDO RES', 'POSITION', 'LIGHT', 'OX STAT']), continuous (['EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG'])
+[2025-09-23 12:02:23,339] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-23 12:02:23,357] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,357] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-23 12:02:23,357] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-23 12:02:23,370] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,370] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-23 12:02:23,370] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-23 12:02:23,383] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,383] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-23 12:02:23,383] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-23 12:02:23,396] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,396] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-23 12:02:23,396] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-23 12:02:23,409] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,409] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-23 12:02:23,409] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-23 12:02:23,422] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,422] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-23 12:02:23,422] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-23 12:02:23,435] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,436] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-23 12:02:23,436] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-23 12:02:23,495] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,495] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-23 12:02:23,496] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-23 12:02:23,508] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,509] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-23 12:02:23,509] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-23 12:02:23,522] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:23,522] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-23 12:02:26,788] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-09-23 12:02:29,152] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-09-23 12:02:29,165] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-23 12:02:29,185] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-23 12:02:29,185] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-09-23 12:02:32,707] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-09-23 12:02:32,726] INFO - SleepScienceViewer - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-09-23 12:02:36,621] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.79 seconds
+[2025-09-23 12:02:36,814] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-09-23 12:02:39,825] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:39,838] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:39,869] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:39,882] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:39,895] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:39,970] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:39,983] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:39,996] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,010] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,023] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,036] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,050] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,063] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,077] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,093] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:40,093] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-23 12:02:40,114] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:02:44,064] INFO - SignalWindowClass - Show/Hide  spectrogram
+[2025-09-23 12:04:27,138] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-23 12:04:27,434] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-23 12:04:27,435] INFO - EdfFileClass - input list (['SaO2', 'PR', 'EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG', 'AIRFLOW', 'THOR RES', 'ABDO RES', 'POSITION', 'LIGHT', 'OX STAT']), continuous (['EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG'])
+[2025-09-23 12:04:27,439] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-23 12:04:27,457] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,457] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-23 12:04:27,458] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-23 12:04:27,470] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,471] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-23 12:04:27,471] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-23 12:04:27,484] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,484] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-23 12:04:27,484] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-23 12:04:27,497] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,497] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-23 12:04:27,497] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-23 12:04:27,510] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,510] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-23 12:04:27,510] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-23 12:04:27,523] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,523] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-23 12:04:27,523] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-23 12:04:27,536] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,536] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-23 12:04:27,536] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-23 12:04:27,598] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,599] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-23 12:04:27,599] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-23 12:04:27,612] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,612] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-23 12:04:27,612] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-23 12:04:27,625] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:27,625] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-23 12:04:28,800] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-09-23 12:04:31,325] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-09-23 12:04:31,333] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-23 12:04:31,354] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-23 12:04:31,354] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-09-23 12:04:36,753] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-09-23 12:04:36,772] INFO - SleepScienceViewer - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-09-23 12:04:40,634] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.75 seconds
+[2025-09-23 12:04:40,826] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-09-23 12:04:44,204] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,220] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,233] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,245] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,259] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,330] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,343] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,356] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,370] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,383] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,396] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,409] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,422] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,435] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,449] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:44,450] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-23 12:04:44,462] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-23 12:04:49,054] INFO - SignalWindowClass - Plotting heatmap: (SaO2)
+[2025-09-23 12:04:49,059] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-09-23 12:04:49,071] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-23 12:04:53,970] INFO - SignalWindowClass - Show/Hide  spectrogram
+[2025-09-23 12:04:55,316] INFO - SignalWindowClass - Show/Hide  spectrogram
