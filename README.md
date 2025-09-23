@@ -54,6 +54,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
   - Considering
     - Displaying annotations on signal
     - Support for marking epochs underway. 
+    
 ![Signal Viewer Interface](Media/signal_viewer_beta.png)
 
 ## Getting Started
