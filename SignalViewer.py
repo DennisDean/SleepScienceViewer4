@@ -326,6 +326,25 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_spectrogam)
 
+        self.horizontalLayout_legend_plot = QHBoxLayout()
+        self.horizontalLayout_legend_plot.setObjectName(u"horizontalLayout_legend_plot")
+        self.graphicsView_annotation_plot = QGraphicsView(self.centralwidget)
+        self.graphicsView_annotation_plot.setObjectName(u"graphicsView_annotation_plot")
+        self.graphicsView_annotation_plot.setMinimumSize(QSize(0, 25))
+        self.graphicsView_annotation_plot.setMaximumSize(QSize(16777215, 25))
+
+        self.horizontalLayout_legend_plot.addWidget(self.graphicsView_annotation_plot)
+
+        self.pushButton_annotation_legend = QPushButton(self.centralwidget)
+        self.pushButton_annotation_legend.setObjectName(u"pushButton_annotation_legend")
+        self.pushButton_annotation_legend.setMinimumSize(QSize(95, 0))
+        self.pushButton_annotation_legend.setMaximumSize(QSize(95, 16777215))
+
+        self.horizontalLayout_legend_plot.addWidget(self.pushButton_annotation_legend)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_legend_plot)
+
         self.verticalSpacer_lower_hypnogram = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout.addItem(self.verticalSpacer_lower_hypnogram)
@@ -1049,25 +1068,25 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_data.addLayout(self.verticalLayout_signals)
 
-        self.verticalLayout_annotation = QVBoxLayout()
-        self.verticalLayout_annotation.setObjectName(u"verticalLayout_annotation")
-        self.verticalLayout_annotation.setSizeConstraint(QLayout.SetMaximumSize)
+        self.verticalLayout_annotation_list_widget = QVBoxLayout()
+        self.verticalLayout_annotation_list_widget.setObjectName(u"verticalLayout_annotation_list_widget")
+        self.verticalLayout_annotation_list_widget.setSizeConstraint(QLayout.SetMaximumSize)
         self.comboBox_annotation = QComboBox(self.centralwidget)
         self.comboBox_annotation.setObjectName(u"comboBox_annotation")
         self.comboBox_annotation.setMinimumSize(QSize(300, 25))
         self.comboBox_annotation.setMaximumSize(QSize(300, 25))
 
-        self.verticalLayout_annotation.addWidget(self.comboBox_annotation)
+        self.verticalLayout_annotation_list_widget.addWidget(self.comboBox_annotation)
 
         self.listWidget_annotation = QListWidget(self.centralwidget)
         self.listWidget_annotation.setObjectName(u"listWidget_annotation")
         self.listWidget_annotation.setMinimumSize(QSize(300, 0))
         self.listWidget_annotation.setMaximumSize(QSize(300, 16777215))
 
-        self.verticalLayout_annotation.addWidget(self.listWidget_annotation)
+        self.verticalLayout_annotation_list_widget.addWidget(self.listWidget_annotation)
 
 
-        self.horizontalLayout_data.addLayout(self.verticalLayout_annotation)
+        self.horizontalLayout_data.addLayout(self.verticalLayout_annotation_list_widget)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_data)
@@ -1095,13 +1114,16 @@ class Ui_SignalWindow(object):
         self.pushButton_load.setText(QCoreApplication.translate("SignalWindow", u"Load", None))
         self.pushButton_mark.setText(QCoreApplication.translate("SignalWindow", u"Mark", None))
 #if QT_CONFIG(tooltip)
-        self.pushButton_show_hypnogram.setToolTip(QCoreApplication.translate("SignalWindow", u"show Hypnogram Plot", None))
+        self.pushButton_show_hypnogram.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Hypnogram Plot", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_hypnogram.setText(QCoreApplication.translate("SignalWindow", u"Hyp", None))
 #if QT_CONFIG(tooltip)
         self.pushButton_show_spectrogram_plot.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Spectrogram Plot", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_spectrogram_plot.setText(QCoreApplication.translate("SignalWindow", u"Spc", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_show_annotation_panel.setToolTip(QCoreApplication.translate("SignalWindow", u"Show Annotation Plot", None))
+#endif // QT_CONFIG(tooltip)
         self.pushButton_show_annotation_panel.setText(QCoreApplication.translate("SignalWindow", u"Ann", None))
         self.label_3.setText(QCoreApplication.translate("SignalWindow", u"Hypnogram", None))
 #if QT_CONFIG(tooltip)
@@ -1117,6 +1139,7 @@ class Ui_SignalWindow(object):
         self.pushButton_spectrogram_legend.setText(QCoreApplication.translate("SignalWindow", u"L", None))
         self.pushButton_heatmap.setText(QCoreApplication.translate("SignalWindow", u"Heat", None))
         self.pushButton_heat_legend.setText(QCoreApplication.translate("SignalWindow", u"L", None))
+        self.pushButton_annotation_legend.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"\u2759\u25c0", None))
         self.pushButton_next.setText(QCoreApplication.translate("SignalWindow", u"\u25b6", None))
         self.pushButton_update.setText(QCoreApplication.translate("SignalWindow", u"U", None))

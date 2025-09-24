@@ -745,24 +745,24 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_signals.addLayout(self.verticalLayout_3)
 
-        self.verticalLayout_4 = QVBoxLayout()
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout_4.setSizeConstraint(QLayout.SetMinimumSize)
+        self.verticalLayout_Annotation_List_Widget = QVBoxLayout()
+        self.verticalLayout_Annotation_List_Widget.setObjectName(u"verticalLayout_Annotation_List_Widget")
+        self.verticalLayout_Annotation_List_Widget.setSizeConstraint(QLayout.SetMinimumSize)
         self.annotation_comboBox = QComboBox(self.centralwidget)
         self.annotation_comboBox.setObjectName(u"annotation_comboBox")
         self.annotation_comboBox.setMinimumSize(QSize(300, 25))
         self.annotation_comboBox.setMaximumSize(QSize(300, 25))
 
-        self.verticalLayout_4.addWidget(self.annotation_comboBox)
+        self.verticalLayout_Annotation_List_Widget.addWidget(self.annotation_comboBox)
 
         self.annotation_listWidget = QListWidget(self.centralwidget)
         self.annotation_listWidget.setObjectName(u"annotation_listWidget")
         self.annotation_listWidget.setMaximumSize(QSize(300, 16777215))
 
-        self.verticalLayout_4.addWidget(self.annotation_listWidget)
+        self.verticalLayout_Annotation_List_Widget.addWidget(self.annotation_listWidget)
 
 
-        self.horizontalLayout_signals.addLayout(self.verticalLayout_4)
+        self.horizontalLayout_signals.addLayout(self.verticalLayout_Annotation_List_Widget)
 
 
         self.verticalLayout_master.addLayout(self.horizontalLayout_signals)
@@ -836,7 +836,7 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.pushButton_show_spectrogram.setToolTip(QCoreApplication.translate("MainWindow", u"Show Spectrogram Plot", None))
 #endif // QT_CONFIG(tooltip)
-        self.pushButton_show_spectrogram.setText(QCoreApplication.translate("MainWindow", u"Spt", None))
+        self.pushButton_show_spectrogram.setText(QCoreApplication.translate("MainWindow", u"Spc", None))
 #if QT_CONFIG(tooltip)
         self.pushButton_show_annotation.setToolTip(QCoreApplication.translate("MainWindow", u"Show Annotation Plot", None))
 #endif // QT_CONFIG(tooltip)

@@ -52,6 +52,7 @@ import json
 import csv
 import logging
 import traceback
+import datetime
 from typing import List, Dict
 
 from IPython.terminal.shortcuts import next_history_or_next_completion
@@ -143,7 +144,7 @@ def generate_timestamped_filename(prefix: str, ext: str = ".csv", output_dir: st
 
     prefix: str: File name
     ext: str = File type string
-    output_dir: str = Output directory if set)
+    output_dir: str = Output directory if set
     """
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{prefix}_{timestamp}{ext}"
@@ -153,7 +154,7 @@ def generate_filename(prefix: str, ext: str = ".csv", output_dir: str = "") -> s
 
     prefix: str: File name
     ext: str = File type string
-    output_dir: str = Output directory if set)
+    output_dir: str = Output directory if set
     """
     filename = f"{prefix}{ext}"
     return os.path.join(output_dir, filename) if output_dir else filename
@@ -823,7 +824,7 @@ class SleepStages:
         Handle double-click events on the hypnogram plot.
         Captures the x-axis value (time) where the user double-clicked.
         """
-        # Check if it's a double-click and within the axes
+        # Check for a double click and within the axes
         if event.dblclick and event.inaxes and hasattr(self, 'current_hypnogram_ax'):
             x_value = event.xdata  # Time in seconds
             y_value = event.ydata  # Sleep stage value
@@ -1737,27 +1738,14 @@ def main():
     """
     os_name = platform.system()
     cur_working_dir = os.getcwd()
-    if os_name == 'Windows':
-        # Define files
-        fn_1 = os.path.join(cur_working_dir, r"tutorial\tutorial\edfs\learn-nsrr01-profusion.xml")
-        fn_2 = os.path.join(cur_working_dir, r"tutorial\tutorial\edfs\learn-nsrr02-profusion.xml")
-        fn_3 = os.path.join(cur_working_dir, r"tutorial\tutorial\edfs\learn-nsrr03-profusion.xml")
-        fn_4 = os.path.join(cur_working_dir, r"tutorial\tutorial\edfs\learn-nsrr03-profusion.xml")
-        schema_fn = os.path.join(cur_working_dir, r"tutorial\tutorial\edfs\profusion_schema.xsd")
-    else:
-        fn_1 = os.path.join(cur_working_dir, r"/tutorial/tutorial/edfs/learn-nsrr01-profusion.xml")
-        fn_2 = os.path.join(cur_working_dir, r"/tutorial/tutorial/edfs/learn-nsrr02-profusion.xml")
-        fn_3 = os.path.join(cur_working_dir, r"/tutorial/tutorial/edfs/learn-nsrr03-profusion.xml")
-        fn_4 = os.path.join(cur_working_dir, r"/tutorial/tutorial/edfs/learn-nsrr03-profusion.xml")
-        schema_fn = os.path.join(cur_working_dir, r"./profusion_schema.xsd")
 
-        fn_1 = r"/home/dennis/PycharmProjects/AnnotationXML/tutorial/tutorial/edfs/learn-nsrr01-profusion.xml"
-        fn_2 = r"/home/dennis/PycharmProjects/AnnotationXML/tutorial/tutorial/edfs/learn-nsrr02-profusion.xml"
-        fn_3 = r"/home/dennis/PycharmProjects/AnnotationXML/tutorial/tutorial/edfs/learn-nsrr03-profusion.xml"
-        fn_4 = r"/home/dennis/PycharmProjects/AnnotationXML/tutorial/tutorial/edfs/learn-nsrr03-profusion.xml"
-        schema_fn = r"/home/dennis/PycharmProjects/AnnotationXML/tutorial/tutorial/edfs/profusion_schema.xsd"
+    fn_1:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr01-profusion.xml")
+    fn_2:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr02-profusion.xml")
+    fn_3:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
+    fn_4:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
+    schema_fn:str  = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "profusion_schema.xsd")
 
-    AnnotateObject1 = AnnotationXml(fn_1)
+    AnnotateObject1: AnnotationXml  = AnnotationXml(fn_1)
     AnnotateObject1.load()
     valid_xml_file = AnnotateObject1.validate_xml(fn_1, schema_fn)
     AnnotateObject1.summary()
@@ -1766,22 +1754,22 @@ def main():
     AnnotateObject1.set_output_dir("./export/csv")
     AnnotateObject1.export_summary('learn-nsrr01-profusion_summary.csv', fmt='csv')
 
-    AnnotateObject2 = AnnotationXml(fn_2, verbose = False)
+    AnnotateObject2: AnnotationXml  = AnnotationXml(fn_2, verbose = False)
     AnnotateObject2.load()
     AnnotateObject2.summary()
 
-    AnnotateObject3 = AnnotationXml(fn_3, verbose = False)
+    AnnotateObject3: AnnotationXml  = AnnotationXml(fn_3, verbose = False)
     AnnotateObject3.load()
     AnnotateObject3.summary()
 
-    AnnotateObject4 = AnnotationXml(fn_4, verbose = True)
+    AnnotateObject4: AnnotationXml  = AnnotationXml(fn_4, verbose = True)
     AnnotateObject4.load()
     AnnotateObject4.summary()
     AnnotateObject4.set_output_dir("./export/summary")
     AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
     AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
 
-    AnnotateObject5 = AnnotationXml(fn_4, verbose = False)
+    AnnotateObject5: AnnotationXml  = AnnotationXml(fn_4, verbose = False)
     logger.info(f'Annotation Object 5 validate? {AnnotateObject5.validate_xml(fn_4, schema_fn)}')
     AnnotateObject5.load()
     AnnotateObject5.summary()
@@ -1796,7 +1784,7 @@ def main():
     AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
     AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
 
-    AnnotateObject6 = AnnotationXml('fn_4', verbose = False)
+    AnnotateObject6: AnnotationXml  = AnnotationXml('fn_4', verbose = False)
     AnnotateObject6.load()
 if __name__ == "__main__":
     main()

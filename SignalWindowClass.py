@@ -263,7 +263,7 @@ class SignalWindow(QMainWindow):
 
         # Set annotation types
         annotations_type_list = self.xml_obj.scored_event_obj.scored_event_unique_names
-        annotations_type_list.insert(0, 'All')
+        #annotations_type_list.insert(0, 'All')
 
         # Update annotation marker
         self.ui.comboBox_annotation.setEnabled(False)
@@ -287,6 +287,9 @@ class SignalWindow(QMainWindow):
             item.setForeground(QBrush(QColor(text_color)))
             self.ui.listWidget_annotation.addItem(item)
         self.annotations_list = annotations_list
+
+        # Connect annotation combo box to a response
+        self.ui.comboBox_annotation.currentTextChanged.connect(self.on_annotation_combobox_text_changed)
 
         # Plot Hypnogram
         hypnogram_marker = 0
@@ -322,7 +325,8 @@ class SignalWindow(QMainWindow):
     def show_annotation_push(self,checked: bool):
         logger.info('Show/Hide  annotation')
         # Recursively show/hide widgets in layouts
-        self.set_layout_visible(self.ui.verticalLayout_annotation,checked)
+        # self.set_layout_visible(self.ui.verticalLayout_annotation,checked)
+        self.set_layout_visible(self.ui.verticalLayout_annotation_list_widget, checked)
     @staticmethod
     def set_layout_visible(layout, visible: bool):
         """
@@ -646,7 +650,7 @@ class SignalWindow(QMainWindow):
             self.ui.pushButton_spectrogram_legend.setEnabled(True)
     def show_spectrogram_legend(self):
         if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
-            print("Error: Spectrogram data not available. Generate spectrogram first.")
+            logger.info("Error: Spectrogram data not available. Generate spectrogram first.")
             return
 
         # Display legend dialog
@@ -680,7 +684,7 @@ class SignalWindow(QMainWindow):
                                         double_click_callback=self.on_hypnogram_double_click)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
-        print(self.multitaper_spectrogram_obj.heatmap_fs)
+        # print(self.multitaper_spectrogram_obj.heatmap_fs)
 
         # Record Spectrogram Completions
         self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
@@ -696,12 +700,45 @@ class SignalWindow(QMainWindow):
         self.ui.pushButton_spectrogram_legend.setEnabled(True)
     def show_heapmap_legend(self):
         if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
-            print(f"Signal Window Error: Heapmap data not available.")
+            logger.info(f"Signal Window Error: Heapmap data not available.")
             return
 
         # Display legend dialog
         self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
         logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
+
+    # Annotation
+    def on_annotation_combobox_text_changed(self,text):
+        logger.info(f'Annotation combobox text changed to {text}')
+
+        # Text Update
+        if self.annotations_list:
+            # Clear the current list in the widget
+            self.ui.listWidget_annotation.clear()
+
+            # Always keep the header (assumed to be the first line)
+            header = self.annotations_list[0]
+            self.ui.listWidget_annotation.addItem(header)
+
+            # If 'All' is selected, show everything
+            if text == 'All':
+                for item in self.annotations_list[1:]:  # Skip header (already added)
+                    self.ui.listWidget_annotation.addItem(item)
+            else:
+                # Filter items that contain the selected text
+                for item in self.annotations_list[1:]:
+                    if text in item:
+                        self.ui.listWidget_annotation.addItem(item)
+
+
+            # Update annotations plot
+            total_time_in_seconds = self.xml_obj.sleep_stages_obj.time_seconds
+            cur_annotation_setting = self.ui.comboBox_annotation.currentText()
+            #print(f'cur_annotation_setting = "{cur_annotation_setting}"')
+            #self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
+            #                                            self.ui.graphicview_annotation,
+            #                                            cur_annotation_setting = cur_annotation_setting,
+            #                                            double_click_callback = self.on_hypnogram_double_click)
 
     # Epochs
     @staticmethod

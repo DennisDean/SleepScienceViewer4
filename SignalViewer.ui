@@ -321,7 +321,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>show Hypnogram Plot</string>
+         <string>Show Hypnogram Plot</string>
         </property>
         <property name="text">
          <string>Hyp</string>
@@ -375,6 +375,9 @@
           <width>35</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Show Annotation Plot</string>
         </property>
         <property name="text">
          <string>Ann</string>
@@ -714,6 +717,45 @@
          </layout>
         </item>
        </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_legend_plot">
+      <item>
+       <widget class="QGraphicsView" name="graphicsView_annotation_plot">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_annotation_legend">
+        <property name="minimumSize">
+         <size>
+          <width>95</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>95</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Legend</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -2646,7 +2688,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_annotation">
+       <layout class="QVBoxLayout" name="verticalLayout_annotation_list_widget">
         <property name="sizeConstraint">
          <enum>QLayout::SetMaximumSize</enum>
         </property>

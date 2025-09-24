@@ -33,15 +33,15 @@ import logging
 
 # Visualization imports
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.qt_compat import QtWidgets
 from matplotlib.ticker import FuncFormatter
 from matplotlib.figure import Figure
 from matplotlib import cm
+from matplotlib.axes import Axes
 import matplotlib.colors as mcolors
 import colorcet as cc
 
 # Interface
-from PySide6.QtWidgets import QVBoxLayout, QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
+from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
 from PySide6.QtCore import Qt
 
 # Set up logging
@@ -147,27 +147,27 @@ class MultitaperSpectrogram:
         self.window_params: Tuple[float, float]   = window_params
         self.min_nfft: int                        = min_nfft
         self.detrend_opt: Literal['Linear', 'constant', 'off'] = detrend_opt
-        self.multiprocess: Boolean = multiprocess
+        self.multiprocess: bool = multiprocess
         self.n_jobs: int           = n_jobs
         self.weighting: str        = weighting
-        self.plot_on: Boolean      = plot_on
-        self.return_fig: Boolean   = return_fig
-        self.clim_scale: Boolean   = clim_scale
-        self.verbose: Boolean      = verbose
-        self.xyflip: Boolean       = xyflip
-        self.ax:axes               = ax
+        self.plot_on: bool      = plot_on
+        self.return_fig: bool   = return_fig
+        self.clim_scale: bool   = clim_scale
+        self.verbose: bool      = verbose
+        self.xyflip: bool       = xyflip
+        self.ax: Axes               = ax
 
 
         # Computed taper parameters
-        self.winsize_samples: int    = None    # number of samples in single time window
-        self.winstep_samples: int    = None    # number of samples in a single window step
-        self.window_start:np.array        = None    # array of timestamps representing the beginning time for each window
-        self.num_windows: int        = None    # Number of windows in the data
-        self.nfft:int                = None    # length of signal to calculate fft on
+        self.winsize_samples: int|None                    = None    # number of samples in single time window
+        self.winstep_samples: int|None                    = None    # number of samples in a single window step
+        self.window_start:np.array|None                   = None    # array of timestamps representing the beginning time for each window
+        self.num_windows: int|None                        = None    # Number of windows in the data
+        self.nfft:int|None                                = None    # length of signal to calculate fft on
 
-        self.window_start: np.array       = None    # array of timestamps representing the beginning time for each                                           window -- required
-        self.datawin_size: float       = None    # seconds in one window -- required
-        self.data_window_params:Tuple[float, float]  = [None, None] # [window length(s), window step size(s)] - - required
+        self.window_start: np.array|None                  = None    # array of timestamps representing the beginning time for each                                           window -- required
+        self.datawin_size: float|None                     = None    # seconds in one window -- required
+        self.data_window_params:Tuple[float, float]|None  = [None, None] # [window length(s), window step size(s)] - - required
 
 
         # Store Result information
@@ -904,7 +904,7 @@ class MultitaperSpectrogram:
             else:
                 ydB = 10 * np.log10(y)
         else:
-            if isinstance(y, list):  # if list, turn into array
+            if isinstance(y, list):  # if y is a list, turn into array
                 y = np.asarray(y)
             y = y.astype(float)  # make sure it's a float array so we can put nans in it
             y[y == 0] = np.nan

@@ -392,6 +392,7 @@ class MainApp(QMainWindow):
         # Recursively hide widgets in layouts
         self.set_layout_visible(self.ui.horizontalLayout_annotation_plot,checked)
         self.set_layout_visible(self.ui.horizontalLayout_annotation_commands, checked)
+        self.set_layout_visible(self.ui.verticalLayout_Annotation_List_Widget, checked)
     @staticmethod
     def set_layout_visible(layout, visible: bool):
         for i in range(layout.count()):
@@ -834,7 +835,7 @@ class MainApp(QMainWindow):
                                                             stage_index=stage_map,
                                                             hypnogram_marker=hypnogram_marker,
                                                             double_click_callback=self.on_hypnogram_double_click)
-    def on_hypnogram_double_click(self, x_value, y_value):
+    def on_hypnogram_double_click(self, x_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Hypnogram plot double-clicked: time in seconds {x_value}")
