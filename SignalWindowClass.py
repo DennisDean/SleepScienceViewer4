@@ -585,9 +585,12 @@ class SignalWindow(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
         self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
-                                                     double_click_callback=self.on_hypnogram_double_click)
+                                                     double_click_callback=self.on_hypnogram_double_click,
+                                                     show_stage_colors = show_stage_colors
+                                                     )
 
         # Update Signals
         self.draw_signal_in_graphic_views()
