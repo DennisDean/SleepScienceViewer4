@@ -895,6 +895,13 @@ class SignalWindow(QMainWindow):
             # update Signals
             self.draw_signal_in_graphic_views(epochs_to_draw = self.number_of_epochs_on_screen)
             #print(f"Epoch set to next ({self.current_epoch})")
+
+            # Plot Hypnogram
+            cbox_val = self.ui.comboBox_epoch.currentIndex()
+            epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
+            hypnogram_marker = epoch_width_sec * self.current_epoch
+            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                         hypnogram_marker=hypnogram_marker)
         # Turn of epoc buttons
         self.activate_epoch_buttons()
 
@@ -918,6 +925,12 @@ class SignalWindow(QMainWindow):
             # update Signals
             self.draw_signal_in_graphic_views()
 
+            # Plot Hypnogram
+            cbox_val = self.ui.comboBox_epoch.currentIndex()
+            epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
+            hypnogram_marker = epoch_width_sec * self.current_epoch
+            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                         hypnogram_marker=hypnogram_marker)
         # Turn on epoc buttons
         self.activate_epoch_buttons()
     def set_epoch_to_prev(self):
@@ -937,6 +950,13 @@ class SignalWindow(QMainWindow):
 
             # update Signals
             self.draw_signal_in_graphic_views()
+
+            # Plot Hypnogram
+            cbox_val = self.ui.comboBox_epoch.currentIndex()
+            epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
+            hypnogram_marker = epoch_width_sec * self.current_epoch
+            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                         hypnogram_marker=hypnogram_marker)
         else:
             self.set_epoch_to_first()
 
@@ -965,6 +985,13 @@ class SignalWindow(QMainWindow):
 
         # update Signals
         self.draw_signal_in_graphic_views(epochs_to_draw = epochs_to_draw)
+
+        # Plot Hypnogram
+        cbox_val = self.ui.comboBox_epoch.currentIndex()
+        epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
+        hypnogram_marker = epoch_width_sec * self.current_epoch
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     hypnogram_marker=hypnogram_marker)
 
         # Turn of epoc buttons
         self.activate_epoch_buttons()

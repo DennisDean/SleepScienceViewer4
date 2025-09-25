@@ -842,7 +842,7 @@ class SleepStages:
                 # print(f"Hypnogram double-clicked at time: {x_value:.2f}s ({time_str})")
 
                 # Call callback method if it exists
-                if hasattr(self, 'hypnogram_double_click_callback'):
+                if hasattr(self, 'hypnogram_double_click_callback') and self.hypnogram_double_click_callback is not None:
                     self.hypnogram_double_click_callback(x_value, y_value)
 
         # Revert to point cursor
