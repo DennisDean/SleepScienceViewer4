@@ -2,7 +2,8 @@
 # Generates and independent window with a copy of the edf and xml object loaded by the Sleep Science Window.
 #
 
-# TODO: time does not update with epoch, check max epoch, likely same issue
+# TODO: For constant signals, change ymax and ymin so that sleep stage rectanges are plotted
+# TODO: Add annotation marker when to signal page when double clicking event is received
 # TODO: Fix np.min in plot signal so going to last epoch does not crash. Use same fix as main viewer
 
 # Modules
@@ -487,10 +488,11 @@ class SignalWindow(QMainWindow):
         self.ui.comboBox_signals.blockSignals(False)
 
         # Update epoch label string
-        # epoch_width    = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
-        # self.max_epoch = self.edf_file_obj.edf_signals.return_num_epochs_from_width(epoch_width)
-        #time_str       = self.return_time_string(current_epoch, epoch_width)
-        #self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
+        epoch_width    = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+        self.max_epoch = self.edf_obj.edf_signals.return_num_epochs_from_width(epoch_width)
+        time_str       = self.return_time_string(current_epoch, epoch_width)
+        self.ui.label_page.setText(f" of {self.max_epoch} epochs ({time_str})")
+
     # State Control
     def hide_mark_combo_boxes(self):
         for cb in self.combo_boxes_mark:
@@ -552,6 +554,10 @@ class SignalWindow(QMainWindow):
         if self.edf_obj is None:
             return
 
+        # Change cursor to busy
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        # Get double click x value
         annotation_time_in_sec = x_value
 
         # Change Current epoch
@@ -573,6 +579,10 @@ class SignalWindow(QMainWindow):
 
         # Update Signals
         self.draw_signal_in_graphic_views()
+
+
+        # Revert cursor to pointer
+        QApplication.restoreOverrideCursor()
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def on_hypnogram_changed(self, index):
@@ -763,6 +773,9 @@ class SignalWindow(QMainWindow):
         if self.xml_obj is None:
             return
 
+        # Set busy cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
         # Parse text
         self.ui.listWidget_annotation.currentItem()
         text_list = item.text()
@@ -800,6 +813,10 @@ class SignalWindow(QMainWindow):
                                                                 double_click_callback=self.on_hypnogram_double_click,
                                                                 show_stage_colors = show_stage_colors)
 
+        # Return pointer cursor
+        QApplication.restoreOverrideCursor()
+
+        # Write to log file
         logger.info(
             f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
 

@@ -390,14 +390,14 @@ class SleepStages:
 
         # Default colors for stages
         self.default_stage_colors = {
-            'W': '#FFE4B5',  # Light orange
-            'Wake': '#FFE4B5',  # Light orange
-            'REM': '#FFB6C1',  # Light pink
-            'N1': '#E6E6FA',  # Lavender
-            'N2': '#B0E0E6',  # Powder blue
-            'N3': '#98FB98',  # Pale green
-            'N4': '#3CB371',     # Medium sea green (darker than N3)
-            'NREM': '#87CEEB',  # Sky blue
+            'W': '#FFE4B5',       # Light orange
+            'Wake': '#FFE4B5',    # Light orange
+            'REM': '#FFB6C1',     # Light pink
+            'N1': '#D8BFD8',      # Thistle
+            'N2': '#B0E0E6',      # Powder blue
+            'N3': '#98FB98',      # Pale green
+            'N4': '#3CB371',      # Medium sea green (darker than N3)
+            'NREM': '#87CEEB',    # Sky blue
             'Artifact': '#FF6347' # Tomato red (stronger, distinct from Wake)
         }
 

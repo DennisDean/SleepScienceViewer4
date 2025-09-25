@@ -680,6 +680,7 @@ class EdfSignals:
         y_top_bottom_padding_factor = 2
         default_stage_colors        = self.default_stage_colors
         hypnogram_marker_color      = 'purple'
+        constant_signal_adj_per     = 0.05
 
         if stepped_dict is None:
             stepped_dict = {}
@@ -747,6 +748,12 @@ class EdfSignals:
                     y_max_temp = np.max(signal_segment)
                     if y_min_temp == y_max_temp:
                         print(f'y_min_temp = {y_min_temp}')
+            # Check for a constant signal
+            if y_min_temp - y_max_temp == 0:
+                temp_val = y_min_temp
+                y_min_temp = temp_val - constant_signal_adj_per*temp_val
+                y_max_temp = temp_val + constant_signal_adj_per * temp_val
+            print(f'ymin = {y_min_temp}, ymax = {y_max_temp}')
 
             # Add rectangles for each sleep stage
             for stage_info in sleep_stages:
