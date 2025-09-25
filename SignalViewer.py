@@ -326,24 +326,24 @@ class Ui_SignalWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_spectrogam)
 
-        self.horizontalLayout_legend_plot = QHBoxLayout()
-        self.horizontalLayout_legend_plot.setObjectName(u"horizontalLayout_legend_plot")
+        self.horizontalLayout_annotation_plot = QHBoxLayout()
+        self.horizontalLayout_annotation_plot.setObjectName(u"horizontalLayout_annotation_plot")
         self.graphicsView_annotation_plot = QGraphicsView(self.centralwidget)
         self.graphicsView_annotation_plot.setObjectName(u"graphicsView_annotation_plot")
         self.graphicsView_annotation_plot.setMinimumSize(QSize(0, 25))
         self.graphicsView_annotation_plot.setMaximumSize(QSize(16777215, 25))
 
-        self.horizontalLayout_legend_plot.addWidget(self.graphicsView_annotation_plot)
+        self.horizontalLayout_annotation_plot.addWidget(self.graphicsView_annotation_plot)
 
         self.pushButton_annotation_legend = QPushButton(self.centralwidget)
         self.pushButton_annotation_legend.setObjectName(u"pushButton_annotation_legend")
         self.pushButton_annotation_legend.setMinimumSize(QSize(95, 0))
         self.pushButton_annotation_legend.setMaximumSize(QSize(95, 16777215))
 
-        self.horizontalLayout_legend_plot.addWidget(self.pushButton_annotation_legend)
+        self.horizontalLayout_annotation_plot.addWidget(self.pushButton_annotation_legend)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_legend_plot)
+        self.verticalLayout.addLayout(self.horizontalLayout_annotation_plot)
 
         self.verticalSpacer_lower_hypnogram = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 

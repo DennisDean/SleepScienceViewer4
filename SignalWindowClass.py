@@ -14,13 +14,11 @@ import math
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QColor, QBrush, QFont, QFontDatabase
+from PySide6.QtGui import QKeyEvent
 
 # Sleep Science Classes
 from EdfFileClass import EdfFile, EdfSignalAnalysis
 from AnnotationXmlClass import AnnotationXml
-
-# Analysis
-from multitaper_spectrogram_python_class import MultitaperSpectrogram
 
 # GUI Interface
 from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
@@ -29,7 +27,6 @@ from SignalViewer import Ui_SignalWindow  # the generated file from your .ui
 logger = logging.getLogger(__name__)
 
 # To Do List
-# TODO: Custom response to a return withing the edit field
 
 
 # Utilities
@@ -64,8 +61,10 @@ def set_layout_visible(layout, visible: bool):
             set_layout_visible(nested_layout, visible)
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
+    def __init__(self, parent=None):
+        super().__init__(parent)
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.KeyPress:
+        if event.type() == QEvent.KeyPress and isinstance(event, QKeyEvent):
             if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:  # Qt.Key.Key_Return in PySide6
                 self.enterPressed.emit()  # Emit signal when Enter is pressed
                 return True  # Consume the event so it doesn't insert a newline
@@ -75,6 +74,7 @@ class NumericTextEditFilter(QObject):
                 return False  # Allow digits
             else:
                 return True  # Filter out non-numeric input
+
         return False
 
 # GUI Classes
@@ -112,11 +112,11 @@ class SignalWindow(QMainWindow):
         s_to_s = lambda s: int(s)
 
         # Set up epoch controls
-        self.epoch_display_options_text:List        = ['30 s', '1 min', '2 min', '4 min', '5 min','8 min', '10 min', '1 hr']
-        self.epoch_display_options_width_sec:List  = [ 30,     60,    120,    240,   300,  480,   600,   3600]
-        self.epoch_display_axis_grid:List           = [ [5,1],  [10,2], [60,10],  [60, 10], [60, 10], [120, 30],[120, 30], [600, 50] ]
-        self.epoch_axis_units:List                  = ['s', 's', 'm', 'm', 'm', 'm']
-        self.time_convert_f:List                    = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min]
+        self.epoch_display_options_text:list        = ['30 s', '1 min', '2 min', '4 min', '5 min','8 min', '10 min', '1 hr']
+        self.epoch_display_options_width_sec:list  = [ 30,     60,    120,    240,   300,  480,   600,   3600]
+        self.epoch_display_axis_grid:list           = [ [5,1],  [10,2], [60,10],  [60, 10], [60, 10], [120, 30],[120, 30], [600, 50] ]
+        self.epoch_axis_units:list                  = ['s', 's', 'm', 'm', 'm', 'm']
+        self.time_convert_f:list                    = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min]
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
@@ -306,6 +306,17 @@ class SignalWindow(QMainWindow):
         # Set up show stages button
         self.ui.pushButton_show_hypnogram_stages_in_color.clicked.connect(self.show_stages_on_hypnogram)
 
+        # Plot annotations
+        total_time_in_seconds = self.xml_obj.sleep_stages_obj.time_seconds
+        cur_annotation_setting = self.ui.comboBox_annotation.currentText()
+        # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
+        self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
+                                                                 self.ui.graphicsView_annotation_plot,
+                                                                 cur_annotation_setting=cur_annotation_setting,
+                                                                 double_click_callback=self.on_hypnogram_double_click)
+        # Set up plot legend
+        self.ui.pushButton_annotation_legend.clicked.connect(self.show_annotation_legend_popup)
+
         # Turn on annotations
         self.ui.comboBox_annotation.setEnabled(True)
         self.ui.comboBox_annotation.blockSignals(False)
@@ -325,7 +336,7 @@ class SignalWindow(QMainWindow):
     def show_annotation_push(self,checked: bool):
         logger.info('Show/Hide  annotation')
         # Recursively show/hide widgets in layouts
-        # self.set_layout_visible(self.ui.verticalLayout_annotation,checked)
+        self.set_layout_visible(self.ui.horizontalLayout_annotation_plot, checked)
         self.set_layout_visible(self.ui.verticalLayout_annotation_list_widget, checked)
     @staticmethod
     def set_layout_visible(layout, visible: bool):
@@ -624,7 +635,7 @@ class SignalWindow(QMainWindow):
                 # Update log
                 logger.info(f'Spectrogram plotted')
             else:
-                # Plot signal heatmap if can not compute spectrogram
+                # Plot signal heatmap
                 multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
                                                 double_click_callback=self.on_hypnogram_double_click)
                 logger.info(f'Plotted heatmap instead')
@@ -679,7 +690,7 @@ class SignalWindow(QMainWindow):
         logger.info(f'Plotting heatmap: ({signal_label})')
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
-        # Plot signal heatmap if can not compute spectrogram
+        # Plot signal heatmap
         multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
                                         double_click_callback=self.on_hypnogram_double_click)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
@@ -731,14 +742,17 @@ class SignalWindow(QMainWindow):
                         self.ui.listWidget_annotation.addItem(item)
 
 
-            # Update annotations plot
-            total_time_in_seconds = self.xml_obj.sleep_stages_obj.time_seconds
-            cur_annotation_setting = self.ui.comboBox_annotation.currentText()
+            # Update annotations plot - Need to add
+            #total_time_in_seconds = self.xml_obj.sleep_stages_obj.time_seconds
+            #cur_annotation_setting = self.ui.comboBox_annotation.currentText()
             #print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             #self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
             #                                            self.ui.graphicview_annotation,
             #                                            cur_annotation_setting = cur_annotation_setting,
             #                                            double_click_callback = self.on_hypnogram_double_click)
+    def show_annotation_legend_popup(self):
+        if self.xml_obj is not None:
+            self.xml_obj.scored_event_obj.show_annotation_legend()
 
     # Epochs
     @staticmethod
@@ -900,8 +914,10 @@ class SignalWindow(QMainWindow):
             self.set_epoch_to_first()
         elif not epoch_max_test:
             self.set_epoch_to_last()
-        else:
+        elif epoch_change_test:
             self.set_epoch_from_text()
+        else:
+            logger.info('User epoch case not handled.')
         logger.info(f'Responding to user enter within epoch text field')
     def activate_epoch_buttons(self, activate_buttons = True):
         self.ui.pushButton_first.setEnabled(activate_buttons)

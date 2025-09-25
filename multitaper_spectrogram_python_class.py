@@ -42,7 +42,6 @@ import colorcet as cc
 
 # Interface
 from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
-from PySide6.QtCore import Qt
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -278,7 +277,7 @@ class MultitaperSpectrogram:
         self.spectrogram_computed = True
     def process_input(self):
         """ Helper function to process multitaper_spectrogram() arguments
-                Arguments:
+                Used:
                         data (1d np.array): time series data-- required
                         fs (float): sampling frequency in Hz  -- required
                         frequency_range (list): 1x2 list - [<min frequency>, <max frequency>] (default: [0 nyquist])
@@ -317,7 +316,7 @@ class MultitaperSpectrogram:
         window_params: Tuple[float, float] = self.window_params
         min_nfft: int = self.min_nfft
         detrend_opt: Literal['Linear', 'constant', 'off'] = self.detrend_opt
-        plot_on: Boolean = self. plot_on
+        plot_on: bool = self. plot_on
         verbose: Boolean = self.verbose
 
         # Make sure data is 1 dimensional np array
@@ -440,7 +439,7 @@ class MultitaperSpectrogram:
     # Command Line
     def display_spectrogram_props(self):
         """ Prints spectrogram properties
-            Arguments:
+            Arguments copied from class:
                 fs (float): sampling frequency in Hz  -- required
                 time_bandwidth (float): time-half bandwidth product (window duration*1/2*frequency_resolution) -- required
                 num_tapers (int): number of DPSS tapers to use -- required
@@ -480,6 +479,7 @@ class MultitaperSpectrogram:
 
         # Bringing some plotting parameters to the top
         label_fontsize = 6
+        use_y_ticks    = False
 
         # Get spectrogram information from class
         mt_spectrogram = self.mt_spectrogram
@@ -518,9 +518,11 @@ class MultitaperSpectrogram:
         cmap = mcolors.ListedColormap(cc.rainbow4)
         im.set_cmap(cmap)
         ax.invert_yaxis()
-        yticks = ax.get_yticks()
+
         ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} Hz"))
-        #ax.set_yticklabels([f"{int(y)} Hz" for y in yticks])
+        if use_y_ticks:
+            yticks = ax.get_yticks()
+            ax.set_yticklabels([f"{int(y)} Hz" for y in yticks])
         ax.tick_params(axis='y', labelsize=label_fontsize)
 
         if self.clim_scale:
@@ -890,7 +892,8 @@ class MultitaperSpectrogram:
         self.heatmap_clim          = None
 
     # HELPER FUNCTIONS
-    def nanpow2db(self, y):
+    @staticmethod
+    def nanpow2db(y):
         """ Power to dB conversion, setting bad values to nans
             Arguments:
                 y (float or array-like): power
@@ -911,12 +914,14 @@ class MultitaperSpectrogram:
             ydB = 10 * np.log10(y)
 
         return ydB
+    @staticmethod
     def is_outlier(data):
         smad = 1.4826 * np.median(abs(data - np.median(data)))  # scaled median absolute deviation
         outlier_mask = abs(data - np.median(data)) > 3 * smad  # outliers are more than 3 smads away from median
         outlier_mask = (outlier_mask | np.isnan(data) | np.isinf(data))
         return outlier_mask
-    def calc_mts_segment(self, data_segment, dpss_tapers, nfft, freq_inds, detrend_opt, num_tapers,
+    @staticmethod
+    def calc_mts_segment(data_segment, dpss_tapers, nfft, freq_inds, detrend_opt, num_tapers,
                          dpss_eigen, weighting, wt):
         """ Helper function to calculate the multitaper spectrum of a single segment of data
             Arguments:
@@ -986,15 +991,17 @@ class MultitaperSpectrogram:
 
 #Main
 def main():
+    pass
+    # Removed testing when plotting conflicted with pyside6 widgets
 
-    """Less than complete testing"""
+    #"""Less than complete testing"""
     # Set spectrogram params
-    fs              = 200  # Sampling Frequency
-    frequency_range = [0, 25]  # Limit frequencies from 0 to 25 Hz
-    time_bandwidth  = 3  # Set time-half bandwidth
-    num_tapers      = 5  # Set number of tapers (optimal is time_bandwidth*2 - 1)
-    window_params   = [4, 1]  # Window size is 4s with step size of 1s
-    min_nfft        = 0  # No minimum nfft
-    detrend_opt     = 'constant'  # detrend each window by subtracting the average
-    multiprocess    = True  # use multiprocessing
+    #fs              = 200  # Sampling Frequency
+    #frequency_range = [0, 25]  # Limit frequencies from 0 to 25 Hz
+    #time_bandwidth  = 3  # Set time-half bandwidth
+    #num_tapers      = 5  # Set number of tapers (optimal is time_bandwidth*2 - 1)
+    #window_params   = [4, 1]  # Window size is 4s with step size of 1s
+    #min_nfft        = 0  # No minimum nfft
+    #detrend_opt     = 'constant'  # detrend each window by subtracting the average
+    #multiprocess    = True  # use multiprocessing
    
