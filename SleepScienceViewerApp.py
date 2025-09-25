@@ -722,7 +722,7 @@ class MainApp(QMainWindow):
             # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                 self.ui.graphicsView_annotation,
-                                                cur_annotation_setting = cur_annotation_setting,
+                                                annotation_filter = cur_annotation_setting,
                                                 double_click_callback = self.on_hypnogram_double_click)
             self.ui.annotation_comboBox.setEnabled(True)
             self.ui.annotation_comboBox.blockSignals(False)
@@ -755,7 +755,7 @@ class MainApp(QMainWindow):
             #print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                         self.ui.graphicsView_annotation,
-                                                        cur_annotation_setting = cur_annotation_setting,
+                                                        annotation_filter = cur_annotation_setting,
                                                         double_click_callback = self.on_hypnogram_double_click)
     def clear_annotation_widgets(self):
         # Clear annotation histogram and object

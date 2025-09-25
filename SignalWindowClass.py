@@ -312,7 +312,7 @@ class SignalWindow(QMainWindow):
         # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
         self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                                  self.ui.graphicsView_annotation_plot,
-                                                                 cur_annotation_setting=cur_annotation_setting,
+                                                                 annotation_filter=cur_annotation_setting,
                                                                  double_click_callback=self.on_hypnogram_double_click)
         # Set up plot legend
         self.ui.pushButton_annotation_legend.clicked.connect(self.show_annotation_legend_popup)
@@ -743,13 +743,14 @@ class SignalWindow(QMainWindow):
 
 
             # Update annotations plot - Need to add
-            #total_time_in_seconds = self.xml_obj.sleep_stages_obj.time_seconds
-            #cur_annotation_setting = self.ui.comboBox_annotation.currentText()
-            #print(f'cur_annotation_setting = "{cur_annotation_setting}"')
-            #self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
-            #                                            self.ui.graphicview_annotation,
-            #                                            cur_annotation_setting = cur_annotation_setting,
-            #                                            double_click_callback = self.on_hypnogram_double_click)
+            total_time_in_seconds = self.xml_obj.sleep_stages_obj.time_seconds
+            cur_annotation_setting = self.ui.comboBox_annotation.currentText()
+            print(f'cur_annotation_setting = "{cur_annotation_setting}"')
+            self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
+                                                        self.ui.graphicsView_annotation_plot,
+                                                        cur_annotation_setting = cur_annotation_setting,
+                                                        double_click_callback = self.on_hypnogram_double_click,
+                                                        annotation_filter = text)
     def show_annotation_legend_popup(self):
         if self.xml_obj is not None:
             self.xml_obj.scored_event_obj.show_annotation_legend()

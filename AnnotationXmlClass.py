@@ -400,6 +400,7 @@ class SleepStages:
             'NREM': '#87CEEB',  # Sky blue
             'Artifact': '#FF6347' # Tomato red (stronger, distinct from Wake)
         }
+
     # Utilities
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -928,7 +929,7 @@ class SignalAnnotations:
     # Plot Annotation
     def plot_annotation(self, total_time_in_seconds: float,
                         parent_widget=None, stage_index = 0,
-                        cur_annotation_setting:str|None = None,
+                        annotation_filter:str|None = None,
                         double_click_callback = None):
 
         """
@@ -966,13 +967,21 @@ class SignalAnnotations:
         self.annotation_double_click_callback = double_click_callback
 
         # Get unique annotation names and assign colors
-        unique_annotations = self.scored_event_unique_names
-        unique_annotations = unique_annotations[1:]
-
         start_times = [float(entry) for entry in list(self.sleep_events_df['Start'])]
-        names       = list(self.sleep_events_df['Name'])
+        names = list(self.sleep_events_df['Name'])
 
-        unique_annotations = sorted(list(unique_annotations))
+        if annotation_filter and annotation_filter != "All":
+            # Keep only events matching the filter
+            filtered_indices = [
+                i for i, name in enumerate(names) if name == annotation_filter
+            ]
+            start_times = [start_times[i] for i in filtered_indices]
+            names = [names[i] for i in filtered_indices]
+            unique_annotations = [annotation_filter]
+        else:
+            unique_annotations = sorted(list(self.scored_event_unique_names[1:]))
+
+
         color_map = {}
         for i, annotation in enumerate(unique_annotations):
             color_map[annotation] = annotation_colors[i % len(annotation_colors)]
@@ -993,15 +1002,10 @@ class SignalAnnotations:
         # Plot vertical lines for each event
         plotted_annotations = set()
         for start_time, annotation_name in zip(start_times, names):
-            # print(f'annotation_name = {annotation_name}')
-            if annotation_name == cur_annotation_setting or cur_annotation_setting in [None, 'All']:
-                color = color_map[annotation_name]
-
-                # Plot vertical line
-                ax.axvline(x=start_time, color=color, linewidth=line_width,
+            color = color_map.get(annotation_name, 'black')  # fallback color
+            ax.axvline(x=start_time, color=color, linewidth=line_width,
                        alpha=alpha, label=annotation_name if annotation_name not in plotted_annotations else "")
-
-                plotted_annotations.add(annotation_name)
+            plotted_annotations.add(annotation_name)
 
         # Configure axis
         ax.set_xlabel('')
