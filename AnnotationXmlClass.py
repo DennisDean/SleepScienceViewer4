@@ -72,8 +72,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 # User Interface
-from PySide6.QtWidgets import QSizePolicy
-from PySide6.QtGui import QColor, QPalette
+from PySide6.QtWidgets import QSizePolicy, QApplication
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
                                 QPushButton, QScrollArea, QWidget, QFrame)
 from PySide6.QtCore import Qt
@@ -825,6 +824,9 @@ class SleepStages:
         Handle double-click events on the hypnogram plot.
         Captures the x-axis value (time) where the user double-clicked.
         """
+        # Set busy cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
         # Check for a double click and within the axes
         if event.dblclick and event.inaxes and hasattr(self, 'current_hypnogram_ax'):
             x_value = event.xdata  # Time in seconds
@@ -842,6 +844,9 @@ class SleepStages:
                 # Call callback method if it exists
                 if hasattr(self, 'hypnogram_double_click_callback'):
                     self.hypnogram_double_click_callback(x_value, y_value)
+
+        # Revert to point cursor
+        QApplication.restoreOverrideCursor()
     def show_sleep_stages_legend(self, qtparent = None):
         dialog = StageColorDialog(owner=self, parent=qtparent)
         dialog.exec()

@@ -2,7 +2,8 @@
 # Generates and independent window with a copy of the edf and xml object loaded by the Sleep Science Window.
 #
 
-# TODO: For constant signals, change ymax and ymin so that sleep stage rectanges are plotted
+# TODO: Update hypnogram marker once epcoh button is used
+# TODO: Add support for arrows to advance epochs
 # TODO: Add annotation marker when to signal page when double clicking event is received
 # TODO: Fix np.min in plot signal so going to last epoch does not crash. Use same fix as main viewer
 
@@ -867,6 +868,12 @@ class SignalWindow(QMainWindow):
 
         # Turn on epoc buttons
         self.activate_epoch_buttons(activate_buttons=True)
+
+        # Plot Hypnogram
+        hypnogram_marker = 0
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     hypnogram_marker=hypnogram_marker,
+                                                     double_click_callback=self.on_hypnogram_double_click)
 
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to first ({self.current_epoch})")
