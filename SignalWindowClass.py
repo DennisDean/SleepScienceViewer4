@@ -109,7 +109,7 @@ class SignalWindow(QMainWindow):
 
         # Time Unit Converstions
         s_to_min = lambda s: int(s / 60)
-        s_to_s = lambda s: int(s)
+        s_to_s   = lambda s: int(s)
 
         # Set up epoch controls
         self.epoch_display_options_text:list        = ['30 s', '1 min', '2 min', '4 min', '5 min','8 min', '10 min', '1 hr']
@@ -200,7 +200,7 @@ class SignalWindow(QMainWindow):
         # Setuo Interface
 
         # Store Spectrogram Object
-        multitaper_spectrogram_obj = None
+        self.multitaper_spectrogram_obj = None
     def initialize_epoch_variables(self, combobox_index:int = None):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
@@ -571,6 +571,9 @@ class SignalWindow(QMainWindow):
                                                      hypnogram_marker=hypnogram_marker,
                                                      double_click_callback=self.on_hypnogram_double_click)
 
+        # Update Signals
+        self.draw_signal_in_graphic_views()
+
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def on_hypnogram_changed(self, index):
         # Update Variables
@@ -784,7 +787,10 @@ class SignalWindow(QMainWindow):
         self.current_epoch = new_epoch
 
         # Update signal graphic views to annotation epoch
-        # self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+        self.draw_signal_in_graphic_views()
+        #draw_signal_in_graphic_views(self, annotation_marker: float = None,
+        #epochs_to_draw:int = None)
+
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
