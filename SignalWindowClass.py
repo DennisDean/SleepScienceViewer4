@@ -316,6 +316,7 @@ class SignalWindow(QMainWindow):
                                                                  double_click_callback=self.on_hypnogram_double_click)
         # Set up plot legend
         self.ui.pushButton_annotation_legend.clicked.connect(self.show_annotation_legend_popup)
+        self.ui.listWidget_annotation.itemDoubleClicked.connect(self.annotation_list_widget_double_click)
 
         # Turn on annotations
         self.ui.comboBox_annotation.setEnabled(True)
@@ -753,6 +754,48 @@ class SignalWindow(QMainWindow):
     def show_annotation_legend_popup(self):
         if self.xml_obj is not None:
             self.xml_obj.scored_event_obj.show_annotation_legend()
+    def annotation_list_widget_double_click(self, item):
+        # Slot to handle double-click events on QListWidget items.
+        logger.info(f"Annotation list double-clicked: {item.text()}")
+        if self.xml_obj is None:
+            return
+
+        # Parse text
+        self.ui.listWidget_annotation.currentItem()
+        text_list = item.text()
+        text_list = text_list.split()
+
+        # Parse text list
+        starttime = text_list[0]
+        # if len(text_list) > 3:
+        #    annotation_type = text_list[2:-1]
+        #    annotation_type = ' '.join(annotation_type)
+
+        # Compute start time
+        time_list = starttime.split(':')
+        annotation_time_in_sec = int(time_list[0]) * 3600 + int(time_list[1]) * 60 + int(time_list[2])
+
+        # Change Current epoch
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
+        new_epoch = math.floor(new_epoch) + 1
+        self.ui.textEdit_epoch.setText(str(new_epoch))
+        self.current_epoch = new_epoch
+
+        # Update signal graphic views to annotation epoch
+        # self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                                hypnogram_marker=hypnogram_marker,
+                                                                double_click_callback=self.on_hypnogram_double_click,
+                                                                show_stage_colors = show_stage_colors)
+
+        logger.info(
+            f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
 
     # Epochs
     @staticmethod

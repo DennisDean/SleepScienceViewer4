@@ -1740,6 +1740,7 @@ class AnnotationXml:
     def __str__(self)->str:
         # Override default class description
         return f'AnnotationXml(file_name="{self.file_name}", file_loaded={self.file_loaded})'
+
 # Main
 def main():
     """

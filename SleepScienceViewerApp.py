@@ -351,8 +351,9 @@ class MainApp(QMainWindow):
         self.signal_view_window = None
         self.signal_window = None
 
-        # Set up annotation legend push button
+        # Set up annotation widget responses
         self.ui.pushButton_legend.clicked.connect(self.show_annotation_legend_popup)
+
 
         # Signal color support
         self.signal_colors = [
