@@ -676,7 +676,7 @@ class EdfSignals:
         signal_color                = 'blue' if signal_type == None else signal_color
         y_pad_c                     = 0.05
         tick_label_fontsize         = 6.5
-        annotation_line_width       = 1.5
+        annotation_line_width       = 2
         y_top_bottom_padding_factor = 2
         default_stage_colors        = self.default_stage_colors
         hypnogram_marker_color      = 'purple'
@@ -747,7 +747,8 @@ class EdfSignals:
                     y_min_temp = np.min(signal_segment)
                     y_max_temp = np.max(signal_segment)
                     if y_min_temp == y_max_temp:
-                        print(f'y_min_temp = {y_min_temp}')
+                        pass
+                        # print(f'y_min_temp = {y_min_temp}')
 
             # Adjust temporary y limits for a constant signal
             if y_min_temp - y_max_temp == 0:

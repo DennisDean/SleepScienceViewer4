@@ -2,7 +2,7 @@
 # Generates and independent window with a copy of the edf and xml object loaded by the Sleep Science Window.
 #
 
-# TODO: Update hypnogram marker once epcoh button is used
+# To Do:
 # TODO: Add support for arrows to advance epochs
 # TODO: Add annotation marker when to signal page when double clicking event is received
 # TODO: Fix np.min in plot signal so going to last epoch does not crash. Use same fix as main viewer
@@ -456,10 +456,20 @@ class SignalWindow(QMainWindow):
             # Plot signal segment
             if epoch_num+i >= self.max_epoch:
                 signal_label = ""
+
+            # Assume annotation is in the first marker
+            if annotation_marker is not None and i == 0:
+                annotation_time_in_sec = annotation_marker
+                annotation_epoch = float(annotation_time_in_sec) / epoch_width
+                epoch_annotation_marker = (annotation_epoch - math.floor(annotation_epoch)) * epoch_width
+            else:
+                epoch_annotation_marker = None
+
+            # Plot current epoch
             self.edf_obj.edf_signals.plot_signal_segment(signal_label,
                                                               signal_type, epoch_num+i, epoch_width, graphic_view,
                                                               x_tick_settings       = epoch_display_axis_grid,
-                                                              annotation_marker     = annotation_marker,
+                                                              annotation_marker     = epoch_annotation_marker,
                                                               convert_time_f        = convert_time_f,
                                                               time_axis_units       = time_axis_units,
                                                               is_signal_stepped     = is_signal_stepped,
@@ -801,7 +811,8 @@ class SignalWindow(QMainWindow):
         self.current_epoch = new_epoch
 
         # Update signal graphic views to annotation epoch
-        self.draw_signal_in_graphic_views()
+        annotation_marker = annotation_time_in_sec
+        self.draw_signal_in_graphic_views(annotation_marker = annotation_marker)
         #draw_signal_in_graphic_views(self, annotation_marker: float = None,
         #epochs_to_draw:int = None)
 
