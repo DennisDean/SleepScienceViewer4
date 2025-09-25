@@ -899,7 +899,7 @@ class SignalAnnotations:
         # Output Control
         self.output_dir            = os.getcwd()
 
-        # Save External Values
+        # Safe External Values
         total_time_in_seconds:float = None
 
         # Initialize annotation plot references (add these lines)
@@ -907,6 +907,7 @@ class SignalAnnotations:
         self.current_annotation_fig           = None
         self.current_annotation_canvas        = None
         self.annotation_double_click_callback = None
+        self.color_map                        = None
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
@@ -982,10 +983,16 @@ class SignalAnnotations:
             unique_annotations = sorted(list(self.scored_event_unique_names[1:]))
 
 
-        color_map = {}
-        for i, annotation in enumerate(unique_annotations):
-            color_map[annotation] = annotation_colors[i % len(annotation_colors)]
-        self.color_map = color_map  # safe color map for automated legend generation
+        if self.color_map is None:
+            # Setup color map
+            color_map = {}
+            for i, annotation in enumerate(unique_annotations):
+                color_map[annotation] = annotation_colors[i % len(annotation_colors)]
+            self.color_map = color_map  # save color map for automated legend generation
+        else:
+            # Assume color map is set up upon init to 'All'
+            # Avoids having two parameters
+            color_map = self.color_map
 
 
         # Use the provided total time parameter
