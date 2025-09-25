@@ -1107,6 +1107,7 @@ class MainApp(QMainWindow):
 
         # Update current width
         self.current_epoch_width_index = new_epoch_width_index
+        self.current_epoch = new_epoch
     def enter_pressed_epoch_edit(self):
         # Get information to evaluate user entry
         text_field_epoch  = int(self.ui.epochs_textEdit.toPlainText())

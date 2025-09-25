@@ -3,9 +3,9 @@
 #
 
 # To Do:
+# TODO: Next epoch is advancing the marker to far.
 # TODO: Add support for arrows to advance epochs
-# TODO: Add annotation marker when to signal page when double clicking event is received
-# TODO: Fix np.min in plot signal so going to last epoch does not crash. Use same fix as main viewer
+
 
 # Modules
 import logging
@@ -17,6 +17,7 @@ from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplic
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QColor, QBrush, QFont, QFontDatabase
 from PySide6.QtGui import QKeyEvent
+from pyparsing import Empty
 
 # Sleep Science Classes
 from EdfFileClass import EdfFile, EdfSignalAnalysis
@@ -415,7 +416,7 @@ class SignalWindow(QMainWindow):
         if self.ui.pushButton_sync_y.isChecked():
             page_signals = self.edf_obj.edf_signals.return_signal_segments(
                 signal_label, "not implemented", current_epoch, current_epoch+epochs_to_draw-1, epoch_width)
-            y_page_min   = min(page_signals)
+            y_page_min   = min(page_signals) if page_signals is not Empty else 0
             y_page_max   = max(page_signals)
             y_axis_page_limits = [y_page_min, y_page_max]
         else:
@@ -882,9 +883,11 @@ class SignalWindow(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = 0
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
         self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
-                                                     double_click_callback=self.on_hypnogram_double_click)
+                                                     double_click_callback=self.on_hypnogram_double_click,
+                                                     show_stage_colors=show_stage_colors)
 
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to first ({self.current_epoch})")
@@ -908,11 +911,13 @@ class SignalWindow(QMainWindow):
             #print(f"Epoch set to next ({self.current_epoch})")
 
             # Plot Hypnogram
-            cbox_val = self.ui.comboBox_epoch.currentIndex()
-            epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
-            hypnogram_marker = epoch_width_sec * self.current_epoch
+            cbox_val          = self.ui.comboBox_epoch.currentIndex()
+            epoch_width_sec   = self.epoch_display_options_width_sec[cbox_val]
+            hypnogram_marker  = epoch_width_sec * self.current_epoch
+            show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
             self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
-                                                         hypnogram_marker=hypnogram_marker)
+                                                         hypnogram_marker=hypnogram_marker,
+                                                         show_stage_colors=show_stage_colors)
         # Turn of epoc buttons
         self.activate_epoch_buttons()
 
@@ -940,8 +945,10 @@ class SignalWindow(QMainWindow):
             cbox_val = self.ui.comboBox_epoch.currentIndex()
             epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
             hypnogram_marker = epoch_width_sec * self.current_epoch
+            show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
             self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
-                                                         hypnogram_marker=hypnogram_marker)
+                                                         hypnogram_marker=hypnogram_marker,
+                                                         show_stage_colors=show_stage_colors)
         # Turn on epoc buttons
         self.activate_epoch_buttons()
     def set_epoch_to_prev(self):
@@ -966,8 +973,10 @@ class SignalWindow(QMainWindow):
             cbox_val = self.ui.comboBox_epoch.currentIndex()
             epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
             hypnogram_marker = epoch_width_sec * self.current_epoch
+            show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
             self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
-                                                         hypnogram_marker=hypnogram_marker)
+                                                         hypnogram_marker=hypnogram_marker,
+                                                         show_stage_colors=show_stage_colors)
         else:
             self.set_epoch_to_first()
 
@@ -1001,8 +1010,10 @@ class SignalWindow(QMainWindow):
         cbox_val = self.ui.comboBox_epoch.currentIndex()
         epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
         hypnogram_marker = epoch_width_sec * self.current_epoch
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
         self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
-                                                     hypnogram_marker=hypnogram_marker)
+                                                     hypnogram_marker=hypnogram_marker,
+                                                     show_stage_colors=show_stage_colors)
 
         # Turn of epoc buttons
         self.activate_epoch_buttons()
@@ -1040,8 +1051,36 @@ class SignalWindow(QMainWindow):
         # turn off update signal combobox
         self.ui.comboBox_epoch.blockSignals(True)
 
+        # Adjust epoch number to new width
+        old_epoch_width_index = self.current_epoch_width_index
+        old_epoch_width       = self.epoch_display_options_width_sec[old_epoch_width_index]
+        new_epoch_width_index = int(self.ui.comboBox_epoch.currentIndex())
+        new_epoch_width       = self.epoch_display_options_width_sec[new_epoch_width_index]
+
+        # Get new maximum epochs
+        signal_keys            = [label for label in self.edf_obj.edf_signals.signal_labels if label != '']
+        new_maximum_epochs    = self.edf_obj.edf_signals.return_num_epochs(signal_keys[0], new_epoch_width)
+        self.max_epoch        = new_maximum_epochs
+        self.ui.label_page.setText(f' of {new_maximum_epochs} epochs')
+
+        # Compute new epoch number
+        current_epoch         = int(self.ui.textEdit_epoch.toPlainText())
+        current_time_in_sec   = current_epoch*old_epoch_width - old_epoch_width
+        new_epoch             = current_time_in_sec / new_epoch_width + 1
+        if new_epoch <  1 :
+            new_epoch = int(math.ceil(new_epoch))
+        else:
+            new_epoch = int(math.floor(new_epoch))
+
+        # Update epoch textEdit widget
+        self.ui.textEdit_epoch.setText(str(new_epoch))
+
         # Update signal graphic views
         self.draw_signal_in_graphic_views()
+
+        # Update current width
+        self.current_epoch_width_index = new_epoch_width_index
+        self.current_epoch = new_epoch
 
         # turn off update signal combobox
         self.ui.comboBox_epoch.blockSignals(False)
