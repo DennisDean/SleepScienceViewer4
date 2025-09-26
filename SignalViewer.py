@@ -105,6 +105,7 @@ class Ui_SignalWindow(object):
 
         self.pushButton_save = QPushButton(self.centralwidget)
         self.pushButton_save.setObjectName(u"pushButton_save")
+        self.pushButton_save.setEnabled(False)
         self.pushButton_save.setMinimumSize(QSize(75, 25))
         self.pushButton_save.setMaximumSize(QSize(75, 25))
 
@@ -116,24 +117,26 @@ class Ui_SignalWindow(object):
 
         self.pushButton_load = QPushButton(self.centralwidget)
         self.pushButton_load.setObjectName(u"pushButton_load")
+        self.pushButton_load.setEnabled(False)
         self.pushButton_load.setMinimumSize(QSize(75, 25))
         self.pushButton_load.setMaximumSize(QSize(75, 25))
 
         self.horizontalLayout_controls.addWidget(self.pushButton_load)
 
-        self.horizontalSpacer_48 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_3 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_controls.addItem(self.horizontalSpacer_48)
+        self.horizontalLayout_controls.addItem(self.horizontalSpacer_3)
 
         self.pushButton_mark = QPushButton(self.centralwidget)
         self.pushButton_mark.setObjectName(u"pushButton_mark")
+        self.pushButton_mark.setEnabled(False)
         self.pushButton_mark.setCheckable(True)
 
         self.horizontalLayout_controls.addWidget(self.pushButton_mark)
 
-        self.horizontalSpacer_3 = QSpacerItem(20, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_48 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_controls.addItem(self.horizontalSpacer_3)
+        self.horizontalLayout_controls.addItem(self.horizontalSpacer_48)
 
         self.pushButton_show_hypnogram = QPushButton(self.centralwidget)
         self.pushButton_show_hypnogram.setObjectName(u"pushButton_show_hypnogram")
@@ -1053,8 +1056,13 @@ class Ui_SignalWindow(object):
 
         self.graphicsView_signal_axis = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_axis.setObjectName(u"graphicsView_signal_axis")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.graphicsView_signal_axis.sizePolicy().hasHeightForWidth())
+        self.graphicsView_signal_axis.setSizePolicy(sizePolicy3)
         self.graphicsView_signal_axis.setMinimumSize(QSize(0, 40))
-        self.graphicsView_signal_axis.setMaximumSize(QSize(16777215, 16777215))
+        self.graphicsView_signal_axis.setMaximumSize(QSize(16777215, 40))
 
         self.horizontalLayout_signal_time.addWidget(self.graphicsView_signal_axis)
 

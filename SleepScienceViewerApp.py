@@ -31,7 +31,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtGui import QFont, QFontDatabase, QKeyEvent
-from PySide6.QtCore import QEvent, Qt, QObject, Signal
+from PySide6.QtCore import QEvent, Qt, QObject, Signal, QTimer
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon
@@ -971,6 +971,10 @@ class MainApp(QMainWindow):
         Set the current epoch to the first one (index 1).
         Update the UI and any associated data views accordingly.
         """
+
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=False)
+
         # Example: Set an internal index
         self.current_epoch = 1
         self.ui.epochs_textEdit.setText(f"{self.current_epoch}")
@@ -984,6 +988,9 @@ class MainApp(QMainWindow):
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker)
 
+        # Turn on epoc buttons
+        self.activate_epoch_buttons(activate_buttons=True)
+
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to first ({self.current_epoch})")
     def set_epoch_to_next(self):
@@ -991,6 +998,10 @@ class MainApp(QMainWindow):
         Set the current epoch to the first one (index 1).
         Update the UI and any associated data views accordingly.
         """
+
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=False)
+
         # Example: Set an internal index
         if self.current_epoch < self.max_epoch:
             self.current_epoch += 1
@@ -1007,9 +1018,15 @@ class MainApp(QMainWindow):
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                     hypnogram_marker=hypnogram_marker)
 
+        # Turn on epoc buttons
+        self.activate_epoch_buttons(activate_buttons=True)
+
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to next ({self.current_epoch})")
     def set_epoch_from_text(self):
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=False)
+
         self.ui.update_epoch_pushButton.setEnabled(False)
         logger.info(f'User entered a new epoch')
         if self.edf_file_obj:
@@ -1031,12 +1048,17 @@ class MainApp(QMainWindow):
             hypnogram_marker = epoch_width_sec*self.current_epoch
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                     hypnogram_marker=hypnogram_marker)
-        self.ui.update_epoch_pushButton.setEnabled(True)
+
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=True)
     def set_epoch_to_prev(self):
         """
         Set the current epoch to the first one (index 1).
         Update the UI and any associated data views accordingly.
         """
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=False)
+
         # Example: Set an internal index
         if self.current_epoch > 1:
             self.current_epoch -= 1
@@ -1052,6 +1074,8 @@ class MainApp(QMainWindow):
             hypnogram_marker = epoch_width_sec * self.current_epoch
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                     hypnogram_marker=hypnogram_marker)
+        # Turn on epoc buttons
+        self.activate_epoch_buttons(activate_buttons=True)
 
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to prev ({self.current_epoch})")
@@ -1060,6 +1084,10 @@ class MainApp(QMainWindow):
         Set the current epoch to the first one (index 1).
         Update the UI and any associated data views accordingly.
         """
+
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=False)
+
         # Example: Set an internal index
         self.current_epoch = self.max_epoch
         self.ui.epochs_textEdit.setText(f"{self.max_epoch}")
@@ -1075,9 +1103,15 @@ class MainApp(QMainWindow):
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker)
 
+        # Turn on epoc buttons
+        self.activate_epoch_buttons(activate_buttons=True)
+
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to last ({self.max_epoch})")
     def on_epoch_width_change(self):
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=False)
+
         # Adjust epoch number to new width
         old_epoch_width_index = self.current_epoch_width_index
         old_epoch_width       = self.epoch_display_options_width_sec[old_epoch_width_index]
@@ -1108,7 +1142,13 @@ class MainApp(QMainWindow):
         # Update current width
         self.current_epoch_width_index = new_epoch_width_index
         self.current_epoch = new_epoch
+
+        # Turn on epoc buttons
+        self.activate_epoch_buttons(activate_buttons=True)
     def enter_pressed_epoch_edit(self):
+        # Turn off epoch buttons
+        self.activate_epoch_buttons(activate_buttons=False)
+
         # Get information to evaluate user entry
         text_field_epoch  = int(self.ui.epochs_textEdit.toPlainText())
         epoch_width = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
@@ -1126,7 +1166,26 @@ class MainApp(QMainWindow):
             self.set_epoch_to_last()
         elif epoch_change_test:
             self.set_epoch_from_text()
+
+        # Turn on epoc buttons
+        self.activate_epoch_buttons(activate_buttons=True)
+
         logger.info(f'Responding to user enter within epoch text field')
+    def activate_epoch_buttons(self, activate_buttons = True):
+        # Delay in milliseconds
+        delay_in_mil_sec = 700
+
+        # Define epoch buttons
+        epoch_buttons = [self.ui.first_pushButton, self.ui.next_epoch_pushButton, self.ui.update_epoch_pushButton,
+                        self.ui.previous_pushButton, self.ui.last_epoch_pushButton]
+
+        # Take action based on flag
+        if not activate_buttons:
+            for button in epoch_buttons:
+                button.setEnabled(False)
+        else:
+            for button in epoch_buttons:
+                QTimer.singleShot(delay_in_mil_sec, lambda b=button: b.setEnabled(True))
 
     # Signals
     def on_signal_combobox_changed(self, index, text):

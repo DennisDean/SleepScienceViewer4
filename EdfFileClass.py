@@ -383,10 +383,10 @@ class EdfSignals:
             'W': '#FFE4B5',  # Light orange
             'Wake': '#FFE4B5',  # Light orange
             'REM': '#FFB6C1',  # Light pink
-            'N1': '#E6E6FA',  # Lavender
+            'N1': '#D8BFD8',      # Thistle
             'N2': '#B0E0E6',  # Powder blue
             'N3': '#98FB98',  # Pale green
-            'NREM': '#87CEEB',  # Sky blue
+            'N4': '#3CB371',      # Medium sea green (darker than N3)
             'Artifact': '#FFB6C1'  # Light coral
         }
 

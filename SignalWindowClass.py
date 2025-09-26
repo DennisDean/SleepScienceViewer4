@@ -3,21 +3,17 @@
 #
 
 # To Do:
-# TODO: Next epoch is advancing the marker to far.
-# TODO: Add support for arrows to advance epochs
-
+#TODO: Future action to display all annotations.
 
 # Modules
 import logging
-
 import math
 
 # Interface packages and modules
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
-from PySide6.QtCore import QEvent, Qt, QObject,Signal
+from PySide6.QtCore import QEvent, Qt, QObject,Signal, QTimer
 from PySide6.QtGui import QColor, QBrush, QFont, QFontDatabase
 from PySide6.QtGui import QKeyEvent
-from pyparsing import Empty
 
 # Sleep Science Classes
 from EdfFileClass import EdfFile, EdfSignalAnalysis
@@ -67,11 +63,11 @@ class NumericTextEditFilter(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.KeyPress and isinstance(event, QKeyEvent):
+        if event.type() == QEvent.Type.KeyPress and isinstance(event, QKeyEvent):
             if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:  # Qt.Key.Key_Return in PySide6
                 self.enterPressed.emit()  # Emit signal when Enter is pressed
                 return True  # Consume the event so it doesn't insert a newline
-            if event.key() == Qt.Key_Backspace or event.key() == Qt.Key_Delete:
+            if event.key() == Qt.Key.Key_Backspace or event.key() == Qt.Key.Key_Delete:
                 return False  # Allow backspace and delete
             if event.text().isdigit():
                 return False  # Allow digits
@@ -106,7 +102,7 @@ class SignalWindow(QMainWindow):
         # Set signal labels
         self.signal_labels = self.edf_obj.edf_signals.signal_labels
         self.ui.comboBox_signals.addItems(self.signal_labels )
-        signal_combobox_index = signal_combobox_index if signal_combobox_index!=None else 0
+        signal_combobox_index = signal_combobox_index if signal_combobox_index is not None else 0
         self.signal_label = self.signal_labels[signal_combobox_index]
         self.ui.comboBox_signals.setCurrentIndex(signal_combobox_index)
 
@@ -145,6 +141,17 @@ class SignalWindow(QMainWindow):
         self.initialize_epoch_variables()
 
         # Initialize Filter
+        self.numeric_filter = None
+
+        # Define filter combo box entries
+        self.filter_low_menu_text = ['', '0.1 Hz', '0.5 Hz', '1.0 Hz', '10 Hz']
+        self.filter_high_menu_text = ['', '50 Hz', '60 Hz', '70 Hz']
+        self.filter_notch_text = ['', '50 Hz', '60 Hz']
+
+        # Define filter combo box values
+        self.filter_low_menu_val = [-1, 0.1, 0.5, 1.0, 10.0]
+        self.filter_high_menu_val = [-1, 50.0, 60.0, 70.0]
+        self.filter_notch_val = [-1, 50.0, 60.0]
         self.initialize_filter_variables()
         self.ui.pushButton_filter.toggled.connect(self.filter_button_toggled)
         self.ui.pushButton_notch.toggled.connect(self.notch_button_toggled)
@@ -204,7 +211,9 @@ class SignalWindow(QMainWindow):
 
         # Store Spectrogram Object
         self.multitaper_spectrogram_obj = None
-    def initialize_epoch_variables(self, combobox_index:int = None):
+
+    # Setup Interface
+    def initialize_epoch_variables(self):
         # Reset class epoch variable upon loading a new file
         self.max_epoch = 1
         self.current_epoch = 1
@@ -227,7 +236,7 @@ class SignalWindow(QMainWindow):
 
         # Set epoch edit box to 1
         self.ui.textEdit_epoch.setText(f"{self.current_epoch}")
-        self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
+        self.ui.textEdit_epoch.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # Set epoch string
         time_str = self.return_time_string(self.current_epoch, epoch_width)
@@ -369,13 +378,13 @@ class SignalWindow(QMainWindow):
     def draw_signal_in_graphic_views(self, annotation_marker:float=None,
                                      epochs_to_draw:int=None):
 
-        if self.automatic_signal_redraw == False:
+        if not self.automatic_signal_redraw:
             return
 
         # Turn off combo box signal change
         self.ui.comboBox_signals.blockSignals(True)
 
-        epochs_to_draw = self.number_of_epochs_on_screen if epochs_to_draw == None else epochs_to_draw
+        epochs_to_draw = self.number_of_epochs_on_screen if epochs_to_draw is None else epochs_to_draw
 
         epoch_labels  = [self.ui.label_signal_1,  self.ui.label_signal_2,  self.ui.label_signal_3,
                          self.ui.label_signal_4,  self.ui.label_signal_5,  self.ui.label_signal_6,
@@ -416,7 +425,7 @@ class SignalWindow(QMainWindow):
         if self.ui.pushButton_sync_y.isChecked():
             page_signals = self.edf_obj.edf_signals.return_signal_segments(
                 signal_label, "not implemented", current_epoch, current_epoch+epochs_to_draw-1, epoch_width)
-            y_page_min   = min(page_signals) if page_signals is not Empty else 0
+            y_page_min   = min(page_signals) if page_signals  else 0
             y_page_max   = max(page_signals)
             y_axis_page_limits = [y_page_min, y_page_max]
         else:
@@ -428,6 +437,7 @@ class SignalWindow(QMainWindow):
         if signal_units == "":
             signal_units = None
 
+        stepped_dict = {}  # Initialize to remove warning
         for i, graphic_view in enumerate(graphic_views):
             # Select graphic view
             signal_label = signal_label
@@ -436,7 +446,7 @@ class SignalWindow(QMainWindow):
             # Set stepped variables
             stepped_dict      = {}
             is_signal_stepped = False
-            if self.xml_obj != None:
+            if self.xml_obj is not None:
                 is_signal_stepped = signal_label in self.xml_obj.steppedChannels.keys()
                 if is_signal_stepped:
                     stepped_dict = self.xml_obj.steppedChannels[signal_label]
@@ -509,11 +519,11 @@ class SignalWindow(QMainWindow):
     def hide_mark_combo_boxes(self):
         for cb in self.combo_boxes_mark:
             cb.hide()
-        self.ui.horizonatal_spacer_signal_combo_mark.changeSize(0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.ui.horizonatal_spacer_signal_combo_mark.changeSize(0, 0, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
     def show_mark_combo_boxes(self):
         for cb in self.combo_boxes_mark:
             cb.show()
-        self.ui.horizonatal_spacer_signal_combo_mark.changeSize(75, 20, QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.ui.horizonatal_spacer_signal_combo_mark.changeSize(75, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self.ui.horizontalLayout_signal_time.update()
     def pushbutton_mark_toggled(self, checked):
         if checked:
@@ -559,7 +569,7 @@ class SignalWindow(QMainWindow):
         self.draw_signal_in_graphic_views()
 
     # Hypnogram
-    def on_hypnogram_double_click(self, x_value, y_value):
+    def on_hypnogram_double_click(self, x_value, _y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Hypnogram plot double-clicked: time in seconds {x_value}")
@@ -639,7 +649,7 @@ class SignalWindow(QMainWindow):
         if self.edf_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
         else:
-            self.show_missing_eeg_warning()
+            logger.info(f'EDF file not loaded. Can not compute spectrogram.')
 
         if process_eeg:
             # Turn on busy cursor
@@ -876,13 +886,11 @@ class SignalWindow(QMainWindow):
         # Example: Set an internal index
         self.current_epoch = 1
         self.ui.textEdit_epoch.setText(f"{self.current_epoch}")
-        self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
+        self.ui.textEdit_epoch.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # update Signals
         self.draw_signal_in_graphic_views()
 
-        # Turn on epoc buttons
-        self.activate_epoch_buttons(activate_buttons=True)
 
         # Plot Hypnogram
         hypnogram_marker = 0
@@ -891,6 +899,9 @@ class SignalWindow(QMainWindow):
                                                      hypnogram_marker=hypnogram_marker,
                                                      double_click_callback=self.on_hypnogram_double_click,
                                                      show_stage_colors=show_stage_colors)
+
+        # Turn on epoc buttons
+        self.activate_epoch_buttons(activate_buttons=True)
 
         # You can now update views, annotations, etc.
         logger.info(f"Epoch set to first ({self.current_epoch})")
@@ -907,7 +918,7 @@ class SignalWindow(QMainWindow):
         if self.current_epoch + self.number_of_epochs_on_screen < self.max_epoch:
             self.current_epoch += self.number_of_epochs_on_screen
             self.ui.textEdit_epoch.setText(f"{self.current_epoch}")
-            self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
+            self.ui.textEdit_epoch.setAlignment(Qt.AlignmentFlag.AlignRight)
 
             # update Signals
             self.draw_signal_in_graphic_views(epochs_to_draw = self.number_of_epochs_on_screen)
@@ -938,7 +949,7 @@ class SignalWindow(QMainWindow):
             elif new_epoch > self.max_epoch:
                 new_epoch = self.max_epoch
             self.ui.textEdit_epoch.setText(f"{new_epoch}")
-            self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
+            self.ui.textEdit_epoch.setAlignment(Qt.AlignmentFlag.AlignRight)
             self.current_epoch = new_epoch
 
             # update Signals
@@ -953,7 +964,7 @@ class SignalWindow(QMainWindow):
                                                          hypnogram_marker=hypnogram_marker,
                                                          show_stage_colors=show_stage_colors)
         # Turn on epoc buttons
-        self.activate_epoch_buttons()
+        self.activate_epoch_buttons(activate_buttons=True)
     def set_epoch_to_prev(self):
         """
         Set the current epoch to the first one (index 1).
@@ -967,7 +978,7 @@ class SignalWindow(QMainWindow):
         if self.current_epoch - self.number_of_epochs_on_screen  >= 1:
             self.current_epoch -= self.number_of_epochs_on_screen
             self.ui.textEdit_epoch.setText(f"{self.current_epoch}")
-            self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
+            self.ui.textEdit_epoch.setAlignment(Qt.AlignmentFlag.AlignRight)
 
             # update Signals
             self.draw_signal_in_graphic_views()
@@ -994,17 +1005,17 @@ class SignalWindow(QMainWindow):
         Update the UI and any associated data views accordingly.
         """
 
-        # Check for edge cases
-        epochs_to_draw = self.max_epoch % self.number_of_epochs_on_screen
-
         # Turn of epoc buttons
         self.activate_epoch_buttons(activate_buttons=False)
+
+        # Check for edge cases
+        epochs_to_draw = self.max_epoch % self.number_of_epochs_on_screen
 
         # Example: Set an internal index
         max_num_pages = self.max_epoch//self.number_of_epochs_on_screen
         self.current_epoch = int(max_num_pages*self.number_of_epochs_on_screen)+1
         self.ui.textEdit_epoch.setText(f"{self.current_epoch }")
-        self.ui.textEdit_epoch.setAlignment(Qt.AlignRight)
+        self.ui.textEdit_epoch.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # update Signals
         self.draw_signal_in_graphic_views(epochs_to_draw = epochs_to_draw)
@@ -1045,11 +1056,20 @@ class SignalWindow(QMainWindow):
             logger.info('User epoch case not handled.')
         logger.info(f'Responding to user enter within epoch text field')
     def activate_epoch_buttons(self, activate_buttons = True):
-        self.ui.pushButton_first.setEnabled(activate_buttons)
-        self.ui.pushButton_next.setEnabled(activate_buttons)
-        self.ui.pushButton_update.setEnabled(activate_buttons)
-        self.ui.pushButton_previous.setEnabled(activate_buttons)
-        self.ui.pushButton_last.setEnabled(activate_buttons)
+        # Delay in milliseconds
+        delay_in_mil_sec = 500
+
+        # Define epoch buttons
+        epoch_buttons = [self.ui.pushButton_first, self.ui.pushButton_next, self.ui.pushButton_update,
+                        self.ui.pushButton_previous, self.ui.pushButton_last]
+
+        # Take action based on flag
+        if not activate_buttons:
+            for button in epoch_buttons:
+                button.setEnabled(False)
+        else:
+            for button in epoch_buttons:
+                QTimer.singleShot(delay_in_mil_sec, lambda b=button: b.setEnabled(True))
     def update_epoch_combobox (self, epoch_str):
         # turn off update signal combobox
         self.ui.comboBox_epoch.blockSignals(True)
