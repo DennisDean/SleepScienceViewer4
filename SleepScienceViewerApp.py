@@ -446,7 +446,7 @@ class MainApp(QMainWindow):
             max_num_epochs = self.edf_file_obj.edf_signals.return_num_epochs(signal_labels[0], epoch_width)
             self.max_epoch = max_num_epochs
             self.signal_length_seconds = self.edf_file_obj.edf_signals.return_signal_length_seconds(
-                signal_labels[0], epoch_width)
+                signal_labels[0])
 
             # Update epoch label
             time_str = self.return_time_string(self.current_epoch, epoch_width)

@@ -256,7 +256,8 @@ class EdfSignalsStats:
             self.signal_stats[label] = stats
 
         return self
-    def convert_dictionary_to_table(self, signal_keys: List[str], stat_keys: List[str], stat_dict: Dict[str, Dict[str, float]]) -> List[List[float]]:
+    @staticmethod
+    def convert_dictionary_to_table(signal_keys: List[str], stat_keys: List[str], stat_dict: Dict[str, Dict[str, float]]) -> List[List[float]]:
         """Convert a stats dictionary into a list of lists for easy table display."""
         table = []
         for signal in signal_keys:
@@ -295,6 +296,7 @@ class EdfSignalsStats:
         Args:
             file_path: Filename for export. If None, a timestamped filename will be generated.
             output_dir: Directory to save file in.
+            time_stamped (bool): Adds time string to file name if true
         """
         os.makedirs(output_dir, exist_ok=True)
         if time_stamped:
@@ -320,6 +322,7 @@ class EdfSignalsStats:
         Args:
             file_path: Filename for export. If None, a timestamped filename will be generated.
             output_dir: Directory to save file in.
+            time_stamped: if true, add a time stamp to the file name
         """
         os.makedirs(output_dir, exist_ok=True)
         if time_stamped:
@@ -375,10 +378,7 @@ class EdfSignals:
         self.stepped_sampling_cutoff = 0.05   # temporary approach to guess continuous signals
         self.stepped_signal_dict     = {}
 
-        # Plotting
-        ymax_recent = None
-        ymin_recent = None
-
+        # Default colors manually synced between EDF and XML classes
         self.default_stage_colors = {
             'W': '#FFE4B5',  # Light orange
             'Wake': '#FFE4B5',  # Light orange
@@ -390,7 +390,11 @@ class EdfSignals:
             'Artifact': '#FFB6C1'  # Light coral
         }
 
-    # Setup
+        # Storage of stepped signals
+        self.stepped_signal_list = None
+        self.continuous_signal_list = None
+
+        # Setup
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
@@ -408,13 +412,13 @@ class EdfSignals:
                                signal_sampling_time, edf_signal)
 
         return signal_obj
-    def return_signal_segment(self, signal_key: str, signal_type: str, epoch_num, epoch_width):
+    def return_signal_segment(self, signal_key: str, _signal_type: str, epoch_num, epoch_width):
         """
          Return the signal segment for a given epoch number and epoch width.
 
          Parameters:
              signal_key (str): Key for the signal in the signal's dictionary.
-             signal_type (str): Type of signal (not used here but passed for potential future logic).
+             _signal_type (str): Type of signal (not used here but passed for potential future logic).
              epoch_num (int): Epoch index (0-based).
              epoch_width (float): Epoch duration in seconds.
 
@@ -422,7 +426,6 @@ class EdfSignals:
              np.ndarray: Segment of the signal for the given epoch.
          """
         edf_signal = self.signals_dict[signal_key]
-        signal_units = self.signal_units_dict[signal_key]
         sampling_time = self.signal_sampling_time_dict[signal_key]  # in seconds
 
         # Convert sampling time to sampling frequency
@@ -436,20 +439,22 @@ class EdfSignals:
         signal_segment = edf_signal[start_index:end_index]
 
         return signal_segment
-    def return_signal_segments(self, signal_key: str, signal_type: str, epoch_start, epoch_end, epoch_width):
+    def return_signal_segments(self, signal_key: str, _signal_type: str, epoch_start:int, epoch_end: int, epoch_width:int):
         """
          Return the signal segment for a given epoch number and epoch width.
 
          Parameters:
+             _signal_type (str): Envisioned as a way to label strings. Abandoned the approach, will delete in a future review
              signal_key (str): Key for the signal in the signal's dictionary.
-             signal_type (str): Type of signal (not used here but passed for potential future logic).
              epoch_width (float): Epoch duration in seconds.
+             epoch_start (int): Start epoch
+             epoch_end (int): End epoch of segment
+             epoch_width (int): Width of epoch in seconds
 
          Returns:
              np.ndarray: Segment of the signal for the given epoch.
          """
         edf_signal    = self.signals_dict[signal_key]
-        signal_units  = self.signal_units_dict[signal_key]
         sampling_time = self.signal_sampling_time_dict[signal_key]  # in seconds
 
         # Convert sampling time to sampling frequency
@@ -474,22 +479,21 @@ class EdfSignals:
     def return_num_epochs_from_width(self, epoch_width):
         max_epochs = math.ceil(float(self.signal_length_in_sec )/epoch_width)
         return max_epochs
-    def return_signal_length_seconds(self, signal_key, epoch_width):
+    def return_signal_length_seconds(self, signal_key):
         num_samples = len(self.signals_dict[signal_key])
         signal_sampling_time = self.signal_sampling_time_dict[signal_key]
         signal_length_seconds = num_samples*signal_sampling_time
         return signal_length_seconds
-    def return_eeg_signals_from_list(self, signal_list:List[str]):
+    @staticmethod
+    def return_eeg_signals_from_list(signal_list:List[str]):
         return [s for s in signal_list if 'eeg' in s.lower()]
     def return_stepped_signals_from_list(self, signal_list:List[str]):
         # this is a first pass function that allows other functions to be made. Ideally the stepped channels
         # will be passed in when the annotation file is assigned.
 
         # signal_type = 'stepped'
-        epoch_num = 1
-        epoch_width = 30
         self.stepped_signal_list = []
-        if self.stepped_signal_dict == None:
+        if self.stepped_signal_dict is None:
             for signal_key in signal_list:
                 sampling_time = self.signal_sampling_time_dict[signal_key]
                 # s_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
@@ -512,9 +516,6 @@ class EdfSignals:
         logger.info(f'input list ({signal_list}), continuous ({self.continuous_signal_list})')
         return self.continuous_signal_list
     def return_continuous_signals_for_spectrogram(self, signal_list: List[str]):
-        signal_type = 'continuous'
-        epoch_num = 1
-        epoch_width = 30
         self.continuous_signal_list = []
 
         for signal_key in signal_list:
@@ -584,14 +585,16 @@ class EdfSignals:
 
         Args:
             filename: Output filename. If None, a timestamped filename will be generated.
+            time_stamped (bool): add time stamp to file name if true
+            output_dir (str): Set output directory
         """
         if not self.edf_signals_stats.signal_stats:
             raise ValueError("Signal stats not computed yet.")
 
-        if output_dir != None:
+        if output_dir is not None:
             self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
-        if filename != None:
+        if filename is not None:
             filename = os.path.join(self.output_dir, filename)
         if time_stamped:
             filename = filename or generate_timestamped_filename("edf_signal_stats", ".csv", self.output_dir)
@@ -607,14 +610,16 @@ class EdfSignals:
         """Export signal statistics to an Excel file.
 
         Args:
-            filename: Output filename. If None, a timestamped filename will be generated.
+            filename (str): Output filename. If None, a timestamped filename will be generated.
+            output_dir (str): Sets output directory for writing generated file
+            time_stamped (bool): Will add time to filename if set to true
         """
         if not self.edf_signals_stats.signal_stats:
             raise ValueError("Signal stats not computed yet.")
-        if output_dir != None:
+        if output_dir is not None:
             self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
-        if filename != None:
+        if filename is not None:
             filename = os.path.join(self.output_dir, filename)
         if time_stamped:
             filename = filename or generate_timestamped_filename("edf_signal_stats", ".xlsx", self.output_dir)
@@ -649,32 +654,37 @@ class EdfSignals:
 
     # Visualization
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
-                            parent_widget=None, x_tick_settings:list[int, int] = [5,1], annotation_marker=None,
+                            parent_widget=None, x_tick_settings:list[int, int] = None, annotation_marker=None,
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
                             stepped_dict: dict | None = None, turn_xaxis_labels_off = False,
-                            filter_param:list[float, float, float] =[-1,-1,-1], y_limits:list[float,float] | None = None,
+                            filter_param:list[float, float, float] = None, y_limits:list[float,float] | None = None,
                             y_axis_units:str|None = None, sleep_stages: list[dict] | None = None, signal_color:str|None = None):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
         Parameters:
+            annotation_marker (float): Draws a vertical line at the offset time if set
             signal_key (str): Key for the signal in the signal dictionary.
             signal_type (str): Type of the signal.
             epoch_num (int): Epoch index (0-based).
             epoch_width (float): Width of the epoch in seconds.
             parent_widget (QWidget or None): If provided, embed plot in this widget.
+            sleep_stages (list[dict]): IF provided, signal segment plots background rectanges in stage asigned colors
+            y_axis_units (str): If provided, units added to the y-axis
+            signal_color (str): Set signal color
+            filter_param (list): Bandpass (low, high), and notch (electrical freq 50 or 60 )
+            turn_xaxis_labels_off (bool): Used to create a common x-axis
+            x_tick_settings (list[int,int]) Use to set the signal width
+            y_limits (list[float,float]) Used to set common y-axis limits across multiple plots
+            stepped_dict (dict) Dictionary of stepped signals that includes y-axis values and labels
+            is_signal_stepped (bool) Directs to handle y-axis generation to include stepped y-axis values
+            time_axis_units (str) Adds units to y-axis values when set
+            convert_time_f (function) applied to x-axis values to set labels to predefined units
         """
-        # Stages for plotting rectangles
-        # sleep_stages = [
-        #     {'start_time': 0, 'end_time': 10, 'stage': 'Wake'},
-        #     {'start_time': 10, 'end_time': 20, 'stage': 'NREM'},  # Will use sky blue
-        #     {'start_time': 20, 'end_time': 30, 'stage': 'REM'}
-        # ]
 
         # Set Plot defaults
         grid_color                  = 'gray'
-        signal_color                = 'blue' if signal_type == None else signal_color
-        y_pad_c                     = 0.05
+        signal_color                = 'blue' if signal_type is None else signal_color
         tick_label_fontsize         = 6.5
         annotation_line_width       = 2
         y_top_bottom_padding_factor = 2
@@ -682,13 +692,17 @@ class EdfSignals:
         hypnogram_marker_color      = 'purple'
         constant_signal_adj_per     = 0.50
 
+        if x_tick_settings is None:
+            x_tick_settings = [5, 1]
+
+        if filter_param is None:
+            filter_param = [-1, -1, -1]
+
         if stepped_dict is None:
             stepped_dict = {}
 
         if signal_key == '':
             # Create empty signal
-            sampling_time = 0
-            signal_units = ''
             num_points = 100
             signal_segment = [0] * num_points
             sampling_time = epoch_width / num_points
@@ -701,7 +715,6 @@ class EdfSignals:
             # Get signal and metadata
             signal_segment = self.return_signal_segment(signal_key, signal_type, epoch_num, epoch_width)
             sampling_time  = self.signal_sampling_time_dict[signal_key]
-            signal_units   = self.signal_units_dict[signal_key]
             time_axis      = np.arange(len(signal_segment)) * sampling_time
 
             # Check if filtering parameters are provided
@@ -712,7 +725,7 @@ class EdfSignals:
                 highcut = filter_param[1]
                 notch   = filter_param[2]
                 # print('Extracted filter value')
-                if lowcut>0 and highcut>0 and highcut>lowcut:
+                if 0 < lowcut < highcut:
                     fs = 1/sampling_time
                     logger.info(
                         f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
@@ -739,7 +752,7 @@ class EdfSignals:
                 y_min_temp = 0
                 y_max_temp = len(stepped_dict)
             else:
-                if y_limits != None:
+                if y_limits is not None:
                     y_min_temp = y_limits[0]
                     y_max_temp = y_limits[1]
                 else:
@@ -809,7 +822,7 @@ class EdfSignals:
             ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
         else:
             #print(signal_segment)
-            if y_limits != None:
+            if y_limits is not None:
                 y_min = y_limits[0]
                 y_max = y_limits[1]
             else:
@@ -817,7 +830,7 @@ class EdfSignals:
                 y_max = np.max(signal_segment)
             y_pad = 0.1 * (y_max - y_min if y_max != y_min else 1)
             # Set y_Axis units
-            if y_axis_units != None:
+            if y_axis_units is not None:
                 ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} {y_axis_units}"))
             if turn_xaxis_labels_off:
                 # take back the room for labels
@@ -849,7 +862,7 @@ class EdfSignals:
         # Set labels only for major ticks
         ax.set_xticklabels([f"{convert_time_f(x)}{time_axis_units}" for x in major_ticks],
                                fontsize=tick_label_fontsize)
-        if turn_xaxis_labels_off == True:
+        if turn_xaxis_labels_off:
             ax.set_xticklabels([])
         else:
             pass
@@ -869,7 +882,7 @@ class EdfSignals:
         else:
             fig.subplots_adjust(left=.03, right=0.99, top=0.93, bottom=0.35)
 
-        if annotation_marker != None:
+        if annotation_marker is not None:
             ax.axvline(x=annotation_marker, color=hypnogram_marker_color, linestyle='-', label=f'Set Point: {annotation_marker}',
                        linewidth=annotation_line_width)
 
@@ -877,7 +890,7 @@ class EdfSignals:
             logger.info(f'plot_signal_segment: parent widget found')
             # Create a new Figure Canvas
             canvas = FigureCanvas(fig)
-            canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
 
@@ -922,7 +935,8 @@ class EdfSignals:
             filtered_data = data
             logger.error(f'Band pass filter not applied. Parameters are not valid')
         return filtered_data
-    def validate_bandpass_params(self, fs, lowcut, highcut, order)->Boolean:
+    @staticmethod
+    def validate_bandpass_params(fs, lowcut, highcut, order)->bool:
         # Set return value
         valid_params = True
 
@@ -938,7 +952,7 @@ class EdfSignals:
             logger.error("lowcut and highcut must be finite numbers.")
         if lowcut <= 0:
             valid_params = False
-            logger.errorf(f"lowcut must be > 0 Hz. got lowcut={lowcut}")
+            logger.error(f"lowcut must be > 0 Hz. got lowcut={lowcut}")
         if highcut <= 0:
             valid_params = False
             logger.error(f"highcut must be > 0 Hz. got highcut={highcut}")
@@ -959,10 +973,21 @@ class EdfSignals:
                 f"Normalized high frequency must be between 0 and 1. highcut={highcut} Hz -> {high:.6f}")
         if not (low < high):
             valid_params = False
-            logger.errorf(f"Normalized low must be less than normalized high. low={low:.6f}, high={high:.6f}")
+            logger.error(f"Normalized low must be less than normalized high. low={low:.6f}, high={high:.6f}")
+
+        # Check Order parameter
+        if order <=0:
+            valid_params = False
+            logger.error(f"Order must be greater than zero: order={order:i}")
+        if order > 20:
+            valid_params = False
+            logger.error(f"Order too high (>20), may cause numerical instability: order={order:i}")
 
         return valid_params
-    def apply_notch_filter(self, signal, fs, notch_freq:int = 60, Q=30.0):
+
+    # noinspection PyShadowingNames
+    @staticmethod
+    def apply_notch_filter(signal, fs, notch_freq:int = 60, Q=30.0): # noinspection PyPep8Naming
         """
         Apply a 50 Hz (Europe) or 60 Hz (US) notch filter to EEG/sleep study data.
 
@@ -984,7 +1009,7 @@ class EdfSignals:
         """
         nyquist = fs/2
 
-        if (0 < notch_freq < nyquist):
+        if 0 < notch_freq < nyquist:
             notch_freq = notch_freq
             b, a = iirnotch(w0=notch_freq, Q=Q, fs=fs)
             return_signal = filtfilt(b, a, signal)
@@ -997,7 +1022,7 @@ class EdfSignals:
     # Python
     def __str__(self):
         """String representation of the EdfSignals object."""
-        if not self.signals:
+        if not hasattr(self, 'signals'):
             return "EDF Signals: Initialized with no signals"
         return f"EDF Signals: {', '.join(self.signal_labels)}"
 class EdfSignal:
@@ -1010,35 +1035,25 @@ class EdfSignal:
         self.signal_sampling_time:float = signal_sampling_time
         self.output_dir = os.getcwd()
         pass
-    def set_output_dir(self, output_dir: str):
+    @staticmethod
+    def set_output_dir(output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
     def __str__(self):
         return f'EDF Signal: {self.signal_type}, {self.signal_label}, # of pts = {len(self.signal)} '
 class EdfSignalAnalysis:
-    def __init__(self, edf_signal_ob:EdfSignal, param_dict:dict[str,str|float|int]={}, verbose = False):
+    def __init__(self, edf_signal_ob:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False):
+        if param_dict is None:
+            param_dict = {}
+
         self.edf_signal_ob = edf_signal_ob
         self.param_dict = param_dict
         self.completed_analyses = []
         self.verbose = verbose
-    def multitapper_spectrogram(self, param_dict:dict[str,str|float|int]={}):
+    def multitapper_spectrogram(self):
         # Multitapper Spectrogram Parameters
         data = np.array(self.edf_signal_ob.signal)       # Numpy signal
         fs   = 1/self.edf_signal_ob.signal_sampling_time # Sampling frequency in hz
-
-        frequency_range = None
-        time_bandwidth = 5
-        num_tapers     = None
-        window_params  = None
-        min_nfft       = 0
-        detrend_opt    = 'linear'
-        multiprocess   = False
-        n_jobs         = None
-        weighting      = 'unity'
-        plot_on        = True
-        clim_scale     = True
-        xyflip         = False
-        ax             = None
 
         # Compute spectrogram
         multi_taper_spectrum_obj = MultitaperSpectrogram(data, fs)
@@ -1046,26 +1061,26 @@ class EdfSignalAnalysis:
         self.completed_analyses.append('Multitaper Analysis')
 
         # Write multi taper parameters to
-        if self.verbose == True:
+        if self.verbose:
             multi_taper_spectrum_obj.display_spectrogram_props()
 
         return multi_taper_spectrum_obj
     def __str__(self):
-        return f'EDF Signal Analysis: {self.edf_signal_obj}'
+        return f'EDF Signal Analysis: {self.param_dict}'
 class EdfFile:
     """Class for loading and processing information stored in an EDF file."""
     # Define class variables
-    def __init__(self, file_path: str = None, signal_labels: list = None, epochs: any = None,
-            verbose: bool = True, time_stamped_files: bool = False, output_dir: str = os.getcwd()):
+    def __init__(self, file_path: str = None, signal_labels: list = None, epochs: list = None,
+            verbose: bool = True, output_dir: str = str(os.getcwd())):
 
         """Initialize an EdfFile instance.
 
             Args:
-                file_path: Path to the EDF file.
-                signal_labels: List of signal labels to load.
-                epochs: Epoch information (optional).
-                verbose: Enable verbose logging.
-                output_dir: Directory to use for output files.
+                file_path (str): Path to the EDF file.
+                signal_labels (list): List of signal labels to load.
+                epochs (list): Epoch information (optional).
+                verbose (bool): Enable verbose logging.
+                output_dir (str): Directory to use for output files.
         """
         self.file_w_path = file_path or ''
         self.file_name = os.path.basename(file_path) if file_path else ''
@@ -1108,7 +1123,8 @@ class EdfFile:
         h.num_signals = int(read_str(h.NUMBER_OF_SIGNALS_SIZE))
 
         return h
-    def load_signal_header(self, f, number_of_signals: int) -> EdfSignalHeader:
+    @staticmethod
+    def load_signal_header(f, number_of_signals: int) -> EdfSignalHeader:
         """Load EDF signal header information from an open file object."""
         sh = EdfSignalHeader(number_of_signals)
 
@@ -1241,10 +1257,10 @@ class EdfFile:
         """Export a summary of the EDF file contents to a JSON file."""
         if not self.edf_signals:
             raise RuntimeError("Signals not loaded.")
-        if output_dir != None:
+        if output_dir is not None:
             self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
-        if filename != None:
+        if filename is not None:
             filename = os.path.join(self.output_dir, filename)
         if time_stamped:
             filename = (filename or
@@ -1283,14 +1299,13 @@ class EdfFile:
 # Main
 def main():
     """Less than complete testing"""
-    DEBUG = 0
 
     # Test Data
     EDF_FILE_PATH  = "/home/dennis/PycharmProjects/EdfFile/sampleEdfFiles/"
     EDF_FILE_NAME  = "/home/dennis/PycharmProjects/EdfFile/sample.edf"
     EDF_FILE_NAME2 = "sample2.edf"
     EDF_FILE_NAME3 = "SC4001E0-PSG.edf"
-    EDF_FILE_NAME4 = "SC4001EC-Hypnogram.edf"
+
 
     # -----------------------------------------------------------------------
     # test edf class with file 1
@@ -1301,7 +1316,7 @@ def main():
     logger.info('Use name only')
     edf_file_class.summary()
     edf_file_class.calculate_signal_stats()
-    edf_file_class.set_output_dir(Path("./exports"))
+    edf_file_class.set_output_dir("./exports")
     edf_file_class.export_summary_to_json('edf_summary.json')
 
     #-----------------------------------------------------------------------
@@ -1340,16 +1355,16 @@ def main():
     edf_file.calculate_signal_stats()
 
     # Export to CSV
-    edf_file.edf_signals.output_dir = Path("./exports/edf_stats/")
+    edf_file.edf_signals.output_dir = "./exports/edf_stats/"
     edf_file.edf_signals.export_sig_stats_to_csv()
-    edf_file.edf_signals.export_sig_stats_to_csv(Path("signal_stats.csv"))
+    edf_file.edf_signals.export_sig_stats_to_csv(str(Path("signal_stats.csv")))
 
     # Export to a specific directory
-    edf_file.edf_signals.output_dir=Path("./exports/edf_stats/")
-    edf_file.set_output_dir(Path("./exports/json/"))
+    edf_file.edf_signals.output_dir = os.path.join(".", "exports", "edf_stats")
+    edf_file.set_output_dir(str(Path("./exports/json/")))
     edf_file.export_summary_to_json()
-    edf_file.edf_signals.set_output_dir(Path("./exports/json/"))
-    edf_file.edf_signals.export_sig_stats_to_csv(Path("signal_stats.csv"))
-    edf_file.edf_signals.export_sig_stats_to_excel(Path("signal_stats.xlsx"))
+    edf_file.edf_signals.set_output_dir(str(Path("./exports/json/")))
+    edf_file.edf_signals.export_sig_stats_to_csv(str(Path("signal_stats.csv")))
+    edf_file.edf_signals.export_sig_stats_to_excel(str(Path("signal_stats.xlsx")))
 if __name__ == "__main__":
     main()
