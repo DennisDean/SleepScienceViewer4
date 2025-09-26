@@ -28,7 +28,7 @@ def apply_bandpass_filter(data, fs, lowcut, highcut, order=5):
     return filtered_data
 
 class PanTompkinsDetector:
-    def __init__(self, fs, init_seconds=2.0):
+    def __init__(self, fs, _init_seconds=2.0):
         self.fs = fs
         self.integration_window = int(0.15 * fs)
         self.lag = self.integration_window // 2
@@ -64,7 +64,7 @@ class PanTompkinsDetector:
         self.THI2 = 0.5 * self.THI1
         self.TH_F2 = 0.5 * self.TH_F1
         print(f'THI1 = {self.THI1}, TH_F1 = {self.TH_F1}, THI2 = {self.THI2}, NPKF = {self.TH_F2}')
-    def detect(self, ecg:np.array, lowcut:float = 0.5, highcut:float = 50):
+    def detect(self, ecg:np.ndarray, lowcut:float = 0.5, highcut:float = 50):
 
         # Filter ECG
         filtered_ecg = apply_bandpass_filter(ecg, self.fs, lowcut, highcut)
@@ -74,7 +74,7 @@ class PanTompkinsDetector:
         # Prepare integrated signal
         I = np.convolve(squared_ecg, np.ones(self.integration_window)/self.integration_window, mode="same")
 
-        time = np.arange(0, 1/self.fs, 1/self.fs*len(I))
+        #time = np.arange(0, 1/self.fs, 1/self.fs*len(I))
         #plt.plot(filtered_ecg, 'blue')
         plt.plot(I, 'red')
         plt.show()
@@ -97,7 +97,7 @@ class PanTompkinsDetector:
             sw = self.integration_window // 2
             start = max(0, p_corr - sw)
             end   = min(len(filtered_ecg), p_corr + sw)
-            pF = start + np.argmax(filtered_ecg[start:end])
+            pF = start + np.argmax(filtered_ecg[start:end]).item()
 
             # Slope for T-wave discrimination
             slope = filtered_ecg[pF] - filtered_ecg[pF-1] if pF > 0 else 0
@@ -128,13 +128,13 @@ class PanTompkinsDetector:
             # Search back if RR too long
             if self.RR_intervals:
                 avg_rr = np.mean(self.RR_intervals[-8:])
-                if (pF - self.last_R) / self.fs > self.search_back_factor * avg_rr:
+                if float((pF - self.last_R) / self.fs )> float(self.search_back_factor) * float(avg_rr):
                     sb_start = self.last_R + self.refractory_period
                     sb_end   = p
                     if sb_end > sb_start:
                         segment = I[sb_start:sb_end]
                         if segment.size:
-                            q = sb_start + np.argmax(segment)
+                            q = sb_start + np.argmax(segment).item()
                             R_peaks.append(q)
                             self.RR_intervals.append((q - self.last_R) / self.fs)
                             self.last_R = q

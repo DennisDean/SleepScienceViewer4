@@ -653,9 +653,7 @@ class MultitaperSpectrogram:
                 hours = int(x_value // 3600)
                 minutes = int((x_value % 3600) // 60)
                 seconds = int(x_value % 60)
-                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
-
-                # print(f"Spectrogram double-clicked at time: {x_value:.2f}s ({time_str}), frequency: {y_value:.1f}Hz")
+                # time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
                 # Call the callback function if provided
                 if (hasattr(self, 'spectrogram_double_click_callback') and
@@ -732,7 +730,6 @@ class MultitaperSpectrogram:
         if parent_widget:
             # Enable expanding to fill the parent widget
             y_label = ""
-            color_bar_label = 'Amplitude'
         else:
             y_label = "Data"
             color_bar_label = 'Amplitude'

@@ -5,7 +5,7 @@ import numpy as np
 from scipy.signal import butter, sosfiltfilt
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
-from ecgdetectors import Detectors
+
 
 def apply_bandpass_filter(data, fs, lowcut, highcut, order=5):
     """
@@ -31,12 +31,12 @@ def apply_bandpass_filter(data, fs, lowcut, highcut, order=5):
 def main():
 
     # ECG test file
-    ecg_fn = "./Exports/signals/learn-nsrr01_ECG.txt"
-    time, ecg = np.loadtxt(ecg_fn,skiprows = 1, unpack  = True)
+    #ecg_fn = "./Exports/signals/learn-nsrr01_ECG.txt"
+    #time, ecg = np.loadtxt(ecg_fn,skiprows = 1, unpack  = True)
 
     # Test Parameters
-    fs               = 1/(time[2] - time[1])
-    num_test_samples = int(60*fs)
+    #fs               = 1/(time[2] - time[1])
+    # num_test_samples = int(60*fs)
 
     # ECG test file
     ecg_fn = "./Exports/signals/learn-nsrr01_ECG.txt"
@@ -63,19 +63,20 @@ def main():
     smoothed_ecg = np.convolve(squared_ecg, np.ones(integration_window)/integration_window, mode = 'same')
 
     # Initialize threshold variables using an initial segment (e.g., first 2 sec or few peaks)
-    SPKI = np.max(smoothed_ecg[:int(2 * fs)])  # heuristic seed
-    NPKI = np.mean(smoothed_ecg[:int(2 * fs)])  # heuristic seed
-    SPKF = SPKI
-    NPKF = NPKI
-    THI1 = NPKI + 0.25 * (SPKI - NPKI)
-    THF1 = NPKF + 0.25 * (SPKF - NPKF)
-    THI2, THF2 = 0.5 * THI1, 0.5 * THF1
+    #SPKI = np.max(smoothed_ecg[:int(2 * fs)])  # heuristic seed
+    #NPKI = np.mean(smoothed_ecg[:int(2 * fs)])  # heuristic seed
+    #SPKF = SPKI
+    #NPKF = NPKI
+    #THI1 = NPKI + 0.25 * (SPKI - NPKI)
+    #THF1 = NPKF + 0.25 * (SPKF - NPKF)
+    # THI2, THF2 = 0.5 * THI1, 0.5 * THF1
 
     # --- Peak detection with find_peaks ---
     # Distance: enforce refractory period (200 ms)
     min_distance = int(0.2 * fs)
 
     # Initial detection
+    # noinspection PyTypeChecker
     r_peaks, properties = find_peaks(
         smoothed_ecg,
         distance=min_distance,
@@ -94,7 +95,7 @@ def main():
     for p in r_peaks:
         start = max(0, p - search_window)
         end = min(len(filtered_ekg), p + search_window)
-        refined = start + np.argmax(filtered_ekg[start:end])
+        refined = start + np.argmax(filtered_ekg[start:end]).item()
         refined_r_peaks.append(refined)
 
     refined = np.array(refined_r_peaks)
@@ -106,10 +107,10 @@ def main():
     def rr_avgs(rrs):
         if not rrs:
             return None, None
-        avg1 = np.mean(rrs[-8:])
-        regul = [r for r in rrs if avg1 * 0.92 < r < avg1 * 1.16]
-        avg2 = np.mean(regul) if regul else avg1
-        return avg1, avg2
+        avg3 = np.mean(rrs[-8:])
+        regul = [r for r in rrs if avg3 * 0.92 < r < avg3 * 1.16]
+        avg4 = np.mean(regul) if regul else avg3
+        return avg3, avg4
 
     # 5) Search-back for missed beats
     final_peaks = [refined[0]]
