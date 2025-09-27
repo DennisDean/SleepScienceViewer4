@@ -42,6 +42,7 @@ import colorcet as cc
 
 # Interface
 from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
+from PySide6.QtCore import Qt
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -51,7 +52,7 @@ logger = logging.getLogger(__name__)
 
 # MULTITAPER SPECTROGRAM #
 class MultitaperSpectrogram:
-    def __init__(self, data:np.array, fs:float, frequency_range=None, time_bandwidth=5, num_tapers=None, window_params=None,
+    def __init__(self, data:npt.NDArray, fs:float, frequency_range:list|None=None, time_bandwidth=5, num_tapers=None, window_params=None,
                            min_nfft=0, detrend_opt='linear', multiprocess=False, n_jobs=None, weighting='unity',
                            plot_on=True, return_fig=False, clim_scale=True, verbose=True, xyflip=False, ax=None):
         """ Compute multitaper spectrogram of timeseries data
@@ -140,7 +141,7 @@ class MultitaperSpectrogram:
         # Input
         self.data: npt.NDArray[np.float64]        = data
         self.fs: float                            = fs
-        self.frequency_range: Tuple[float, float] = frequency_range
+        self.frequency_range: list[float,float] = frequency_range
         self.time_bandwidth:float                 = time_bandwidth
         self.num_tapers: int                      = num_tapers
         self.window_params: Tuple[float, float]   = window_params
@@ -168,6 +169,9 @@ class MultitaperSpectrogram:
         self.datawin_size: float|None                     = None    # seconds in one window -- required
         self.data_window_params:Tuple[float, float]|None  = [None, None] # [window length(s), window step size(s)] - - required
 
+        self.window_idxs = None
+        self.freq_inds = None
+
 
         # Store Result information
         self.mt_spectrogram          = None
@@ -187,14 +191,14 @@ class MultitaperSpectrogram:
         self.heatmap_original_data = None
         self.heatmap_time_points   = None
         self.heatmap_cmap          = None
-        self.clim_scale            = None
+        self.clim_scale            = clim_scale
         self.heatmap_clim          = None
     # Computer
     def compute_spectrogram(self):
         #  Process user input
         [data, fs, frequency_range, time_bandwidth, num_tapers,
          winsize_samples, winstep_samples, window_start,
-         num_windows, nfft, detrend_opt, plot_on, verbose] = self.process_input()
+         num_windows, nfft, detrend_opt, _plot_on, _verbose] = self.process_input()
 
         # Set up spectrogram parameters
         [window_idxs, stimes, sfreqs, freq_inds] = self.process_spectrogram_params(fs, nfft, frequency_range, window_start,
@@ -400,7 +404,8 @@ class MultitaperSpectrogram:
         return ([data, fs, frequency_range, time_bandwidth, num_tapers,
                  int(winsize_samples), int(winstep_samples), window_start, num_windows, nfft,
                  detrend_opt, plot_on, verbose])
-    def process_spectrogram_params(self, fs, nfft, frequency_range, window_start, datawin_size):
+    @staticmethod
+    def process_spectrogram_params(fs, nfft, frequency_range, window_start, datawin_size):
         """ Helper function to create frequency vector and window indices
             Arguments:
                  fs (float): sampling frequency in Hz  -- required
@@ -506,7 +511,7 @@ class MultitaperSpectrogram:
         if parent_widget:
             # Enable expanding to fill the parent widget
             y_label = "F(Hz)"
-            color_bar_label = 'dB'
+            # color_bar_label = 'dB'
         else:
             y_label = "Frequency (Hz)"
             color_bar_label = 'PSD (dB)'
@@ -569,7 +574,7 @@ class MultitaperSpectrogram:
             if self.clim_scale:
                clim = np.percentile(spect_data, [5, 98])
                im.set_clim(clim)
-        elif parent_widget == None:
+        elif parent_widget is None:
             pass
             #plt.figure()
             #plt.imshow(spect_data, extent=extent, aspect='auto', cmap='cet_rainbow4')
@@ -580,8 +585,8 @@ class MultitaperSpectrogram:
             #plt.show()
 
         # Optionally return for other use
-        if self.return_fig:
-            return mt_spectrogram, stimes, sfreqs, (fig, ax)
+        # if self.return_fig:
+        #    return mt_spectrogram, stimes, sfreqs, (fig, ax)
     def show_colorbar_legend_dialog(self):
         # Check that spectrogram was computed
         if not hasattr(self, 'mt_spectrogram') or self.mt_spectrogram is None:
@@ -650,9 +655,9 @@ class MultitaperSpectrogram:
 
             if x_value is not None and y_value is not None:
                 # Convert time to hours:minutes format for display
-                hours = int(x_value // 3600)
-                minutes = int((x_value % 3600) // 60)
-                seconds = int(x_value % 60)
+                # hours = int(x_value // 3600)
+                # minutes = int((x_value % 3600) // 60)
+                # seconds = int(x_value % 60)
                 # time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
                 # Call the callback function if provided
@@ -756,9 +761,6 @@ class MultitaperSpectrogram:
 
         # Embed canvas into the provided QWidget
         if parent_widget:
-            from PySide6.QtWidgets import QVBoxLayout
-            from PySide6.QtCore import Qt
-
             # Create the canvas
             canvas = FigureCanvas(fig)
             # canvas.setSizePolicy(canvas.sizePolicy().Expanding, canvas.sizePolicy().Expanding)
@@ -912,9 +914,9 @@ class MultitaperSpectrogram:
 
         return ydB
     @staticmethod
-    def is_outlier(data):
-        smad = 1.4826 * np.median(abs(data - np.median(data)))  # scaled median absolute deviation
-        outlier_mask = abs(data - np.median(data)) > 3 * smad  # outliers are more than 3 smads away from median
+    def is_outlier(data:npt.NDArray[np.floating]) -> npt.NDArray[np.bool_]:
+        smad: float = float(1.4826 * np.median(np.abs(data - np.median(data))))# scaled median absolute deviation
+        outlier_mask = np.abs(data - np.median(data)) > 3.0 * smad  # outliers are more than 3 smads away from median
         outlier_mask = (outlier_mask | np.isnan(data) | np.isinf(data))
         return outlier_mask
     @staticmethod
@@ -938,10 +940,8 @@ class MultitaperSpectrogram:
         """
 
         # If segment has all zeros, return vector of zeros
-        if all(data_segment == 0):
-            ret = np.empty(sum(freq_inds))
-            ret.fill(0)
-            return ret
+        if np.all(data_segment == 0):
+            return np.zeros(sum(freq_inds))
 
         if any(np.isnan(data_segment)):
             ret = np.empty(sum(freq_inds))

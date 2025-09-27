@@ -3,6 +3,7 @@
 #
 
 # To Do:
+#TODO: Check why sleep stages do not align with histrogram when increasing epoch width then reducting epoch width
 #TODO: Future action to display all annotations.
 
 # Modules
@@ -114,7 +115,7 @@ class SignalWindow(QMainWindow):
         self.epoch_display_options_text:list        = ['30 s', '1 min', '2 min', '4 min', '5 min','8 min', '10 min', '1 hr']
         self.epoch_display_options_width_sec:list  = [ 30,     60,    120,    240,   300,  480,   600,   3600]
         self.epoch_display_axis_grid:list           = [ [5,1],  [10,2], [60,10],  [60, 10], [60, 10], [120, 30],[120, 30], [600, 50] ]
-        self.epoch_axis_units:list                  = ['s', 's', 'm', 'm', 'm', 'm']
+        self.epoch_axis_units:list                  = ['s', 's', 'm', 'm', 'm', 'm' , 'm', 'm']
         self.time_convert_f:list                    = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min]
 
         # Initialize epoch variables
@@ -414,6 +415,8 @@ class SignalWindow(QMainWindow):
         convert_time_f          = self.time_convert_f[epoch_width_index]
         time_axis_units         = self.epoch_axis_units[epoch_width_index]
         signal_type             = ""
+
+        print(f'epoch_width_index = {epoch_width_index}, epoch_width = {epoch_width}')
 
         # Set signal label
         signal_label = self.ui.comboBox_signals.currentText()
@@ -1080,6 +1083,8 @@ class SignalWindow(QMainWindow):
         new_epoch_width_index = int(self.ui.comboBox_epoch.currentIndex())
         new_epoch_width       = self.epoch_display_options_width_sec[new_epoch_width_index]
 
+        print(f'old_epoch_width = {old_epoch_width}, new_epoch_width = {new_epoch_width}')
+
         # Get new maximum epochs
         signal_keys            = [label for label in self.edf_obj.edf_signals.signal_labels if label != '']
         new_maximum_epochs    = self.edf_obj.edf_signals.return_num_epochs(signal_keys[0], new_epoch_width)
@@ -1088,7 +1093,7 @@ class SignalWindow(QMainWindow):
 
         # Compute new epoch number
         current_epoch         = int(self.ui.textEdit_epoch.toPlainText())
-        current_time_in_sec   = current_epoch*old_epoch_width - old_epoch_width
+        current_time_in_sec   = (current_epoch-1)*old_epoch_width
         new_epoch             = current_time_in_sec / new_epoch_width + 1
         if new_epoch <  1 :
             new_epoch = int(math.ceil(new_epoch))
@@ -1098,12 +1103,12 @@ class SignalWindow(QMainWindow):
         # Update epoch textEdit widget
         self.ui.textEdit_epoch.setText(str(new_epoch))
 
-        # Update signal graphic views
-        self.draw_signal_in_graphic_views()
-
         # Update current width
         self.current_epoch_width_index = new_epoch_width_index
         self.current_epoch = new_epoch
+
+        # Update signal graphic views
+        self.draw_signal_in_graphic_views()
 
         # turn off update signal combobox
         self.ui.comboBox_epoch.blockSignals(False)
