@@ -327,7 +327,7 @@ class SignalWindow(QMainWindow):
         self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                                  self.ui.graphicsView_annotation_plot,
                                                                  annotation_filter=cur_annotation_setting,
-                                                                 double_click_callback=self.on_hypnogram_double_click)
+                                                                 double_click_callback=self.on_annotation_double_click)
         # Set up plot legend
         self.ui.pushButton_annotation_legend.clicked.connect(self.show_annotation_legend_popup)
         self.ui.listWidget_annotation.itemDoubleClicked.connect(self.annotation_list_widget_double_click)
@@ -647,6 +647,46 @@ class SignalWindow(QMainWindow):
         self.xml_obj.sleep_stages_obj.show_sleep_stages_legend()
 
     # Spectrogram
+    def on_spectrogram_double_click(self, x_value, _y_value):
+        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
+        # Slot to handle double-click events on QListWidget items.
+        logger.info(f"Annotation plot double-clicked: time in seconds {x_value}")
+        if self.edf_obj is None:
+            return
+
+        # Change cursor to busy
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        # Get double click x value
+        annotation_time_in_sec = x_value
+
+        # Change Current epoch
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
+        new_epoch = math.floor(new_epoch) + 1
+        self.ui.textEdit_epoch.setText(str(new_epoch))
+        self.current_epoch = new_epoch
+
+        # Update signal graphic views to annotation epoch
+        # self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     hypnogram_marker=hypnogram_marker,
+                                                     double_click_callback=self.on_hypnogram_double_click,
+                                                     show_stage_colors=show_stage_colors
+                                                     )
+
+        # Update Signals
+        self.draw_signal_in_graphic_views()
+
+        # Revert cursor to pointer
+        QApplication.restoreOverrideCursor()
+
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def compute_and_display_spectrogram(self):
         # Check before starting long computation
 
@@ -675,13 +715,13 @@ class SignalWindow(QMainWindow):
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
                 multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
-                                            double_click_callback = self.on_hypnogram_double_click)
+                                            double_click_callback = self.on_spectrogram_double_click)
                 # Update log
                 logger.info(f'Spectrogram plotted')
             else:
                 # Plot signal heatmap
                 multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
-                                                double_click_callback=self.on_hypnogram_double_click)
+                                                double_click_callback=self.on_spectrogram_double_click)
                 logger.info(f'Plotted heatmap instead')
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
@@ -736,7 +776,7 @@ class SignalWindow(QMainWindow):
 
         # Plot signal heatmap
         multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
-                                        double_click_callback=self.on_hypnogram_double_click)
+                                        double_click_callback=self.on_spectrogram_double_click)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
         # print(self.multitaper_spectrogram_obj.heatmap_fs)
@@ -763,6 +803,47 @@ class SignalWindow(QMainWindow):
         logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
 
     # Annotation
+    def on_annotation_double_click(self, x_value, _y_value):
+        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
+        # Slot to handle double-click events on QListWidget items.
+        logger.info(f"Hypnogram plot double-clicked: time in seconds {x_value}")
+        if self.edf_obj is None:
+            return
+
+        # Change cursor to busy
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        # Get double click x value
+        annotation_time_in_sec = x_value
+
+        # Change Current epoch
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
+        new_epoch = math.floor(new_epoch) + 1
+        self.ui.textEdit_epoch.setText(str(new_epoch))
+        self.current_epoch = new_epoch
+
+        # Update signal graphic views to annotation epoch
+        # self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     hypnogram_marker=hypnogram_marker,
+                                                     double_click_callback=self.on_hypnogram_double_click,
+                                                     show_stage_colors = show_stage_colors
+                                                     )
+
+        # Update Signals
+        self.draw_signal_in_graphic_views()
+
+
+        # Revert cursor to pointer
+        QApplication.restoreOverrideCursor()
+
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
@@ -793,7 +874,7 @@ class SignalWindow(QMainWindow):
             self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                         self.ui.graphicsView_annotation_plot,
                                                         annotation_filter = cur_annotation_setting,
-                                                        double_click_callback = self.on_hypnogram_double_click)
+                                                        double_click_callback = self.on_annotation_double_click)
     def show_annotation_legend_popup(self):
         if self.xml_obj is not None:
             self.xml_obj.scored_event_obj.show_annotation_legend()
