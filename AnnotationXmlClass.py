@@ -79,9 +79,6 @@ from PySide6.QtCore import Qt
 
 # To Do List
 # TODO: Add N3 collapse summary to json export
-# TODO: Use color for annotation
-
-
 
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
@@ -1753,55 +1750,58 @@ def main():
 
     :return:
     """
-    os_name = platform.system()
-    cur_working_dir = os.getcwd()
 
-    fn_1:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr01-profusion.xml")
-    fn_2:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr02-profusion.xml")
-    fn_3:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
-    fn_4:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
-    schema_fn:str  = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "profusion_schema.xsd")
+    # removed initial testing since test files are not available in working directory
 
-    AnnotateObject1: AnnotationXml  = AnnotationXml(fn_1)
-    AnnotateObject1.load()
-    valid_xml_file = AnnotateObject1.validate_xml(fn_1, schema_fn)
-    AnnotateObject1.summary()
-    AnnotateObject1.set_output_dir("./export/json")
-    AnnotateObject1.export_summary('learn-nsrr01-profusion_summary.json', fmt='json')
-    AnnotateObject1.set_output_dir("./export/csv")
-    AnnotateObject1.export_summary('learn-nsrr01-profusion_summary.csv', fmt='csv')
-
-    AnnotateObject2: AnnotationXml  = AnnotationXml(fn_2, verbose = False)
-    AnnotateObject2.load()
-    AnnotateObject2.summary()
-
-    AnnotateObject3: AnnotationXml  = AnnotationXml(fn_3, verbose = False)
-    AnnotateObject3.load()
-    AnnotateObject3.summary()
-
-    AnnotateObject4: AnnotationXml  = AnnotationXml(fn_4, verbose = True)
-    AnnotateObject4.load()
-    AnnotateObject4.summary()
-    AnnotateObject4.set_output_dir("./export/summary")
-    AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
-    AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
-
-    AnnotateObject5: AnnotationXml  = AnnotationXml(fn_4, verbose = False)
-    logger.info(f'Annotation Object 5 validate? {AnnotateObject5.validate_xml(fn_4, schema_fn)}')
-    AnnotateObject5.load()
-    AnnotateObject5.summary()
-    AnnotateObject5.set_output_dir("./export/sleep_stages")
-    AnnotateObject5.sleep_stages_obj.export_sleep_stages('sleep_stages.txt')
-    AnnotateObject5.set_output_dir("./export/sleep_events")
-    AnnotateObject5.scored_event_obj.export_event('sleep_events.xlsx')
-    AnnotateObject5.scored_event_obj.export_event(fmt = 'csv')
-    AnnotateObject5.set_output_dir("./export/summary")
-    sleep_events = AnnotateObject5.scored_event_obj.get_events_types()
-    logger.info(f'Sleep Events: {sleep_events}')
-    AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
-    AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
-
-    AnnotateObject6: AnnotationXml  = AnnotationXml('fn_4', verbose = False)
-    AnnotateObject6.load()
+    # os_name = platform.system()
+    # cur_working_dir = os.getcwd()
+    #
+    # fn_1:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr01-profusion.xml")
+    # fn_2:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr02-profusion.xml")
+    # fn_3:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
+    # fn_4:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
+    # schema_fn:str  = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "profusion_schema.xsd")
+    #
+    # AnnotateObject1: AnnotationXml  = AnnotationXml(fn_1)
+    # AnnotateObject1.load()
+    # valid_xml_file = AnnotateObject1.validate_xml(fn_1, schema_fn)
+    # AnnotateObject1.summary()
+    # AnnotateObject1.set_output_dir("./export/json")
+    # AnnotateObject1.export_summary('learn-nsrr01-profusion_summary.json', fmt='json')
+    # AnnotateObject1.set_output_dir("./export/csv")
+    # AnnotateObject1.export_summary('learn-nsrr01-profusion_summary.csv', fmt='csv')
+    #
+    # AnnotateObject2: AnnotationXml  = AnnotationXml(fn_2, verbose = False)
+    # AnnotateObject2.load()
+    # AnnotateObject2.summary()
+    #
+    # AnnotateObject3: AnnotationXml  = AnnotationXml(fn_3, verbose = False)
+    # AnnotateObject3.load()
+    # AnnotateObject3.summary()
+    #
+    # AnnotateObject4: AnnotationXml  = AnnotationXml(fn_4, verbose = True)
+    # AnnotateObject4.load()
+    # AnnotateObject4.summary()
+    # AnnotateObject4.set_output_dir("./export/summary")
+    # AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
+    # AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
+    #
+    # AnnotateObject5: AnnotationXml  = AnnotationXml(fn_4, verbose = False)
+    # logger.info(f'Annotation Object 5 validate? {AnnotateObject5.validate_xml(fn_4, schema_fn)}')
+    # AnnotateObject5.load()
+    # AnnotateObject5.summary()
+    # AnnotateObject5.set_output_dir("./export/sleep_stages")
+    # AnnotateObject5.sleep_stages_obj.export_sleep_stages('sleep_stages.txt')
+    # AnnotateObject5.set_output_dir("./export/sleep_events")
+    # AnnotateObject5.scored_event_obj.export_event('sleep_events.xlsx')
+    # AnnotateObject5.scored_event_obj.export_event(fmt = 'csv')
+    # AnnotateObject5.set_output_dir("./export/summary")
+    # sleep_events = AnnotateObject5.scored_event_obj.get_events_types()
+    # logger.info(f'Sleep Events: {sleep_events}')
+    # AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
+    # AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
+    #
+    # AnnotateObject6: AnnotationXml  = AnnotationXml('fn_4', verbose = False)
+    # AnnotateObject6.load()
 if __name__ == "__main__":
     main()

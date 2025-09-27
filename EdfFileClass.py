@@ -30,7 +30,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-# TODO: Add a safe minimum for y min during signal plot as done in prior calls
 
 # Import Modules
 # OS Imports
@@ -635,25 +634,6 @@ class EdfSignals:
         df.to_excel(filename, index_label="Signal")
 
         logger.info(f"Signal stats exported to Excel: {filename}")
-    #@classmethod
-    # def from_array(cls, data: np.ndarray, labels: List[str], sampling_time: List[float], units: List[str]):
-    #     """Create EdfSignals object from array data.
-    #
-    #     Args:
-    #         data: 2D numpy array with shape (n_signals, n_samples).
-    #         labels: Signal labels.
-    #         sampling_time: Sampling times for each signal.
-    #         units: Units for each signal.
-    #
-    #     Returns:
-    #         EdfSignals instance.
-    #     """
-    #     obj = cls(labels)
-    #     for i, label in enumerate(labels):
-    #         obj.signals[label] = data[i, :].tolist()
-    #         obj.signal_sampling_time[i] = sampling_time[i]
-    #         obj.signal_units[label] = units[i]
-    #     return obj
     @classmethod
     def from_array(cls, data: np.ndarray, labels: List[str], sampling_time: List[float], units: List[str]):
         """Create EdfSignals object from array data."""
@@ -761,7 +741,7 @@ class EdfSignals:
         ax = fig.add_subplot(111)
 
         # ADD SLEEP STAGE RECTANGLES BEFORE PLOTTING THE SIGNAL
-        if sleep_stages:
+        if sleep_stages and signal_key is not "":
             # Get the y-axis limits first (we'll need them for rectangle height)
             #print('sleep_stages in plotting')
             if is_signal_stepped:
@@ -787,8 +767,8 @@ class EdfSignals:
 
             # Add rectangles for each sleep stage
             for stage_info in sleep_stages:
-                #print(stage_info)
-                start_time = stage_info.get('start_time', 0)
+                print(stage_info)
+                start_time = stage_info.get('start_time')
                 end_time = stage_info.get('end_time', epoch_width)
                 stage_name = stage_info.get('stage', 'Unknown')
 

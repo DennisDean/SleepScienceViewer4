@@ -4,7 +4,6 @@
 
 # To Do:
 #TODO: Check why sleep stages do not align with histrogram when increasing epoch width then reducting epoch width
-#TODO: Future action to display all annotations.
 
 # Modules
 import logging
@@ -425,6 +424,8 @@ class SignalWindow(QMainWindow):
         # Get filtering parameters
         filter_param = self.filter_param
 
+        print(f'filter_param = {filter_param} ')
+
         # Determine y limits
         if self.ui.pushButton_sync_y.isChecked():
             page_signals = self.edf_obj.edf_signals.return_signal_segments(
@@ -464,9 +465,12 @@ class SignalWindow(QMainWindow):
             # Get sleep stages
             epoch_start = epoch_num+i
             epoch_end   = epoch_start + int(epoch_num+epoch_width/self.xml_obj.epochLength)
-            #print(f'epoch_start = {epoch_start}, epoch_end = {epoch_end}')
+            print(f'draw signal in graphic view: epoch_start = {epoch_start}, epoch_end = {epoch_end}')
+            stage_epoch_start = round(epoch_start*epoch_width/self.xml_obj.epochLength)
+            stage_epoch_end   = stage_epoch_start + round(epoch_width/self.xml_obj.epochLength)
+            print(f'draw signal in graphic view: stage_epoch_start = {stage_epoch_start}, stage_epoch_end = {stage_epoch_end}')
             sleep_stage_dict_list = self.xml_obj.sleep_stages_obj.return_zeroed_sleep_stage_time_dictionary(
-                epoch_start, epoch_end)
+                stage_epoch_start, stage_epoch_end)
             #print(f'sleep_stage_dict_list = {sleep_stage_dict_list}')
 
             # Plot signal segment
@@ -1171,8 +1175,13 @@ class SignalWindow(QMainWindow):
         # Get new maximum epochs
         signal_keys            = [label for label in self.edf_obj.edf_signals.signal_labels if label != '']
         new_maximum_epochs    = self.edf_obj.edf_signals.return_num_epochs(signal_keys[0], new_epoch_width)
+
+        print(f'self.max_epoch = {self.max_epoch}, new_maximum_epochs = {new_maximum_epochs}')
+
         self.max_epoch        = new_maximum_epochs
         self.ui.label_page.setText(f' of {new_maximum_epochs} epochs')
+
+
 
         # Compute new epoch number
         current_epoch         = int(self.ui.textEdit_epoch.toPlainText())
@@ -1182,6 +1191,8 @@ class SignalWindow(QMainWindow):
             new_epoch = int(math.ceil(new_epoch))
         else:
             new_epoch = int(math.floor(new_epoch))
+
+        print(f'current_epoch  = {current_epoch }, new_epoch = {new_epoch}')
 
         # Update epoch textEdit widget
         self.ui.textEdit_epoch.setText(str(new_epoch))
