@@ -20,7 +20,6 @@ This code is companion to the paper:
 import math
 import numpy as np
 import numpy.typing as npt
-from   openpyxl.pivot.fields import Boolean
 from   scipy.signal.windows import dpss
 from   scipy.signal import detrend
 from   typing import Tuple, Literal, Optional
@@ -53,7 +52,7 @@ logger = logging.getLogger(__name__)
 class MultitaperSpectrogram:
     def __init__(self, data:npt.NDArray, fs:float, frequency_range:list[float]|None=None, time_bandwidth=5,
                  num_tapers=None, window_params:list[float]=None, min_nfft=0,
-                 detrend_opt:Literal['Linear', 'constant', 'off']='linear', multiprocess=False,
+                 detrend_opt:Literal['linear', 'constant', 'off']='linear', multiprocess=False,
                  n_jobs=None, weighting='unity', plot_on=True, return_fig=False, clim_scale=True,
                  verbose=True, xyflip=False, ax=None):
         """ Compute multitaper spectrogram of timeseries data
@@ -147,7 +146,13 @@ class MultitaperSpectrogram:
         self.num_tapers: int                      = num_tapers
         self.window_params: list[float]   = window_params
         self.min_nfft: int                        = min_nfft
-        self.detrend_opt: Literal['Linear', 'constant', 'off'] = detrend_opt
+
+        detrend_opt_input: str = detrend_opt.lower()  # normalize
+        if detrend_opt_input not in ('linear', 'constant', 'off'):
+            raise ValueError(f"Invalid detrend option: {detrend_opt}")
+        self.detrend_opt: Literal['linear', 'constant', 'off'] = detrend_opt_input
+
+
         self.multiprocess: bool = multiprocess
         self.n_jobs: int           = n_jobs
         self.weighting: str        = weighting
@@ -168,7 +173,7 @@ class MultitaperSpectrogram:
 
         self.window_start: Optional[np.ndarray] = None        # array of timestamps representing the beginning time for each                                           window -- required
         self.datawin_size: Optional[float]|None                     = None    # seconds in one window -- required
-        self.data_window_params:Optional[Tuple[float, float]]|None  = [None, None] # [window length(s), window step size(s)] - - required
+        self.data_window_params: Optional[Tuple[float, float]] = None # [window length(s), window step size(s)] - - required
 
         self.window_idxs = None
         self.freq_inds = None
@@ -315,14 +320,19 @@ class MultitaperSpectrogram:
         # Get inputs
         data: npt.NDArray[np.float64]  = self.data
         fs: float = self.fs
-        frequency_range: Tuple[float, float]  = self.frequency_range
+        frequency_range: list[float] = self.frequency_range
         time_bandwidth:float = self.time_bandwidth
         num_tapers: int = self.num_tapers
         window_params: Tuple[float, float] = self.window_params
         min_nfft: int = self.min_nfft
-        detrend_opt: Literal['Linear', 'constant', 'off'] = self.detrend_opt
+
+        detrend_opt_input: str = self.detrend_opt.lower()  # normalize input
+        if detrend_opt_input not in ('linear', 'constant', 'off'):
+            raise ValueError(f"Invalid detrend option: {self.detrend_opt}")
+        detrend_opt: Literal['linear', 'constant', 'off'] = detrend_opt_input
+
         plot_on: bool = self. plot_on
-        verbose: Boolean = self.verbose
+        verbose: bool = self.verbose
 
         # Make sure data is 1 dimensional np array
         if len(data.shape) != 1:
@@ -339,7 +349,10 @@ class MultitaperSpectrogram:
             frequency_range = [0, fs / 2]
 
         # Set detrending method
-        detrend_opt = detrend_opt.lower()
+        detrend_opt_lower = detrend_opt.lower()
+        if detrend_opt_lower not in ('linear', 'constant', 'off'):
+            raise ValueError(f"Invalid detrend option: {detrend_opt_lower}")
+        detrend_opt: Literal['linear', 'constant', 'off'] = detrend_opt_lower
         if detrend_opt != 'linear':
             if detrend_opt in ['const', 'constant']:
                 detrend_opt = 'constant'
@@ -365,7 +378,7 @@ class MultitaperSpectrogram:
 
         # If no window params provided, set to defaults
         if window_params is None:
-            window_params = [5, 1]
+            window_params = tuple([5, 1])
 
         # Check if window size is valid, fix if not
         if window_params[0] * fs % 1 != 0:
@@ -622,10 +635,12 @@ class MultitaperSpectrogram:
             vmin, vmax = np.nanmin(spect_data), np.nanmax(spect_data)
 
         # Create a simple axes for the colorbar
-        ax = fig.add_axes([0.1, 0.1, 0.3, 0.8])  # [left, bottom, width, height]
+        ax = fig.add_axes(tuple([0.1, 0.1, 0.3, 0.8]))  # [left, bottom, width, height]
 
         # Create colorbar directly
-        norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
+        vmin_val = float(vmin) if vmin is not None else None
+        vmax_val = float(vmax) if vmax is not None else None
+        norm = mcolors.Normalize(vmin=vmin_val, vmax=vmax_val)
         sm = cm.ScalarMappable(norm=norm, cmap=cmap)
         sm.set_array([])
 
@@ -758,7 +773,7 @@ class MultitaperSpectrogram:
         # Set color limits based on data percentiles
         if hasattr(self, 'clim_scale') and self.clim_scale:
             clim = np.percentile(heatmap_data, [5, 95])
-            im.set_clim(clim)
+            im.set_clim(tuple(clim))
 
         # Embed canvas into the provided QWidget
         if parent_widget:
@@ -797,7 +812,7 @@ class MultitaperSpectrogram:
 
             if hasattr(self, 'clim_scale') and self.clim_scale:
                 clim = np.percentile(heatmap_data, [5, 95])
-                im.set_clim(clim)
+                im.set_clim(tuple(clim))
 
         # Optionally return for other use
         if hasattr(self, 'return_fig') and self.return_fig:
@@ -838,7 +853,8 @@ class MultitaperSpectrogram:
         vmin, vmax = self.heatmap_clim
 
         # Create a simple axes for the colorbar
-        ax = fig.add_axes([0.1, 0.1, 0.3, 0.8])  # [left, bottom, width, height]
+        rect: tuple[float, float, float, float] = (0.1, 0.1, 0.3, 0.8)
+        ax = fig.add_axes(rect)  # [left, bottom, width, height]
 
         # Create colorbar directly
         norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
@@ -883,13 +899,17 @@ class MultitaperSpectrogram:
         return info
     def clear_data_heatmap_variables(self):
         # Clear heatmap information
-        self.heatmap_data          = None
-        self.heatmap_fs            = None
-        self.heatmap_original_data = None
-        self.heatmap_time_points   = None
-        self.heatmap_cmap          = None
-        self.clim_scale            = None
-        self.heatmap_clim          = None
+        for attr in [
+            "heatmap_data",
+            "heatmap_fs",
+            "heatmap_original_data",
+            "heatmap_time_points",
+            "heatmap_cmap",
+            "clim_scale",
+            "heatmap_clim",
+        ]:
+            if not hasattr(self, attr):
+                setattr(self, attr, None)
 
     # HELPER FUNCTIONS
     @staticmethod
