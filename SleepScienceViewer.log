@@ -3474,3 +3474,447 @@
 [2025-09-26 23:05:03,968] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
 [2025-09-26 23:05:03,981] INFO - EdfFileClass - plot_signal_segment: parent widget found
 [2025-09-26 23:05:03,981] INFO - SignalWindowClass - Jumped to new signal epoch (469, epoch offset 4)
+[2025-09-26 23:10:42,199] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-26 23:10:42,498] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-09-26 23:10:42,498] INFO - EdfFileClass - input list (['SaO2', 'PR', 'EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG', 'AIRFLOW', 'THOR RES', 'ABDO RES', 'POSITION', 'LIGHT', 'OX STAT']), continuous (['EEG(sec)', 'ECG', 'EMG', 'EOG(L)', 'EOG(R)', 'EEG'])
+[2025-09-26 23:10:42,502] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-26 23:10:42,520] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,520] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-09-26 23:10:42,520] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-26 23:10:42,534] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,534] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-09-26 23:10:42,534] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-26 23:10:42,547] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,548] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-09-26 23:10:42,548] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-26 23:10:42,560] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,561] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-09-26 23:10:42,561] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-26 23:10:42,574] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,574] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-09-26 23:10:42,574] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-26 23:10:42,587] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,588] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-09-26 23:10:42,588] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-26 23:10:42,600] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,600] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-09-26 23:10:42,600] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-26 23:10:42,613] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,614] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-09-26 23:10:42,614] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-26 23:10:42,627] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,627] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-09-26 23:10:42,627] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-26 23:10:42,639] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:10:42,639] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-09-26 23:10:44,515] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-09-26 23:10:46,224] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-09-26 23:10:46,236] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-26 23:10:46,255] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-09-26 23:10:46,255] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-09-26 23:10:49,019] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-09-26 23:10:49,037] INFO - SleepScienceViewer - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-09-26 23:10:53,245] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.10 seconds
+[2025-09-26 23:10:53,582] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-09-26 23:11:10,589] INFO - SleepScienceViewer - Annotation list double-clicked: 0:46:20  Arousal ()         EEG    
+[2025-09-26 23:11:10,630] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,642] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,655] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,668] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,681] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,693] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,706] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,784] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,797] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,810] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:10,827] INFO - SleepScienceViewer - Jumped to new signal epoch (93, epoch offset 20)
+[2025-09-26 23:11:13,963] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:13,976] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:13,988] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,001] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,014] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,027] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,040] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,053] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,066] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,078] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,091] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,104] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,116] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,218] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,232] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:14,232] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:11:14,245] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:20,070] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-09-26 23:11:20,080] INFO - SignalWindowClass - Computing spectrogram (SaO2): computation may be time consuming
+[2025-09-26 23:11:20,089] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-09-26 23:11:20,127] INFO - SignalWindowClass - Plotted heatmap instead
+[2025-09-26 23:11:20,127] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-26 23:11:25,063] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,077] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,091] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,121] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,134] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,148] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,160] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,174] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,187] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,200] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,213] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,226] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,240] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,253] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,267] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,267] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:11:25,280] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:25,280] INFO - SignalWindowClass - Signal combobox changed to EEG(sec)
+[2025-09-26 23:11:28,054] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-09-26 23:11:28,064] INFO - SignalWindowClass - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-09-26 23:11:32,022] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.85 seconds
+[2025-09-26 23:11:32,368] INFO - SignalWindowClass - Spectrogram plotted
+[2025-09-26 23:11:32,368] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-26 23:11:35,558] INFO - SignalWindowClass - Hypnogram plot double-clicked: time in seconds 18947.816147859925
+[2025-09-26 23:11:35,976] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:36,069] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:36,300] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:36,394] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:36,486] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:36,580] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:36,673] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:36,950] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,043] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,136] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,229] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,322] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,415] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,733] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,824] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,825] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:11:37,837] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:37,837] INFO - SignalWindowClass - Jumped to new signal epoch (632, epoch offset 17)
+[2025-09-26 23:11:39,872] INFO - SignalWindowClass - Annotation plot double-clicked: time in seconds 19179.15169475291
+[2025-09-26 23:11:40,187] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:40,282] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:40,672] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:40,764] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:40,855] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:40,948] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,038] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,129] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,221] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,633] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,724] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,812] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,903] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:41,993] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:42,082] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:42,082] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:11:42,132] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:42,132] INFO - SignalWindowClass - Jumped to new signal epoch (640, epoch offset 9)
+[2025-09-26 23:11:43,794] INFO - SignalWindowClass - Hypnogram plot double-clicked: time in seconds 11884.16967759867
+[2025-09-26 23:11:44,407] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,476] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,546] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,617] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,687] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,756] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,827] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,897] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:44,968] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,439] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,510] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,581] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,651] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,722] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,792] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,793] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:11:45,805] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:45,806] INFO - SignalWindowClass - Jumped to new signal epoch (397, epoch offset 4)
+[2025-09-26 23:11:47,585] INFO - SignalWindowClass - Hypnogram plot double-clicked: time in seconds 7239.122776542525
+[2025-09-26 23:11:48,237] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,285] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,334] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,383] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,431] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,480] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,528] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,576] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,625] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,672] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,722] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:48,771] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:49,166] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:49,215] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:49,264] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:49,265] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:11:49,278] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:11:49,278] INFO - SignalWindowClass - Jumped to new signal epoch (242, epoch offset 9)
+[2025-09-26 23:12:18,374] INFO - SignalWindowClass - Annotation list double-clicked: 1:41:57  SpO2 desaturation  SaO2   
+[2025-09-26 23:12:18,438] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:18,482] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:18,524] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:18,568] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:18,611] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:18,654] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:18,696] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,006] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,050] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,092] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,135] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,177] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,220] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,264] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,307] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,308] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:12:19,321] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:19,762] INFO - SignalWindowClass - Jumped to new signal epoch (204, epoch offset 27)
+[2025-09-26 23:12:29,318] INFO - SignalWindowClass - Annotation combobox text changed to Obstructive Apnea
+[2025-09-26 23:12:35,167] INFO - SignalWindowClass - Hypnogram plot double-clicked: time in seconds 12465.77647304058
+[2025-09-26 23:12:35,624] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:35,696] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:35,769] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,087] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,161] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,233] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,306] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,379] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,450] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,763] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,837] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,910] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:36,983] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:37,055] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:37,128] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:37,128] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:12:37,141] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:37,141] INFO - SignalWindowClass - Jumped to new signal epoch (416, epoch offset 15)
+[2025-09-26 23:12:45,738] INFO - SignalWindowClass - Annotation list double-clicked: 7:38:24  Obstructive Apnea  AIRFLOW
+[2025-09-26 23:12:45,801] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:45,854] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,195] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,247] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,300] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,352] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,404] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,457] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,510] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,562] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,613] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,665] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:46,716] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:47,130] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:47,181] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:47,182] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:12:47,195] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:47,398] INFO - SignalWindowClass - Jumped to new signal epoch (917, epoch offset 23)
+[2025-09-26 23:12:50,334] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:50,415] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:50,755] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:50,808] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:50,860] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:50,913] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:50,965] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,018] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,070] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,122] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,173] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,225] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,550] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,601] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,652] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:51,653] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:12:51,665] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:12:57,419] INFO - SignalWindowClass - Setting filtering parameters: lowcut = 0.1, highcut  = 50.0
+[2025-09-26 23:13:00,203] INFO - SignalWindowClass - Setting notch parameter: notch = 50.0
+[2025-09-26 23:13:30,515] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,557] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:30,557] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,557] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:30,559] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:30,620] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:30,621] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,622] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:30,622] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,622] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:30,622] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:30,675] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:30,675] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,676] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:30,677] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,677] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:30,677] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:30,730] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:30,731] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,732] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:30,732] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,732] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:30,732] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:30,786] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:30,786] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,787] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:30,787] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,787] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:30,788] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:30,841] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:30,842] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,843] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:30,843] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,843] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:30,843] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:30,895] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:30,895] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,896] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:30,896] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:30,896] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:30,897] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,215] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,216] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,217] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,217] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,217] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,217] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,269] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,270] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,271] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,271] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,271] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,271] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,322] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,323] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,324] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,324] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,324] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,324] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,376] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,377] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,378] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,378] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,378] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,378] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,430] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,430] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,431] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,432] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,432] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,432] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,487] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,488] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,489] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,489] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,489] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,489] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,541] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,542] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,543] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,543] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,543] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,543] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,594] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,595] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,596] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:13:31,596] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:13:31,596] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:13:31,596] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:13:31,648] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,648] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:13:31,661] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:13:31,661] INFO - SignalWindowClass - Signal combobox changed to ECG
+[2025-09-26 23:14:47,549] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-09-26 23:14:47,551] INFO - SignalWindowClass - Computing spectrogram (ECG): computation may be time consuming
+[2025-09-26 23:14:54,533] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.79 seconds
+[2025-09-26 23:14:55,380] INFO - SignalWindowClass - Spectrogram plotted
+[2025-09-26 23:14:55,381] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-09-26 23:16:39,463] INFO - SignalWindowClass - Annotation list double-clicked: 7:21:57  Obstructive Apnea  AIRFLOW
+[2025-09-26 23:16:39,465] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,498] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,499] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,499] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,500] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,572] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,573] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,574] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,574] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,574] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,574] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,633] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,633] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,634] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,634] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,634] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,635] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,695] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,696] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,697] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,697] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,697] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,697] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,756] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,756] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,757] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,757] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,757] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,758] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,816] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,817] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,818] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,818] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,818] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,818] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,876] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,876] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,877] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,877] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,877] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,878] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,936] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,937] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,938] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,938] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,938] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,938] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:39,995] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:39,996] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,997] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:39,997] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:39,997] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:39,997] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:40,319] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:40,320] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,321] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:40,321] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,321] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:40,321] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:40,378] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:40,379] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,380] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:40,380] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,380] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:40,380] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:40,438] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:40,438] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,439] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:40,439] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,439] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:40,440] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:40,496] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:40,497] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,498] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:40,498] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,498] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:40,498] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:40,556] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:40,557] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,558] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:40,558] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,558] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:40,558] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:40,616] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:40,617] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,618] ERROR - EdfFileClass - Band pass filter applied.
+[2025-09-26 23:16:40,618] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-09-26 23:16:40,618] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-09-26 23:16:40,618] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-09-26 23:16:40,675] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:40,676] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-09-26 23:16:40,689] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-09-26 23:16:41,155] INFO - SignalWindowClass - Jumped to new signal epoch (884, epoch offset 26)

@@ -36,7 +36,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # OS Imports
 import os
 import logging
-from typing import List, Dict
+from typing import List, Dict, Optional
 from pathlib import Path
 
 # Logic support
@@ -347,6 +347,9 @@ class EdfSignalsStats:
 class EdfSignals:
     """Class for storing and summarizing EDF signal data loaded from an EDF file."""
     BYTES_PER_SAMPLE = 2 # Set to original standard value. May support larger bytes per sample in the future
+    signals: Dict[str, List[float]]
+    signal_units: Dict[str, str]
+    signal_sampling_time: Dict[int, float]
     def __init__(self, signal_labels: List[str], signals_dict:Dict[str,List[float]],
                  signal_sampling_time_dict:Dict[str,float],signal_units_dict:Dict[str,str]):
         """Initialize EdfSignals.
@@ -632,33 +635,46 @@ class EdfSignals:
         df.to_excel(filename, index_label="Signal")
 
         logger.info(f"Signal stats exported to Excel: {filename}")
+    #@classmethod
+    # def from_array(cls, data: np.ndarray, labels: List[str], sampling_time: List[float], units: List[str]):
+    #     """Create EdfSignals object from array data.
+    #
+    #     Args:
+    #         data: 2D numpy array with shape (n_signals, n_samples).
+    #         labels: Signal labels.
+    #         sampling_time: Sampling times for each signal.
+    #         units: Units for each signal.
+    #
+    #     Returns:
+    #         EdfSignals instance.
+    #     """
+    #     obj = cls(labels)
+    #     for i, label in enumerate(labels):
+    #         obj.signals[label] = data[i, :].tolist()
+    #         obj.signal_sampling_time[i] = sampling_time[i]
+    #         obj.signal_units[label] = units[i]
+    #     return obj
     @classmethod
     def from_array(cls, data: np.ndarray, labels: List[str], sampling_time: List[float], units: List[str]):
-        """Create EdfSignals object from array data.
+        """Create EdfSignals object from array data."""
 
-        Args:
-            data: 2D numpy array with shape (n_signals, n_samples).
-            labels: Signal labels.
-            sampling_time: Sampling times for each signal.
-            units: Units for each signal.
+        # Supply signal_sampling_time_dict as empty dict
+        obj = cls(labels, signals_dict={}, signal_sampling_time_dict={}, signal_units_dict={})
 
-        Returns:
-            EdfSignals instance.
-        """
-        obj = cls(labels)
         for i, label in enumerate(labels):
             obj.signals[label] = data[i, :].tolist()
             obj.signal_sampling_time[i] = sampling_time[i]
             obj.signal_units[label] = units[i]
+
         return obj
 
     # Visualization
     def plot_signal_segment(self, signal_key: str, signal_type: str, epoch_num: int, epoch_width: float,
-                            parent_widget=None, x_tick_settings:list[int, int] = None, annotation_marker=None,
+                            parent_widget=None, x_tick_settings:Optional[list[int]] = None, annotation_marker=None,
                             convert_time_f=lambda x:x, time_axis_units='', is_signal_stepped = False,
                             stepped_dict: dict | None = None, turn_xaxis_labels_off = False,
-                            filter_param:list[float, float, float] = None, y_limits:list[float,float] | None = None,
-                            y_axis_units:str|None = None, sleep_stages: list[dict] | None = None, signal_color:str|None = None):
+                            filter_param:Optional[list[float]] = None, y_limits:Optional[list[float]] = None,
+                            y_axis_units:str|None = None, sleep_stages: Optional[list[dict]] = None, signal_color:str|None = None):
         """
         Plot a signal segment for a given epoch and embed it in a QWidget if provided.
 
