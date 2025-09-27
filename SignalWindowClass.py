@@ -9,6 +9,7 @@
 # Modules
 import logging
 import math
+import numpy as np
 
 # Interface packages and modules
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
@@ -428,8 +429,9 @@ class SignalWindow(QMainWindow):
         if self.ui.pushButton_sync_y.isChecked():
             page_signals = self.edf_obj.edf_signals.return_signal_segments(
                 signal_label, "not implemented", current_epoch, current_epoch+epochs_to_draw-1, epoch_width)
-            y_page_min   = min(page_signals) if page_signals  else 0
-            y_page_max   = max(page_signals)
+            print(f'page_signals = {page_signals}')
+            y_page_min   = np.min(page_signals)
+            y_page_max   = np.max(page_signals)
             y_axis_page_limits = [y_page_min, y_page_max]
         else:
             y_axis_page_limits = None
