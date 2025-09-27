@@ -23,7 +23,7 @@ import numpy.typing as npt
 from   openpyxl.pivot.fields import Boolean
 from   scipy.signal.windows import dpss
 from   scipy.signal import detrend
-from   typing import Tuple, Literal
+from   typing import Tuple, Literal, Optional
 
 # Logistical Imports
 import warnings
@@ -42,7 +42,6 @@ import colorcet as cc
 
 # Interface
 from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
-from PySide6.QtCore import Qt
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -52,9 +51,11 @@ logger = logging.getLogger(__name__)
 
 # MULTITAPER SPECTROGRAM #
 class MultitaperSpectrogram:
-    def __init__(self, data:npt.NDArray, fs:float, frequency_range:list|None=None, time_bandwidth=5, num_tapers=None, window_params=None,
-                           min_nfft=0, detrend_opt='linear', multiprocess=False, n_jobs=None, weighting='unity',
-                           plot_on=True, return_fig=False, clim_scale=True, verbose=True, xyflip=False, ax=None):
+    def __init__(self, data:npt.NDArray, fs:float, frequency_range:list[float]|None=None, time_bandwidth=5,
+                 num_tapers=None, window_params:list[float]=None, min_nfft=0,
+                 detrend_opt:Literal['Linear', 'constant', 'off']='linear', multiprocess=False,
+                 n_jobs=None, weighting='unity', plot_on=True, return_fig=False, clim_scale=True,
+                 verbose=True, xyflip=False, ax=None):
         """ Compute multitaper spectrogram of timeseries data
         Usage:
         mt_spectrogram, stimes, sfreqs = multitaper_spectrogram(data, fs, frequency_range=None, time_bandwidth=5,
@@ -141,10 +142,10 @@ class MultitaperSpectrogram:
         # Input
         self.data: npt.NDArray[np.float64]        = data
         self.fs: float                            = fs
-        self.frequency_range: list[float,float] = frequency_range
+        self.frequency_range: list[float] = frequency_range
         self.time_bandwidth:float                 = time_bandwidth
         self.num_tapers: int                      = num_tapers
-        self.window_params: Tuple[float, float]   = window_params
+        self.window_params: list[float]   = window_params
         self.min_nfft: int                        = min_nfft
         self.detrend_opt: Literal['Linear', 'constant', 'off'] = detrend_opt
         self.multiprocess: bool = multiprocess
@@ -160,14 +161,14 @@ class MultitaperSpectrogram:
 
         # Computed taper parameters
         self.winsize_samples: int|None                    = None    # number of samples in single time window
-        self.winstep_samples: int|None                    = None    # number of samples in a single window step
-        self.window_start:np.array|None                   = None    # array of timestamps representing the beginning time for each window
+        self.winstep_samples: Optional[int] |None                    = None    # number of samples in a single window step
+        self.window_start:Optional[np.ndarray]|None                   = None    # array of timestamps representing the beginning time for each window
         self.num_windows: int|None                        = None    # Number of windows in the data
         self.nfft:int|None                                = None    # length of signal to calculate fft on
 
-        self.window_start: np.array|None                  = None    # array of timestamps representing the beginning time for each                                           window -- required
-        self.datawin_size: float|None                     = None    # seconds in one window -- required
-        self.data_window_params:Tuple[float, float]|None  = [None, None] # [window length(s), window step size(s)] - - required
+        self.window_start: Optional[np.ndarray] = None        # array of timestamps representing the beginning time for each                                           window -- required
+        self.datawin_size: Optional[float]|None                     = None    # seconds in one window -- required
+        self.data_window_params:Optional[Tuple[float, float]]|None  = [None, None] # [window length(s), window step size(s)] - - required
 
         self.window_idxs = None
         self.freq_inds = None
@@ -538,7 +539,7 @@ class MultitaperSpectrogram:
         if parent_widget:
             # Create the canvas
             canvas = FigureCanvas(fig)
-            canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
 
             # Connect double-click event handler
@@ -639,7 +640,7 @@ class MultitaperSpectrogram:
         layout.addWidget(canvas)
 
         # Add close button
-        buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok)
         buttons.accepted.connect(dialog.accept)
         layout.addWidget(buttons)
 
