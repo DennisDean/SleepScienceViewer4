@@ -165,7 +165,7 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_controls.addWidget(self.pushButton_show_annotation_panel)
 
-        self.horizontalSpacer_2 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_controls.addItem(self.horizontalSpacer_2)
 
@@ -367,11 +367,48 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_signal_controls.addItem(self.horizontalSpacer_8)
 
+        self.label_epoch_numbers = QLabel(self.centralwidget)
+        self.label_epoch_numbers.setObjectName(u"label_epoch_numbers")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.label_epoch_numbers.sizePolicy().hasHeightForWidth())
+        self.label_epoch_numbers.setSizePolicy(sizePolicy3)
+        self.label_epoch_numbers.setMinimumSize(QSize(40, 12))
+        self.label_epoch_numbers.setMaximumSize(QSize(40, 12))
+        font = QFont()
+        font.setPointSize(9)
+        self.label_epoch_numbers.setFont(font)
+        self.label_epoch_numbers.setAlignment(Qt.AlignBottom|Qt.AlignRight|Qt.AlignTrailing)
+
+        self.horizontalLayout_signal_controls.addWidget(self.label_epoch_numbers)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        sizePolicy3.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy3)
+        self.label.setMinimumSize(QSize(10, 20))
+        self.label.setMaximumSize(QSize(10, 20))
+
+        self.horizontalLayout_signal_controls.addWidget(self.label)
+
+        self.horizontalSpacer_47 = QSpacerItem(80, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_signal_controls.addItem(self.horizontalSpacer_47)
+
+        self.pushButton_epoch_show_stages = QPushButton(self.centralwidget)
+        self.pushButton_epoch_show_stages.setObjectName(u"pushButton_epoch_show_stages")
+        self.pushButton_epoch_show_stages.setMinimumSize(QSize(62, 25))
+        self.pushButton_epoch_show_stages.setMaximumSize(QSize(62, 25))
+        self.pushButton_epoch_show_stages.setCheckable(True)
+
+        self.horizontalLayout_signal_controls.addWidget(self.pushButton_epoch_show_stages)
+
         self.horizontalSpacer_26 = QSpacerItem(100, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_signal_controls.addItem(self.horizontalSpacer_26)
 
-        self.horizontalSpacer_27 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_27 = QSpacerItem(20, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_signal_controls.addItem(self.horizontalSpacer_27)
 
@@ -465,8 +502,6 @@ class Ui_SignalWindow(object):
         self.label_signal_1.setObjectName(u"label_signal_1")
         self.label_signal_1.setMinimumSize(QSize(40, 12))
         self.label_signal_1.setMaximumSize(QSize(40, 12))
-        font = QFont()
-        font.setPointSize(9)
         self.label_signal_1.setFont(font)
         self.label_signal_1.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
@@ -1056,11 +1091,11 @@ class Ui_SignalWindow(object):
 
         self.graphicsView_signal_axis = QGraphicsView(self.centralwidget)
         self.graphicsView_signal_axis.setObjectName(u"graphicsView_signal_axis")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.graphicsView_signal_axis.sizePolicy().hasHeightForWidth())
-        self.graphicsView_signal_axis.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.graphicsView_signal_axis.sizePolicy().hasHeightForWidth())
+        self.graphicsView_signal_axis.setSizePolicy(sizePolicy4)
         self.graphicsView_signal_axis.setMinimumSize(QSize(0, 40))
         self.graphicsView_signal_axis.setMaximumSize(QSize(16777215, 40))
 
@@ -1148,6 +1183,9 @@ class Ui_SignalWindow(object):
         self.pushButton_heatmap.setText(QCoreApplication.translate("SignalWindow", u"Heat", None))
         self.pushButton_heat_legend.setText(QCoreApplication.translate("SignalWindow", u"L", None))
         self.pushButton_annotation_legend.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
+        self.label_epoch_numbers.setText(QCoreApplication.translate("SignalWindow", u"Epochs", None))
+        self.label.setText("")
+        self.pushButton_epoch_show_stages.setText(QCoreApplication.translate("SignalWindow", u"Show", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"\u2759\u25c0", None))
         self.pushButton_next.setText(QCoreApplication.translate("SignalWindow", u"\u25b6", None))
         self.pushButton_update.setText(QCoreApplication.translate("SignalWindow", u"U", None))

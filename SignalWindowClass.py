@@ -465,10 +465,10 @@ class SignalWindow(QMainWindow):
             # Get sleep stages
             epoch_start = epoch_num+i
             epoch_end   = epoch_start + int(epoch_num+epoch_width/self.xml_obj.epochLength)
-            print(f'draw signal in graphic view: epoch_start = {epoch_start}, epoch_end = {epoch_end}')
+            #print(f'draw signal in graphic view: epoch_start = {epoch_start}, epoch_end = {epoch_end}')
             stage_epoch_start = round(epoch_start*epoch_width/self.xml_obj.epochLength)
             stage_epoch_end   = stage_epoch_start + round(epoch_width/self.xml_obj.epochLength)
-            print(f'draw signal in graphic view: stage_epoch_start = {stage_epoch_start}, stage_epoch_end = {stage_epoch_end}')
+            #print(f'draw signal in graphic view: stage_epoch_start = {stage_epoch_start}, stage_epoch_end = {stage_epoch_end}')
             sleep_stage_dict_list = self.xml_obj.sleep_stages_obj.return_zeroed_sleep_stage_time_dictionary(
                 stage_epoch_start, stage_epoch_end)
             #print(f'sleep_stage_dict_list = {sleep_stage_dict_list}')
