@@ -272,6 +272,7 @@ class MainApp(QMainWindow):
         # Combo Box Action
         self.ui.hypnogram_comboBox.currentIndexChanged.connect(self.on_hypnogram_changed)
         self.hypnogram_combobox_selection = None
+        self.ui.pushButton_hyp_show_stages.toggled.connect(self.show_stages_on_hypnogram)
 
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
@@ -832,11 +833,15 @@ class MainApp(QMainWindow):
                 window_width_sec = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
                 hypnogram_marker = (current_epoch -1)*window_width_sec # zero referenced epoch
 
+                # Get stage flag
+                show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
+
                 stage_map = index
                 self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                             stage_index=stage_map,
                                                             hypnogram_marker=hypnogram_marker,
-                                                            double_click_callback=self.on_hypnogram_double_click)
+                                                            double_click_callback=self.on_hypnogram_double_click,
+                                                            show_stage_colors=show_stage_colors)
     def on_hypnogram_double_click(self, x_value, y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
@@ -865,6 +870,11 @@ class MainApp(QMainWindow):
                                                                 double_click_callback=self.on_annotation_double_click)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
+    def show_stages_on_hypnogram(self):
+        # Pretend hypnogram combobox change to update
+        if self.automatic_histogram_redraw:
+            index = self.ui.hypnogram_comboBox.currentIndex()
+            self.on_hypnogram_changed(index)
 
     # Annotation
     def annotation_list_widget_double_click(self, item):

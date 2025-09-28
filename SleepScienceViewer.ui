@@ -301,25 +301,6 @@
           <property name="spacing">
            <number>0</number>
           </property>
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="minimumSize">
-             <size>
-              <width>20</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item alignment="Qt::AlignTop">
            <widget class="QLabel" name="hypnogram_label">
             <property name="sizePolicy">
@@ -365,28 +346,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
-            <property name="minimumSize">
-             <size>
-              <width>20</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_hypnogram_show">
             <item alignment="Qt::AlignTop">
-             <widget class="QPushButton" name="pushButton_hypnogram_show">
+             <widget class="QPushButton" name="pushButton_hyp_show_stages">
               <property name="minimumSize">
                <size>
                 <width>62</width>
@@ -401,6 +363,12 @@
               </property>
               <property name="text">
                <string>Show</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>

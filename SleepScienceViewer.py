@@ -176,13 +176,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_hypnogram_commands = QVBoxLayout()
         self.verticalLayout_hypnogram_commands.setSpacing(0)
         self.verticalLayout_hypnogram_commands.setObjectName(u"verticalLayout_hypnogram_commands")
-        self.label_3 = QLabel(self.centralwidget)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setMinimumSize(QSize(20, 15))
-        self.label_3.setMaximumSize(QSize(20, 15))
-
-        self.verticalLayout_hypnogram_commands.addWidget(self.label_3)
-
         self.hypnogram_label = QLabel(self.centralwidget)
         self.hypnogram_label.setObjectName(u"hypnogram_label")
         sizePolicy2.setHeightForWidth(self.hypnogram_label.sizePolicy().hasHeightForWidth())
@@ -200,21 +193,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_hypnogram_commands.addWidget(self.hypnogram_comboBox, 0, Qt.AlignTop)
 
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setMinimumSize(QSize(20, 15))
-        self.label_2.setMaximumSize(QSize(20, 15))
-
-        self.verticalLayout_hypnogram_commands.addWidget(self.label_2)
-
         self.horizontalLayout_hypnogram_show = QHBoxLayout()
         self.horizontalLayout_hypnogram_show.setObjectName(u"horizontalLayout_hypnogram_show")
-        self.pushButton_hypnogram_show = QPushButton(self.centralwidget)
-        self.pushButton_hypnogram_show.setObjectName(u"pushButton_hypnogram_show")
-        self.pushButton_hypnogram_show.setMinimumSize(QSize(62, 25))
-        self.pushButton_hypnogram_show.setMaximumSize(QSize(62, 25))
+        self.pushButton_hyp_show_stages = QPushButton(self.centralwidget)
+        self.pushButton_hyp_show_stages.setObjectName(u"pushButton_hyp_show_stages")
+        self.pushButton_hyp_show_stages.setMinimumSize(QSize(62, 25))
+        self.pushButton_hyp_show_stages.setMaximumSize(QSize(62, 25))
+        self.pushButton_hyp_show_stages.setCheckable(True)
+        self.pushButton_hyp_show_stages.setChecked(True)
 
-        self.horizontalLayout_hypnogram_show.addWidget(self.pushButton_hypnogram_show, 0, Qt.AlignTop)
+        self.horizontalLayout_hypnogram_show.addWidget(self.pushButton_hyp_show_stages, 0, Qt.AlignTop)
 
         self.pushButton_hypnogram_legend = QPushButton(self.centralwidget)
         self.pushButton_hypnogram_legend.setObjectName(u"pushButton_hypnogram_legend")
@@ -905,10 +893,8 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.pushButton_show_annotation.setText(QCoreApplication.translate("MainWindow", u"Ann", None))
         self.label_4.setText("")
-        self.label_3.setText("")
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
-        self.label_2.setText("")
-        self.pushButton_hypnogram_show.setText(QCoreApplication.translate("MainWindow", u"Show", None))
+        self.pushButton_hyp_show_stages.setText(QCoreApplication.translate("MainWindow", u"Show", None))
         self.pushButton_hypnogram_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
         self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multi-Taper Spectrogram", None))
         self.label.setText("")
