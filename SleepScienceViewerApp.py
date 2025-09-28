@@ -269,10 +269,11 @@ class MainApp(QMainWindow):
         self.ui.epoch_comboBox.addItems(self.epoch_display_options_text)
         self.ui.epoch_comboBox.setStyleSheet("color: black; background-color: white;")
 
-        # Combo Box Action
+        # Hypnogram
         self.ui.hypnogram_comboBox.currentIndexChanged.connect(self.on_hypnogram_changed)
         self.hypnogram_combobox_selection = None
         self.ui.pushButton_hyp_show_stages.toggled.connect(self.show_stages_on_hypnogram)
+        self.ui.pushButton_hypnogram_legend.clicked.connect(self.show_hypnogram_legend)
 
         # Edit Box Actions
         self.numeric_filter = NumericTextEditFilter(self)
@@ -698,9 +699,11 @@ class MainApp(QMainWindow):
 
             # Plot Hypnogram
             hypnogram_marker = 0
+            show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                     hypnogram_marker=hypnogram_marker,
-                                                                    double_click_callback=self.on_hypnogram_double_click)
+                                                                    double_click_callback=self.on_hypnogram_double_click,
+                                                                    show_stage_colors=show_stage_colors)
 
             # Annotation File Loaded
             logger.info(f'Annotation file loaded {file_path}')
@@ -875,6 +878,8 @@ class MainApp(QMainWindow):
         if self.automatic_histogram_redraw:
             index = self.ui.hypnogram_comboBox.currentIndex()
             self.on_hypnogram_changed(index)
+    def show_hypnogram_legend(self):
+        self.annotation_xml_obj.sleep_stages_obj.show_sleep_stages_legend()
 
     # Annotation
     def annotation_list_widget_double_click(self, item):
