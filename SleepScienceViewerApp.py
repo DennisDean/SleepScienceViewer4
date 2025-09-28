@@ -441,10 +441,8 @@ class MainApp(QMainWindow):
 
             # Set Spectrogram Signal Labels
             signal_labels = self.edf_file_obj.edf_signals.signal_labels
-            continuous_signal_list = self.edf_file_obj.edf_signals.return_continuous_signals_from_list(
-                signal_labels)
             self.ui.spectrogram_comboBox.clear()
-            self.ui.spectrogram_comboBox.addItems(continuous_signal_list)
+            self.ui.spectrogram_comboBox.addItems(signal_labels)
 
             # Determine length of signal
             epoch_width = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
