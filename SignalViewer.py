@@ -192,10 +192,6 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_hypnogram.addWidget(self.graphicsView_hypnogram, 0, Qt.AlignTop)
 
-        self.epochcommand_verticalspacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.horizontalLayout_hypnogram.addItem(self.epochcommand_verticalspacer)
-
         self.verticalLayout_hypnogram_commands = QVBoxLayout()
         self.verticalLayout_hypnogram_commands.setObjectName(u"verticalLayout_hypnogram_commands")
         self.label_3 = QLabel(self.centralwidget)

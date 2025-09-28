@@ -720,6 +720,7 @@ class MainApp(QMainWindow):
                 text_distance = dl.distance_unicode(edf_filename_basename, xml_filename_basename)
                 xmltext_contains_edftext = edf_filename_basename in xml_filename_basename
                 logger.info(f'Checking if EDF and Annotation files names are aligned: text distance ({text_distance}), subset = {xmltext_contains_edftext}, {edf_filename_basename}, {xml_filename_basename}')
+
             # Turn on hypnogram combobox
             self.ui.hypnogram_comboBox.setEnabled(True)
             self.automatic_histogram_redraw = True
