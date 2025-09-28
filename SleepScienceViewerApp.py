@@ -27,7 +27,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-#TODO: Check double click graph connections. Getting cross screen reponses.
+#TODO: Double clicking on plots to move to data
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow
@@ -347,7 +347,7 @@ class MainApp(QMainWindow):
         font = self.ui.annotation_listWidget.font()
         font.setPointSize(self.listBoxFontSize)
         self.ui.annotation_listWidget.setFont(font)
-        self.ui.annotation_listWidget.itemDoubleClicked.connect(self.annotation_list_widget_double_click)
+        self.ui.annotation_listWidget.itemDoubleClicked.connect(self.annotation_list_widget_double_click_1)
 
         # Store multi-taper results
         self.multitaper_spectrogram_obj:MultitaperSpectrogram|None = None
@@ -717,7 +717,7 @@ class MainApp(QMainWindow):
             show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
             self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                     hypnogram_marker=hypnogram_marker,
-                                                                    double_click_callback=self.on_hypnogram_double_click,
+                                                                    double_click_callback=self.on_hypnogram_double_click_1,
                                                                     show_stage_colors=show_stage_colors)
 
             # Annotation File Loaded
@@ -745,7 +745,7 @@ class MainApp(QMainWindow):
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                 self.ui.graphicsView_annotation,
                                                 annotation_filter = cur_annotation_setting,
-                                                double_click_callback = self.on_annotation_double_click)
+                                                double_click_callback = self.on_annotation_double_click_1)
             self.ui.annotation_comboBox.setEnabled(True)
             self.ui.annotation_comboBox.blockSignals(False)
 
@@ -781,7 +781,7 @@ class MainApp(QMainWindow):
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                         self.ui.graphicsView_annotation,
                                                         annotation_filter = cur_annotation_setting,
-                                                        double_click_callback = self.on_hypnogram_double_click)
+                                                        double_click_callback = self.on_hypnogram_double_click_1)
     def clear_annotation_widgets(self):
         # Clear annotation histogram and object
         self.automatic_histogram_redraw = False
@@ -862,9 +862,9 @@ class MainApp(QMainWindow):
                 self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                             stage_index=stage_map,
                                                             hypnogram_marker=hypnogram_marker,
-                                                            double_click_callback=self.on_hypnogram_double_click,
+                                                            double_click_callback=self.on_hypnogram_double_click_1,
                                                             show_stage_colors=show_stage_colors)
-    def on_hypnogram_double_click(self, x_value, y_value):
+    def on_hypnogram_double_click_1(self, x_value, y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Hypnogram plot double-clicked: time in seconds {x_value}")
@@ -887,9 +887,11 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
+        sleep_stages = self.ui.pushButton_hyp_show_stages.isChecked()
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker,
-                                                                double_click_callback=self.on_annotation_double_click)
+                                                                double_click_callback=self.on_annotation_double_click_1,
+                                                                sleep_stages=sleep_stages)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_stages_on_hypnogram(self):
@@ -901,7 +903,7 @@ class MainApp(QMainWindow):
         self.annotation_xml_obj.sleep_stages_obj.show_sleep_stages_legend()
 
     # Annotation
-    def annotation_list_widget_double_click(self, item):
+    def annotation_list_widget_double_click_1(self, item):
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Annotation list double-clicked: {item.text()}")
         if self.edf_file_obj is None:
@@ -937,13 +939,13 @@ class MainApp(QMainWindow):
         hypnogram_marker = annotation_time_in_sec
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker,
-                                                                double_click_callback=self.on_hypnogram_double_click)
+                                                                double_click_callback=self.on_hypnogram_double_click_1)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_annotation_legend_popup(self):
         if self.annotation_xml_obj is not None:
             self.annotation_xml_obj.scored_event_obj.show_annotation_legend()
-    def on_annotation_double_click(self, x_value, y_value):
+    def on_annotation_double_click_1(self, x_value, y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Annotation plot double-clicked: time in seconds {x_value}")
@@ -966,9 +968,11 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
+        sleep_stages = self.ui.pushButton_hyp_show_stages.isChecked()
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker,
-                                                                double_click_callback=self.on_hypnogram_double_click)
+                                                                double_click_callback=self.on_hypnogram_double_click_1,
+                                                                sleep_stages=sleep_stages)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
 
@@ -1001,13 +1005,13 @@ class MainApp(QMainWindow):
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
                 multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView,
-                                                double_click_callback=self.on_spectrogram_double_click)
+                                                double_click_callback=self.on_spectrogram_double_click_1)
                 # Update log
                 logger.info(f'Spectrogram plotted')
             else:
                 # Plot signal heatmap
                 multitaper_spectrogram_obj.plot_data(self.ui.spectrogram_graphicsView,
-                                                     double_click_callback=self.on_spectrogram_double_click)
+                                                     double_click_callback=self.on_spectrogram_double_click_1)
                 logger.info(f'Plotted heatmap instead')
 
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
@@ -1065,7 +1069,7 @@ class MainApp(QMainWindow):
             # Turn off Legend Button
             self.ui.pushButton_spectrogra_legend.setEnabled(False)
             self.ui.pushButton_heat_legend.setEnabled(False)
-    def on_spectrogram_double_click(self, x_value, y_value):
+    def on_spectrogram_double_click_1(self, x_value, y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Spectrogram plot double-clicked: time in seconds {x_value}")
@@ -1088,9 +1092,11 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
+        sleep_stages = self.ui.pushButton_hyp_show_stages.isChecked()
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker,
-                                                                double_click_callback=self.on_hypnogram_double_click)
+                                                                double_click_callback=self.on_hypnogram_double_click_1,
+                                                                sleep_stages=sleep_stages)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_heatmap(self):
@@ -1118,7 +1124,7 @@ class MainApp(QMainWindow):
 
         # Plot signal heatmap
         multitaper_spectrogram_obj.plot_data(self.ui.spectrogram_graphicsView,
-                                             double_click_callback=self.on_spectrogram_double_click)
+                                             double_click_callback=self.on_spectrogram_double_click_1)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
         # print(self.multitaper_spectrogram_obj.heatmap_fs)

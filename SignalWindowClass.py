@@ -9,6 +9,7 @@
 import logging
 import math
 import numpy as np
+import copy
 
 # Interface packages and modules
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
@@ -97,8 +98,10 @@ class SignalWindow(QMainWindow):
         self.setWindowTitle("Signal Viewer")
 
         # Make a copy of the edf and xml information
-        self.edf_obj = edf_obj
-        self.xml_obj = xml_obj
+        self.edf_obj = copy.copy(edf_obj)
+        self.edf_obj.handlers = {} # reset handlers
+        self.xml_obj = copy.copy(xml_obj)
+        self.xml_obj.handlers = {} # reset handlers
 
         # Set signal labels
         self.signal_labels = self.edf_obj.edf_signals.signal_labels
