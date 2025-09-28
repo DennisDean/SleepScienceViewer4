@@ -741,7 +741,7 @@ class EdfSignals:
         ax = fig.add_subplot(111)
 
         # ADD SLEEP STAGE RECTANGLES BEFORE PLOTTING THE SIGNAL
-        if sleep_stages and signal_key is not "":
+        if sleep_stages and signal_key != "":
             # Get the y-axis limits first (we'll need them for rectangle height)
             #print('sleep_stages in plotting')
             if is_signal_stepped:
@@ -767,7 +767,7 @@ class EdfSignals:
 
             # Add rectangles for each sleep stage
             for stage_info in sleep_stages:
-                print(stage_info)
+                #print(stage_info)
                 start_time = stage_info.get('start_time')
                 end_time = stage_info.get('end_time', epoch_width)
                 stage_name = stage_info.get('stage', 'Unknown')
