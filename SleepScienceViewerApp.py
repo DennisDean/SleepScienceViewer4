@@ -452,6 +452,7 @@ class MainApp(QMainWindow):
             clear_spectrogram_plot(parent_widget=self.ui.graphicsView_annotation)
             self.multitaper_spectrogram_obj = None
             self.ui.pushButton_spectrogra_legend.setEnabled(False)
+            self.ui.pushButton_heat_legend.setEnabled(False)
 
             # Set Spectrogram Signal Labels
             signal_labels = self.edf_file_obj.edf_signals.signal_labels
@@ -747,6 +748,9 @@ class MainApp(QMainWindow):
                                                 double_click_callback = self.on_annotation_double_click)
             self.ui.annotation_comboBox.setEnabled(True)
             self.ui.annotation_comboBox.blockSignals(False)
+
+            # Connect spectrogram signal to handler
+            self.ui.spectrogram_comboBox.currentTextChanged.connect(self.on_spectogram_signal_combobox_change)
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
@@ -1026,6 +1030,7 @@ class MainApp(QMainWindow):
 
             # Turn on Legend Pushbutton
             self.ui.pushButton_spectrogra_legend.setEnabled(True)
+            self.ui.pushButton_heat_legend.setEnabled(False)
     def show_spectrogram_legend(self):
         pass
         if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
@@ -1033,12 +1038,33 @@ class MainApp(QMainWindow):
             return
 
         # Display legend dialog
-        self.multitaper_spectrogram_obj.show_colorbar_legend_dialog()
+        if self.multitaper_spectrogram_obj.spectrogram_computed:
+            self.multitaper_spectrogram_obj.show_colorbar_legend_dialog()
+            logger.info('Sleep Science Signal Viewer: Spectrogram dialog plotted')
+        else:
+            self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
+            logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
 
         # Update log
         logger.info('Sleep Science Viewer: Spectrogram dialog plotted')
 
-        # Epochs
+    # Epochs
+    def on_spectogram_signal_combobox_change(self,text):
+        logger.info(f'Spectrogram combobox signal changed to {text}')
+
+        # Clear Graphic View
+        clear_spectrogram_plot(parent_widget=self.ui.spectrogram_graphicsView)
+
+        if hasattr(self, 'multitaper_spectrogram_obj') and self.multitaper_spectrogram_obj is not None:
+            # Clear Spectrogram Data
+            self.multitaper_spectrogram_obj.clear_spectrogram_results()
+
+            # Clear Heatmap Data
+            self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
+
+            # Turn off Legend Button
+            self.ui.pushButton_spectrogra_legend.setEnabled(False)
+            self.ui.pushButton_heat_legend.setEnabled(False)
     def on_spectrogram_double_click(self, x_value, y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
@@ -1086,6 +1112,10 @@ class MainApp(QMainWindow):
         logger.info(f'Plotting heatmap: ({signal_label})')
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
+        # Clear Previous Results to avoid accidently using
+        self.multitaper_spectrogram_obj.clear_spectrogram_results()
+        self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
+
         # Plot signal heatmap
         multitaper_spectrogram_obj.plot_data(self.ui.spectrogram_graphicsView,
                                              double_click_callback=self.on_spectrogram_double_click)
@@ -1105,6 +1135,7 @@ class MainApp(QMainWindow):
 
         # Turn on Legend Pushbutton
         self.ui.pushButton_heat_legend.setEnabled(True)
+        self.ui.pushButton_spectrogra_legend.setEnabled(False)
     def show_heapmap_legend(self):
         if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
             logger.info(f"Signal Window Error: Heapmap data not available.")

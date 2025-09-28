@@ -417,7 +417,7 @@ class SignalWindow(QMainWindow):
         time_axis_units         = self.epoch_axis_units[epoch_width_index]
         signal_type             = ""
 
-        print(f'epoch_width_index = {epoch_width_index}, epoch_width = {epoch_width}')
+        #print(f'epoch_width_index = {epoch_width_index}, epoch_width = {epoch_width}')
 
         # Set signal label
         signal_label = self.ui.comboBox_signals.currentText()
@@ -425,13 +425,13 @@ class SignalWindow(QMainWindow):
         # Get filtering parameters
         filter_param = self.filter_param
 
-        print(f'filter_param = {filter_param} ')
+        #print(f'filter_param = {filter_param} ')
 
         # Determine y limits
         if self.ui.pushButton_sync_y.isChecked():
             page_signals = self.edf_obj.edf_signals.return_signal_segments(
                 signal_label, "not implemented", current_epoch, current_epoch+epochs_to_draw-1, epoch_width)
-            print(f'page_signals = {page_signals}')
+            #print(f'page_signals = {page_signals}')
             y_page_min   = np.min(page_signals)
             y_page_max   = np.max(page_signals)
             y_axis_page_limits = [y_page_min, y_page_max]
@@ -1175,13 +1175,13 @@ class SignalWindow(QMainWindow):
         new_epoch_width_index = int(self.ui.comboBox_epoch.currentIndex())
         new_epoch_width       = self.epoch_display_options_width_sec[new_epoch_width_index]
 
-        print(f'old_epoch_width = {old_epoch_width}, new_epoch_width = {new_epoch_width}')
+        #print(f'old_epoch_width = {old_epoch_width}, new_epoch_width = {new_epoch_width}')
 
         # Get new maximum epochs
         signal_keys            = [label for label in self.edf_obj.edf_signals.signal_labels if label != '']
         new_maximum_epochs    = self.edf_obj.edf_signals.return_num_epochs(signal_keys[0], new_epoch_width)
 
-        print(f'self.max_epoch = {self.max_epoch}, new_maximum_epochs = {new_maximum_epochs}')
+        #print(f'self.max_epoch = {self.max_epoch}, new_maximum_epochs = {new_maximum_epochs}')
 
         self.max_epoch        = new_maximum_epochs
         self.ui.label_page.setText(f' of {new_maximum_epochs} epochs')
@@ -1197,7 +1197,7 @@ class SignalWindow(QMainWindow):
         else:
             new_epoch = int(math.floor(new_epoch))
 
-        print(f'current_epoch  = {current_epoch }, new_epoch = {new_epoch}')
+        #print(f'current_epoch  = {current_epoch }, new_epoch = {new_epoch}')
 
         # Update epoch textEdit widget
         self.ui.textEdit_epoch.setText(str(new_epoch))

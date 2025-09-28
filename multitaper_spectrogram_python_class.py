@@ -663,6 +663,16 @@ class MultitaperSpectrogram:
 
         # Show dialog
         dialog.exec_()
+    def clear_spectrogram_results(self):
+        # Clear heatmap results
+        for attr in [
+            "mt_spectrogram",
+            "stimes",
+            "sfreqs",
+            "spectrogram_computed",
+        ]:
+            if not hasattr(self, attr):
+                setattr(self, attr, None)
     def _on_spectrogram_double_click(self, event):
         """Handle double-click events on the spectrogram plot."""
         if event.dblclick and event.inaxes:
