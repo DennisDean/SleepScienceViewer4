@@ -150,6 +150,27 @@ def clear_spectrogram_plot(parent_widget = None):
             widget = item.widget()
             if widget:
                 widget.setParent(None)
+def set_layout_visible(layout, visible: bool):
+    """
+    Recursively set visibility for all widgets in a layout and its nested layouts.
+
+    Args:
+        layout: QLayout object to process
+        visible: Boolean indicating whether to show (True) or hide (False) widgets
+    """
+    for i in range(layout.count()):
+        item = layout.itemAt(i)
+
+        # Check if the item is a widget
+        widget = item.widget()
+        if widget:
+            widget.setVisible(visible)
+
+        # Check if the item is a nested layout
+        nested_layout = item.layout()
+        if nested_layout:
+            # Recursively process the nested layout
+            set_layout_visible(nested_layout, visible)
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
 
@@ -386,26 +407,19 @@ class MainApp(QMainWindow):
     # Interface
     def show_spectrogram_push(self,checked: bool):
         # Recursively hide widgets in layouts
-        self.set_layout_visible(self.ui.horizontalLayout_spectrogram_plot,checked)
-        self.set_layout_visible(self.ui.horizontalLayout_spectrogram_text, checked)
-        self.set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
-        self.set_layout_visible(self.ui.horizontalLayout_spectrogram_command_2, checked)
+        set_layout_visible(self.ui.horizontalLayout_spectrogram_plot,checked)
+        set_layout_visible(self.ui.horizontalLayout_spectrogram_text, checked)
+        set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
+        set_layout_visible(self.ui.horizontalLayout_spectrogram_command_2, checked)
     def show_hypnogram_push(self,checked: bool):
         # Recursively hide widgets in layouts
-        self.set_layout_visible(self.ui.horizontalLayout_hypnogram,checked)
-        self.set_layout_visible(self.ui.verticalLayout_hypnogram_commands, checked)
+        set_layout_visible(self.ui.horizontalLayout_hypnogram,checked)
+        set_layout_visible(self.ui.verticalLayout_hypnogram_commands, checked)
     def show_annotation_push(self,checked: bool):
         # Recursively hide widgets in layouts
-        self.set_layout_visible(self.ui.horizontalLayout_annotation_plot,checked)
-        self.set_layout_visible(self.ui.horizontalLayout_annotation_commands, checked)
-        self.set_layout_visible(self.ui.verticalLayout_Annotation_List_Widget, checked)
-    @staticmethod
-    def set_layout_visible(layout, visible: bool):
-        for i in range(layout.count()):
-            item = layout.itemAt(i)
-            widget = item.widget()
-            if widget:
-                widget.setVisible(visible)
+        set_layout_visible(self.ui.horizontalLayout_annotation_plot,checked)
+        set_layout_visible(self.ui.horizontalLayout_annotation_commands, checked)
+        set_layout_visible(self.ui.verticalLayout_Annotation_List_Widget, checked)
 
     # Initialize EDF
     def load_edf_file(self):

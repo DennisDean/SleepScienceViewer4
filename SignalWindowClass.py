@@ -3,7 +3,7 @@
 #
 
 # To Do:
-#TODO: Check why sleep stages do not align with histrogram when increasing epoch width then reducting epoch width
+
 
 # Modules
 import logging
