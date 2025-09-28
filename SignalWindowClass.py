@@ -655,6 +655,63 @@ class SignalWindow(QMainWindow):
         self.xml_obj.sleep_stages_obj.show_sleep_stages_legend()
 
     # Spectrogram
+    def compute_and_display_spectrogram(self):
+        # Check before starting long computation
+
+        process_eeg = False
+        if self.edf_obj is not None:
+            process_eeg = self.show_ok_cancel_dialog()
+        else:
+            logger.info(f'EDF file not loaded. Can not compute spectrogram.')
+
+        if process_eeg:
+            # Turn on busy cursor
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+            # Make sure figures are not inadvertenly generated
+            self.automatic_signal_redraw = False
+
+            # Get Continuous Signals
+            signal_label = self.ui.comboBox_signals.currentText()
+            signal_type = 'continuous'
+            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label, signal_type)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+
+            # Compute Spectrogram
+            logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
+            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+            if multitaper_spectrogram_obj.spectrogram_computed:
+                # Plot spectrogram if computer
+                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
+                                                double_click_callback=self.on_spectrogram_double_click)
+                # Update log
+                logger.info(f'Spectrogram plotted')
+            else:
+                # Plot signal heatmap
+                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
+                                                     double_click_callback=self.on_spectrogram_double_click)
+                logger.info(f'Plotted heatmap instead')
+
+            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+
+            # Record Spectrogram Completions
+            if self.multitaper_spectrogram_obj.spectrogram_computed:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+                self.ui.label_spectrogram.setText(f'Multitaper Spectrogram - {signal_label}')
+                logger.info('Computing spectrogram: Computation completed')
+            else:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+                self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
+                logger.info('Computing spectrogram: Computation completed')
+
+            # Turn off busy cursor
+            QApplication.restoreOverrideCursor()
+
+            # Turn on signal update
+            self.automatic_signal_redraw = True
+
+            # Turn on Legend Pushbutton
+            self.ui.pushButton_spectrogram_legend.setEnabled(True)
     def on_spectrogram_double_click(self, x_value, _y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
@@ -695,62 +752,6 @@ class SignalWindow(QMainWindow):
         QApplication.restoreOverrideCursor()
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
-    def compute_and_display_spectrogram(self):
-        # Check before starting long computation
-
-        process_eeg = False
-        if self.edf_obj is not None:
-            process_eeg = self.show_ok_cancel_dialog()
-        else:
-            logger.info(f'EDF file not loaded. Can not compute spectrogram.')
-
-        if process_eeg:
-            # Turn on busy cursor
-            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
-
-            # Make sure figures are not inadvertenly generated
-            self.automatic_signal_redraw = False
-
-            # Get Continuous Signals
-            signal_label = self.ui.comboBox_signals.currentText()
-            signal_type = 'continuous'
-            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label, signal_type)
-            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
-
-            # Compute Spectrogram
-            logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
-            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
-            if multitaper_spectrogram_obj.spectrogram_computed:
-                # Plot spectrogram if computer
-                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
-                                            double_click_callback = self.on_spectrogram_double_click)
-                # Update log
-                logger.info(f'Spectrogram plotted')
-            else:
-                # Plot signal heatmap
-                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
-                                                double_click_callback=self.on_spectrogram_double_click)
-                logger.info(f'Plotted heatmap instead')
-            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-
-            # Record Spectrogram Completions
-            if self.multitaper_spectrogram_obj.spectrogram_computed:
-                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-                self.ui.label_spectrogram.setText(f'Multitaper Spectrogram - {signal_label}')
-                logger.info('Computing spectrogram: Computation completed')
-            else:
-                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-                self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
-                logger.info('Computing spectrogram: Computation completed')
-
-            # Turn off busy cursor
-            QApplication.restoreOverrideCursor()
-
-            # Turn on signal update
-            self.automatic_signal_redraw = True
-
-            # Turn on Legend Pushbutton
-            self.ui.pushButton_spectrogram_legend.setEnabled(True)
     def show_spectrogram_legend(self):
         if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
             logger.info("Error: Spectrogram data not available. Generate spectrogram first.")

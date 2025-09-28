@@ -962,7 +962,7 @@ class MainApp(QMainWindow):
         if self.edf_file_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
         else:
-            self.show_missing_eeg_warning()
+            logger.info(f'EDF file not loaded. Can not compute spectrogram.')
 
         if process_eeg:
             # Turn on busy cursor
@@ -980,13 +980,29 @@ class MainApp(QMainWindow):
             # Compute Spectrogram
             logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
-            multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView,
-                                            double_click_callback = self.on_spectrogram_double_click)
+            if multitaper_spectrogram_obj.spectrogram_computed:
+                # Plot spectrogram if computer
+                multitaper_spectrogram_obj.plot(self.ui.spectrogram_graphicsView,
+                                                double_click_callback=self.on_spectrogram_double_click)
+                # Update log
+                logger.info(f'Spectrogram plotted')
+            else:
+                # Plot signal heatmap
+                multitaper_spectrogram_obj.plot_data(self.ui.spectrogram_graphicsView,
+                                                     double_click_callback=self.on_spectrogram_double_click)
+                logger.info(f'Plotted heatmap instead')
+
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
             # Record Spectrogram Completions
-            self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
-            logger.info('Computing spectrogram: Computation completed')
+            if self.multitaper_spectrogram_obj.spectrogram_computed:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+                self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
+                logger.info('Computing spectrogram: Computation completed')
+            else:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+                self.ui.spectrogram_label.setText(f'Data Heatmap - {signal_label}')
+                logger.info('Computing spectrogram: Computation completed')
 
             # Turn off busy cursor
             QApplication.restoreOverrideCursor()
