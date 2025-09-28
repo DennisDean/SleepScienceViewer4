@@ -132,6 +132,7 @@ class SignalWindow(QMainWindow):
         self.ui.pushButton_update.clicked.connect(self.set_epoch_from_text)
         self.ui.pushButton_previous.clicked.connect(self.set_epoch_to_prev)
         self.ui.pushButton_last.clicked.connect(self.set_epoch_to_last)
+        self.ui.pushButton_epoch_show_stages.toggled.connect(self.show_signal_stages)
 
         # Set up signal
         self.signal        = self.edf_obj.edf_signals.signals_dict[self.signal_label]
@@ -463,15 +464,18 @@ class SignalWindow(QMainWindow):
                 signal_label = ""
 
             # Get sleep stages
-            epoch_start = epoch_num+i
-            epoch_end   = epoch_start + int(epoch_num+epoch_width/self.xml_obj.epochLength)
-            #print(f'draw signal in graphic view: epoch_start = {epoch_start}, epoch_end = {epoch_end}')
-            stage_epoch_start = round(epoch_start*epoch_width/self.xml_obj.epochLength)
-            stage_epoch_end   = stage_epoch_start + round(epoch_width/self.xml_obj.epochLength)
-            #print(f'draw signal in graphic view: stage_epoch_start = {stage_epoch_start}, stage_epoch_end = {stage_epoch_end}')
-            sleep_stage_dict_list = self.xml_obj.sleep_stages_obj.return_zeroed_sleep_stage_time_dictionary(
-                stage_epoch_start, stage_epoch_end)
-            #print(f'sleep_stage_dict_list = {sleep_stage_dict_list}')
+            sleep_stage_dict_list = None
+            if self.ui.pushButton_epoch_show_stages.isChecked():
+                epoch_start = epoch_num + i
+                # epoch_end = epoch_start + int(epoch_num + epoch_width / self.xml_obj.epochLength)
+                # epoch_end   = epoch_start + int(epoch_num+epoch_width/self.xml_obj.epochLength)
+                #print(f'draw signal in graphic view: epoch_start = {epoch_start}, epoch_end = {epoch_end}')
+                stage_epoch_start = round(epoch_start*epoch_width/self.xml_obj.epochLength)
+                stage_epoch_end   = stage_epoch_start + round(epoch_width/self.xml_obj.epochLength)
+                #print(f'draw signal in graphic view: stage_epoch_start = {stage_epoch_start}, stage_epoch_end = {stage_epoch_end}')
+                sleep_stage_dict_list = self.xml_obj.sleep_stages_obj.return_zeroed_sleep_stage_time_dictionary(
+                    stage_epoch_start, stage_epoch_end)
+                #print(f'sleep_stage_dict_list = {sleep_stage_dict_list}')
 
             # Plot signal segment
             if epoch_num+i >= self.max_epoch:
@@ -1151,7 +1155,7 @@ class SignalWindow(QMainWindow):
 
         # Define epoch buttons
         epoch_buttons = [self.ui.pushButton_first, self.ui.pushButton_next, self.ui.pushButton_update,
-                        self.ui.pushButton_previous, self.ui.pushButton_last]
+                        self.ui.pushButton_previous, self.ui.pushButton_last, self.ui.pushButton_epoch_show_stages]
 
         # Take action based on flag
         if not activate_buttons:
@@ -1209,6 +1213,19 @@ class SignalWindow(QMainWindow):
 
         # log action
         logger.info(f'Signal combobox changed to {epoch_str}')
+    def show_signal_stages(self,checked):
+        logger.info(f'Toggling show stages push button: {checked}')
+
+        # turn off update signal combobox
+        self.ui.pushButton_epoch_show_stages.blockSignals(True)
+
+        # Update signal view
+        self.draw_signal_in_graphic_views()
+
+        # turn on update signal
+        self.ui.pushButton_epoch_show_stages.blockSignals(False)
+
+        logger.info(f'Set show staged button to: {checked}')
 
     # Utilities
     @staticmethod

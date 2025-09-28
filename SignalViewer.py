@@ -192,6 +192,10 @@ class Ui_SignalWindow(object):
 
         self.horizontalLayout_hypnogram.addWidget(self.graphicsView_hypnogram, 0, Qt.AlignTop)
 
+        self.epochcommand_verticalspacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.horizontalLayout_hypnogram.addItem(self.epochcommand_verticalspacer)
+
         self.verticalLayout_hypnogram_commands = QVBoxLayout()
         self.verticalLayout_hypnogram_commands.setObjectName(u"verticalLayout_hypnogram_commands")
         self.label_3 = QLabel(self.centralwidget)
@@ -401,6 +405,7 @@ class Ui_SignalWindow(object):
         self.pushButton_epoch_show_stages.setMinimumSize(QSize(62, 25))
         self.pushButton_epoch_show_stages.setMaximumSize(QSize(62, 25))
         self.pushButton_epoch_show_stages.setCheckable(True)
+        self.pushButton_epoch_show_stages.setChecked(True)
 
         self.horizontalLayout_signal_controls.addWidget(self.pushButton_epoch_show_stages)
 
@@ -489,6 +494,15 @@ class Ui_SignalWindow(object):
 
 
         self.verticalLayout_signals.addLayout(self.horizontalLayout_signal_controls)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.verticalSpacer_2 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.horizontalLayout_6.addItem(self.verticalSpacer_2)
+
+
+        self.verticalLayout_signals.addLayout(self.horizontalLayout_6)
 
         self.horizontalLayout_signal_1 = QHBoxLayout()
         self.horizontalLayout_signal_1.setSpacing(0)
@@ -1185,7 +1199,7 @@ class Ui_SignalWindow(object):
         self.pushButton_annotation_legend.setText(QCoreApplication.translate("SignalWindow", u"Legend", None))
         self.label_epoch_numbers.setText(QCoreApplication.translate("SignalWindow", u"Epochs", None))
         self.label.setText("")
-        self.pushButton_epoch_show_stages.setText(QCoreApplication.translate("SignalWindow", u"Show", None))
+        self.pushButton_epoch_show_stages.setText(QCoreApplication.translate("SignalWindow", u"Stages", None))
         self.pushButton_first.setText(QCoreApplication.translate("SignalWindow", u"\u2759\u25c0", None))
         self.pushButton_next.setText(QCoreApplication.translate("SignalWindow", u"\u25b6", None))
         self.pushButton_update.setText(QCoreApplication.translate("SignalWindow", u"U", None))

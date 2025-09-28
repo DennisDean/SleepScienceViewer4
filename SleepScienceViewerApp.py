@@ -27,6 +27,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
+#TODO: Check double click graph connections. Getting cross screen reponses.
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow
