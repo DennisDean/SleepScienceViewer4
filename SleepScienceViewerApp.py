@@ -446,7 +446,6 @@ class MainApp(QMainWindow):
         logger.info(f'Sleep Science Viewer - Focus In Event')
 
         super().focusInEvent(event)
-
     def closeEvent(self, event):
         """Called when window is closing"""
         # Clean up events when closing the window
@@ -1185,8 +1184,9 @@ class MainApp(QMainWindow):
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
         # Clear Previous Results to avoid accidently using
-        self.multitaper_spectrogram_obj.clear_spectrogram_results()
-        self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
+        if hasattr(self, 'multitaper_spectrogram_obj') and self.multitaper_spectrogram_obj is not None:
+            self.multitaper_spectrogram_obj.clear_spectrogram_results()
+            self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
 
         # Plot signal heatmap
         multitaper_spectrogram_obj.plot_data(self.ui.spectrogram_graphicsView,
@@ -1800,9 +1800,15 @@ class MainApp(QMainWindow):
     def open_signal_view(self):
         # Get index value for first signal graphic view
         signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
-        self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
+        signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
                                           signal_combobox_index = signal_combobox_index, parent=None)
-        self.signal_window.show()
+        # Will revisit multiple windows
+        # self.signal_window.show()
+
+        # Make window independent
+        signal_window.setAttribute(Qt.WA_DeleteOnClose)  # Auto-cleanup
+        signal_window.setWindowFlags(Qt.Window | Qt.WindowStaysOnTopHint)  # Independent window
+        signal_window.show()
     # Help
     def xml_standard_menu_item(self):
         dlg = SleepXMLInfoDialog(self)

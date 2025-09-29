@@ -255,7 +255,6 @@ class SignalWindow(QMainWindow):
             self.multitaper_spectrogram_obj.setup_events()
 
         super().focusInEvent(event)
-
     def closeEvent(self, event):
         """Called when window is closing"""
         # Clean up events when closing the window
