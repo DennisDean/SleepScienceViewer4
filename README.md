@@ -17,18 +17,18 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 
   * Load EDF files with associated XML annotation files
   * Visualize up to 10 simultaneous signals
-  * View and interact with a full hypnogram display
+  * View and interact with a full hypnogram display (see Figure 1)
 
 * **Annotation Interaction**
 
   * Filter listed annotations by type
   * Hypnogram-aligned annotation plot with [automatically assigned colors](Media/annotation_legend.png)
-  * Annotation combo box directly linked to annotation plot and list for synchronized selection
+  * Annotation combo box directly linked to annotation plot and list for synchronized selection (see Figure 1)
 
 * **Custom Display Options**
 
   * Change epoch duration for signal navigation
-  * Toggle visibility of hypnogram, spectrogram, and annotation plots
+  * Toggle visibility of hypnogram, spectrogram, and annotation plots (see Figure 3 for signal-only mode)
   * Switch hypnogram rendering between line trace and background-colored stage rectangles
   * Generate multi-taper spectrograms for selected signals; if not feasible (e.g., low sampling frequency), display a compact heatmap instead
   * Customize signal colors via color picker; choices persist across pan/zoom events
@@ -46,7 +46,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 
 * **Interface**
 
-  * Show/hide hypnogram, spectrogram, and annotation panels from the main menu
+  * Show/hide hypnogram, spectrogram, and annotation panels from the main menu (see Figures 1 and 3)
 
 * **Navigation**
 
@@ -60,12 +60,13 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 
   * Signals
 
-    * View a single signal as a raster plot with 15 epochs displayed vertically
+    * View a single signal as a raster plot with 15 epochs displayed vertically (see Figure 2)
     * Sleep stages shown as background rectangles behind the signal trace
     * X-axis moved to the bottom of the plot for improved readability
   * Interface/Plotting
 
     * Toggle hypnogram, spectrogram, and annotation overlays similar to the main viewer
+    * Signal-only mode available (see Figure 4)
   * Processing & Analysis
 
     * Compute spectrograms (or default to heatmap if sampling frequency is insufficient)
