@@ -51,8 +51,11 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
   - Considering
     - Displaying annotations on signal
     - Support for marking epochs underway. 
-    
-|<img src="Media/SleepScienceViewer_signals_only.png" width="600" />|<img src="Media/signal_viewer_beta_signals_only.png" width="600" />|
+
+<p align="center">    
+<img src="Media/SleepScienceViewer_signals_only.png" width="600" />
+<img src="Media/signal_viewer_beta_signals_only.png" width="600" />
+</p>
 
 ## Work Around
 Double-clicking on the hypnogram, spectrogram, and annotation plot is designed to to move the epoch marker to the
