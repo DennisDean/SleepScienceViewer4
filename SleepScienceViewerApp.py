@@ -39,7 +39,7 @@ from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon
 from PySide6.QtWidgets import QListWidgetItem
 
 # System Import
-import os
+import os, sys, subprocess
 import sys
 import math
 from functools import partial
@@ -1798,17 +1798,41 @@ class MainApp(QMainWindow):
         self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
     # Window
     def open_signal_view(self):
-        # Get index value for first signal graphic view
-        signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
-        signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
-                                          signal_combobox_index = signal_combobox_index, parent=None)
-        # Will revisit multiple windows
-        # self.signal_window.show()
 
-        # Make window independent
-        signal_window.setAttribute(Qt.WA_DeleteOnClose)  # Auto-cleanup
-        signal_window.setWindowFlags(Qt.Window | Qt.WindowStaysOnTopHint)  # Independent window
-        signal_window.show()
+        # Flags for testing
+        share_objects_and_stated = True
+
+        if share_objects_and_stated:
+            # Get index value for first signal graphic view
+            signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
+            self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
+                                             signal_combobox_index = signal_combobox_index, parent=None)
+
+            # Will revisit multiple windows
+            self.signal_window.show()
+
+            # Make window independent
+            signal_window.setAttribute(Qt.WA_DeleteOnClose)  # Auto-cleanup
+            signal_window.setWindowFlags(Qt.Window | Qt.WindowStaysOnTopHint)  # Independent window
+            signal_window.show()
+
+        else:
+            # Experiment with creating an independent process
+            signal_combobox_index = str(self.ui.signal_1_comboBox.currentIndex())
+
+            # Check file names
+            print(self.edf_file_obj.file_w_path)
+            print(self.annotation_xml_obj.annotationFile)
+
+            # Launch as separate process
+            subprocess.Popen([
+                sys.executable,  # Python interpreter
+                'signal_window_launcher.py',  # Separate script
+                signal_combobox_index,
+                self.edf_file_obj.file_w_path,  # Pass file paths instead of objects
+                self.annotation_xml_obj.annotationFile
+            ])
+
     # Help
     def xml_standard_menu_item(self):
         dlg = SleepXMLInfoDialog(self)

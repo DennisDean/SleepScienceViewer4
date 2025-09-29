@@ -538,6 +538,10 @@ class MultitaperSpectrogram:
         # Plot multitaper spectrogram
 
         # Bringing some plotting parameters to the top
+
+        # cleanup handlers since plots are writing to the same graphics view
+        self.cleanup_events()
+
         label_fontsize = 6
         use_y_ticks    = False
 
@@ -749,6 +753,9 @@ class MultitaperSpectrogram:
         double_click_callback : callable, optional
             Callback function for double-click events
         """
+
+        # cleanup handlers since plots are writing to the same graphics view
+        self.cleanup_events()
 
         # Get data input
         data = self.data
