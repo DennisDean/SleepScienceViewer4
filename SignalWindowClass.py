@@ -217,6 +217,66 @@ class SignalWindow(QMainWindow):
         # Store Spectrogram Object
         self.multitaper_spectrogram_obj = None
 
+    # Manage connections
+    def focusOutEvent(self, event):
+        """Called when window loses focus"""
+        # Clean up events when switching away from this window
+
+        # Clear hypnogram plot connections
+        if hasattr(self.xml_obj, 'annotation_xml_obj'):  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+                self.xml_obj.sleep_stages_obj.cleanup_events()
+
+        # Clear annotation plot connections
+        if hasattr(self, 'xml_obj'):  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+                self.xml_obj.scored_event_obj.cleanup_events()
+
+        # Clear spectrogram and heatmap connections
+        if hasattr(self, 'multitaper_spectrogram_obj'):
+            self.multitaper_spectrogram_obj.cleanup_events()
+
+        super().focusOutEvent(event)
+    def focusInEvent(self, event):
+        """Called when window gains focus"""
+
+        # Clear hypnogram plot connections
+        if hasattr(self, 'xml_obj'):  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+                self.xml_obj.sleep_stages_obj.setup_events()
+
+        # Clear annotation plot connections
+        if hasattr(self, 'xml_obj'):  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+                self.xml_obj.scored_event_obj.setup_events()
+
+        # Clear spectrogram and heatmap connections
+        if hasattr(self, 'multitaper_spectrogram_obj'):
+            self.multitaper_spectrogram_obj.setup_events()
+
+        super().focusInEvent(event)
+
+    def closeEvent(self, event):
+        """Called when window is closing"""
+        # Clean up events when closing the window
+
+        # Clear hypnogram plot connections
+        if hasattr(self, 'xml_obj'):  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+                self.xml_obj.sleep_stages_obj.cleanup_events()
+
+        # Clear annotation plot connections
+        if hasattr(self, 'xml_obj'):  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+                self.xml_obj.scored_event_obj.cleanup_events()
+
+        # Clear spectrogram and heatmap connections
+        if hasattr(self, 'multitaper_spectrogram_obj'):
+            self.multitaper_spectrogram_obj.cleanup_events()
+
+        event.accept()
+        super().closeEvent(event)
+
     # Setup Interface
     def initialize_epoch_variables(self):
         # Reset class epoch variable upon loading a new file

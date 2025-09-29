@@ -192,13 +192,54 @@ class MultitaperSpectrogram:
         self.spectrogram_double_click_callback = None
 
         # Save heatmap data and parameters for legend
-        self.heatmap_data          = None
-        self.heatmap_fs            = None
-        self.heatmap_original_data = None
-        self.heatmap_time_points   = None
-        self.heatmap_cmap          = None
-        self.clim_scale            = clim_scale
-        self.heatmap_clim          = None
+        self.heatmap_data                      = None
+        self.heatmap_fs                        = None
+        self.heatmap_original_data             = None
+        self.heatmap_time_points               = None
+        self.heatmap_cmap                      = None
+        self.clim_scale                        = clim_scale
+        self.heatmap_clim                      = None
+        self.current_heatmap_ax                = None
+        self.current_heatmap_fig               = None
+        self.current_heatmap_canvas            = None
+        self.heatmap_double_click_callback     = None
+
+        # Store Matplotlib Connections
+        self.spectrogram_connection = []
+        self.heatmap_connection    = []
+
+    # Manage connections
+    def cleanup_events(self):
+        for cid in self.spectrogram_connection:
+            try:
+                self.current_spectrogram_fig.canvas.mpl_disconnect(cid)
+            except:
+                pass  # In case connection is already gone
+        self.spectrogram_connection.clear()
+
+        for cid in self.heatmap_connection:
+            try:
+                self.current_heatmap_fig.canvas.mpl_disconnect(cid)
+            except:
+                pass  # In case connection is already gone
+        self.heatmap_connection.clear()
+
+        logger.info(f'Multitaper Spectrogram - clean up events')
+    def setup_events(self):
+        # Only setup if not already connected (avoid duplicate connections)
+        if self.spectrogram_connection or self.heatmap_connection:
+            return  # Already setup
+
+        # Reconnect spectrogram event handlers
+        cid = self.current_spectrogram_fig.canvas.mpl_connect('button_press_event', self._on_spectrogram_double_click)
+        self.spectrogram_connection.append(cid)
+
+        # Reconnect heatmap event handlers
+        cid = self.current_heatmap_fig.canvas.mpl_connect('button_press_event', self._on_heatmap_double_click)
+        self.heatmap_connection.append(cid)
+
+        logger.info(f'Multi-taper Spectrogram - setup up events')
+
     # Computer
     def compute_spectrogram(self):
         #  Process user input
@@ -556,7 +597,8 @@ class MultitaperSpectrogram:
             canvas.updateGeometry()
 
             # Connect double-click event handler
-            canvas.mpl_connect('button_press_event', self._on_spectrogram_double_click)
+            cid = canvas.mpl_connect('button_press_event', self._on_spectrogram_double_click)
+            self.spectrogram_connection.append(cid)
 
             # Store canvas reference
             self.current_spectrogram_canvas = canvas
@@ -753,9 +795,9 @@ class MultitaperSpectrogram:
         im = ax.imshow(heatmap_data, extent=extent, aspect='auto', origin='upper')
 
         # Store references for event handling
-        self.current_spectrogram_ax = ax
-        self.current_spectrogram_fig = fig
-        self.spectrogram_double_click_callback = double_click_callback
+        self.current_heatmap_ax = ax
+        self.current_heatmap_fig = fig
+        self.heapmap_double_click_callback = double_click_callback
 
         # Customize plot
         if parent_widget:
@@ -793,7 +835,8 @@ class MultitaperSpectrogram:
             canvas.updateGeometry()
 
             # Connect double-click event handler
-            canvas.mpl_connect('button_press_event', self._on_spectrogram_double_click)
+            cid = canvas.mpl_connect('button_press_event', self._on_heatmap_double_click)
+            self.heatmap_connection.append(cid)
 
             # Store canvas reference
             self.current_spectrogram_canvas = canvas
@@ -829,6 +872,23 @@ class MultitaperSpectrogram:
             return heatmap_data, time_points, None, (fig, ax)
 
         return fig, ax
+    def _on_heatmap_double_click(self, event):
+        """Handle double-click events on the spectrogram plot."""
+        if event.dblclick and event.inaxes:
+            x_value = event.xdata  # Time in seconds
+            y_value = event.ydata  # Frequency in Hz
+
+            if x_value is not None and y_value is not None:
+                # Convert time to hours:minutes format for display
+                # hours = int(x_value // 3600)
+                # minutes = int((x_value % 3600) // 60)
+                # seconds = int(x_value % 60)
+                # time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+                # Call the callback function if provided
+                if (hasattr(self, 'heatmap_double_click_callback') and
+                        self.heatmap_double_click_callback is not None):
+                    self.heatmap_double_click_callback(x_value, y_value)
     def show_heatmap_legend_dialog(self):
         """
         Show a colorbar legend dialog for the data heatmap.

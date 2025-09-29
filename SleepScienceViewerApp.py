@@ -404,6 +404,72 @@ class MainApp(QMainWindow):
         self.ui.pushButton_show_hypnogram.clicked.connect(self.show_hypnogram_push)
         self.ui.pushButton_show_annotation.clicked.connect(self.show_annotation_push)
 
+    # App and Window Fix Results
+    def focusOutEvent(self, event):
+        """Called when window loses focus"""
+        # Clean up events when switching away from this window
+
+        # Clear hypnogram plot connections
+        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+                self.annotation_xml_obj.sleep_stages_obj.cleanup_events()
+
+        # Clear annotation plot connections
+        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+                self.annotation_xml_obj.scored_event_obj.cleanup_events()
+
+        # Clear spectrogram and heatmap connections
+        if hasattr(self, 'multitaper_spectrogram_obj'):
+            self.multitaper_spectrogram_obj.cleanup_events()
+
+        logger.info(f'Sleep Science Viewer - Focus Out Event')
+
+        super().focusOutEvent(event)
+    def focusInEvent(self, event):
+        """Called when window gains focus"""
+
+        # Clear hypnogram plot connections
+        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+                self.annotation_xml_obj.sleep_stages_obj.setup_events()
+
+        # Clear annotation plot connections
+        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+                self.annotation_xml_obj.scored_event_obj.setup_events()
+
+        # Clear spectrogram and heatmap connections
+        if hasattr(self, 'multitaper_spectrogram_obj'):
+            self.multitaper_spectrogram_obj.setup_events()
+
+        logger.info(f'Sleep Science Viewer - Focus In Event')
+
+        super().focusInEvent(event)
+
+    def closeEvent(self, event):
+        """Called when window is closing"""
+        # Clean up events when closing the window
+
+        # Clear hypnogram plot connections
+        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+                self.annotation_xml_obj.sleep_stages_obj.cleanup_events()
+
+        # Clear annotation plot connections
+        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+                self.annotation_xml_obj.scored_event_obj.cleanup_events()
+
+        # Clear spectrogram and heatmap connections
+        if hasattr(self, 'multitaper_spectrogram_obj'):
+            self.multitaper_spectrogram_obj.cleanup_events()
+
+        logger.info(f'Sleep Science Viewer - Close Event')
+
+        event.accept()
+        super().closeEvent(event)
+
     # Interface
     def show_spectrogram_push(self,checked: bool):
         # Recursively hide widgets in layouts
@@ -887,11 +953,11 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
-        sleep_stages = self.ui.pushButton_hyp_show_stages.isChecked()
+        show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_annotation_double_click_1,
-                                                                sleep_stages=sleep_stages)
+                                                                show_stage_colors=show_stage_colors)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_stages_on_hypnogram(self):
@@ -968,11 +1034,11 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
-        sleep_stages = self.ui.pushButton_hyp_show_stages.isChecked()
+        show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_hypnogram_double_click_1,
-                                                                sleep_stages=sleep_stages)
+                                                                show_stage_colors=show_stage_colors)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
 
@@ -1092,11 +1158,11 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
-        sleep_stages = self.ui.pushButton_hyp_show_stages.isChecked()
+        show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
         self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_hypnogram_double_click_1,
-                                                                sleep_stages=sleep_stages)
+                                                                show_stage_colors=show_stage_colors)
 
         logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_heatmap(self):

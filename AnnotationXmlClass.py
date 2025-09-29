@@ -397,6 +397,29 @@ class SleepStages:
             'Artifact': '#FF6347' # Tomato red (stronger, distinct from Wake)
         }
 
+        # Collect Connection IDS
+        self.hypnogram_connection = []
+
+    # Event Management
+    def cleanup_events(self):
+        for cid in self.hypnogram_connection:
+            try:
+                self.current_hypnogram_fig.canvas.mpl_disconnect(cid)
+            except:
+                pass  # In case connection is already gone
+        self.hypnogram_connection.clear()
+
+        logger.info(f'Sleep stages - clean up events')
+    def setup_events(self):
+        # Only setup if not already connected (avoid duplicate connections)
+        if self.hypnogram_connection:
+            return  # Already setup
+
+        # Reconnect spectrogram event handlers
+        cid = self.current_hypnogram_fig.canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
+        self.hypnogram_connection.append(cid)
+
+        logger.info(f'Sleep stages - setup up events')
     # Utilities
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -707,7 +730,8 @@ class SleepStages:
             canvas.setStyleSheet("background-color: white;")  # Qt background
 
             # Double click handler
-            canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
+            cid = canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
+            self.hypnogram_connection.append(cid)
 
             # Store canvas
             self.current_hypnogram_canvas = canvas
@@ -910,10 +934,31 @@ class SignalAnnotations:
         self.current_annotation_canvas        = None
         self.annotation_double_click_callback = None
         self.color_map                        = None
+
+        # Store event connections
+        self.annotation_connection            = []
+
+    # Manage Plot and App Events
+    def cleanup_events(self):
+        for cid in self.annotation_connection:
+            try:
+                self.current_annotation_fig.canvas.mpl_disconnect(cid)
+            except:
+                pass  # In case connection is already gone
+        self.annotation_connection.clear()
+    def setup_events(self):
+        # Only setup if not already connected (avoid duplicate connections)
+        if self.annotation_connection:
+            return  # Already setup
+
+        # Reconnect spectrogram event handlers
+        cid = self.current_annotation_fig.canvas.mpl_connect('button_press_event', self._on_annotation_double_click)
+        self.annotation_connection.append(cid)
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
         self.output_dir = output_dir
+
     # Return information
     def get_events_types(self)->List:
         """Get a list of scored event types"""
@@ -1064,7 +1109,8 @@ class SignalAnnotations:
             canvas.setStyleSheet("background-color: white;")  # Qt background
 
             # Connect double-click event handler
-            canvas.mpl_connect('button_press_event', self._on_annotation_double_click)
+            cid = canvas.mpl_connect('button_press_event', self._on_annotation_double_click)
+            self.annotation_connection.append(cid)
 
             # Store canvas reference
             self.current_annotation_canvas = canvas
