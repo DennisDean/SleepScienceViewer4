@@ -36,6 +36,8 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
   - Double click on hypnogram, spectrogram, or annotation plots to move signals to selected time
   - Double clik on annotation list show annotation start
 
+![Signal Viewer Interface](Media/signal_viewer_beta.png)
+
 - **Signal Viewer**
   - Signals
     - View a signal one page at a time with the ability to visually identify disruption and noise
@@ -50,7 +52,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
     - Displaying annotations on signal
     - Support for marking epochs underway. 
     
-![Signal Viewer Interface](Media/signal_viewer_beta.png)
+|<img src="Media/SleepScienceViewer_signals_only.png" width="300" />|<img src="Media/signal_viewer_beta_signals_only.png" width="300" />|
 
 ## Work Around
 Double-clicking on the hypnogram, spectrogram, and annotation plot is designed to to move the epoch marker to the
