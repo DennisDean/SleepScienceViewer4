@@ -36,11 +36,6 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
   - Double click on hypnogram, spectrogram, or annotation plots to move signals to selected time
   - Double clik on annotation list show annotation start
 
-## Development Status
-- **Sleep Science Viewer**
-  - Considering 
-    - adding color to annotation text list
-    - displaying annotations on signals
 - **Signal Viewer**
   - Signals
     - View a signal one page at a time with the ability to visually identify disruption and noise
@@ -56,6 +51,13 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
     - Support for marking epochs underway. 
     
 ![Signal Viewer Interface](Media/signal_viewer_beta.png)
+
+## Work Around
+Double-clicking on the hypnogram, spectrogram, and annotation plot is designed to to move the epoch marker to the
+ on the hypnogram and to advance the signal. It is a known issue that matplotlib does not work well with QT PySide6. The
+framework for fixing the issue is in place but not working. Here are some workarounds. 
+- Reframe from going back and forth between the Sleep Science Viewer and the Signal Window. 
+- Redrawing figures within a window and/or reloading the data fixes the issue.  
 
 ## Getting Started
 

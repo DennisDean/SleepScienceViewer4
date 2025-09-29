@@ -236,6 +236,10 @@ class SignalWindow(QMainWindow):
         if hasattr(self, 'multitaper_spectrogram_obj'):
             self.multitaper_spectrogram_obj.cleanup_events()
 
+
+        # Write to log file
+        logger.info(f'Signal Window - focusOutEvent')
+
         super().focusOutEvent(event)
     def focusInEvent(self, event):
         """Called when window gains focus"""
@@ -254,24 +258,30 @@ class SignalWindow(QMainWindow):
         if hasattr(self, 'multitaper_spectrogram_obj'):
             self.multitaper_spectrogram_obj.setup_events()
 
+        # Write to log file
+        logger.info(f'Signal Window - focusInEvent')
+
         super().focusInEvent(event)
     def closeEvent(self, event):
         """Called when window is closing"""
         # Clean up events when closing the window
 
         # Clear hypnogram plot connections
-        if hasattr(self, 'xml_obj'):  # Replace with your actual object name
-            if hasattr(self.xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+        if hasattr(self, 'xml_obj') and self.xml_obj is not None:  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'sleep_stages_obj') and self.xml_obj.sleep_stages_obj is not None:  # Replace with your actual object name
                 self.xml_obj.sleep_stages_obj.cleanup_events()
 
         # Clear annotation plot connections
-        if hasattr(self, 'xml_obj'):  # Replace with your actual object name
-            if hasattr(self.xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+        if hasattr(self, 'xml_obj') and self.xml_obj is not None:  # Replace with your actual object name
+            if hasattr(self.xml_obj, 'scored_event_obj') and self.xml_obj.scored_event_obj is not None:  # Replace with your actual object name
                 self.xml_obj.scored_event_obj.cleanup_events()
 
         # Clear spectrogram and heatmap connections
-        if hasattr(self, 'multitaper_spectrogram_obj'):
+        if hasattr(self, 'multitaper_spectrogram_obj') and self.multitaper_spectrogram_obj is not None:
             self.multitaper_spectrogram_obj.cleanup_events()
+
+        # Write to log file
+        logger.info(f'Signal Viewer - closeEvent')
 
         event.accept()
         super().closeEvent(event)

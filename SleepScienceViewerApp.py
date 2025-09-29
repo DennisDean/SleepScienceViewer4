@@ -451,17 +451,17 @@ class MainApp(QMainWindow):
         # Clean up events when closing the window
 
         # Clear hypnogram plot connections
-        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
-            if hasattr(self.annotation_xml_obj, 'sleep_stages_obj'):  # Replace with your actual object name
+        if hasattr(self, 'annotation_xml_obj') and self.annotation_xml_obj is not None:  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'sleep_stages_obj') and self.annotation_xml_obj.sleep_stages_obj is not None:  # Replace with your actual object name
                 self.annotation_xml_obj.sleep_stages_obj.cleanup_events()
 
         # Clear annotation plot connections
-        if hasattr(self, 'annotation_xml_obj'):  # Replace with your actual object name
-            if hasattr(self.annotation_xml_obj, 'scored_event_obj'):  # Replace with your actual object name
+        if hasattr(self, 'annotation_xml_obj') and self.annotation_xml_obj is not None:  # Replace with your actual object name
+            if hasattr(self.annotation_xml_obj, 'scored_event_obj') and self.annotation_xml_obj.scored_event_obj is not None:  # Replace with your actual object name
                 self.annotation_xml_obj.scored_event_obj.cleanup_events()
 
         # Clear spectrogram and heatmap connections
-        if hasattr(self, 'multitaper_spectrogram_obj'):
+        if hasattr(self, 'multitaper_spectrogram_obj') and self.multitaper_spectrogram_obj is not None:
             self.multitaper_spectrogram_obj.cleanup_events()
 
         logger.info(f'Sleep Science Viewer - Close Event')
