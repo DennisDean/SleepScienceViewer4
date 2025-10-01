@@ -173,7 +173,6 @@ def set_layout_visible(layout, visible: bool):
             set_layout_visible(nested_layout, visible)
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
-
     def eventFilter(self, obj, event):
         # Check if it's a key press event and is actually a QKeyEvent
         if isinstance(event, QKeyEvent) and event.type() == QEvent.Type.KeyPress:
@@ -1855,10 +1854,10 @@ class MainApp(QMainWindow):
         return f"{hours}:{minutes:02d}:{seconds:02d}"
 
 # Start Application
-def show_main_window():
+def main():
     app = QApplication(sys.argv)
     window = MainApp()
     window.show()
     app.exec()
 if __name__ == "__main__":
-    show_main_window()# -*- coding: utf-8 -*-
+    main()# -*- coding: utf-8 -*-

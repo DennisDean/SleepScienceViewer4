@@ -13,45 +13,46 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 
 ## Key Features
 
-* **EDF & Annotation Support**
+* **Sleep Science Viewer** 
+  * EDF & Annotation Support
 
-  * Load EDF files with associated XML annotation files
-  * Visualize up to 10 simultaneous signals
-  * View and interact with a full hypnogram display (see Figure 1)
+    * Load EDF files with associated XML annotation files
+    * Visualize up to 10 simultaneous signals
+    * View and interact with a full hypnogram display (see Figure 1)
 
-* **Annotation Interaction**
+  * Annotation Interaction
 
-  * Filter listed annotations by type
-  * Hypnogram-aligned annotation plot with [automatically assigned colors](Media/annotation_legend.png)
-  * Annotation combo box directly linked to annotation plot and list for synchronized selection (see Figure 1)
+    * Filter listed annotations by type
+    * Hypnogram-aligned annotation plot with [automatically assigned colors](Media/annotation_legend.png)
+    * Annotation combo box directly linked to annotation plot and list for synchronized selection (see Figure 1)
 
-* **Custom Display Options**
+  * Custom Display Options
 
-  * Change epoch duration for signal navigation
-  * Toggle visibility of hypnogram, spectrogram, and annotation plots (see Figure 3 for signal-only mode)
-  * Switch hypnogram rendering between line trace and background-colored stage rectangles
-  * Generate multi-taper spectrograms for selected signals; if not feasible (e.g., low sampling frequency), display a compact heatmap instead
-  * Customize signal colors via color picker; choices persist across pan/zoom events
-  * Legends automatically update with user-defined signal colors
+    * Change epoch duration for signal navigation
+    * Toggle visibility of hypnogram, spectrogram, and annotation plots (see Figure 3 for signal-only mode)
+    * Switch hypnogram rendering between line trace and background-colored stage rectangles
+    * Generate multi-taper spectrograms for selected signals; if not feasible (e.g., low sampling frequency), display a compact heatmap instead
+    * Customize signal colors via color picker; choices persist across pan/zoom events
+    * Legends automatically update with user-defined signal colors
 
-* **Report Generation & Export Tools**
+  * Report Generation & Export Tools
 
-  * Generate [EDF summary reports](Media/edf_summary.png)
-  * Export individual [signals to folder](Media/signal_export.png)(s) for downstream use
-  * Export annotation data including:
+    * Generate [EDF summary reports](Media/edf_summary.png)
+    * Export individual [signals to folder](Media/signal_export.png)(s) for downstream use
+    * Export annotation data including:
 
-    * A [full annotation listing](Media/sleep_event_export.png)
-    * [Sleep stage timeline](Media/sleep_stages.png)
-    * [Summary reports](Media/sleep_event_summary.png) for review and documentation
+      * A [full annotation listing](Media/sleep_event_export.png)
+      * [Sleep stage timeline](Media/sleep_stages.png)
+      * [Summary reports](Media/sleep_event_summary.png) for review and documentation
 
-* **Interface**
+  * Interface
 
-  * Show/hide hypnogram, spectrogram, and annotation panels from the main menu (see Figures 1 and 3)
+    * Show/hide hypnogram, spectrogram, and annotation panels from the main menu (see Figures 1 and 3)
 
-* **Navigation**
+  * Navigation
 
-  * Double-click on hypnogram, spectrogram, or annotation plots to move to the selected epoch
-  * Double-click on annotation list entries to jump to annotation start times
+    * Double-click on hypnogram, spectrogram, or annotation plots to move to the selected epoch
+    * Double-click on annotation list entries to jump to annotation start times
 
 ![Signal Viewer Interface](Media/signal_viewer_beta.png)
 *Figure 2. Signal Viewer interface displaying a single channel with epochs and overlays.*
@@ -153,7 +154,7 @@ For questions or feedback, feel free to reach out to the author listed below.
 
 ## Version History
 
-* v0.1.1
+* v0.2
 
   * Added display toggles for hypnogram, spectrogram, and annotation panels
   * Hypnogram background color rendering for sleep stages

@@ -180,15 +180,6 @@ class AnnotationLegendDialog(QDialog):
         # Main layout
         main_layout = QVBoxLayout(self)
 
-        # Title
-        # title_label = QLabel("Annotation Legend")
-        # title_font = QFont()
-        # title_font.setBold(True)
-        # title_font.setPointSize(12)
-        # title_label.setFont(title_font)
-        # title_label.setAlignment(Qt.AlignCenter)
-        # main_layout.addWidget(title_label)
-
         # Scroll area for legend items
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
@@ -268,7 +259,43 @@ class AnnotationLegendDialog(QDialog):
 
         return item_widget
 class StageColorDialog(QDialog):
-    def __init__(self, owner, parent=None):
+    """
+        A dialog window for displaying sleep stage colors.
+
+        This dialog presents a list of sleep stages with their associated colors
+        as small swatches. It is primarily intended for visual reference and
+        does not allow editing. Colors are pulled from the `default_stage_colors`
+        attribute of the `owner` object provided at initialization.
+
+        If no stage colors are defined, a message is displayed instead of the list.
+
+        Parameters
+        ----------
+        owner : object
+            An object that defines a `default_stage_colors` attribute, which is
+            expected to be a dictionary mapping stage names (str) to color values
+            in hex format (e.g., "#FF0000").
+        parent : QWidget, optional
+            The parent widget. Defaults to None.
+
+        UI Elements
+        -----------
+        - Stage label: Displays the name of each sleep stage.
+        - Color swatch: A small rectangular preview of the associated color.
+        - Close button: Closes the dialog when clicked.
+
+        Notes
+        -----
+        - The dialog is modal and blocks interaction with the parent window
+          until closed.
+        - This class is read-only; it does not allow editing or reassigning colors.
+
+        Example
+        -------
+        >>> dialog = StageColorDialog(owner=my_viewer)
+        >>> dialog.exec()
+        """
+    def __init__(self, owner: Any, parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)  # parent must be QWidget or None
 
         self.setWindowTitle("Sleep Stage Colors")
@@ -310,15 +337,116 @@ class StageColorDialog(QDialog):
 
 # Sleep annotation classes
 class SleepStages:
-    def __init__(self, epoch:int, num_stages:list,
-                 num_stage_to_num_dict: Dict[int,str]             = {0:0,   1:1,      2:2,      3:3,      4:4,     5:5},
-                 num_stage_to_text_dict:Dict[int,str]             = {0:'W', 1:'N1',   2:'N2',   3:'N3',   4:'N4',  5:'REM'},
-                 num_stage_to_nremrem_dict:Dict[int,str]          = {0:'W', 1:'NREM', 2:'NREM', 3:'NREM', 4:'NREM', 5:'REM'},
-                 num_stage_to_text_n3_dict: Dict[int, str]         = {0: 'W', 1: 'N1', 2: 'N2', 3: 'N3', 4: 'N3', 5:'REM'},
-                 nremrem_to_num_stage_dict:Dict[str,int]          = {'W':0, 'NREM':1, 'REM':2},
-                 num_stage_to_nremrem_reduced_dict:Dict[int,str]  = {0:'W', 1:'NREM', 2:'REM'},
-                 num_stage_to_text_n3_reduced_dict: Dict[int, str] = {0: 'W', 1: 'N1', 2: 'N2', 3: 'N3', 4:'REM'},
-                 ):
+    """
+        Container class for handling sleep stage representations, summaries, and metadata.
+
+        This class provides multiple mappings and derived representations of sleep stages
+        from numeric values to text labels, NREM/REM categories, and collapsed N3/N4
+        groupings. It also computes useful recording-level metadata such as duration,
+        number of epochs, time indices, and label sets for plotting or summarization.
+
+        The class is designed to be flexible with stage definitions by allowing
+        dictionaries for different mappings to be passed in or overridden.
+
+        Parameters
+        ----------
+        epoch : int
+            Epoch length in seconds (e.g., 30s, 20s).
+        num_stages : list[int]
+            A list of numeric stage values representing the hypnogram sequence.
+        num_stage_to_num_dict : Dict[int, int], optional
+            Mapping of stage index to itself (default: identity mapping 0–5).
+        num_stage_to_text_dict : Dict[int, str], optional
+            Mapping of numeric stage index to standard text labels (e.g., 0 → "W").
+        num_stage_to_nremrem_dict : Dict[int, str], optional
+            Mapping of numeric stage index to reduced NREM/REM categories.
+        num_stage_to_text_n3_dict : Dict[int, str], optional
+            Mapping of numeric stage index where N3 and N4 are collapsed.
+        nremrem_to_num_stage_dict : Dict[str, int], optional
+            Mapping from NREM/REM text labels back to numeric indices.
+        num_stage_to_nremrem_reduced_dict : Dict[int, str], optional
+            Reduced mapping of numeric stages to NREM/REM categories.
+        num_stage_to_text_n3_reduced_dict : Dict[int, str], optional
+            Reduced mapping of numeric stages to text labels with N3 collapsed.
+
+        Attributes
+        ----------
+        sleep_epoch : int
+            Epoch duration in seconds.
+        num_stages : list[int]
+            Original list of numeric stages.
+        num_stage_n3 : list[int]
+            Stage sequence with N3/N4 collapsed.
+        recording_duration : float
+            Total recording duration in hours.
+        sleep_stages_text : list[str]
+            Stage sequence converted to text labels (W, N1, N2, N3, N4, REM).
+        sleep_stages_NremRem : list[str]
+            Stage sequence converted to NREM/REM/W categories.
+        sleep_stages_N3 : list[str]
+            Stage sequence with N3 and N4 collapsed to a single stage.
+        sleep_stages_NremRem_num : list[int]
+            Stage sequence converted into numeric representation of NREM/REM.
+        stage_num_sum_dict : dict
+            Summary counts of stages by numeric representation.
+        stage_text_sum_dict : dict
+            Summary counts of stages by text labels.
+        stage_remnrem_sum_dict : dict
+            Summary counts of stages by NREM/REM categories.
+        number_of_epochs : int
+            Number of epochs in the recording.
+        recording_duration_hr : float
+            Recording duration in hours.
+        time_seconds : list[float]
+            List of time indices in seconds for each epoch.
+        max_time_sec : int
+            Total recording length in seconds.
+        numeric_labels : str
+            Underscore-joined string of numeric labels present.
+        text_labels : str
+            Underscore-joined string of text labels present.
+        nremrem_labels : str
+            Underscore-joined string of NREM/REM labels present.
+        text_n3_labels : str
+            Underscore-joined string of text labels with N3 collapsed.
+        output_dir : str
+            Directory path for saving outputs (defaults to current working directory).
+        current_hypnogram_ax : Any
+            Placeholder for matplotlib Axes object for hypnogram plotting.
+        current_hypnogram_fig : Any
+            Placeholder for matplotlib Figure object for hypnogram plotting.
+        current_hypnogram_canvas : Any
+            Placeholder for GUI canvas (if used in PySide6/Qt).
+        hypnogram_double_click_callback : Optional[Callable]
+            Callback for double-click events on the hypnogram.
+        default_stage_colors : dict
+            Dictionary mapping stage names to default hex color codes for plotting.
+        hypnogram_connection : list
+            List of event connection IDs for hypnogram plotting.
+
+        Notes
+        -----
+        - Provides multiple parallel representations of the hypnogram for analysis.
+        - Designed to support plotting, statistical summaries, and interactive GUIs.
+        - Default mappings follow AASM guidelines but can be overridden.
+
+        Example
+        -------
+        >>> stages = SleepStages(epoch=30, num_stages=[0,1,2,2,3,5,0])
+        >>> stages.recording_duration_hr
+        0.058333...
+        >>> stages.sleep_stages_text
+        ['W', 'N1', 'N2', 'N2', 'N3', 'REM', 'W']
+        """
+    def __init__(self,epoch: int, num_stages: List[int],
+        num_stage_to_num_dict: Dict[int, int] = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5},
+        num_stage_to_text_dict: Dict[int, str] = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "N4", 5: "REM"},
+        num_stage_to_nremrem_dict: Dict[int, str] = {0: "W", 1: "NREM", 2: "NREM", 3: "NREM", 4: "NREM", 5: "REM"},
+        num_stage_to_text_n3_dict: Dict[int, str] = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "N3", 5: "REM"},
+        nremrem_to_num_stage_dict: Dict[str, int] = {"W": 0, "NREM": 1, "REM": 2},
+        num_stage_to_nremrem_reduced_dict: Dict[int, str] = {0: "W", 1: "NREM", 2: "REM"},
+        num_stage_to_text_n3_reduced_dict: Dict[int, str] = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "REM"}) -> None:
+
         # Update log
         logging.info(f'Initializing SleepStagesClass: epoch{epoch}, num of stages {len(num_stages)}')
 
@@ -402,6 +530,19 @@ class SleepStages:
 
     # Event Management
     def cleanup_events(self):
+        """
+            Disconnects all Matplotlib event handlers associated with the hypnogram figure.
+
+            Iterates over all connection IDs stored in `self.hypnogram_connection` and attempts
+            to disconnect them from the current hypnogram figure's canvas. Handles cases where
+            the connection may already have been removed. After cleanup, the list of connections
+            is cleared.
+
+            Side effects:
+                - Disconnects all existing hypnogram event handlers.
+                - Clears `self.hypnogram_connection`.
+                - Logs cleanup action.
+            """
         for cid in self.hypnogram_connection:
             try:
                 self.current_hypnogram_fig.canvas.mpl_disconnect(cid)
@@ -411,7 +552,17 @@ class SleepStages:
 
         logger.info(f'Sleep stages - clean up events')
     def setup_events(self):
-        # Only setup if not already connected (avoid duplicate connections)
+        """
+            Sets up Matplotlib event handlers for the hypnogram figure if not already connected.
+
+            Prevents duplicate connections by checking whether `self.hypnogram_connection`
+            already contains active connection IDs. If empty, attaches a handler for the
+            'button_press_event' event, which is used to respond to double-clicks on the hypnogram.
+
+            Side effects:
+                - Adds a new Matplotlib connection ID to `self.hypnogram_connection`.
+                - Logs setup action.
+            """
         if self.hypnogram_connection:
             return  # Already setup
 
@@ -420,6 +571,7 @@ class SleepStages:
         self.hypnogram_connection.append(cid)
 
         logger.info(f'Sleep stages - setup up events')
+
     # Utilities
     def set_output_dir(self, output_dir: str):
         """Set the directory to use for output files."""
@@ -440,9 +592,37 @@ class SleepStages:
 
     # Return values
     def return_sleep_stage_labels(self):
+        """
+                Return the available sleep stage label sets.
+
+                Returns:
+                    list:
+                        A list containing multiple representations of sleep stage labels:
+                        - self.numeric_labels: Numeric identifiers for sleep stages.
+                        - self.text_labels: Text descriptions of sleep stages (e.g., "N1", "N2").
+                        - self.nremrem_labels: Grouped NREM/REM stage labels.
+                        - self.text_n3_labels: Text labels with explicit N3 stage handling.
+
+                Notes:
+                    These different label sets are used to provide flexibility when displaying
+                    or exporting hypnogram data.
+                """
         sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels, self.text_n3_labels ]
         return sleep_stages_labels
     def return_sleep_stage_mappings(self):
+        """
+                Return the available sleep stage mapping dictionaries.
+
+                Returns:
+                    list:
+                        A list containing mappings between numeric and textual stage representations:
+                        - self.num_stage_to_text_dict: Maps numeric stage codes to text labels.
+                        - self.num_stage_to_nremrem_dict: Maps numeric stage codes to NREM/REM groupings.
+
+                Notes:
+                    These mappings are typically used for translating sleep stages
+                    between numeric and text-based representations in plots and summaries.
+                """
         sleep_stages_labels = [self.num_stage_to_text_dict, self.num_stage_to_nremrem_dict ]
         return sleep_stages_labels
     def return_zeroed_sleep_stage_time_dictionary(self, start_epoch:int, epoch_end:int|None):
@@ -498,11 +678,26 @@ class SleepStages:
         # Summarize and export
     def summarize_sleep_stages(self, stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
         """
-        Generate a dictionary that contains counts for each sleep stage in the included dictionary.
+        Generate a summary of sleep stage occurrences from a list of stages.
 
-        :param stage_list:
-        :param stage_dict:
-        :return:
+        Creates a dictionary containing the count of occurrences for each sleep stage
+        defined in the stage dictionary. All stages from stage_dict are included in
+        the output, even if they have zero occurrences in stage_list.
+
+        Args:
+            stage_list: List of sleep stage names (strings) to be counted.
+            stage_dict: Dictionary mapping integer stage codes to their string names.
+                   Example: {0: 'Wake', 1: 'REM', 2: 'Light', 3: 'Deep'}
+
+        Returns:
+            Dictionary with sleep stage names as keys and their occurrence counts as values.
+            Example: {'Deep': 45, 'Light': 120, 'REM': 30, 'Wake': 15}
+
+        Example:
+            >>> stage_dict = {0: 'Wake', 1: 'REM', 2: 'Light'}
+            >>> stage_list = ['Wake', 'REM', 'REM', 'Light', 'Wake']
+            >>> summarize_sleep_stages(stage_list, stage_dict)
+            {'Light': 1, 'REM': 2, 'Wake': 2}
         """
         # Define Variables
         stage_summary = {}
@@ -517,25 +712,39 @@ class SleepStages:
         for stage in stage_keys:
             stage_summary[stage] = sum([x == stage for x in stage_list])
         return stage_summary
-    # def return_sleep_stages(self) -> SleepStages:
-        """
-        Return sleep stages in numeric, N1-N4, and NREM-REM formats. Include dictionaries for
-        translations
-
-        :param filename
-        :return: SleepStages Class
-        """
-        if self.epochLength == None:
-            logger.error('AnnotationXMLClass: Load XML file prior to requesting sleep stage information.\
-            Returning default (empty) SleepStages Class.')
-
-        return SleepStages(self.number_of_epochs, self.sleepStages, self.sleep_state_to_text,
-                           self.sleep_state_to_NremRemW)
     def summary_scored_sleep_stages(self) -> None:
         """
-        Write sleep stage summary to the command line if verbose is set to True in constructor.
+        Log a comprehensive summary of scored sleep stages to the console.
 
-        :return: None
+        Outputs a formatted summary including the total number of stage entries,
+        recording duration, and occurrence counts for each sleep stage across
+        three different classification systems (numeric, text, and REM/NREM).
+        Only logs output if sleep stages have been loaded and epoch length is defined.
+
+        The summary includes:
+        - Total number of sleep stage entries
+        - Total recording duration in hours
+        - Stage counts using numeric codes (e.g., 0, 1, 2, 3)
+        - Stage counts using text labels (e.g., 'Wake', 'REM', 'Light', 'Deep')
+        - Stage counts using REM/NREM classification
+
+        Requires:
+            self.num_stages: List of numeric sleep stage codes (must be non-empty)
+            self.sleep_epoch: Duration of each sleep epoch in seconds (must not be None)
+            self.stage_num_sum_dict: Dictionary with numeric stage summaries
+            self.stage_text_sum_dict: Dictionary with text label stage summaries
+            self.stage_remnrem_sum_dict: Dictionary with REM/NREM stage summaries
+
+        Returns:
+            None. Output is logged via the logger at INFO or ERROR level.
+
+        Example output:
+            Scored Sleep Stages:
+            -------------------
+            Number of Entries = 960, Recording Duration = 8.0 hr
+            Sleep Stages: 0 = 45, 1 = 120, 2 = 585, 3 = 210
+            Sleep Stages: Deep = 210, Light = 585, REM = 120, Wake = 45
+            Sleep Stages: NREM = 795, REM = 120, Wake = 45
         """
         # Write if sleep stages are set
         if (self.num_stages != []) and (self.sleep_epoch != None):
@@ -561,10 +770,49 @@ class SleepStages:
             logger.error('** Sleep Stages or Epoch Length Not Loaded **')
     def export_sleep_stages(self, filename: str, output_dir: str = None, time_stamped: bool = False) -> None:
         """
-        Export sleep stages in numeric, N1-N4, and NREM-REM formats.
+        Export sleep stage data to a tab-delimited text file in multiple classification formats.
 
-        :param fn:
-        :return:
+        Creates a text file containing sleep stages in four different formats per line:
+        numeric codes, text labels (N1-N4/Wake/REM), REM/NREM classification, and N3
+        classification. Each epoch is written on a separate line with tab-separated values.
+
+        The output file format is:
+        <numeric>\t<text>\t<NREM/REM>\t<N3>
+
+        Args:
+            filename: Name of the output file (e.g., 'sleep_data.txt').
+                    Will be placed in output_dir if specified.
+            output_dir: Optional directory path for the output file. If provided,
+                    updates self.output_dir and creates the directory if it doesn't exist.
+                    Defaults to None (uses existing self.output_dir).
+            time_stamped: If True, appends a timestamp to the filename to ensure uniqueness.
+                     If False, uses the filename as-is (may overwrite existing files).
+                     Defaults to False.
+
+        Returns:
+            None. Creates a text file at the specified location.
+
+        Raises:
+            Logs an error message if file writing fails due to permissions, disk space,
+            or other I/O errors.
+
+        Requires:
+            self.num_stages: List of numeric sleep stage codes
+            self.sleep_stages_text: List of text sleep stage labels
+            self.sleep_stages_NremRem: List of NREM/REM classifications
+            self.sleep_stages_N3: List of N3 classifications
+
+        Example output file content:
+            0\tWake\tWake\tWake
+            2\tN2\tNREM\tNREM-Light
+            3\tN3\tNREM\tNREM-Deep
+            5\tREM\tREM\tREM
+
+        Example:
+            >>> exporter.export_sleep_stages('patient_001.txt',
+            ...                               output_dir='./results',
+            ...                               time_stamped=True)
+            # Creates: ./results/patient_001_20250930_143022.txt
         """
         # Log status
         logging.info(f'Preparing to export sleep stages to {filename}')
@@ -597,12 +845,70 @@ class SleepStages:
     def plot_hypnogram(self, parent_widget=None, stage_index = 0, hypnogram_marker:float|None=None,
                        double_click_callback=None, show_stage_colors = False):
         """
-        Plots a hypnogram into a QGraphicsView if provided, or as a standalone matplotlib figure.
-        The plot background is white, auto-scales, and fills available width.
+        Generate and display a hypnogram (sleep stage visualization) as a step plot.
 
-        Parameters:
-        - show_stage_colors: If True, plots colored rectangles behind the hypnogram
-                           corresponding to each sleep stage
+        Creates a hypnogram showing sleep stages over time, either embedded in a Qt widget
+        or as a standalone matplotlib figure. The plot features a white background,
+        auto-scaling, horizontal grid lines at each stage level, and hourly time markers.
+        Optionally displays colored background regions corresponding to each sleep stage.
+
+        Args:
+            parent_widget: Optional Qt widget to embed the plot. If provided, the hypnogram
+                        is rendered as a FigureCanvas within this widget. If None, creates
+                        a standalone matplotlib figure. Defaults to None.
+            stage_index: Integer selecting which sleep stage classification to display:
+                        - 0: Standard text labels (Wake, N1, N2, N3, REM)
+                        - 1: NREM/REM reduced classification
+                        - 2: N3-based reduced classification
+                        Defaults to 0.
+            hypnogram_marker: Optional x-axis position (in seconds) to display a vertical
+                            purple marker line. Useful for indicating a specific time point
+                            or playback position. Defaults to None (no marker).
+            double_click_callback: Optional callback function to invoke when the hypnogram
+                                is double-clicked. Receives matplotlib button_press_event
+                                as argument. Defaults to None.
+            show_stage_colors: If True, draws colored rectangles behind the hypnogram line
+                            corresponding to each sleep stage's standard color. If False,
+                            displays only the blue step plot line. Defaults to False.
+
+        Returns:
+            None. Updates instance attributes and displays the plot.
+
+        Side Effects:
+            - Sets self.current_hypnogram_ax to the matplotlib axes object
+            - Sets self.current_hypnogram_fig to the matplotlib figure object
+            - Sets self.current_hypnogram_canvas to the FigureCanvas (if parent_widget provided)
+            - Sets self.hypnogram_double_click_callback to the provided callback
+            - Appends connection ID to self.hypnogram_connection list
+            - If parent_widget provided, replaces its layout contents with the new canvas
+
+        Requires:
+            self.num_stages: List of numeric sleep stage codes
+            self.time_seconds: Array of time values in seconds
+            self.sleep_epoch: Duration of each epoch in seconds
+            self.recording_duration_hr: Total recording duration in hours
+            self.default_stage_colors: Dictionary mapping stage labels to color codes
+            self.num_stage_to_text_dict: Mapping from numeric to text stage labels
+            self.num_stage_to_nremrem_reduced_dict: NREM/REM classification mapping
+            self.num_stage_to_text_n3_reduced_dict: N3-based classification mapping
+            self.sleep_stages_NremRem_num: Numeric NREM/REM stage array
+            self.num_stage_n3: Numeric N3-based stage array
+
+        Example:
+            >>> # Embed in Qt widget with stage coloring
+            >>> sleep_analyzer.plot_hypnogram(parent_widget=my_qt_widget,
+            ...                               stage_index=0,
+            ...                               show_stage_colors=True)
+
+            >>> # Standalone plot with time marker at 4 hours
+            >>> sleep_analyzer.plot_hypnogram(hypnogram_marker=14400)
+
+        Notes:
+            - Y-axis is inverted (deeper sleep stages appear lower)
+            - X-axis shows hourly markers (1h, 2h, 3h, etc.)
+            - Blue step plot shows stage transitions
+            - Purple vertical line marks hypnogram_marker position if provided
+            - Grid lines appear at each sleep stage level
         """
         # if not hasattr(self, 'sleep_stages') or not hasattr(self, 'epoch_times'):
         #    raise ValueError("Missing required data: 'sleep_stages' and 'epoch_times'")
@@ -842,8 +1148,62 @@ class SleepStages:
                     widget.setParent(None)
     def _on_hypnogram_double_click(self, event):
         """
-        Handle double-click events on the hypnogram plot.
-        Captures the x-axis value (time) where the user double-clicked.
+        Handle double-click events on the hypnogram plot and trigger callbacks.
+
+        Internal event handler that processes matplotlib button press events on the
+        hypnogram canvas. When a valid double-click occurs within the plot axes,
+        extracts the time (x-axis) and sleep stage (y-axis) values at the click
+        position and invokes the registered callback function if available.
+
+        The cursor changes to a wait cursor during processing and is automatically
+        restored afterward.
+
+        Args:
+            event: matplotlib MouseEvent object containing click information.
+                Expected attributes:
+                - dblclick (bool): True if this was a double-click
+                - inaxes: The axes object if click was inside axes, None otherwise
+                - xdata (float): X-axis data coordinate (time in seconds)
+                - ydata (float): Y-axis data coordinate (sleep stage numeric value)
+
+        Returns:
+            None. Invokes callback if conditions are met.
+
+        Behavior:
+            - Only processes events that are double-clicks AND within plot axes
+            - Extracts x_value (time in seconds) and y_value (sleep stage)
+            - Converts time to HH:MM:SS format for potential display
+            - Calls self.hypnogram_double_click_callback(x_value, y_value) if set
+            - Changes cursor to wait cursor during processing
+            - Automatically restores normal cursor when complete
+
+        Requires:
+            self.current_hypnogram_ax: Reference to the current hypnogram axes object
+            self.hypnogram_double_click_callback: Optional callback function that
+                                                accepts (x_value, y_value) arguments
+
+        Callback Signature:
+            callback(x_value: float, y_value: float) -> None
+            Where:
+            - x_value: Time position in seconds from start of recording
+            - y_value: Numeric sleep stage value at clicked position
+
+        Example:
+            >>> # This method is typically connected via matplotlib event system
+            >>> canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
+
+            >>> # Define a callback to handle double-clicks
+            >>> def on_hypnogram_click(time_sec, stage_value):
+            ...     print(f"User clicked at {time_sec}s, stage {stage_value}")
+            ...     # Navigate to this time point in the recording
+
+            >>> sleep_analyzer.hypnogram_double_click_callback = on_hypnogram_click
+
+        Notes:
+            - This is an internal method (indicated by leading underscore)
+            - Silently ignores clicks outside axes or single clicks
+            - Time conversion to HH:MM:SS is computed but currently unused
+            - Cursor changes provide visual feedback during callback execution
         """
         # Set busy cursor
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
@@ -869,15 +1229,116 @@ class SleepStages:
         # Revert to point cursor
         QApplication.restoreOverrideCursor()
     def show_sleep_stages_legend(self, qtparent = None):
+        """
+        Display a modal dialog showing the legend for sleep stage colors.
+
+        Creates and shows a StageColorDialog that displays the color scheme used
+        for visualizing different sleep stages in hypnograms and other plots.
+        The dialog is modal, blocking interaction with other windows until closed.
+
+        Args:
+            qtparent: Optional parent Qt widget for the dialog. If provided, the
+                     dialog will be centered relative to this parent widget and
+                     follow standard parent-child Qt widget behavior. If None,
+                     the dialog appears as a standalone window. Defaults to None.
+
+        Returns:
+            None. The dialog's exec() result (accept/reject status) is not captured.
+
+        Side Effects:
+            - Creates a new StageColorDialog instance
+            - Blocks execution until the dialog is closed by the user
+            - Dialog displays color mappings from self.default_stage_colors
+
+        Requires:
+            self.default_stage_colors: Dictionary mapping sleep stage names to
+                                      color codes (e.g., {'Wake': '#FF0000', ...})
+
+        Example:
+            >>> # Show legend as standalone window
+            >>> sleep_analyzer.show_sleep_stages_legend()
+
+            >>> # Show legend centered on main window
+            >>> sleep_analyzer.show_sleep_stages_legend(qtparent=main_window)
+
+        Notes:
+            - Dialog is modal (exec() is used instead of show())
+            - User must close the dialog before continuing interaction
+            - The 'owner' parameter passes self to allow dialog access to instance data
+            - Common use case: Allow users to reference colors when interpreting plots
+        """
         dialog = StageColorDialog(owner=self, parent=qtparent)
         dialog.exec()
 
-
     # Class Functions
     def __str__(self)->str:
-        # Override default class description
+        """
+            Return string representation showing epoch count and duration.
+
+            Returns:
+                str: Format 'SleepStages(number of epochs = <count>, epoch duration = <seconds>")'
+
+            Example:
+                >>> print(sleep_stages)
+                SleepStages(number of epochs = 960, epoch duration = 30")
+        """
         return f'SleepStages(number of epochs = {len(self.num_stages)}, epoch duration = {self.sleep_epoch }")'
+
 class SignalAnnotations:
+    """
+        Manage and visualize signal annotations (scored events) from sleep studies.
+
+        This class processes scored events from polysomnography recordings, organizing
+        annotations by type, signal input, and timing. It provides color mapping,
+        summarization, and DataFrame conversion for analysis and visualization.
+
+        Attributes:
+            scoredEvents (List[Dict[str, any]]): List of scored event dictionaries containing
+                                                 annotation data (name, start, duration, signal).
+            scoredEventSettings (Dict[str, Dict[str, str]]): Configuration for each event type,
+                                                            including color codes and properties.
+            scored_events_sum_dict (dict): Summary dictionary with counts per annotation type.
+            scored_event_unique_names (list[str]): List of unique annotation type names.
+            scored_event_unique_inputs (list[str]): List of unique signal channels used.
+            scored_event_unique_keys (list[str]): List of unique annotation-signal pairs.
+            scored_event_color_dict (dict[str, str]): Maps event types to hex color codes.
+            annotation_colors (list[str]): Fallback color palette for annotations.
+            color_map (dict[str, str] | None): Dynamic color mapping generated during plotting.
+            sleep_events_df (DataFrame): Pandas DataFrame containing all scored events.
+            scored_event_name_source_time_list (list[str]): Text summary of events with
+                                                            start time, name, and input.
+            output_dir (str): Directory path for exported files. Defaults to current directory.
+            current_annotation_ax: Matplotlib axes object for current annotation plot.
+            current_annotation_fig: Matplotlib figure object for current annotation plot.
+            current_annotation_canvas: Qt FigureCanvas for embedded annotation plots.
+            annotation_double_click_callback: Callback function for plot double-click events.
+            annotation_connection (list): List of matplotlib event connection IDs.
+
+        Args:
+            scoredEvents: List of dictionaries, each representing a scored event with keys
+                         like 'Name', 'Start', 'Duration', 'Input', etc.
+            scoredEventSettings: Dictionary mapping event type names to their settings,
+                               including 'Colour' (24-bit integer) and other properties.
+
+        Example:
+            >>> scored_events = [
+            ...     {'Name': 'Apnea', 'Start': 120.5, 'Duration': 15.0, 'Input': 'Airflow'},
+            ...     {'Name': 'Arousal', 'Start': 300.0, 'Duration': 3.0, 'Input': 'EEG'}
+            ... ]
+            >>> settings = {
+            ...     'Apnea': {'Colour': '16711680'},  # Red in 24-bit
+            ...     'Arousal': {'Colour': '65280'}    # Green in 24-bit
+            ... }
+            >>> annotations = SignalAnnotations(scored_events, settings)
+            >>> print(len(annotations.sleep_events_df))
+            2
+
+        Notes:
+            - Color codes in scoredEventSettings are 24-bit integers, converted to hex
+            - The color_map attribute is generated dynamically during plotting
+            - Annotation plot references are initialized to None and set during plotting
+            - Event connection IDs are stored to allow disconnection when needed
+        """
     def __init__(self, scoredEvents:List[Dict[str,any]], scoredEventSettings: Dict[str,Dict[str,str]]):
 
         # Define some variables set during initialization
@@ -940,6 +1401,14 @@ class SignalAnnotations:
 
     # Manage Plot and App Events
     def cleanup_events(self):
+        """
+            Disconnect all matplotlib event handlers and clear connection list.
+
+            Side Effects:
+                - Disconnects handlers in self.annotation_connection
+                - Clears the connection list
+                - Silently ignores already-removed connections
+            """
         for cid in self.annotation_connection:
             try:
                 self.current_annotation_fig.canvas.mpl_disconnect(cid)
@@ -947,6 +1416,12 @@ class SignalAnnotations:
                 pass  # In case connection is already gone
         self.annotation_connection.clear()
     def setup_events(self):
+        """
+            Connect double-click event handler for annotation plot.
+
+            Idempotent: does nothing if handlers already connected.
+            Stores connection ID in self.annotation_connection for later cleanup.
+            """
         # Only setup if not already connected (avoid duplicate connections)
         if self.annotation_connection:
             return  # Already setup
@@ -955,13 +1430,36 @@ class SignalAnnotations:
         cid = self.current_annotation_fig.canvas.mpl_connect('button_press_event', self._on_annotation_double_click)
         self.annotation_connection.append(cid)
     def set_output_dir(self, output_dir: str):
-        """Set the directory to use for output files."""
+        """
+            Set directory for exported files. Creates directory if it doesn't exist.
+
+            Args:
+                output_dir: Path to output directory (absolute or relative).
+            """
+
         os.makedirs(output_dir, exist_ok=True)
         self.output_dir = output_dir
 
     # Return information
     def get_events_types(self)->List:
-        """Get a list of scored event types"""
+        """
+        Get list of unique scored event type names, sorted alphabetically.
+
+        Extracts unique event types from self.scoredEvents on first call and caches
+        the result in self.scored_event_types. Subsequent calls return the cached list.
+
+        Returns:
+            List[str]: Sorted list of unique event type names (e.g., ['Apnea', 'Arousal', 'Hypopnea']).
+                    Empty list if no events are loaded.
+
+        Side Effects:
+            - Populates and sorts self.scored_event_types on first call
+            - Logs info message if events not loaded or already processed
+
+        Example:
+            >>> annotations.get_events_types()
+                ['Apnea', 'Arousal', 'Hypopnea', 'SpO2 Desaturation']
+         """
         if self.scoredEvents == [] and self.scored_event_types == []:
             logger.info(f'Scored events not loaded')
         elif self.scoredEvents != [] and self.scored_event_types == []:
@@ -981,10 +1479,53 @@ class SignalAnnotations:
                         double_click_callback = None):
 
         """
-        Plots vertical lines for scored events into a QGraphicsView if provided,
-        or as a standalone matplotlib figure. Each annotation type gets a different color.
-        The plot background is white, auto-scales, and fills available width.
-        Now includes double-click functionality to capture x-axis values.  # <- Updated docstring
+        Plot scored events as vertical lines with color-coded annotation types.
+
+        Creates a timeline visualization showing when scored events (apneas, arousals,
+        desaturations, etc.) occur during the recording. Each event type is displayed
+        as a vertical line with a unique color. Can be embedded in a Qt widget or
+        displayed as a standalone matplotlib figure.
+
+        Args:
+            total_time_in_seconds: Maximum recording duration in seconds for x-axis scaling.
+            parent_widget: Optional Qt widget to embed the plot. If provided, renders as
+                      a FigureCanvas within this widget. If None, creates standalone
+                      matplotlib figure. Defaults to None.
+            stage_index: Unused parameter (retained for API compatibility). Defaults to 0.
+            annotation_filter: Optional event type name to display. If specified, only events
+                          matching this name are shown. If None or "All", displays all
+                          event types. Defaults to None.
+            double_click_callback: Optional callback function invoked on double-clicks.
+                              Receives (x_value, y_value) as arguments where x_value
+                              is time in seconds. Defaults to None.
+
+        Returns:
+            tuple: (fig, ax) - matplotlib Figure and Axes objects for the plot.
+                Returns None if no scored events exist.
+
+        Side Effects:
+            - Sets self.current_annotation_ax to the matplotlib axes
+            - Sets self.current_annotation_fig to the matplotlib figure
+            - Sets self.current_annotation_canvas to FigureCanvas (if parent_widget provided)
+            - Sets self.annotation_double_click_callback to the provided callback
+            - Populates self.color_map with annotation-to-color mappings on first call
+            - Appends connection ID to self.annotation_connection list
+            - Replaces parent_widget's layout contents if provided
+
+        Requires:
+            self.scoredEvents: List of scored event dictionaries
+            self.sleep_events_df: DataFrame with 'Start' and 'Name' columns
+            self.scored_event_unique_names: List of unique event type names
+            self.annotation_colors: List of color codes for event types
+
+
+
+        Notes:
+            - Each event type gets a unique color from self.annotation_colors
+            - X-axis shows hourly markers (1h, 2h, 3h, etc.)
+            - Vertical grid lines mark each hour
+            - Legend is disabled by default (turn_off_legend=True)
+            - Returns early if no scored events are loaded
         """
         # Controls
         turn_off_legend = True
@@ -1796,58 +2337,7 @@ def main():
 
     :return:
     """
+    pass
 
-    # removed initial testing since test files are not available in working directory
-
-    # os_name = platform.system()
-    # cur_working_dir = os.getcwd()
-    #
-    # fn_1:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr01-profusion.xml")
-    # fn_2:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr02-profusion.xml")
-    # fn_3:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
-    # fn_4:str       = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "learn-nsrr03-profusion.xml")
-    # schema_fn:str  = os.path.join(cur_working_dir, r"tutorial", "tutorial", "edfs", "profusion_schema.xsd")
-    #
-    # AnnotateObject1: AnnotationXml  = AnnotationXml(fn_1)
-    # AnnotateObject1.load()
-    # valid_xml_file = AnnotateObject1.validate_xml(fn_1, schema_fn)
-    # AnnotateObject1.summary()
-    # AnnotateObject1.set_output_dir("./export/json")
-    # AnnotateObject1.export_summary('learn-nsrr01-profusion_summary.json', fmt='json')
-    # AnnotateObject1.set_output_dir("./export/csv")
-    # AnnotateObject1.export_summary('learn-nsrr01-profusion_summary.csv', fmt='csv')
-    #
-    # AnnotateObject2: AnnotationXml  = AnnotationXml(fn_2, verbose = False)
-    # AnnotateObject2.load()
-    # AnnotateObject2.summary()
-    #
-    # AnnotateObject3: AnnotationXml  = AnnotationXml(fn_3, verbose = False)
-    # AnnotateObject3.load()
-    # AnnotateObject3.summary()
-    #
-    # AnnotateObject4: AnnotationXml  = AnnotationXml(fn_4, verbose = True)
-    # AnnotateObject4.load()
-    # AnnotateObject4.summary()
-    # AnnotateObject4.set_output_dir("./export/summary")
-    # AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
-    # AnnotateObject4.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
-    #
-    # AnnotateObject5: AnnotationXml  = AnnotationXml(fn_4, verbose = False)
-    # logger.info(f'Annotation Object 5 validate? {AnnotateObject5.validate_xml(fn_4, schema_fn)}')
-    # AnnotateObject5.load()
-    # AnnotateObject5.summary()
-    # AnnotateObject5.set_output_dir("./export/sleep_stages")
-    # AnnotateObject5.sleep_stages_obj.export_sleep_stages('sleep_stages.txt')
-    # AnnotateObject5.set_output_dir("./export/sleep_events")
-    # AnnotateObject5.scored_event_obj.export_event('sleep_events.xlsx')
-    # AnnotateObject5.scored_event_obj.export_event(fmt = 'csv')
-    # AnnotateObject5.set_output_dir("./export/summary")
-    # sleep_events = AnnotateObject5.scored_event_obj.get_events_types()
-    # logger.info(f'Sleep Events: {sleep_events}')
-    # AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.json', fmt='json')
-    # AnnotateObject5.export_summary('learn-nsrr03-profusion_summary.csv', fmt='csv')
-    #
-    # AnnotateObject6: AnnotationXml  = AnnotationXml('fn_4', verbose = False)
-    # AnnotateObject6.load()
 if __name__ == "__main__":
     main()
