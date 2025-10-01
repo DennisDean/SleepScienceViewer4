@@ -47,17 +47,13 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 import xml.etree.ElementTree as ET
 import os
 import pandas as pd
-import platform
 import json
 import csv
 import logging
 import traceback
 import datetime
-from typing import List, Dict
-
-from IPython.terminal.shortcuts import next_history_or_next_completion
+from typing import List, Dict, Any, Optional
 from lxml import etree
-from sympy.logic.boolalg import Boolean
 
 # Plotting support
 import numpy as np
@@ -183,8 +179,8 @@ class AnnotationLegendDialog(QDialog):
         # Scroll area for legend items
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
-        scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
 
         # Widget to hold legend items
         legend_widget = QWidget()
@@ -213,7 +209,8 @@ class AnnotationLegendDialog(QDialog):
         button_layout.addWidget(close_button)
 
         main_layout.addLayout(button_layout)
-    def create_legend_item(self, annotation_name, color):
+    @staticmethod
+    def create_legend_item(annotation_name, color):
         """
         Create a legend item with color box and label.
 
@@ -290,10 +287,6 @@ class StageColorDialog(QDialog):
           until closed.
         - This class is read-only; it does not allow editing or reassigning colors.
 
-        Example
-        -------
-        >>> dialog = StageColorDialog(owner=my_viewer)
-        >>> dialog.exec()
         """
     def __init__(self, owner: Any, parent: Optional[QWidget] = None) -> None:
         super().__init__(parent)  # parent must be QWidget or None
@@ -311,7 +304,7 @@ class StageColorDialog(QDialog):
 
         if not stage_colors:
             msg = QLabel("No stage colors defined.")
-            layout.addWidget(msg, alignment=Qt.AlignCenter)
+            layout.addWidget(msg, alignment=Qt.AlignmentFlag.AlignCenter)
         else:
             for stage, hex_color in stage_colors.items():
                 row = QHBoxLayout()
@@ -333,7 +326,7 @@ class StageColorDialog(QDialog):
 
         close_btn = QPushButton("Close")
         close_btn.clicked.connect(self.accept)
-        layout.addWidget(close_btn, alignment=Qt.AlignCenter)
+        layout.addWidget(close_btn, alignment=Qt.AlignmentFlag.AlignCenter)
 
 # Sleep annotation classes
 class SleepStages:
@@ -439,13 +432,29 @@ class SleepStages:
         ['W', 'N1', 'N2', 'N2', 'N3', 'REM', 'W']
         """
     def __init__(self,epoch: int, num_stages: List[int],
-        num_stage_to_num_dict: Dict[int, int] = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5},
-        num_stage_to_text_dict: Dict[int, str] = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "N4", 5: "REM"},
-        num_stage_to_nremrem_dict: Dict[int, str] = {0: "W", 1: "NREM", 2: "NREM", 3: "NREM", 4: "NREM", 5: "REM"},
-        num_stage_to_text_n3_dict: Dict[int, str] = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "N3", 5: "REM"},
-        nremrem_to_num_stage_dict: Dict[str, int] = {"W": 0, "NREM": 1, "REM": 2},
-        num_stage_to_nremrem_reduced_dict: Dict[int, str] = {0: "W", 1: "NREM", 2: "REM"},
-        num_stage_to_text_n3_reduced_dict: Dict[int, str] = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "REM"}) -> None:
+                 num_stage_to_num_dict: Dict[int, int] | None = None,
+                 num_stage_to_text_dict: Dict[int, str] | None = None,
+                 num_stage_to_nremrem_dict: Dict[int, str] | None = None,
+                 num_stage_to_text_n3_dict: Dict[int, str] | None = None,
+                 nremrem_to_num_stage_dict: Dict[str, int] | None = None,
+                 num_stage_to_nremrem_reduced_dict: Dict[int, str] | None = None,
+                 num_stage_to_text_n3_reduced_dict: Dict[int, str] | None = None) -> None:
+
+        # Set defaults if None
+        if num_stage_to_num_dict is None:
+            num_stage_to_num_dict = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+        if num_stage_to_text_dict is None:
+            num_stage_to_text_dict = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "N4", 5: "REM"}
+        if num_stage_to_nremrem_dict is None:
+            num_stage_to_nremrem_dict = {0: "W", 1: "NREM", 2: "NREM", 3: "NREM", 4: "NREM", 5: "REM"}
+        if num_stage_to_text_n3_dict is None:
+            num_stage_to_text_n3_dict = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "N3", 5: "REM"}
+        if nremrem_to_num_stage_dict is None:
+            nremrem_to_num_stage_dict = {"W": 0, "NREM": 1, "REM": 2}
+        if num_stage_to_nremrem_reduced_dict is None:
+            num_stage_to_nremrem_reduced_dict = {0: "W", 1: "NREM", 2: "REM"}
+        if num_stage_to_text_n3_reduced_dict is None:
+            num_stage_to_text_n3_reduced_dict = {0: "W", 1: "N1", 2: "N2", 3: "N3", 4: "REM"}
 
         # Update log
         logging.info(f'Initializing SleepStagesClass: epoch{epoch}, num of stages {len(num_stages)}')
@@ -546,7 +555,7 @@ class SleepStages:
         for cid in self.hypnogram_connection:
             try:
                 self.current_hypnogram_fig.canvas.mpl_disconnect(cid)
-            except:
+            except (ValueError, KeyError, AttributeError):
                 pass  # In case connection is already gone
         self.hypnogram_connection.clear()
 
@@ -577,7 +586,8 @@ class SleepStages:
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
         self.output_dir = output_dir
-    def convert_num_stages_to_text(self, stage_num_list: list[int], stage_dict: dict[int, str]) -> List[str]:
+    @staticmethod
+    def convert_num_stages_to_text(stage_num_list: list[int], stage_dict: dict[int, str]) -> List[str]:
         """
         Generic function for converting numeric sleep stages to text with a dictionary. Dictionaries
         corresponding to NSRR values are preset (stage_text_sum_dict, stage_remnrem_sum_dict)
@@ -627,17 +637,15 @@ class SleepStages:
         return sleep_stages_labels
     def return_zeroed_sleep_stage_time_dictionary(self, start_epoch:int, epoch_end:int|None):
         """
-            Convert text-based sleep stages to time-based dictionary format for plotting.
-            Maintains individual epoch boundaries for interactive scoring.
+        Convert sleep stages to time-based dictionary format with epochs zeroed to start_epoch.
 
-            Parameters:
-                epoch (int): Starting epoch number
-                epoch_end (int | None): Ending epoch number (if None, uses just the single epoch)
-                epoch_width (float): Width of each epoch in seconds (default 30 seconds)
+        Creates a list of sleep stage dictionaries with time boundaries relative to the starting
+        epoch. Each entry contains start_time, end_time, and stage text for a single epoch.
 
-            Returns:
-                list[dict]: List of sleep stage dictionaries with start_time, end_time, and stage
-            """
+        :param start_epoch: Starting epoch number (inclusive)
+        :param epoch_end: Ending epoch number (exclusive). If None, processes only start_epoch
+        :return: List of dictionaries with 'start_time', 'end_time', and 'stage' keys
+        """
         epoch_width     = self.sleep_epoch
         sleep_stages_N3 = self.sleep_stages_N3
 
@@ -676,7 +684,8 @@ class SleepStages:
         return sleep_stages
 
         # Summarize and export
-    def summarize_sleep_stages(self, stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
+    @staticmethod
+    def summarize_sleep_stages(stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
         """
         Generate a summary of sleep stage occurrences from a list of stages.
 
@@ -692,12 +701,6 @@ class SleepStages:
         Returns:
             Dictionary with sleep stage names as keys and their occurrence counts as values.
             Example: {'Deep': 45, 'Light': 120, 'REM': 30, 'Wake': 15}
-
-        Example:
-            >>> stage_dict = {0: 'Wake', 1: 'REM', 2: 'Light'}
-            >>> stage_list = ['Wake', 'REM', 'REM', 'Light', 'Wake']
-            >>> summarize_sleep_stages(stage_list, stage_dict)
-            {'Light': 1, 'REM': 2, 'Wake': 2}
         """
         # Define Variables
         stage_summary = {}
@@ -747,7 +750,7 @@ class SleepStages:
             Sleep Stages: NREM = 795, REM = 120, Wake = 45
         """
         # Write if sleep stages are set
-        if (self.num_stages != []) and (self.sleep_epoch != None):
+        if (self.num_stages != []) and (self.sleep_epoch is not None):
             # Write header
             logger.info('')
             logger.info('Scored Sleep Stages:')
@@ -808,17 +811,12 @@ class SleepStages:
             3\tN3\tNREM\tNREM-Deep
             5\tREM\tREM\tREM
 
-        Example:
-            >>> exporter.export_sleep_stages('patient_001.txt',
-            ...                               output_dir='./results',
-            ...                               time_stamped=True)
-            # Creates: ./results/patient_001_20250930_143022.txt
         """
         # Log status
         logging.info(f'Preparing to export sleep stages to {filename}')
 
         # Set output directory if provided
-        if output_dir != None:
+        if output_dir is not None:
             self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
@@ -894,15 +892,6 @@ class SleepStages:
             self.sleep_stages_NremRem_num: Numeric NREM/REM stage array
             self.num_stage_n3: Numeric N3-based stage array
 
-        Example:
-            >>> # Embed in Qt widget with stage coloring
-            >>> sleep_analyzer.plot_hypnogram(parent_widget=my_qt_widget,
-            ...                               stage_index=0,
-            ...                               show_stage_colors=True)
-
-            >>> # Standalone plot with time marker at 4 hours
-            >>> sleep_analyzer.plot_hypnogram(hypnogram_marker=14400)
-
         Notes:
             - Y-axis is inverted (deeper sleep stages appear lower)
             - X-axis shows hourly markers (1h, 2h, 3h, etc.)
@@ -920,13 +909,13 @@ class SleepStages:
         label_fontsize         = 8
         xlabel_offset_dict     = {0:1, 1:0, 2:0.5}
         xlabel_offset          = xlabel_offset_dict[stage_index]
-        ylabel_offset          = 0.02*self.recording_duration_hr*3600
+        # ylabel_offset          = 0.02*self.recording_duration_hr*3600
         grid_linewidth         = 0.8
         marker_line_width      = 0.8
         hypnogram_marker_color = 'purple'
 
         # Get stage color information
-        stage_color = self.default_stage_colors
+        # stage_color = self.default_stage_colors
 
         # Get hypnogram information
         stages    = self.num_stages
@@ -989,7 +978,7 @@ class SleepStages:
         ax.set_yticks([])
 
         # Horizontal grid lines (Y-axis)
-        y_labels = plot_y_labels
+        # y_labels = plot_y_labels
 
         for y, label in plot_y_labels.items():
             ax.axhline(y=y, color=grid_color, linewidth=grid_linewidth, linestyle='-', zorder=1)
@@ -1000,14 +989,14 @@ class SleepStages:
 
         # Draw custom x-axis labels
         x_ticks  = range(3600, int(max(times)), 3600)
-        x_labels = map(lambda x: f'{str(int(x/3600))}h' , x_ticks)
+        x_labels = map(lambda seconds: f'{str(int(seconds/3600))}h' , x_ticks)
         for x, label in zip(x_ticks, x_labels):
             ax.text(x, ax.get_ylim()[1] + xlabel_offset , label,
                   fontsize=label_fontsize, ha='center', va='bottom', color='black')
 
         # Compute vertical padding (5% headroom above and below)
-        y_min = np.min(stages)
-        y_max = np.max(stages)
+        y_min = float(np.min(stages))
+        y_max = float(np.max(stages))
         y_pad = y_pad_c * (y_max - y_min if y_max != y_min else 1)
         ax.set_ylim(y_min - y_pad, y_max + y_pad)
         ax.invert_yaxis()
@@ -1019,7 +1008,7 @@ class SleepStages:
         left_margin = min(0.03, 0.02 * max_label_len)
         fig.subplots_adjust(left=left_margin, right=0.99, top=0.95, bottom=0.05)
 
-        if hypnogram_marker != None:
+        if hypnogram_marker is not None:
             ax.axvline(x=hypnogram_marker, color=hypnogram_marker_color, linestyle='-', label=f'Set Point: {hypnogram_marker}',
                        linewidth=marker_line_width, zorder=3)
 
@@ -1031,7 +1020,7 @@ class SleepStages:
         if parent_widget:
             # Create a new Figure Canvas
             canvas = FigureCanvas(fig)
-            canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
 
@@ -1079,7 +1068,7 @@ class SleepStages:
                 plot_stages: List of remapped stage numbers for plotting
             """
         plot_labels_plot = {}
-        plot_stages = []
+        #plot_stages = []
 
         # Create mapping from original stage number to new plot position
         original_to_plot = {}
@@ -1094,7 +1083,7 @@ class SleepStages:
                 plot_position += 1
 
         # Step 2: Find and map REM stages second
-        rem_patterns = ['REM', 'R']
+        # rem_patterns = ['REM', 'R']
         for original_stage_num, label in y_labels.items():
             if (label.upper().strip() == "REM" and
                     original_stage_num not in original_to_plot):
@@ -1138,7 +1127,8 @@ class SleepStages:
         plot_stages = [original_to_plot[stage] for stage in stages]
 
         return plot_labels_plot, plot_stages
-    def clear_hypnogram_plot(self, parent_widget = None):
+    @staticmethod
+    def clear_hypnogram_plot(parent_widget = None):
         layout = parent_widget.layout()
         if layout:
             while layout.count():
@@ -1151,8 +1141,7 @@ class SleepStages:
         Handle double-click events on the hypnogram plot and trigger callbacks.
 
         Internal event handler that processes matplotlib button press events on the
-        hypnogram canvas. When a valid double-click occurs within the plot axes,
-        extracts the time (x-axis) and sleep stage (y-axis) values at the click
+        hypnogram canvas. Extracts the time (x-axis) and sleep stage (y-axis) values at the click
         position and invokes the registered callback function if available.
 
         The cursor changes to a wait cursor during processing and is automatically
@@ -1161,7 +1150,7 @@ class SleepStages:
         Args:
             event: matplotlib MouseEvent object containing click information.
                 Expected attributes:
-                - dblclick (bool): True if this was a double-click
+                - dblclick (bool): True if this was a double click
                 - inaxes: The axes object if click was inside axes, None otherwise
                 - xdata (float): X-axis data coordinate (time in seconds)
                 - ydata (float): Y-axis data coordinate (sleep stage numeric value)
@@ -1189,15 +1178,15 @@ class SleepStages:
             - y_value: Numeric sleep stage value at clicked position
 
         Example:
-            >>> # This method is typically connected via matplotlib event system
-            >>> canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
-
-            >>> # Define a callback to handle double-clicks
-            >>> def on_hypnogram_click(time_sec, stage_value):
-            ...     print(f"User clicked at {time_sec}s, stage {stage_value}")
-            ...     # Navigate to this time point in the recording
-
-            >>> sleep_analyzer.hypnogram_double_click_callback = on_hypnogram_click
+            # >>> # This method is typically connected via matplotlib event system
+            # >>> canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
+            #
+            # >>> # Define a callback to handle double-clicks
+            # >>> def on_hypnogram_click(time_sec, stage_value):
+            # ...     print("User clicked at {{time_sec}}s, stage {{stage_value}}")
+            # ...     # Navigate to this time point in the recording
+            #
+            # >>> sleep_analyzer.hypnogram_double_click_callback = on_hypnogram_click
 
         Notes:
             - This is an internal method (indicated by leading underscore)
@@ -1215,10 +1204,10 @@ class SleepStages:
 
             if x_value is not None and y_value is not None:
                 # Convert time to hours:minutes format for display
-                hours = int(x_value // 3600)
-                minutes = int((x_value % 3600) // 60)
-                seconds = int(x_value % 60)
-                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+                # hours = int(x_value // 3600)
+                # minutes = int((x_value % 3600) // 60)
+                # seconds = int(x_value % 60)
+                #time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
                 # print(f"Hypnogram double-clicked at time: {x_value:.2f}s ({time_str})")
 
@@ -1254,13 +1243,6 @@ class SleepStages:
             self.default_stage_colors: Dictionary mapping sleep stage names to
                                       color codes (e.g., {'Wake': '#FF0000', ...})
 
-        Example:
-            >>> # Show legend as standalone window
-            >>> sleep_analyzer.show_sleep_stages_legend()
-
-            >>> # Show legend centered on main window
-            >>> sleep_analyzer.show_sleep_stages_legend(qtparent=main_window)
-
         Notes:
             - Dialog is modal (exec() is used instead of show())
             - User must close the dialog before continuing interaction
@@ -1278,9 +1260,6 @@ class SleepStages:
             Returns:
                 str: Format 'SleepStages(number of epochs = <count>, epoch duration = <seconds>")'
 
-            Example:
-                >>> print(sleep_stages)
-                SleepStages(number of epochs = 960, epoch duration = 30")
         """
         return f'SleepStages(number of epochs = {len(self.num_stages)}, epoch duration = {self.sleep_epoch }")'
 
@@ -1342,11 +1321,11 @@ class SignalAnnotations:
     def __init__(self, scoredEvents:List[Dict[str,any]], scoredEventSettings: Dict[str,Dict[str,str]]):
 
         # Define some variables set during initialization
-        self.scored_events_sum_dict                       = {} # Annotation summary dictionary
-        self.scored_event_unique_names:list[str,...]      = [] # types of annotations
-        self.scored_event_unique_inputs:list[str,...]     = [] # Signals used during scoring
-        self.scored_event_unique_keys:list[str,...]       = [] # Unique annotation-signal pairs
-        self.scored_event_types                           = []
+        self.scored_events_sum_dict                   = {} # Annotation summary dictionary
+        self.scored_event_unique_names:list[str]      = [] # types of annotations
+        self.scored_event_unique_inputs:list[str]     = [] # Signals used during scoring
+        self.scored_event_unique_keys:list[str]       = [] # Unique annotation-signal pairs
+        self.scored_event_types                       = []
 
         # Process Scored Event Settings
         self.scoredEventSettings:Dict[str, Dict[str, str]] = scoredEventSettings
@@ -1387,7 +1366,7 @@ class SignalAnnotations:
         self.output_dir            = os.getcwd()
 
         # Safe External Values
-        total_time_in_seconds:float = None
+        #total_time_in_seconds:float = None
 
         # Initialize annotation plot references (add these lines)
         self.current_annotation_ax            = None
@@ -1412,7 +1391,7 @@ class SignalAnnotations:
         for cid in self.annotation_connection:
             try:
                 self.current_annotation_fig.canvas.mpl_disconnect(cid)
-            except:
+            except (ValueError, KeyError):
                 pass  # In case connection is already gone
         self.annotation_connection.clear()
     def setup_events(self):
@@ -1455,10 +1434,6 @@ class SignalAnnotations:
         Side Effects:
             - Populates and sorts self.scored_event_types on first call
             - Logs info message if events not loaded or already processed
-
-        Example:
-            >>> annotations.get_events_types()
-                ['Apnea', 'Arousal', 'Hypopnea', 'SpO2 Desaturation']
          """
         if self.scoredEvents == [] and self.scored_event_types == []:
             logger.info(f'Scored events not loaded')
@@ -1469,12 +1444,12 @@ class SignalAnnotations:
             scored_event_types = get_unique_entries(scored_event_types)
             self.scored_event_types = scored_event_types
             self.scored_event_types.sort()
-        elif self.scored_event_types != []:
+        elif self.scored_event_types:
             logger.info(f'Scored events identified previously')
         return self.scored_event_types
     # Plot Annotation
     def plot_annotation(self, total_time_in_seconds: float,
-                        parent_widget=None, stage_index = 0,
+                        parent_widget=None,
                         annotation_filter:str|None = None,
                         double_click_callback = None):
 
@@ -1491,7 +1466,6 @@ class SignalAnnotations:
             parent_widget: Optional Qt widget to embed the plot. If provided, renders as
                       a FigureCanvas within this widget. If None, creates standalone
                       matplotlib figure. Defaults to None.
-            stage_index: Unused parameter (retained for API compatibility). Defaults to 0.
             annotation_filter: Optional event type name to display. If specified, only events
                           matching this name are shown. If None or "All", displays all
                           event types. Defaults to None.
@@ -1535,7 +1509,7 @@ class SignalAnnotations:
 
         # Set Plot defaults
         grid_color = '#cccccc'  # light gray
-        y_pad_c = 0.05
+        # y_pad_c = 0.05
         label_fontsize = 8
         grid_linewidth = 0.8
         line_width = 1.5
@@ -1645,7 +1619,7 @@ class SignalAnnotations:
         if parent_widget:
             # Create a new Figure Canvas
             canvas = FigureCanvas(fig)
-            canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
 
@@ -1671,13 +1645,12 @@ class SignalAnnotations:
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
 
-        return fig, ax
+        return #fig, ax
     def show_annotation_legend(self, parent=None):
         """
         Convenience function to show the annotation legend dialog.
 
         Args:
-            color_map (dict): Dictionary mapping annotation names to color strings
             parent: Parent widget
 
         Returns:
@@ -1688,16 +1661,17 @@ class SignalAnnotations:
         return dialog.exec()
     def _on_annotation_double_click(self, event):
         """Handle double-click events on the annotation plot."""
+        """Handle double - click events on annotation plot and invoke callback with time coordinates."""
         if event.dblclick and event.inaxes:
             x_value = event.xdata  # Time in seconds
             y_value = event.ydata  # Y position (not meaningful for annotation plot)
 
             if x_value is not None:
                 # Convert time to hours:minutes format for display
-                hours = int(x_value // 3600)
-                minutes = int((x_value % 3600) // 60)
-                seconds = int(x_value % 60)
-                time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+                # hours = int(x_value // 3600)
+                # minutes = int((x_value % 3600) // 60)
+                # seconds = int(x_value % 60)
+                # time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
                 # print(f"Annotation plot double-clicked at time: {x_value:.2f}s ({time_str})")
 
@@ -1708,9 +1682,9 @@ class SignalAnnotations:
     # Summarize
     def summary_scored_events(self)->None:
         """
-        Write scored events summary to command line if DEBUG is set.
+        Log a summary of scored events including unique event types, signal inputs, and event-signal pair counts.
 
-        :return:
+        Outputs the summary to the logger if scored events are loaded. Logs an error if no scored events exist.
         """
         # Check if scored events is set
         if self.scoredEvents_sum_dict != {}:
@@ -1743,7 +1717,7 @@ class SignalAnnotations:
             logger.info(output_str)
         else:
             logger.error('** Scored Event Not Loaded **')
-    def summarize_scoredEvents(self, scoredEvents:List[Dict])->None:
+    def summarize_scoredEvents(self, scoredEvents:List[Dict])->Dict:
         """
         Identify events types scored, signals used for scoring, and summary of sleep events for each signal.
 
@@ -1770,8 +1744,9 @@ class SignalAnnotations:
         return scoredEvent_sum_dict
     def summarize_scored_settings(self)->Dict[int,tuple[int,int,int]]:
         """
+        Extract and convert unique color values from scored event settings to RGB format.
 
-        :return: Color dict with xml color as keys and entries in 32bit RGB colors
+        :return: Dictionary mapping 32-bit color integers to RGB tuples (r, g, b)
         """
         # Write dictionary to command line
         color_values = []
@@ -1795,9 +1770,10 @@ class SignalAnnotations:
         return self.color_dict
     def summary_scored_event_setting(self)->None:
         """
-        Write scored event settings summary to the command line. Function not completely implemented.
+        Log a summary of scored event settings including count, names, details, and color mappings.
 
-        :return:
+        Outputs event setting names in columns, detailed settings for each event, and converts
+        24-bit color values to RGB format. Logs an error if no scored event settings are loaded.
         """
         if self.scoredEventSettings != {}:
 
@@ -1805,7 +1781,7 @@ class SignalAnnotations:
             eventSettings = list(self.scoredEventSettings.keys())
             number_of_event_settings = len(eventSettings)
             eventSettings.sort()
-            events_setting_str = ", ".join(eventSettings)
+            # events_setting_str = ", ".join(eventSettings)
             logger.info('')
             logger.info('Scored Event Setting:')
             logger.info('--------------------')
@@ -1828,7 +1804,7 @@ class SignalAnnotations:
             logger.info('24bit to RGB')
 
             # Create color dictionary - convert 24 bit color to 32bit rgb
-            color_dict = {}
+            # color_dict = {}
             for color in colors:
                 r = (color >> 16) & 0xFF
                 g = (color >> 8) & 0xFF
@@ -1840,24 +1816,26 @@ class SignalAnnotations:
     # Export utilities
     def export_event(self, filename:str = None, fmt: str = 'xlsx', time_stamped: bool = False, output_dir: str = None)->None:
         """
-        Export events to a file, where event dictionary is not uniform
+        Export scored events to an Excel or CSV file.
 
-        :param fn:
-        :return:
+        :param filename: Output filename (generated if None)
+        :param fmt: Export format, either 'xlsx' or 'csv' (defaults to 'csv' if invalid)
+        :param time_stamped: Append timestamp to filename if True
+        :param output_dir: Output directory (uses self.output_dir if None)
         """
         if fmt != 'xlsx' and fmt != 'csv':
             fmt = 'csv'
-        if output_dir != None:
+        if output_dir is not None:
             self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
-        if filename != None:
+        if filename is not None:
             filename = os.path.join(self.output_dir, filename)
         if time_stamped:
             filename = filename or generate_timestamped_filename("sleep_events", '.'+fmt, self.output_dir)
         else:
             filename = filename or generate_filename("sleep_events", '.'+fmt, self.output_dir)
         # Write each scored event to a file. Scored event fields for each event are not uniform/
-        event_df, existing_cols = self.sleep_events_to_dataframe(self.scoredEvents, filename)
+        event_df, existing_cols = self.sleep_events_to_dataframe(self.scoredEvents)
 
         # Save to Excel
         logger.info(f'AnnotationXmlClass: Preparing to export events')
@@ -1875,11 +1853,14 @@ class SignalAnnotations:
             logger.error(traceback.format_exc())
     def create_sleep_events_dataframe(self, events: list[dict]) -> pd.DataFrame:
         """
-        Convert a list of sleep event dictionaries to an Excel file.
+        Convert a list of sleep event dictionaries to a DataFrame with standardized column ordering.
 
-        Args:
-            events (list of dict): List of event dictionaries.
-            filename (str): Output Excel filename.
+        Orders columns with 'Name', 'Input', 'Start', 'Duration' first, followed by remaining
+        columns in alphabetical order. Stores result in self.sleep_events_df.
+
+        :param events: List of event dictionaries
+        :return: DataFrame containing all events with ordered columns
+        :raises ValueError: If events list is empty
         """
         if not events:
             raise ValueError("The events list is empty.")
@@ -1905,13 +1886,17 @@ class SignalAnnotations:
         self.sleep_events_df = df.reindex(columns=existing_cols)
 
         return self.sleep_events_df
-    def sleep_events_to_dataframe(self, events: list[dict], filename: str = 'sleep_events.xlsx') -> pd:
+    @staticmethod
+    def sleep_events_to_dataframe(events: list[dict]) -> tuple[pd.DataFrame, list[str]]:
         """
-        Convert a list of sleep event dictionaries to an Excel file.
+        Convert a list of sleep event dictionaries to a DataFrame with standardized column ordering.
 
-        Args:
-            events (list of dict): List of event dictionaries.
-            filename (str): Output Excel filename.
+        Orders columns with 'Name', 'Input', 'Start', 'Duration' first, followed by remaining
+        columns in alphabetical order.
+
+        :param events: List of event dictionaries
+        :return: Tuple of (DataFrame with ordered columns, list of column names)
+        :raises ValueError: If events list is empty
         """
         if not events:
             raise ValueError("The events list is empty.")
@@ -1937,19 +1922,24 @@ class SignalAnnotations:
         df = df.reindex(columns=existing_cols)
 
         return df, existing_cols
-    def df_columns_to_text(self, df: pd.DataFrame, columns:List[str]=['Name'],hour_flag:Boolean=True) -> str:
+    @staticmethod
+    def df_columns_to_text(df: pd.DataFrame, columns: List[str] | None = None,hour_flag:bool=True) -> str:
         """
-        Format specific DataFrame columns ('Name', 'Input', 'Start') into
-        a left-justified string with aligned columns.
+        Format specified DataFrame columns into left-justified strings with aligned columns.
 
-        Parameters:
-            df (pd.DataFrame): Input DataFrame
+        Converts 'Start' columns from seconds to HH:MM:SS format if hour_flag is True.
+        Returns a list of formatted strings with header and data rows.
 
-        Returns:
-            str: Formatted string
+        :param df: Input DataFrame
+        :param columns: List of column names to format (default: ['Name'])
+        :param hour_flag: If True, convert 'Start' columns from seconds to HH:MM:SS format
+        :return: List of formatted strings, one per row (including header)
+        :raises ValueError: If any specified column is missing from DataFrame
         """
         # Target columns
         # columns = ['Name', 'Input', 'Start']
+        if columns is None:
+            columns = ['Name']
 
         # Ensure columns exist
         for col in columns:
@@ -1992,25 +1982,6 @@ class SignalAnnotations:
             lines.append(row_fmt.format(**row_data))
 
         return lines  # Already split into lines
-        # # Calculate column widths based on longest content per column
-        # col_widths = {
-        #     col: max(df[col].astype(str).map(len).max(), len(col))
-        #     for col in columns
-        # }
-        #
-        # # Build format string
-        # row_fmt = '  '.join(f"{{{col}:<{col_widths[col]}}}" for col in columns)
-        #
-        # # Header row
-        # lines = [row_fmt.format(**{col: col for col in columns})]
-        #
-        # # Data rows
-        # for _, row in df.iterrows():
-        #     row_data = {col: str(row[col]) for col in columns}
-        #     lines.append(row_fmt.format(**row_data))
-        # split_lines = '\n'.join(lines)
-        #
-        # return split_lines.splitlines()
     def __str__(self)->str:
         # Override default class description
         return f'SignalAnnotations(unique events = "{self.scored_event_unique_names}")'
@@ -2049,10 +2020,17 @@ class AnnotationXml:
     """
     def __init__(self, annotationFile:str, verbose: bool=False, output_dir: str = os.getcwd()):
         """
-        Validate, Load, and access information stored in an XML annotation file.
+        Utility for parsing and accessing information from XML annotation files used by the National Sleep Research Resource.
 
-        :param annotationFile: XML File as used by the National Sleep Research Resource
-        :param verbose:
+        The schema is inferred from sample files as no formal specification is available. Provides methods to load,
+        validate, summarize, and export sleep stages, scored events, and other annotation data.
+
+        Key Methods:
+            - validate_xml(): Validate XML against schema
+            - load(): Parse and load annotation data
+            - export_sleep_stages(), export_event(), export_summary(): Export data to files
+            - summary(): Display comprehensive summary to command line
+            - Various summary_*() methods: Display specific annotation components
         """
 
         # File variables
@@ -2092,7 +2070,9 @@ class AnnotationXml:
 
         # Store File Name
         self.annotationFile = annotationFile
+        self.output_dir = None
         self.set_output_dir(output_dir)
+
 
         # Need to get rid one of these.... using output directory now
         self.file_name       = os.path.basename(annotationFile)
@@ -2104,13 +2084,14 @@ class AnnotationXml:
         else:
             logger.setLevel(logging.INFO)
     # Initialize and validate
-    def validate_xml(self, xml_path: str, xsd_path: str) -> bool:
+    @staticmethod
+    def validate_xml(xml_path: str, xsd_path: str) -> bool:
         """
-        Returns boolean results of the balidation of the XML file with the XML schema
+        Validate an XML annotation file against an XML schema (XSD).
 
-        :param xml_path: Annotation file with path and file name
-        :param xsd_path: XML schema file with path and file name
-        :return:
+        :param xml_path: Path to the XML annotation file
+        :param xsd_path: Path to the XML schema definition file
+        :return: True if validation succeeds, False otherwise
         """
         # open and load schema file
         with open(xsd_path, 'rb') as schema_file:  # FIXED: use 'rb'
@@ -2135,9 +2116,13 @@ class AnnotationXml:
     # Load
     def load(self)->None:
         """
-        Load information stored in XML file
+        Parse and load all annotation data from the XML file.
 
-        :return:
+        Extracts epoch length, stepped channels, scored event settings, scored events, sleep stages,
+        and montage configuration. Creates SleepStages and SignalAnnotations objects if sufficient
+        data is available. Sets self.file_loaded to True on success.
+
+        :raises: Logs error if file not found or XML parsing fails
         """
         # Check if file exists
         if os.path.exists(self.annotationFile):
@@ -2155,7 +2140,9 @@ class AnnotationXml:
                 elif e.tag == 'StepChannels':
                     for steps in e:
                         # print('     {}'.format(e.tag))
-                        stepChan = []
+                        # stepChan = []
+                        label_tags = ''
+                        new_step_channel = ''
                         for step in steps:
                             # print ('          {}'.format(step.tag))
                             if step.tag == 'Input':
@@ -2193,18 +2180,18 @@ class AnnotationXml:
                             # print('     {}'.format(tracePane.tag))
                             for traces in tracePane:
                                 # print('        {}'.format(traces.tag))
-                                trace_dict = {}
+                                # trace_dict = {}
                                 for trace in traces:
                                     # print ('               {} '.format(trace.tag))
                                     trace_dict = {}
                                     for traceEntry in trace:
                                         trace_dict[traceEntry.tag] = traceEntry.text
                                     # print('                 ', trace_dict)
-                                    input = trace_dict['Input']
-                                    if input == None:
-                                        input = self.montage_input_not_set
+                                    input_name = trace_dict['Input']
+                                    if input_name is None:
+                                        input_name = self.montage_input_not_set
                                     del trace_dict['Input']
-                                    self.montage[input] = trace_dict
+                                    self.montage[input_name] = trace_dict
             self.file_loaded = True
             if self.sleepStages != [] and self.epochLength:
                 # Create Sleep Stages Object
@@ -2218,12 +2205,12 @@ class AnnotationXml:
     # Summarize and export
     def summary_epoch_length(self)->None:
         """
-        Echo epoch length summary to command line if verbose is set to truth in class constructor.
+        Log the epoch length in seconds to the command line.
 
-        :return:
+        Logs an error if epoch length has not been loaded.
         """
         # If epoch length set, echo epoch length to command line when verbose set to true.
-        if self.epochLength != None:
+        if self.epochLength is not None:
             logger.info("")
             logger.info('Epoch Length: {} s'.format(self.epochLength))
         else:
@@ -2248,6 +2235,11 @@ class AnnotationXml:
         else:
             logger.info('** Stepped Channels Not Loaded **')
     def summary_montage(self)->None:
+        """
+            Log the montage input channels in a multi-column format.
+
+            Displays channel names in 5 columns. Logs an error if montage data has not been loaded.
+            """
         if len(self.montage) > 0:
             logger.info('')
             inputs = list(self.montage.keys())
@@ -2283,20 +2275,24 @@ class AnnotationXml:
         self.summary_montage()
     def export_summary(self, filename: str = None, fmt: str = 'json', output_dir: str = None, time_stamped: bool = False) -> None:
         """
-        Export file summary in either CSV or JSON form.
+        Export annotation summary data to a JSON or CSV file.
 
-        :param filename: Path+filename to write summary
-        :param fmt: Either 'CSV' or 'JSON' format
-        :return: None is returned
+        Exports comprehensive summary including epoch length, recording duration, sleep stage counts,
+        scored events, channel configuration, montage inputs, event settings, and color mappings.
+
+        :param filename: Output filename (generated if None)
+        :param fmt: Export format, either 'json' or 'csv' (default: 'json')
+        :param output_dir: Output directory (uses self.output_dir if None)
+        :param time_stamped: Append timestamp to filename if True
         """
 
-        if output_dir != None:
+        if output_dir is not None:
             self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
         if time_stamped:
-            filename = os.path.join(self.output_dir, filename) or generate_timestamped_filename("edf_summary", ".", fmt, self.output_dir)
+            filename = os.path.join(self.output_dir, filename) or generate_timestamped_filename("edf_summary", "."+fmt, self.output_dir)
         else:
-            filename = os.path.join(self.output_dir, filename) or generate_filename("edf_summary", ".", fmt, self.output_dir)
+            filename = os.path.join(self.output_dir, filename) or generate_filename("edf_summary", "."+fmt, self.output_dir)
 
         # Dictionary of structures to write into file
         summary_data = {
