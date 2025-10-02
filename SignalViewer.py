@@ -1217,6 +1217,6 @@ class Ui_SignalWindow(object):
         self.label_signal_13.setText(QCoreApplication.translate("SignalWindow", u"13", None))
         self.label_signal_14.setText(QCoreApplication.translate("SignalWindow", u"14", None))
         self.label_signal_15.setText(QCoreApplication.translate("SignalWindow", u"15", None))
-        self.label_signal_time.setText(QCoreApplication.translate("SignalWindow", u"time:", None))
+        self.label_signal_time.setText(QCoreApplication.translate("SignalWindow", u"Time:", None))
     # retranslateUi
 

@@ -537,6 +537,9 @@ class MainApp(QMainWindow):
             # Draw Signals
             self.set_signal_combo_boxes()
 
+            # Setup Axis
+            self.initialize_xaxis()
+
             # Turn on signal related buttons
             self.turn_on_edf_actions()
             self.turn_on_signal_comboboxes_signals()
@@ -571,6 +574,24 @@ class MainApp(QMainWindow):
                 cbox.addItem(icon, name, color)
 
             cbox.setCurrentIndex(i)
+    def initialize_xaxis(self):
+        # Plot X axis
+        # Create x-axis for reference
+        signal_label = ""  # force no signal
+        graphic_view = self.ui.graphicsView_x_axis
+        signal_type = ' '  # not used
+        epoch_num = 1
+        epoch_width_index = self.ui.epoch_comboBox.currentIndex()
+        epoch_width = self.epoch_display_options_width_sec[epoch_width_index]
+        convert_time_f = self.time_convert_f[epoch_width_index]
+        time_axis_units = self.epoch_axis_units[epoch_width_index]
+        epoch_display_axis_grid = self.epoch_display_axis_grid[epoch_width_index]
+        self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,
+                                                          signal_type, epoch_num, epoch_width, graphic_view,
+                                                          x_tick_settings=epoch_display_axis_grid,
+                                                          convert_time_f=convert_time_f,
+                                                          time_axis_units=time_axis_units,
+                                                          turn_xaxis_labels_off=False)
     def turn_off_edf_actions(self):
         # Turn off edf signal related widgets
         self.ui.compute_spectrogram_pushButton.setEnabled(False)
@@ -1186,6 +1207,7 @@ class MainApp(QMainWindow):
         if hasattr(self, 'multitaper_spectrogram_obj') and self.multitaper_spectrogram_obj is not None:
             self.multitaper_spectrogram_obj.clear_spectrogram_results()
             self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
+            self.multitaper_spectrogram_obj.cleanup_events()
 
         # Plot signal heatmap
         multitaper_spectrogram_obj.plot_data(self.ui.spectrogram_graphicsView,
@@ -1263,10 +1285,11 @@ class MainApp(QMainWindow):
             self.draw_signals_in_graphic_views()
 
             # Plot Hypnogram
-            cbox_val         = self.ui.epoch_comboBox.currentIndex()
-            epoch_width_sec  = self.epoch_display_options_width_sec[cbox_val]
-            hypnogram_marker = epoch_width_sec*self.current_epoch
-            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+            if self.annotation_xml_obj:
+                cbox_val         = self.ui.epoch_comboBox.currentIndex()
+                epoch_width_sec  = self.epoch_display_options_width_sec[cbox_val]
+                hypnogram_marker = epoch_width_sec*self.current_epoch
+                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
                                                                     hypnogram_marker=hypnogram_marker)
 
         # Turn on epoc buttons
@@ -1394,6 +1417,7 @@ class MainApp(QMainWindow):
         self.current_epoch_width_index = new_epoch_width_index
         self.current_epoch = new_epoch
 
+
         # Turn on epoc buttons
         self.activate_epoch_buttons(activate_buttons=True)
     def enter_pressed_epoch_edit(self):
@@ -1481,8 +1505,11 @@ class MainApp(QMainWindow):
             convert_time_f=convert_time_f,
             time_axis_units=time_axis_units,
             y_axis_units = signal_units,
-            signal_color = signal_color
+            signal_color = signal_color,
+            turn_xaxis_labels_off=True
         )
+
+
 
         if text == '':
             text = "''"

@@ -583,11 +583,8 @@ class SignalWindow(QMainWindow):
         self.edf_obj.edf_signals.plot_signal_segment(signal_label,
                                                      signal_type, epoch_num, epoch_width, graphic_view,
                                                      x_tick_settings       = epoch_display_axis_grid,
-                                                     annotation_marker     = annotation_marker,
                                                      convert_time_f        = convert_time_f,
                                                      time_axis_units       = time_axis_units,
-                                                     is_signal_stepped     = is_signal_stepped,
-                                                     stepped_dict          = stepped_dict,
                                                      turn_xaxis_labels_off = False,
                                                      filter_param          = filter_param)
 
