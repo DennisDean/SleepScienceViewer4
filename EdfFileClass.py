@@ -864,6 +864,8 @@ class EdfSignals:
             pass
             # ax.set_yticklabels([])
 
+        ax.tick_params(axis='y', labelsize=tick_label_fontsize)
+
         # Enable grid lines for major and minor ticks
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
         ax.grid(axis='x', which='minor', linestyle='--', linewidth=0.5, color='darkgray')

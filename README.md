@@ -87,12 +87,14 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 *Figure 4. Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.*
 </p>
 
-## Workarounds
+## Known Limitations
+Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations with PySide6. The framework is in place, but full functionality cannot be guaranteed at this time.
 
-Double-click navigation is implemented but may be unstable due to limitations in how matplotlib interacts with PySide6. Framework code is in place, but full functionality is not guaranteed. Known workarounds:
+**Recommended Workarounds:**
 
-* Avoid frequent switching between the Sleep Science Viewer and Signal Viewer windows.
-* Redrawing figures within a window or reloading data often restores expected behavior.
+* Minimize frequent switching between the Sleep Science Viewer and Signal Viewer windows to reduce potential instability.
+* If returning to the Sleep Science Viewer, manually refresh the display by clicking the show button to redraw the hypnogram and changing the annotation combo box selection to refresh annotations.
+
 
 ## Getting Started
 
