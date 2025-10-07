@@ -154,8 +154,8 @@ class MultitaperSpectrogram:
 
 
         self.multiprocess: bool = multiprocess
-        self.n_jobs: int           = n_jobs
-        self.weighting: str        = weighting
+        self.n_jobs: int        = n_jobs
+        self.weighting: str     = weighting
         self.plot_on: bool      = plot_on
         self.return_fig: bool   = return_fig
         self.clim_scale: bool   = clim_scale
