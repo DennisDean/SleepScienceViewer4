@@ -123,17 +123,10 @@ python -m pip install --user pipx
 python -m pipx ensurepath
 ```
 
-**2. Download install package**
+**2. Install SleepScience Viewer**
 
 ```
-git clone https://github.com/DennisDean/SleepScienceViewer4.git
-cd SleepScienceViewer4/dist
-```
-
-**3. Install SleepScience Viewer**
-
-```
-pipx install sleepscienceviewer-0.1.0-py3-none-any.whl
+pipx install sleepscienceviewer
 ```
 
 ## Running the Application
