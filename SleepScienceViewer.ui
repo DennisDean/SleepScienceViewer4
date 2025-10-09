@@ -1733,6 +1733,7 @@
      <string>Window</string>
     </property>
     <addaction name="actionOpen_Signal_Window"/>
+    <addaction name="actionOpen_Spectral_Window"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuGenerate"/>
@@ -1803,6 +1804,11 @@
   <action name="actionOpen_Signal_Window">
    <property name="text">
     <string>Open Signal Window</string>
+   </property>
+  </action>
+  <action name="actionOpen_Spectral_Window">
+   <property name="text">
+    <string>Open Spectral Window</string>
    </property>
   </action>
  </widget>

@@ -27,7 +27,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-#TODO: Double clicking on plots to move to data
 
 # PySide6 imports
 from PySide6.QtWidgets import QApplication, QMainWindow
@@ -58,6 +57,7 @@ from EdfFileClass import EdfSignalAnalysis, EdfFile
 # Import your Ui_MainWindow from the generated module
 from SleepScienceViewer import Ui_MainWindow
 from SignalWindowClass import SignalWindow
+from SpectralWindowClass import SpectralWindow
 
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
@@ -363,6 +363,7 @@ class MainApp(QMainWindow):
         self.ui.actionSleep_Stages_Export.triggered.connect(self.sleep_stages_export_menu_item)
 
         self.ui.actionOpen_Signal_Window.triggered.connect(self.open_signal_view)
+        self.ui.actionOpen_Spectral_Window.triggered.connect(self.open_spectral_view)
 
         self.ui.actionEDF_Standard.triggered.connect(self.edf_standard_menu_item)
         self.ui.actionAnnotation_Standard.triggered.connect(self.xml_standard_menu_item)
@@ -374,7 +375,8 @@ class MainApp(QMainWindow):
 
         # Save space for windows
         self.signal_view_window = None
-        self.signal_window = None
+        self.signal_window      = None
+        self.spectral_window    = None
 
         # Set up annotation widget responses
         self.ui.pushButton_legend.clicked.connect(self.show_annotation_legend_popup)
@@ -911,6 +913,7 @@ class MainApp(QMainWindow):
         self.ui.actionAnnotation_Export.setEnabled(False)
         self.ui.actionSleep_Stages_Export.setEnabled(False)
         self.ui.actionOpen_Signal_Window.setEnabled(False)
+        self.ui.actionOpen_Spectral_Window.setEnabled(False)
 
         # UI widgets
         self.ui.pushButton_legend.setEnabled(False)
@@ -923,6 +926,7 @@ class MainApp(QMainWindow):
         self.ui.actionSleep_Stages_Export.setEnabled(True)
         self.ui.actionOpen_Signal_Window.setEnabled(True)
         self.ui.pushButton_legend.setEnabled(True)
+        self.ui.actionOpen_Spectral_Window.setEnabled(True)
 
         # UI Widgets
         self.ui.hypnogram_comboBox.setEnabled(True)
@@ -1867,6 +1871,23 @@ class MainApp(QMainWindow):
             # signal_window.setAttribute(Qt.WA_DeleteOnClose)  # Auto-cleanup
             # signal_window.setWindowFlags(Qt.Window | Qt.WindowStaysOnTopHint)  # Independent window
             # signal_window.show()
+    def open_spectral_view(self):
+        # Write to log
+        logger.info(f'Opening signal viewer')
+
+        # Flags for testing
+        share_objects_and_stated = True
+
+        if share_objects_and_stated:
+            # Get index value for first signal graphic view
+            signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
+            self.spectral_window = SpectralWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
+                                                  parent=self)
+
+            # Show as modal
+            logger.info(f'Loading signal viewer in independent  mode')
+            self.spectral_window.show()
+
     # Help
     def xml_standard_menu_item(self):
         dlg = SleepXMLInfoDialog(self)

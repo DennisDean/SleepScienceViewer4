@@ -53,6 +53,8 @@ class Ui_MainWindow(object):
         self.actionEDF_Signal_Export_2.setObjectName(u"actionEDF_Signal_Export_2")
         self.actionOpen_Signal_Window = QAction(MainWindow)
         self.actionOpen_Signal_Window.setObjectName(u"actionOpen_Signal_Window")
+        self.actionOpen_Spectral_Window = QAction(MainWindow)
+        self.actionOpen_Spectral_Window.setObjectName(u"actionOpen_Spectral_Window")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -881,6 +883,7 @@ class Ui_MainWindow(object):
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
         self.menuWindow.addAction(self.actionOpen_Signal_Window)
+        self.menuWindow.addAction(self.actionOpen_Spectral_Window)
 
         self.retranslateUi(MainWindow)
 
@@ -902,6 +905,7 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.actionEDF_Signal_Export_2.setText(QCoreApplication.translate("MainWindow", u"EDF Signal Export", None))
         self.actionOpen_Signal_Window.setText(QCoreApplication.translate("MainWindow", u"Open Signal Window", None))
+        self.actionOpen_Spectral_Window.setText(QCoreApplication.translate("MainWindow", u"Open Spectral Window", None))
         self.load_edf_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load EDF", None))
         self.load_annotation_pushButton.setText(QCoreApplication.translate("MainWindow", u"Load Annot.", None))
         self.label_files_pacer.setText("")

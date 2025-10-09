@@ -531,7 +531,7 @@ class SleepStages:
             'N3': '#98FB98',      # Pale green
             'N4': '#3CB371',      # Medium sea green (darker than N3)
             'NREM': '#87CEEB',    # Sky blue
-            'Artifact': '#FF6347' # Tomato red (stronger, distinct from Wake)
+            'Artifact': '#FA8072' # Salmon
         }
 
         # Collect Connection IDS

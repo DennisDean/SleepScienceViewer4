@@ -389,7 +389,7 @@ class EdfSignals:
             'N2': '#B0E0E6',  # Powder blue
             'N3': '#98FB98',  # Pale green
             'N4': '#3CB371',      # Medium sea green (darker than N3)
-            'Artifact': '#FFB6C1'  # Light coral
+            'Artifact': '#FA8072'  # Salmon
         }
 
         # Storage of stepped signals
