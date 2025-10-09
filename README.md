@@ -87,6 +87,14 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 *Figure 4. Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.*
 </p>
 
+## Coming Soon
+
+Signal Spectral analysis will be the first analysis supported by the Sleep Science Viewer.
+
+<p align="center">    
+<img src="Media/Spectral Viewer_beta.png" width="600" /><br>
+*Figure 5. Sprectral Viewer for performing spectral analysis on signals.*
+</p>
 ## Known Limitations
 Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations with PySide6. The framework is in place, but full functionality cannot be guaranteed at this time.
 
