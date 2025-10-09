@@ -36,8 +36,14 @@ from matplotlib.ticker import FuncFormatter
 from matplotlib.figure import Figure
 from matplotlib import cm
 from matplotlib.axes import Axes
+from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.colors as mcolors
-import colorcet as cc
+
+#import colorcet as cc
+
+
+# viasualization
+#import cmocean
 
 # Interface
 from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
@@ -208,6 +214,19 @@ class MultitaperSpectrogram:
         self.spectrogram_connection = []
         self.heatmap_connection    = []
 
+        # Color map information
+        #self.spectrogram_colormap = cc.rainbow4
+        # self.spectrogram_colormap = cc.cm["bgyw"]
+        # self.spectrogram_colormap = cmocean.cm.thermal
+
+        # Create a custom color map
+        gradient_colors_1 = ["#FFB3BA", "#FFF5BA", "#BAE1FF", "#CBAACB"]  # Soft Pink, pale yellow, soft baby blue, muted lavendar
+        gradient_colors_2 = ['#D0F0C0', '#BAE1FF', '#CBAACB', '#B5EAD7'] #green - blue - pink, very gentle
+        gradient_colors_3 = ['#FFD6A5', '#FFF5BA', '#FFB3BA', '#FFDFD3'] # orange - yellow - pink
+        gradient_colors_4 = ['#E0BBE4', '#CBAACB', '#FFDFD3', '#F3EAC2'] # natural pastel with beige undertones
+        gradient_colors_5 = ['#FFE4B5', '#FFE4B5', '#FFB6C1', '#D8BFD8', '#B0E0E6', '#98FB98', '#3CB371']
+        custom_cmap_continuous = LinearSegmentedColormap.from_list("SleepViewerGradient", gradient_colors_5)
+        self.spectrogram_colormap = custom_cmap_continuous
     # Manage connections
     def cleanup_events(self):
         for cid in self.spectrogram_connection:
@@ -579,7 +598,7 @@ class MultitaperSpectrogram:
         # fig.colorbar(im, ax=ax, label=color_bar_label, shrink=0.8)
         ax.set_xlabel("Time (HH:MM:SS)")
         ax.set_ylabel(y_label)
-        cmap = mcolors.ListedColormap(cc.rainbow4)
+        cmap = self.spectrogram_colormap
         im.set_cmap(cmap)
         ax.invert_yaxis()
 
@@ -628,7 +647,7 @@ class MultitaperSpectrogram:
 
             ax.set_xlabel("")
             ax.set_ylabel("")
-            im.set_cmap(cm.get_cmap('cet_rainbow4'))
+            im.set_cmap(self.spectrogram_colormap)
             ax.invert_yaxis()
 
             if self.clim_scale:
@@ -636,13 +655,7 @@ class MultitaperSpectrogram:
                im.set_clim(clim)
         elif parent_widget is None:
             pass
-            #plt.figure()
-            #plt.imshow(spect_data, extent=extent, aspect='auto', cmap='cet_rainbow4')
-            #plt.colorbar(label='PSD (dB)')
-            #plt.xlabel("Time (HH:MM:SS)")
-            #plt.ylabel("Frequency (Hz)")
-            #plt.gca().invert_yaxis()
-            #plt.show()
+
 
         # Optionally return for other use
         # if self.return_fig:
@@ -671,7 +684,7 @@ class MultitaperSpectrogram:
         spect_data = self.nanpow2db(mt_spectrogram)
 
         # Use the same colormap as in your plot function
-        cmap = mcolors.ListedColormap(cc.rainbow4)
+        cmap = self.spectrogram_colormap
 
         # Set data range
         if hasattr(self, 'clim_scale') and self.clim_scale:
@@ -788,7 +801,7 @@ class MultitaperSpectrogram:
 
         # Save colormap and limits after setting them
         # Store the colormap - create it the same way as in the plot
-        self.heatmap_cmap = mcolors.ListedColormap(cc.rainbow4)
+        self.heatmap_cmap = self.spectrogram_colormap
         if hasattr(self, 'clim_scale') and self.clim_scale:
             self.heatmap_clim = np.percentile(heatmap_data, [5, 95])
         else:
@@ -819,7 +832,7 @@ class MultitaperSpectrogram:
         ax.set_ylabel(y_label)
 
         # Apply colormap
-        cmap = mcolors.ListedColormap(cc.rainbow4)
+        cmap = self.spectrogram_colormap
         im.set_cmap(cmap)
 
         # Set y-axis to show single row
@@ -868,7 +881,7 @@ class MultitaperSpectrogram:
 
             ax.set_xlabel("")
             ax.set_ylabel("")
-            im.set_cmap(cm.get_cmap('cet_rainbow4'))
+            im.set_cmap(self.spectrogram_colormap)
 
             if hasattr(self, 'clim_scale') and self.clim_scale:
                 clim = np.percentile(heatmap_data, [5, 95])
@@ -924,7 +937,7 @@ class MultitaperSpectrogram:
             cmap = self.heatmap_cmap
         else:
             # Fallback to default colormap
-            cmap = mcolors.ListedColormap(cc.rainbow4)
+            cmap = mcolors.ListedColormap(self.spectrogram_colormap)
 
         # Get data range from saved heatmap info
         vmin, vmax = self.heatmap_clim
@@ -975,6 +988,7 @@ class MultitaperSpectrogram:
         }
         return info
     def clear_data_heatmap_variables(self):
+        logger.info('Clearing heatmap information')
         # Clear heatmap information
         for attr in [
             "heatmap_data",
