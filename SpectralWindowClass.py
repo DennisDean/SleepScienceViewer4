@@ -70,6 +70,43 @@ def set_layout_visible(layout, visible: bool):
         if nested_layout:
             # Recursively process the nested layout
             set_layout_visible(nested_layout, visible)
+def is_first_nonlayout_widget_visible(layout):
+    """
+    Recursively check whether the first non-layout widget
+    inside this layout (or any sub-layout) is visible.
+    Returns True if found and visible, otherwise False.
+    """
+    if layout is None or layout.count() == 0:
+        return False
+
+    for i in range(layout.count()):
+        item = layout.itemAt(i)
+
+        # Case 1: the item is a widget
+        widget = item.widget()
+        if widget is not None:
+            return widget.isVisible()
+
+        # Case 2: the item is another layout — search recursively
+        sublayout = item.layout()
+        if sublayout is not None:
+            result = is_first_nonlayout_widget_visible(sublayout)
+            if result is not None:
+                return result
+
+    # No widget found in this layout or sub-layouts
+    return False
+def toggle_layout_and_button(layout,button):
+    visible = not is_first_nonlayout_widget_visible(layout)
+    set_layout_visible(layout, visible)
+    button.setChecked(visible)
+    logger.info(f'Setting {layout} viability setting to {visible}')
+def toggle_layout(layout):
+    visible = not is_first_nonlayout_widget_visible(layout)
+    set_layout_visible(layout, visible)
+    logger.info(f'Setting {layout} viability setting to {visible}')
+
+# Utility Classes
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
     def __init__(self, parent=None):
@@ -101,11 +138,34 @@ class SpectralWindow(QMainWindow):
         self.setWindowTitle("Spectral Viewer")
 
         # Set up window control
-        self.control_bar_setup()
+        self.setup_control_bar()
+        self.setup_menu()
 
     # Setup
-    def control_bar_setup(self):
+    def setup_menu(self):
+        # Create function make menu selection a toggle switch
+        show_layout_control_bar = partial(toggle_layout, self.ui.verticalLayout_top_controls)
+        self.ui.actionControl_Bar.triggered.connect(show_layout_control_bar)
 
+        # Set up
+        show_layout_spectrogram = partial(toggle_layout_and_button,
+                            self.ui.horizontalLayout_spectrogram,self.ui.pushButton_control_spectrogram)
+        show_layout_settings = partial(toggle_layout_and_button,
+                            self.ui.horizontalLayout_settings, self.ui.pushButton_control_settings)
+        show_layout_parameters = partial(toggle_layout_and_button,
+                            self.ui.horizontalLayout_parameters,self.ui.pushButton_control_parameters)
+        show_layout_hypnogram = partial(toggle_layout_and_button,
+                            self.ui.horizontalLayout_hypnogram, self.ui.pushButton_control_hypnogram)
+        show_layout_markings = partial(toggle_layout_and_button,
+                            self.ui.verticalLayout_mark, self.ui.pushButton_control_markings)
+
+        # Turn on menu options
+        self.ui.actionSettings.triggered.connect(show_layout_settings)
+        self.ui.actionParameters.triggered.connect(show_layout_parameters)
+        self.ui.actionHypnogram.triggered.connect(show_layout_hypnogram)
+        self.ui.actionSpectrogram.triggered.connect(show_layout_spectrogram)
+        self.ui.actionMarkings.triggered.connect(show_layout_markings)
+    def setup_control_bar(self):
         # Create functions to respond to pushbutton
         show_layout_spectrogram = partial(set_layout_visible, self.ui.horizontalLayout_spectrogram)
         show_layout_settings = partial(set_layout_visible, self.ui.horizontalLayout_settings)

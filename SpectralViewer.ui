@@ -87,20 +87,29 @@
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+             <widget class="QLabel" name="label_38">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
+              <property name="minimumSize">
                <size>
-                <width>20</width>
-                <height>20</height>
+                <width>40</width>
+                <height>0</height>
                </size>
               </property>
-             </spacer>
+              <property name="maximumSize">
+               <size>
+                <width>40</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="pushButton_copntrol_compute">
@@ -116,17 +125,17 @@
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+             <widget class="QLabel" name="label_39">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
+              <property name="text">
+               <string/>
               </property>
-             </spacer>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="pushButton_control_hypnogram">
@@ -186,38 +195,6 @@
               </property>
               <property name="checkable">
                <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_signals">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>100</width>
-                <height>16777215</height>
-               </size>
               </property>
              </widget>
             </item>
@@ -2606,6 +2583,9 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_12">
                   <item>
+                   <widget class="QComboBox" name="comboBox_35"/>
+                  </item>
+                  <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_14">
                     <item alignment="Qt::AlignTop">
                      <widget class="QPushButton" name="pushButton_10">
@@ -2773,6 +2753,20 @@
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuShow">
+    <property name="title">
+     <string>Show</string>
+    </property>
+    <addaction name="actionControl_Bar"/>
+    <addaction name="separator"/>
+    <addaction name="actionParameters"/>
+    <addaction name="actionSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionHypnogram"/>
+    <addaction name="actionSpectrogram"/>
+    <addaction name="actionMarkings"/>
+   </widget>
+   <addaction name="menuShow"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -2786,6 +2780,36 @@
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="actionControl_Bar">
+   <property name="text">
+    <string>Control Bar</string>
+   </property>
+  </action>
+  <action name="actionParameters">
+   <property name="text">
+    <string>Parameters</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionHypnogram">
+   <property name="text">
+    <string>Hypnogram</string>
+   </property>
+  </action>
+  <action name="actionSpectrogram">
+   <property name="text">
+    <string>Spectrogram</string>
+   </property>
+  </action>
+  <action name="actionMarkings">
+   <property name="text">
+    <string>Markings</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
