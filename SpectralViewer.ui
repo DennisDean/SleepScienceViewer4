@@ -30,31 +30,6 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_36">
             <item>
-             <widget class="QPushButton" name="pushButton_control_parameters">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Parameters</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QPushButton" name="pushButton_control_settings">
               <property name="minimumSize">
                <size>
@@ -70,6 +45,31 @@
               </property>
               <property name="text">
                <string>Settings</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_control_parameters">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Parameters</string>
               </property>
               <property name="checkable">
                <bool>true</bool>
@@ -262,7 +262,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit_2">
+             <widget class="QPlainTextEdit" name="plainTextEdit_settings_description">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -314,7 +314,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit">
+             <widget class="QPlainTextEdit" name="plainTextEdit_settings_output_suffix">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -362,7 +362,7 @@
              </widget>
             </item>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QComboBox" name="comboBox_6">
+             <widget class="QComboBox" name="comboBox_settings_reference_method">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -462,7 +462,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_8">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig1">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -489,7 +489,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_7">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig1">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -517,7 +517,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_10">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig2">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -538,7 +538,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_9">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig2">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -566,7 +566,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_28">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig3">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -587,7 +587,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_27">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig3">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -615,7 +615,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_26">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig4">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -636,7 +636,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_25">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig4">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -664,7 +664,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_24">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig5">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -685,7 +685,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_23">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig5">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -713,7 +713,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_22">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig6">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -734,7 +734,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_21">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig6">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -762,7 +762,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_20">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig7">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -783,7 +783,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_19">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig7">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -811,7 +811,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_14">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig8">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -832,7 +832,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_13">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig8">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -860,7 +860,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_18">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig9">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -881,7 +881,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_17">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig9">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -909,7 +909,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBox_16">
+               <widget class="QComboBox" name="comboBox_settings_analysis_sig10">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -930,56 +930,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_15">
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>100</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_32">
-              <property name="sizeConstraint">
-               <enum>QLayout::SetMinimumSize</enum>
-              </property>
-              <item>
-               <widget class="QComboBox" name="comboBox_12">
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>100</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_11">
+               <widget class="QComboBox" name="comboBox_settings_ref_sig10">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
@@ -1034,7 +985,7 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_18">
                   <item alignment="Qt::AlignTop">
-                   <widget class="QCheckBox" name="checkBox_3">
+                   <widget class="QCheckBox" name="checkBox_settings_band">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -1058,7 +1009,7 @@
                    </widget>
                   </item>
                   <item alignment="Qt::AlignTop">
-                   <widget class="QComboBox" name="comboBox_34">
+                   <widget class="QComboBox" name="comboBox_settings_band_low">
                     <property name="font">
                      <font>
                       <pointsize>10</pointsize>
@@ -1067,7 +1018,7 @@
                    </widget>
                   </item>
                   <item alignment="Qt::AlignTop">
-                   <widget class="QComboBox" name="comboBox_33">
+                   <widget class="QComboBox" name="comboBox_settings_band_high">
                     <property name="font">
                      <font>
                       <pointsize>10</pointsize>
@@ -1093,7 +1044,7 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_19">
                   <item alignment="Qt::AlignTop">
-                   <widget class="QCheckBox" name="checkBox_4">
+                   <widget class="QCheckBox" name="checkBox_settings_notch">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -1117,7 +1068,7 @@
                    </widget>
                   </item>
                   <item alignment="Qt::AlignTop">
-                   <widget class="QComboBox" name="comboBox_32">
+                   <widget class="QComboBox" name="comboBox_settings_notch">
                     <property name="font">
                      <font>
                       <pointsize>10</pointsize>
@@ -1296,7 +1247,7 @@
                    </widget>
                   </item>
                   <item alignment="Qt::AlignRight">
-                   <widget class="QComboBox" name="comboBox_2">
+                   <widget class="QComboBox" name="comboBox_parameters_noise_delta">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1306,13 +1257,13 @@
                     <property name="minimumSize">
                      <size>
                       <width>50</width>
-                      <height>20</height>
+                      <height>25</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
                       <width>50</width>
-                      <height>20</height>
+                      <height>25</height>
                      </size>
                     </property>
                     <property name="layoutDirection">
@@ -1388,7 +1339,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QComboBox" name="comboBox_3">
+                 <widget class="QComboBox" name="comboBox_parameters_noise_beta">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1514,7 +1465,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QLabel" name="label_22">
+                 <widget class="QLabel" name="label_parameters_bands_delta">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -1547,7 +1498,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider_2">
+                 <widget class="QSlider" name="horizontalSlider_parameters_bands_delta">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1612,7 +1563,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QLabel" name="label_23">
+                 <widget class="QLabel" name="label_parameters_bands_theta">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -1645,7 +1596,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider">
+                 <widget class="QSlider" name="horizontalSlider_parameters_bands_theta">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1710,7 +1661,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_24">
+                 <widget class="QLabel" name="label_parameters_bands_alpha">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -1743,7 +1694,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider_3">
+                 <widget class="QSlider" name="horizontalSlider_parameters_bands_alpha">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1808,7 +1759,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_25">
+                 <widget class="QLabel" name="label_parameters_bands_sigma">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -1841,7 +1792,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider_4">
+                 <widget class="QSlider" name="horizontalSlider_parameters_bands_sigma">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1906,7 +1857,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_29">
+                 <widget class="QLabel" name="label_parameters_bands_gamma">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -1939,7 +1890,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider_6">
+                 <widget class="QSlider" name="horizontalSlider_parameters_bands_gamma">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2062,7 +2013,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight|Qt::AlignTop">
-                 <widget class="QComboBox" name="comboBox">
+                 <widget class="QComboBox" name="comboBox_parameters_taper_spectral_epoch">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2183,7 +2134,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QComboBox" name="comboBox_31">
+                 <widget class="QComboBox" name="comboBox_parameters_taper_window">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2270,7 +2221,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QComboBox" name="comboBox_30">
+                 <widget class="QComboBox" name="comboBox_parameters_taper_step">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2379,7 +2330,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox_29">
+                 <widget class="QComboBox" name="comboBox_parameters_taper_num_cpus">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2389,13 +2340,13 @@
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>20</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
                     <width>50</width>
-                    <height>20</height>
+                    <height>25</height>
                    </size>
                   </property>
                  </widget>

@@ -1886,7 +1886,7 @@ class MainApp(QMainWindow):
                                                   parent=self)
 
             # Show as modal
-            logger.info(f'Loading signal viewer in independent  mode')
+            logger.info(f'Loading spectral viewer in independent  mode')
             self.spectral_window.show()
 
     # Help

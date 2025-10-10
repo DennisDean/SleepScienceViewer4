@@ -137,9 +137,29 @@ class SpectralWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("Spectral Viewer")
 
+        # Save signals and annotations
+        self.edf_obj = edf_obj
+        self.xml_obj = xml_obj
+
+        # Define settings variables
+        self.band_low_values:list[float]
+        self.band_high_values:list[float]
+        self.notch_values:list[float]
+        self.band_low_menu_items:list[str]
+        self.band_high_menu_items:list[str]
+        self.notch_menu_items:list[str]
+
+        # Define parameter variables
+        self.noise_alpha_n_factor:list[float]
+        self.noise_beta_n_factor:list[float]
+        self.noise_alpha_n_menu_items:list[str]
+        self.noise_beta_n_menu_items:list[str]
+
         # Set up window control
         self.setup_control_bar()
         self.setup_menu()
+        self.setup_settings()
+        self.setup_parmeters()
 
     # Setup
     def setup_menu(self):
@@ -181,3 +201,82 @@ class SpectralWindow(QMainWindow):
         self.ui.pushButton_control_markings.toggled.connect(show_layout_markings)
 
         # Add signals to combobox
+    def setup_settings(self):
+        # Log status
+        logger.info(f'Preparing setting options')
+
+        #  Set filter combo box values
+        band_low_values         = [0.1, 0.5, 1.0, 10.0 ]
+        band_high_values        = [50.0, 60.0, 70.0]
+        notch_values            = [50.0, 60.0]
+        create_freq_menu_item_f = lambda x:f'{x:.1f} Hz'
+        band_low_menu_items     = list(map(create_freq_menu_item_f, band_low_values))
+        band_high_menu_items    = list(map(create_freq_menu_item_f, band_high_values))
+        notch_menu_items        = list(map(create_freq_menu_item_f, notch_values))
+        add_blank_menu_item_f   = lambda x:x.insert(0, '')
+        for l in [band_low_menu_items, band_high_menu_items, notch_menu_items]:
+            l.insert(0,'')
+
+        # Combo box settings
+        settings_combo_boxes = [self.ui.comboBox_settings_band_low, self.ui.comboBox_settings_band_low,
+                                self.ui.comboBox_settings_band_high,self.ui.comboBox_settings_notch,
+                                self.ui.comboBox_settings_reference_method]
+        for cb in settings_combo_boxes:
+            cb.clear()
+
+        # Set filter combobox values
+        self.ui.comboBox_settings_band_low.addItems(band_low_menu_items)
+        self.ui.comboBox_settings_band_high.addItems(band_high_menu_items)
+        self.ui.comboBox_settings_notch.addItems(notch_menu_items)
+
+        # Set reference methods
+        reference_methods = ['No Reference', 'Single Reference', 'Reference Each Signal', 'Average Reference']
+        self.ui.comboBox_settings_reference_method.addItems(reference_methods)
+        print(reference_methods)
+
+        # Setup signal comboboxes
+        signal_labels = self.edf_obj.edf_signals.signal_labels
+        signal_labels.insert(0, '')
+
+        # Clear combo boxes
+        signal_combo_boxes = [self.ui.comboBox_settings_analysis_sig1, self.ui.comboBox_settings_analysis_sig2,
+                              self.ui.comboBox_settings_analysis_sig3, self.ui.comboBox_settings_analysis_sig4,
+                              self.ui.comboBox_settings_analysis_sig5, self.ui.comboBox_settings_analysis_sig6,
+                              self.ui.comboBox_settings_analysis_sig7, self.ui.comboBox_settings_analysis_sig8,
+                              self.ui.comboBox_settings_analysis_sig9, self.ui.comboBox_settings_analysis_sig10,
+                              self.ui.comboBox_settings_ref_sig1,      self.ui.comboBox_settings_ref_sig2,
+                              self.ui.comboBox_settings_ref_sig3,      self.ui.comboBox_settings_ref_sig4,
+                              self.ui.comboBox_settings_ref_sig5,      self.ui.comboBox_settings_ref_sig6,
+                              self.ui.comboBox_settings_ref_sig7,      self.ui.comboBox_settings_ref_sig8,
+                              self.ui.comboBox_settings_ref_sig9,      self.ui.comboBox_settings_ref_sig10]
+        for cb in signal_combo_boxes:
+            cb.clear()
+            cb.addItems(signal_labels)
+
+        # Record settings
+        self.band_low_values       = band_low_values
+        self.band_high_values      = band_high_values
+        self.notch_values          = notch_values
+        self.band_low_menu_items   = band_low_menu_items
+        self.band_high_menu_items  = band_high_menu_items
+        self.notch_menu_items      = notch_menu_items
+    def setup_parmeters(self):
+        # setup noise detection
+        noise_alpha_n_factor = [1.50, 2.00, 2.25, 2.50, 2.75, 3.00]
+        noise_beta_n_factor = [1.50, 2.00, 2.25, 2.50, 2.75, 3.00]
+        create_noise_menu_item_f = lambda x: f'{x:.2f}'
+        noise_alpha_n_menu_items = list(map(create_noise_menu_item_f, noise_alpha_n_factor))
+        noise_beta_n_menu_items = list(map(create_noise_menu_item_f, noise_beta_n_factor))
+
+        # setup noise detection menu
+        self.ui.comboBox_parameters_noise_delta.addItems(noise_alpha_n_menu_items)
+        self.ui.comboBox_parameters_noise_beta.addItems(noise_beta_n_menu_items)
+
+
+
+        # Save parameters
+        self.noise_alpha_n_factor = noise_alpha_n_factor
+        self.noise_beta_n_factor = noise_beta_n_factor
+        self.create_noise_menu_item_f = create_noise_menu_item_f
+        self.noise_alpha_n_menu_items = noise_alpha_n_menu_items
+        self.noise_beta_n_menu_items = noise_beta_n_menu_items
