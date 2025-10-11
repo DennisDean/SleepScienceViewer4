@@ -115,11 +115,16 @@ class SignalWindow(QMainWindow):
         s_to_s   = lambda s: int(s)
 
         # Set up epoch controls
-        self.epoch_display_options_text:list        = ['30 s', '1 min', '2 min', '4 min', '5 min','8 min', '10 min', '1 hr']
-        self.epoch_display_options_width_sec:list  = [ 30,     60,    120,    240,   300,  480,   600,   3600]
-        self.epoch_display_axis_grid:list           = [ [5,1],  [10,2], [60,10],  [60, 10], [60, 10], [120, 30],[120, 30], [600, 50] ]
-        self.epoch_axis_units:list                  = ['s', 's', 'm', 'm', 'm', 'm' , 'm', 'm']
-        self.time_convert_f:list                    = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min]
+        #self.epoch_display_options_text:list        = ['30 s', '1 min', '2 min', '4 min', '5 min','8 min', '10 min', '1 hr']
+        #self.epoch_display_options_width_sec:list  = [ 30,     60,    120,    240,   300,  480,   600,   3600]
+        #self.epoch_display_axis_grid:list           = [ [5,1],  [10,2], [60,10],  [60, 10], [60, 10], [120, 30],[120, 30], [600, 50] ]
+        #self.epoch_axis_units:list                  = ['s', 's', 'm', 'm', 'm', 'm' , 'm', 'm']
+        #self.time_convert_f:list                    = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min]
+        self.epoch_display_options_text: list       = ['30 s', '1 min', '5 min', '10 min', '15 min', '20 min', '30 min', '45 min', '1 hr']
+        self.epoch_display_options_width_sec: list  = [ 30,     60,      300,     600,      900,      1200,    1800,      2700,    3600 ]
+        self.epoch_display_axis_grid: list          = [ [5,1],  [10,2],  [60, 10], [120, 30], [300, 60], [300, 60], [300, 60], [300, 60],[600, 50] ]
+        self.epoch_axis_units: list                 = ['s', 's', 'm', 'm', 'm', 'm', 'm', 'm', 'm']
+        self.time_convert_f: list                   = [s_to_s, s_to_s, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min, s_to_min]
 
         # Initialize epoch variables
         self.max_epoch: int                 = None
