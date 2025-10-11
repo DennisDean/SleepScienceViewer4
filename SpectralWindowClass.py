@@ -10,6 +10,7 @@
 
 # Modules
 import logging
+import psutil
 from functools import partial
 import math
 import numpy as np
@@ -273,6 +274,22 @@ class SpectralWindow(QMainWindow):
         self.ui.comboBox_parameters_noise_beta.addItems(noise_beta_n_menu_items)
 
 
+        # setup taper windows
+        taper_window_values = [1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0]
+        taper_step_values = [0.25, 0.50, 1.0, 2.0, 3.0, 4.0, 5.0]
+        create_taper_menu_item_f = lambda x: f'{x:.2f} s'
+        taper_window_menu_items = list(map(create_taper_menu_item_f, taper_window_values))
+        taper_step_menu_items   = list(map(create_taper_menu_item_f, taper_step_values))
+
+        # setup taper combo box
+        self.ui.comboBox_parameters_taper_window.addItems(taper_window_menu_items)
+        self.ui.comboBox_parameters_taper_step.addItems(taper_step_menu_items)
+
+
+        # setup cpu selection
+        num_physical_cpu = psutil.cpu_count(logical=True)
+        cpu_list_menu_items = [str(c) for c in range(1,num_physical_cpu+1,1)]
+        self.ui.comboBox_parameters_taper_num_cpus.addItems(cpu_list_menu_items)
 
         # Save parameters
         self.noise_alpha_n_factor = noise_alpha_n_factor

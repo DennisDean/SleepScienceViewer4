@@ -8210,3 +8210,527 @@
 [2025-10-10 18:31:27,529] INFO - SleepScienceViewer - Opening signal viewer
 [2025-10-10 18:31:27,547] INFO - SpectralWindowClass - Preparing setting options
 [2025-10-10 18:31:27,551] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-10 18:49:03,043] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-10 18:49:06,112] INFO - SleepScienceViewer - Loaded XML: 
+[2025-10-10 19:03:57,286] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-10 19:04:26,180] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 19:04:26,475] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 19:04:26,479] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 19:04:26,497] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,497] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 19:04:26,497] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 19:04:26,510] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,510] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 19:04:26,510] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 19:04:26,523] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,523] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 19:04:26,524] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 19:04:26,537] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,537] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 19:04:26,537] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 19:04:26,550] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,550] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 19:04:26,550] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 19:04:26,563] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,564] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 19:04:26,564] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 19:04:26,577] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,578] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 19:04:26,578] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 19:04:26,590] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,591] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 19:04:26,591] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 19:04:26,640] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,641] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 19:04:26,641] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 19:04:26,654] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:26,654] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 19:04:26,654] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 19:04:26,667] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:04:27,187] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-10 19:04:29,102] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-10 19:04:29,108] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 19:04:29,377] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 19:04:29,377] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-10 19:04:30,903] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 19:04:30,921] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-10 19:04:30,927] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-10 19:17:21,733] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-10 19:17:50,335] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 19:17:50,634] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 19:17:50,639] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 19:17:50,656] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,657] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 19:17:50,657] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 19:17:50,670] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,670] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 19:17:50,671] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 19:17:50,684] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,684] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 19:17:50,684] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 19:17:50,697] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,697] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 19:17:50,698] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 19:17:50,710] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,711] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 19:17:50,711] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 19:17:50,724] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,724] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 19:17:50,724] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 19:17:50,737] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,737] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 19:17:50,737] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 19:17:50,787] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,788] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 19:17:50,788] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 19:17:50,801] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,801] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 19:17:50,802] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 19:17:50,814] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:50,814] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 19:17:50,814] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 19:17:50,827] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:17:51,569] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-10 19:17:53,246] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-10 19:17:53,255] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 19:17:53,535] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 19:17:53,535] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-10 19:17:56,215] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 19:17:56,236] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-10 19:17:56,243] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-10 19:18:40,517] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-10 19:18:57,951] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 19:18:58,241] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 19:18:58,246] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 19:18:58,263] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,264] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 19:18:58,264] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 19:18:58,277] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,277] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 19:18:58,277] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 19:18:58,290] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,291] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 19:18:58,291] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 19:18:58,303] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,303] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 19:18:58,304] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 19:18:58,316] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,316] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 19:18:58,317] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 19:18:58,329] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,330] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 19:18:58,330] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 19:18:58,342] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,342] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 19:18:58,342] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 19:18:58,392] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,393] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 19:18:58,393] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 19:18:58,406] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,406] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 19:18:58,406] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 19:18:58,418] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:18:58,419] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 19:18:58,419] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 19:18:58,432] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 19:19:00,599] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-10 19:19:02,455] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-10 19:19:02,469] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 19:19:02,734] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 19:19:02,734] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-10 19:19:11,038] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 19:19:11,055] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-10 19:19:11,059] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-10 21:06:33,145] INFO - SleepScienceViewer - Combo box changed to index 1: NREM_REM_W
+[2025-10-10 21:07:11,046] INFO - SleepScienceViewer - Combo box changed to index 0: N1_N2_N3_N4_REM_W
+[2025-10-10 21:07:14,734] INFO - SleepScienceViewer - Combo box changed to index 2: N1_N2_N3_REM_W
+[2025-10-10 21:07:18,347] INFO - SleepScienceViewer - Combo box changed to index 1: NREM_REM_W
+[2025-10-10 21:07:35,593] INFO - SleepScienceViewer - Spectrogram combobox signal changed to EEG
+[2025-10-10 21:07:39,469] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-10-10 21:07:39,497] INFO - SleepScienceViewer - Computing spectrogram (EEG): computation may be time consuming
+[2025-10-10 21:07:43,592] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.99 seconds
+[2025-10-10 21:07:43,618] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-10 21:07:43,973] INFO - SleepScienceViewer - Spectrogram plotted
+[2025-10-10 21:07:43,973] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-10-10 21:16:16,694] INFO - SleepScienceViewer - Combo box changed to index 2: N1_N2_N3_REM_W
+[2025-10-10 21:16:19,109] INFO - SleepScienceViewer - Combo box changed to index 0: N1_N2_N3_N4_REM_W
+[2025-10-10 21:16:31,394] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,407] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,420] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,434] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,541] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,555] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,568] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,583] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,595] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,609] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:31,625] INFO - SleepScienceViewer - Epoch set to next (2)
+[2025-10-10 21:16:34,257] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,270] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,283] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,296] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,308] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,321] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,334] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,348] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,360] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,374] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:34,390] INFO - SleepScienceViewer - Epoch set to next (3)
+[2025-10-10 21:16:37,140] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,154] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,167] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,180] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,193] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,206] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,219] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,231] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,244] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,257] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:37,272] INFO - SleepScienceViewer - Epoch set to next (4)
+[2025-10-10 21:16:39,854] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:39,868] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:39,952] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:39,966] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:39,979] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:39,993] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:40,005] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:40,018] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:40,031] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:40,044] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:40,060] INFO - SleepScienceViewer - Epoch set to next (5)
+[2025-10-10 21:16:43,213] INFO - SleepScienceViewer - Annotation combobox text changed to Hypopnea
+[2025-10-10 21:16:46,059] INFO - SleepScienceViewer - Annotation combobox text changed to Obstructive Apnea
+[2025-10-10 21:16:47,642] INFO - SleepScienceViewer - Annotation list double-clicked: 7:38:24  Obstructive Apnea  AIRFLOW
+[2025-10-10 21:16:47,673] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,687] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,700] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,787] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,801] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,814] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,827] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,841] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,856] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,869] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:16:47,885] INFO - SleepScienceViewer - Jumped to new signal epoch (917, epoch offset 23)
+[2025-10-10 21:16:50,161] INFO - SleepScienceViewer - Combo box changed to index 0: N1_N2_N3_N4_REM_W
+[2025-10-10 21:16:51,097] INFO - SleepScienceViewer - Combo box changed to index 0: N1_N2_N3_N4_REM_W
+[2025-10-10 21:23:39,957] INFO - SleepScienceViewer - Annotation combobox text changed to SpO2 desaturation
+[2025-10-10 21:23:47,307] INFO - SleepScienceViewer - Annotation combobox text changed to SpO2 artifact
+[2025-10-10 21:23:54,054] INFO - SleepScienceViewer - Annotation list double-clicked: 9:50:50  SpO2 artifact      SaO2   
+[2025-10-10 21:23:54,074] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,092] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,105] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,118] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,131] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,146] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,231] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,245] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,258] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,271] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:54,288] INFO - SleepScienceViewer - Jumped to new signal epoch (1182, epoch offset 20)
+[2025-10-10 21:23:56,480] INFO - SleepScienceViewer - Annotation list double-clicked: 6:09:39  SpO2 artifact      SaO2   
+[2025-10-10 21:23:56,509] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,523] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,535] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,549] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,562] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,574] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,587] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,600] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,614] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,627] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:56,644] INFO - SleepScienceViewer - Jumped to new signal epoch (740, epoch offset 8)
+[2025-10-10 21:23:58,342] INFO - SleepScienceViewer - Annotation list double-clicked: 5:00:42  SpO2 artifact      SaO2   
+[2025-10-10 21:23:58,371] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,385] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,398] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,411] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,424] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,437] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,450] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,464] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,476] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,489] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:23:58,505] INFO - SleepScienceViewer - Jumped to new signal epoch (602, epoch offset 11)
+[2025-10-10 21:24:03,744] INFO - SleepScienceViewer - Annotation list double-clicked: 5:06:00  SpO2 artifact      SaO2   
+[2025-10-10 21:24:03,784] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,799] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,883] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,897] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,911] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,924] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,937] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,950] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,963] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,977] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:03,993] INFO - SleepScienceViewer - Jumped to new signal epoch (613, epoch offset 0)
+[2025-10-10 21:24:05,490] INFO - SleepScienceViewer - Annotation list double-clicked: 5:06:00  SpO2 artifact      SaO2   
+[2025-10-10 21:24:05,521] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,534] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,547] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,561] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,574] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,656] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,670] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,684] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,698] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,712] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:05,727] INFO - SleepScienceViewer - Jumped to new signal epoch (613, epoch offset 0)
+[2025-10-10 21:24:07,290] INFO - SleepScienceViewer - Annotation list double-clicked: 6:09:39  SpO2 artifact      SaO2   
+[2025-10-10 21:24:07,309] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,323] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,336] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,349] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,362] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,375] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,388] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,401] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,486] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,501] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:07,517] INFO - SleepScienceViewer - Jumped to new signal epoch (740, epoch offset 8)
+[2025-10-10 21:24:09,440] INFO - SleepScienceViewer - Annotation list double-clicked: 6:54:11  SpO2 artifact      SaO2   
+[2025-10-10 21:24:09,468] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,482] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,495] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,508] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,521] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,534] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,548] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,561] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,574] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,587] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:09,602] INFO - SleepScienceViewer - Jumped to new signal epoch (829, epoch offset 11)
+[2025-10-10 21:24:13,461] INFO - SleepScienceViewer - Annotation list double-clicked: 8:01:47  SpO2 artifact      SaO2   
+[2025-10-10 21:24:13,490] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,505] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,518] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,531] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,545] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,558] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,571] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,584] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,597] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,610] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:13,626] INFO - SleepScienceViewer - Jumped to new signal epoch (964, epoch offset 17)
+[2025-10-10 21:24:15,259] INFO - SleepScienceViewer - Annotation list double-clicked: 6:54:11  SpO2 artifact      SaO2   
+[2025-10-10 21:24:15,297] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,383] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,397] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,410] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,423] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,436] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,449] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,462] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,477] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,492] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:24:15,508] INFO - SleepScienceViewer - Jumped to new signal epoch (829, epoch offset 11)
+[2025-10-10 21:30:18,852] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 21:30:38,108] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 21:31:01,362] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 21:31:01,381] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-10 21:31:01,382] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-10 21:31:06,038] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 21:32:47,356] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-10 21:32:47,356] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-10 21:33:06,668] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 21:33:06,960] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 21:33:06,964] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 21:33:06,982] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:06,982] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 21:33:06,982] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 21:33:06,995] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:06,996] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 21:33:06,996] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 21:33:07,009] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,009] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 21:33:07,009] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 21:33:07,022] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,022] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 21:33:07,022] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 21:33:07,036] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,036] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 21:33:07,036] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 21:33:07,049] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,049] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 21:33:07,050] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 21:33:07,062] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,063] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 21:33:07,063] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 21:33:07,111] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,111] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 21:33:07,111] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 21:33:07,124] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,124] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 21:33:07,125] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 21:33:07,137] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,138] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 21:33:07,138] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 21:33:07,150] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:07,803] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-10 21:33:09,747] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-10 21:33:09,764] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 21:33:10,072] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 21:33:10,072] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-10 21:33:15,090] INFO - SleepScienceViewer - Spectrogram combobox signal changed to EEG
+[2025-10-10 21:33:30,158] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-10-10 21:33:30,187] INFO - SleepScienceViewer - Computing spectrogram (EEG): computation may be time consuming
+[2025-10-10 21:33:34,139] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.84 seconds
+[2025-10-10 21:33:34,164] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-10 21:33:34,529] INFO - SleepScienceViewer - Spectrogram plotted
+[2025-10-10 21:33:34,529] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-10-10 21:33:48,688] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 21:33:48,724] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,738] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,751] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,764] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,777] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,790] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,804] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,816] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,900] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,914] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,927] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,941] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,954] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,968] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,981] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:48,982] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 21:33:48,995] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:33:49,332] INFO - SleepScienceViewer - Loading signal viewer in independent  mode
+[2025-10-10 21:34:03,714] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,728] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,759] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,773] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,786] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,800] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,813] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,826] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,840] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,853] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,866] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,880] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,894] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,907] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,921] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:03,921] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 21:34:03,934] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:34:13,639] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-10-10 21:34:13,641] INFO - SignalWindowClass - Computing spectrogram (ECG): computation may be time consuming
+[2025-10-10 21:34:19,930] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.09 seconds
+[2025-10-10 21:34:19,980] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-10 21:34:20,748] INFO - SignalWindowClass - Spectrogram plotted
+[2025-10-10 21:34:20,749] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-10-10 21:36:02,556] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 21:36:02,865] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-10 21:36:02,870] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 21:36:02,888] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:02,888] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-10 21:36:02,889] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 21:36:02,902] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:02,902] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-10 21:36:02,902] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 21:36:02,915] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:02,916] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-10 21:36:02,916] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 21:36:02,928] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:02,929] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-10 21:36:02,929] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 21:36:02,942] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:02,942] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-10 21:36:02,942] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 21:36:02,955] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:02,956] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-10 21:36:02,956] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 21:36:02,968] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:02,969] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-10 21:36:02,969] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 21:36:03,017] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:03,017] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-10 21:36:03,017] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 21:36:03,030] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:03,031] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-10 21:36:03,031] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 21:36:03,043] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:03,043] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-10 21:36:03,044] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 21:36:03,057] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:03,587] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-10 21:36:05,577] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-10 21:36:05,584] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 21:36:05,848] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-10 21:36:05,848] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-10 21:36:09,827] INFO - SleepScienceViewer - Message Dialog Box - Cancel clicked, Msg: Computing a multitaper spectrogram can be time consuming. Do you want to proceed? 
+[2025-10-10 21:36:13,021] INFO - SleepScienceViewer - Spectrogram combobox signal changed to EEG
+[2025-10-10 21:36:15,553] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-10-10 21:36:15,561] INFO - SleepScienceViewer - Computing spectrogram (EEG): computation may be time consuming
+[2025-10-10 21:36:19,550] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.90 seconds
+[2025-10-10 21:36:19,575] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-10 21:36:19,941] INFO - SleepScienceViewer - Spectrogram plotted
+[2025-10-10 21:36:19,941] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-10-10 21:36:34,887] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 21:36:34,920] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:34,933] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:34,946] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:34,960] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:34,973] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:34,986] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:34,999] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,012] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,095] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,109] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,122] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,136] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,150] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,163] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,177] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,177] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 21:36:35,191] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:35,529] INFO - SleepScienceViewer - Loading signal viewer in independent  mode
+[2025-10-10 21:36:40,275] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,289] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,324] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,338] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,352] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,365] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,379] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,392] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,405] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,419] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,432] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,446] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,459] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,472] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,486] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:40,486] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 21:36:40,499] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:36:45,489] INFO - SignalWindowClass - OK clicked: Will continue 
+[2025-10-10 21:36:45,491] INFO - SignalWindowClass - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-10-10 21:36:49,449] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.85 seconds
+[2025-10-10 21:36:49,475] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-10 21:36:49,785] INFO - SignalWindowClass - Spectrogram plotted
+[2025-10-10 21:36:49,785] INFO - SignalWindowClass - Computing spectrogram: Computation completed
+[2025-10-10 21:37:30,741] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,756] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,772] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,787] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,802] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,816] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,831] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,845] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,860] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,875] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,891] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,905] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,920] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,935] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,949] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,949] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-10 21:37:30,959] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-10 21:37:30,960] INFO - SignalWindowClass - Signal combobox changed to 10 min
+[2025-10-10 21:37:58,237] INFO - SignalWindowClass - Show/Hide  annotation
+[2025-10-10 21:38:11,320] INFO - SignalWindowClass - Show/Hide  annotation
+[2025-10-10 21:44:21,536] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-10 21:44:21,536] INFO - SignalWindowClass - Signal Viewer - closeEvent
+[2025-10-10 21:45:35,886] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-10 21:45:35,902] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-10 21:45:35,905] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
