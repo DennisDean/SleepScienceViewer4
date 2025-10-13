@@ -112,15 +112,15 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_copntrol_compute">
+             <widget class="QPushButton" name="pushButton_control_compute">
               <property name="text">
                <string>Compute</string>
               </property>
               <property name="checkable">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -184,7 +184,7 @@
                <bool>true</bool>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -2809,7 +2809,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_12">
                   <item>
-                   <widget class="QComboBox" name="comboBox_spectrogram_signals"/>
+                   <widget class="QComboBox" name="comboBox_spectrogram_signals">
+                    <property name="minimumSize">
+                     <size>
+                      <width>95</width>
+                      <height>25</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>95</width>
+                      <height>25</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_14">
@@ -2906,31 +2919,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_results_1">
                     <item>
-                     <widget class="QLabel" name="label_47">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>100</width>
-                        <height>25</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>100</width>
-                        <height>25</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
                      <widget class="QGraphicsView" name="graphicsView_results_1">
                       <property name="minimumSize">
                        <size>
@@ -2940,12 +2928,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_2">
                     <item>
-                     <widget class="QLabel" name="label_results_2">
+                     <widget class="QLabel" name="label_results_1">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -2954,13 +2938,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -2969,6 +2953,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_2">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_2">
                       <property name="minimumSize">
@@ -2979,12 +2967,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_3">
                     <item>
-                     <widget class="QLabel" name="label_results_3">
+                     <widget class="QLabel" name="label_results_2">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -2993,13 +2977,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3008,6 +2992,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_3">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_3">
                       <property name="minimumSize">
@@ -3018,12 +3006,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_4">
                     <item>
-                     <widget class="QLabel" name="label_results_4">
+                     <widget class="QLabel" name="label_results_3">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -3032,13 +3016,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3047,6 +3031,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_4">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_4">
                       <property name="minimumSize">
@@ -3057,12 +3045,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_5">
                     <item>
-                     <widget class="QLabel" name="label_results_5">
+                     <widget class="QLabel" name="label_results_4">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -3071,13 +3055,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3086,6 +3070,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_5">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_5">
                       <property name="minimumSize">
@@ -3096,12 +3084,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_6">
                     <item>
-                     <widget class="QLabel" name="label_results_6">
+                     <widget class="QLabel" name="label_results_5">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -3110,13 +3094,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3125,6 +3109,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_6">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_6">
                       <property name="minimumSize">
@@ -3135,12 +3123,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_7">
                     <item>
-                     <widget class="QLabel" name="label_results_7">
+                     <widget class="QLabel" name="label_results_6">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -3149,13 +3133,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3164,6 +3148,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_7">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_7">
                       <property name="minimumSize">
@@ -3174,12 +3162,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_8">
                     <item>
-                     <widget class="QLabel" name="label_results_8">
+                     <widget class="QLabel" name="label_results_7">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -3188,13 +3172,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3203,6 +3187,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_8">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_8">
                       <property name="minimumSize">
@@ -3213,12 +3201,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_9">
                     <item>
-                     <widget class="QLabel" name="label_results_9">
+                     <widget class="QLabel" name="label_results_8">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -3227,13 +3211,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3242,6 +3226,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_9">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_9">
                       <property name="minimumSize">
@@ -3252,12 +3240,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_results_10">
                     <item>
-                     <widget class="QLabel" name="label_results_10">
+                     <widget class="QLabel" name="label_results_9">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -3266,13 +3250,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -3281,6 +3265,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_results_10">
                     <item>
                      <widget class="QGraphicsView" name="graphicsView_results_10">
                       <property name="minimumSize">
@@ -3291,10 +3279,57 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                      </widget>
                     </item>
+                    <item>
+                     <widget class="QLabel" name="label_results_10">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>95</width>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>95</width>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_time_axis">
+                    <item>
+                     <widget class="QGraphicsView" name="graphicsView_time_axis">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
                     <item>
                      <widget class="QLabel" name="label_results_time">
                       <property name="sizePolicy">
@@ -3305,13 +3340,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>0</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
+                        <width>95</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -3319,17 +3354,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                        <string/>
                       </property>
                       <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QGraphicsView" name="graphicsView_time_axis">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>40</height>
-                       </size>
+                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                       </property>
                      </widget>
                     </item>

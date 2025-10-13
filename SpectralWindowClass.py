@@ -17,10 +17,15 @@ import numpy as np
 import copy
 
 # Interface packages and modules
-from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
+from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox,QGraphicsScene
 from PySide6.QtCore import QEvent, Qt, QObject,Signal, QTimer
 from PySide6.QtGui import QColor, QBrush, QFont, QFontDatabase
 from PySide6.QtGui import QKeyEvent
+
+# Matplotlib
+from matplotlib.figure import Figure
+from matplotlib.ticker import MultipleLocator, FuncFormatter
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 # Sleep Science Classes
 from EdfFileClass import EdfFile, EdfSignalAnalysis
@@ -206,6 +211,11 @@ class SpectralWindow(QMainWindow):
         self.signal_label:str|None = None
         self.multitaper_spectrogram_obj:MultitaperSpectrogram|None = None
         self.setup_spectrogram()
+
+        # Set up analysis
+        self.analyis_signal_combo_boxes:list|None = None
+        self.results_graphic_views:list|None = None
+        self.setup_analysis()
 
     # Setup
     def setup_menu(self):
@@ -620,3 +630,158 @@ class SpectralWindow(QMainWindow):
             logger.info(
                 f"Message Dialog Box - Cancel clicked, Msg: {'Computing a multitaper spectrogram can be time consuming. Do you want to proceed?'} ")
             return False
+
+    # Compute
+    def setup_analysis(self):
+        # Define analysis variables
+        self.analyis_signal_labels = [self.ui.label_results_1, self.ui.label_results_2,
+                                      self.ui.label_results_3, self.ui.label_results_4,
+                                      self.ui.label_results_5, self.ui.label_results_6,
+                                      self.ui.label_results_7, self.ui.label_results_8,
+                                      self.ui.label_results_9, self.ui.label_results_10]
+        self.analyis_signal_combo_boxes = [self.ui.comboBox_settings_analysis_sig1, self.ui.comboBox_settings_analysis_sig2,
+                                      self.ui.comboBox_settings_analysis_sig3, self.ui.comboBox_settings_analysis_sig4,
+                                      self.ui.comboBox_settings_analysis_sig5, self.ui.comboBox_settings_analysis_sig6,
+                                      self.ui.comboBox_settings_analysis_sig7, self.ui.comboBox_settings_analysis_sig8,
+                                      self.ui.comboBox_settings_analysis_sig9, self.ui.comboBox_settings_analysis_sig10]
+        self.results_graphic_views = [self.ui.graphicsView_results_1, self.ui.graphicsView_results_2,
+                                      self.ui.graphicsView_results_3, self.ui.graphicsView_results_4,
+                                      self.ui.graphicsView_results_5, self.ui.graphicsView_results_6,
+                                      self.ui.graphicsView_results_7, self.ui.graphicsView_results_9,
+                                      self.ui.graphicsView_results_9, self.ui.graphicsView_results_10]
+        self.result_layouts = [self.ui.horizontalLayout_results_1, self.ui.horizontalLayout_results_2,
+                               self.ui.horizontalLayout_results_3, self.ui.horizontalLayout_results_4,
+                               self.ui.horizontalLayout_results_5, self.ui.horizontalLayout_results_6,
+                               self.ui.horizontalLayout_results_7, self.ui.horizontalLayout_results_8,
+                               self.ui.horizontalLayout_results_9, self.ui.horizontalLayout_results_10]
+
+                               # Setup pushup
+        self.ui.pushButton_control_compute.clicked.connect(self.analyze_signal_list)
+    def analyze_signal_list(self):
+        # Write to log file
+        logger.info(f'Preparing to compute spectrograms.')
+
+        # Get number of CPUs
+        n_jobs = int(self.ui.comboBox_parameters_taper_num_cpus.currentText())
+        multiprocess = False
+        if n_jobs > 1:
+            multiprocess = True
+
+        # Double check EEG signals are available
+        process_eeg = False
+        if self.edf_obj is not None:
+            process_eeg = self.show_ok_cancel_dialog()
+        else:
+            logger.info(f'EDF file not loaded. Can not compute spectrogram.')
+
+        # Get signals to analyze
+        analysis_signal_labels = []
+        for cb in self.analyis_signal_combo_boxes:
+            analysis_signal_labels.append(cb.currentText())
+        analysis_signal_labels = [s for s in analysis_signal_labels if s.strip()]
+        self.analysis_signal_labels = analysis_signal_labels
+
+        # Compute each signal
+        spectrogram_obj_list = []
+        for i, signal_label in enumerate(analysis_signal_labels):
+            # Setup labels
+            gui_signal_lbl = self.analyis_signal_labels[i]
+            gui_signal_lbl.setText(signal_label)
+
+            # Setup and compute spectrogram
+            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
+            # signal_analysis_obj = EdfSignalAnalysis(signal_obj,multiprocess=multiprocess, n_jobs=n_jobs)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+
+            # Plot spectrogram
+            if multitaper_spectrogram_obj.spectrogram_computed:
+                # Plot spectrogram if computer
+                multitaper_spectrogram_obj.plot(self.results_graphic_views[i])
+
+                # Update log
+                logger.info(f'Spectrogram plotted')
+            else:
+                # Plot signal heatmap
+                multitaper_spectrogram_obj.plot_data(self.results_graphic_views[i])
+                logger.info(f'Plotted heatmap instead')
+
+        # Hide graphic views not used
+        for i in range(len(analysis_signal_labels), len(self.results_graphic_views)):
+            layout = self.result_layouts[i]
+            set_layout_visible(layout, False)
+
+        # Set time axis
+        self.ui.label_results_time.setText('Time')
+
+        # Create x-axis for reference
+        time_axis_units = 'h'
+        convert_time_f = lambda x:float(x)/3600
+        graphic_view = self.ui.graphicsView_time_axis
+        signal_length_in_sec = self.edf_obj.edf_signals.signal_length_in_sec
+        time_axis_units = 'h'
+        self.create_time_axis_plot(graphic_view, signal_length_in_sec, convert_time_f, time_axis_units)
+
+    def create_time_axis_plot(self, graphic_view, signal_length_in_sec, convert_time_f, time_axis_units):
+        """
+        Creates a responsive time-axis in hours using matplotlib embedded in a QGraphicsView.
+
+        - Expands to fill the QGraphicsView.
+        - Rescales when window size changes.
+        - Shows hourly tick marks and 'h' labels.
+        - Allows manual scaling via ax.set_xlim() externally.
+        """
+
+        # Clear existing scene
+        scene = QGraphicsScene()
+        graphic_view.setScene(scene)
+
+        # Convert full duration to desired time units (e.g., hours)
+        t_end = convert_time_f(signal_length_in_sec)
+        t_units = np.linspace(0, t_end, num=100)
+
+        # Create matplotlib figure and axis
+        fig = Figure(figsize=(6, 1))
+        ax = fig.add_subplot(111)
+
+        # Plot invisible line for axis scaling
+        ax.plot(t_units, np.zeros_like(t_units), alpha=0)
+
+        # Configure axis
+        ax.set_xlim(0, t_end)
+        ax.set_yticks([])  # Hide y-axis completely
+        ax.set_ylabel('')
+        ax.set_xlabel(f'Time ({time_axis_units})')
+
+        # Set hourly major ticks
+        ax.xaxis.set_major_locator(MultipleLocator(1))  # every 1 hour
+        ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{int(x)}h"))
+
+        # Remove extra gridlines/spines for clean look
+        ax.grid(False)
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+
+        fig.tight_layout(pad=0.5)
+
+        # Embed Matplotlib canvas in QGraphicsView
+        canvas = FigureCanvas(fig)
+        scene.addWidget(canvas)
+        scene.setSceneRect(canvas.rect())
+
+        # Fit view so the x-axis expands to the full view width
+        graphic_view.fitInView(scene.sceneRect(), Qt.IgnoreAspectRatio)
+
+        # --- Enable dynamic resizing ---
+        def resize_event(event):
+            canvas.resize(graphic_view.viewport().size())
+            graphic_view.fitInView(scene.sceneRect(), mode=1)
+            event.accept()
+
+        # Override resizeEvent for responsiveness
+        graphic_view.resizeEvent = resize_event
+
+        # Return references so you can adjust axis later (e.g. ax.set_xlim(...))
+        return fig, ax, canvas
+
+
