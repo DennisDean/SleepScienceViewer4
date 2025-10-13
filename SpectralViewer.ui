@@ -1817,40 +1817,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QLabel" name="label_parameters_bands_delta">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>0.5 - 4.0 Hz</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider_parameters_bands_delta">
+                 <widget class="QComboBox" name="comboBox_parameters_band_delta_low">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1859,18 +1826,37 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_delta_high">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -1915,40 +1901,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QLabel" name="label_parameters_bands_theta">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>4.0 - 8.0 Hz</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider_parameters_bands_theta">
+                 <widget class="QComboBox" name="comboBox_parameters_band_theta_low">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1957,18 +1910,37 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_theta_high">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -2012,41 +1984,8 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_parameters_bands_alpha">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>8.0 - 12.0 Hz</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider_parameters_bands_alpha">
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_alpha_low">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2055,18 +1994,37 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_alpha_high">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -2110,23 +2068,74 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_parameters_bands_sigma">
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_sigma_low">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_sigma_high">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetMinimumSize</enum>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_22">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>25</width>
                     <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>100</width>
+                    <width>25</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -2136,15 +2145,12 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>12.0 - 15.0 Hz</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <string>β</string>
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider_parameters_bands_sigma">
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_beta_low">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2153,18 +2159,31 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_parameters_band_beta_high">
+                  <property name="minimumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -2208,41 +2227,8 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_parameters_bands_gamma">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>100</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>30.0 - 50.0 Hz</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider_parameters_bands_gamma">
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_gamma_low">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2251,18 +2237,37 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>100</width>
+                    <width>75</width>
                     <height>25</height>
                    </size>
                   </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignRight">
+                 <widget class="QComboBox" name="comboBox_parameters_band_gamma_high">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>75</width>
+                    <height>25</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -2271,9 +2276,64 @@
              </layout>
             </item>
             <item>
+             <widget class="Line" name="line_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_23">
+                <property name="text">
+                 <string>Setting Reccomendations:</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="textBrowser">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>240</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>240</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="html">
+               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Suggested Settings&lt;br /&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Noise Detection &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14px; color:#58566d; background-color:#e9e9fd;&quot;&gt;     Δ&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; = 2.0, &lt;/span&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14px; color:#58566d; background-color:#e9e9fd;&quot;&gt;Β&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; = 2.5&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Spectral Bands&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;&quot;&gt;     δ&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; :   0.5 -  4.0 Hz,      &lt;/span&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;&quot;&gt;θ:   &lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;4.0 -    8.0 Hz,&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;&quot;&gt;     α:   &lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;8.0 -12.0 Hz,      &lt;/span&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;&quot;&gt;σ: &lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;12.0 - 15.0 Hz,&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;&quot;&gt;     β &lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;15.0 - 30.0 Hz,      &lt;/span&gt;&lt;span style=&quot; font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;&quot;&gt;γ: &lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;30.0 - 50.0 Hz&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QLabel" name="label_34">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>

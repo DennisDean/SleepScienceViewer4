@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QGraphicsView, QHBoxLayout, QLabel, QLayout,
     QListWidget, QListWidgetItem, QMainWindow, QMenu,
     QMenuBar, QPlainTextEdit, QPushButton, QSizePolicy,
-    QSlider, QStatusBar, QToolBar, QVBoxLayout,
+    QStatusBar, QTextBrowser, QToolBar, QVBoxLayout,
     QWidget)
 
 class Ui_MainWindow(object):
@@ -893,26 +893,23 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_8.addWidget(self.label, 0, Qt.AlignLeft)
 
-        self.label_parameters_bands_delta = QLabel(self.centralwidget)
-        self.label_parameters_bands_delta.setObjectName(u"label_parameters_bands_delta")
-        sizePolicy1.setHeightForWidth(self.label_parameters_bands_delta.sizePolicy().hasHeightForWidth())
-        self.label_parameters_bands_delta.setSizePolicy(sizePolicy1)
-        self.label_parameters_bands_delta.setMinimumSize(QSize(100, 20))
-        self.label_parameters_bands_delta.setMaximumSize(QSize(100, 20))
-        self.label_parameters_bands_delta.setFont(font)
-        self.label_parameters_bands_delta.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.comboBox_parameters_band_delta_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_delta_low.setObjectName(u"comboBox_parameters_band_delta_low")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_delta_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_delta_low.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_delta_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_delta_low.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_8.addWidget(self.label_parameters_bands_delta, 0, Qt.AlignRight)
+        self.horizontalLayout_8.addWidget(self.comboBox_parameters_band_delta_low, 0, Qt.AlignRight)
 
-        self.horizontalSlider_parameters_bands_delta = QSlider(self.centralwidget)
-        self.horizontalSlider_parameters_bands_delta.setObjectName(u"horizontalSlider_parameters_bands_delta")
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_parameters_bands_delta.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_parameters_bands_delta.setSizePolicy(sizePolicy5)
-        self.horizontalSlider_parameters_bands_delta.setMinimumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_delta.setMaximumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_delta.setOrientation(Qt.Horizontal)
+        self.comboBox_parameters_band_delta_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_delta_high.setObjectName(u"comboBox_parameters_band_delta_high")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_delta_high.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_delta_high.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_delta_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_delta_high.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_8.addWidget(self.horizontalSlider_parameters_bands_delta)
+        self.horizontalLayout_8.addWidget(self.comboBox_parameters_band_delta_high, 0, Qt.AlignRight)
 
 
         self.verticalLayout_band_param.addLayout(self.horizontalLayout_8)
@@ -931,26 +928,23 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_7.addWidget(self.label_2, 0, Qt.AlignLeft|Qt.AlignTop)
 
-        self.label_parameters_bands_theta = QLabel(self.centralwidget)
-        self.label_parameters_bands_theta.setObjectName(u"label_parameters_bands_theta")
-        sizePolicy1.setHeightForWidth(self.label_parameters_bands_theta.sizePolicy().hasHeightForWidth())
-        self.label_parameters_bands_theta.setSizePolicy(sizePolicy1)
-        self.label_parameters_bands_theta.setMinimumSize(QSize(100, 20))
-        self.label_parameters_bands_theta.setMaximumSize(QSize(100, 20))
-        self.label_parameters_bands_theta.setFont(font)
-        self.label_parameters_bands_theta.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.comboBox_parameters_band_theta_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_theta_low.setObjectName(u"comboBox_parameters_band_theta_low")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_theta_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_theta_low.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_theta_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_theta_low.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_7.addWidget(self.label_parameters_bands_theta, 0, Qt.AlignRight)
+        self.horizontalLayout_7.addWidget(self.comboBox_parameters_band_theta_low, 0, Qt.AlignRight)
 
-        self.horizontalSlider_parameters_bands_theta = QSlider(self.centralwidget)
-        self.horizontalSlider_parameters_bands_theta.setObjectName(u"horizontalSlider_parameters_bands_theta")
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_parameters_bands_theta.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_parameters_bands_theta.setSizePolicy(sizePolicy5)
-        self.horizontalSlider_parameters_bands_theta.setMinimumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_theta.setMaximumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_theta.setOrientation(Qt.Horizontal)
+        self.comboBox_parameters_band_theta_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_theta_high.setObjectName(u"comboBox_parameters_band_theta_high")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_theta_high.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_theta_high.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_theta_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_theta_high.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_7.addWidget(self.horizontalSlider_parameters_bands_theta)
+        self.horizontalLayout_7.addWidget(self.comboBox_parameters_band_theta_high, 0, Qt.AlignRight)
 
 
         self.verticalLayout_band_param.addLayout(self.horizontalLayout_7)
@@ -969,26 +963,23 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_6.addWidget(self.label_3, 0, Qt.AlignLeft|Qt.AlignTop)
 
-        self.label_parameters_bands_alpha = QLabel(self.centralwidget)
-        self.label_parameters_bands_alpha.setObjectName(u"label_parameters_bands_alpha")
-        sizePolicy1.setHeightForWidth(self.label_parameters_bands_alpha.sizePolicy().hasHeightForWidth())
-        self.label_parameters_bands_alpha.setSizePolicy(sizePolicy1)
-        self.label_parameters_bands_alpha.setMinimumSize(QSize(100, 20))
-        self.label_parameters_bands_alpha.setMaximumSize(QSize(100, 20))
-        self.label_parameters_bands_alpha.setFont(font)
-        self.label_parameters_bands_alpha.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.comboBox_parameters_band_alpha_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_alpha_low.setObjectName(u"comboBox_parameters_band_alpha_low")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_alpha_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_alpha_low.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_alpha_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_alpha_low.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_6.addWidget(self.label_parameters_bands_alpha)
+        self.horizontalLayout_6.addWidget(self.comboBox_parameters_band_alpha_low, 0, Qt.AlignRight)
 
-        self.horizontalSlider_parameters_bands_alpha = QSlider(self.centralwidget)
-        self.horizontalSlider_parameters_bands_alpha.setObjectName(u"horizontalSlider_parameters_bands_alpha")
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_parameters_bands_alpha.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_parameters_bands_alpha.setSizePolicy(sizePolicy5)
-        self.horizontalSlider_parameters_bands_alpha.setMinimumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_alpha.setMaximumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_alpha.setOrientation(Qt.Horizontal)
+        self.comboBox_parameters_band_alpha_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_alpha_high.setObjectName(u"comboBox_parameters_band_alpha_high")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_alpha_high.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_alpha_high.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_alpha_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_alpha_high.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_6.addWidget(self.horizontalSlider_parameters_bands_alpha)
+        self.horizontalLayout_6.addWidget(self.comboBox_parameters_band_alpha_high, 0, Qt.AlignRight)
 
 
         self.verticalLayout_band_param.addLayout(self.horizontalLayout_6)
@@ -1007,29 +998,58 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_5.addWidget(self.label_4, 0, Qt.AlignLeft|Qt.AlignTop)
 
-        self.label_parameters_bands_sigma = QLabel(self.centralwidget)
-        self.label_parameters_bands_sigma.setObjectName(u"label_parameters_bands_sigma")
-        sizePolicy1.setHeightForWidth(self.label_parameters_bands_sigma.sizePolicy().hasHeightForWidth())
-        self.label_parameters_bands_sigma.setSizePolicy(sizePolicy1)
-        self.label_parameters_bands_sigma.setMinimumSize(QSize(100, 20))
-        self.label_parameters_bands_sigma.setMaximumSize(QSize(100, 20))
-        self.label_parameters_bands_sigma.setFont(font)
-        self.label_parameters_bands_sigma.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.comboBox_parameters_band_sigma_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_sigma_low.setObjectName(u"comboBox_parameters_band_sigma_low")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_sigma_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_sigma_low.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_sigma_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_sigma_low.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_5.addWidget(self.label_parameters_bands_sigma)
+        self.horizontalLayout_5.addWidget(self.comboBox_parameters_band_sigma_low, 0, Qt.AlignRight)
 
-        self.horizontalSlider_parameters_bands_sigma = QSlider(self.centralwidget)
-        self.horizontalSlider_parameters_bands_sigma.setObjectName(u"horizontalSlider_parameters_bands_sigma")
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_parameters_bands_sigma.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_parameters_bands_sigma.setSizePolicy(sizePolicy5)
-        self.horizontalSlider_parameters_bands_sigma.setMinimumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_sigma.setMaximumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_sigma.setOrientation(Qt.Horizontal)
+        self.comboBox_parameters_band_sigma_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_sigma_high.setObjectName(u"comboBox_parameters_band_sigma_high")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_sigma_high.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_sigma_high.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_sigma_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_sigma_high.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_5.addWidget(self.horizontalSlider_parameters_bands_sigma)
+        self.horizontalLayout_5.addWidget(self.comboBox_parameters_band_sigma_high, 0, Qt.AlignRight)
 
 
         self.verticalLayout_band_param.addLayout(self.horizontalLayout_5)
+
+        self.horizontalLayout_9 = QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setSizeConstraint(QLayout.SetMinimumSize)
+        self.label_22 = QLabel(self.centralwidget)
+        self.label_22.setObjectName(u"label_22")
+        sizePolicy5.setHeightForWidth(self.label_22.sizePolicy().hasHeightForWidth())
+        self.label_22.setSizePolicy(sizePolicy5)
+        self.label_22.setMinimumSize(QSize(25, 20))
+        self.label_22.setMaximumSize(QSize(25, 20))
+        self.label_22.setFont(font)
+
+        self.horizontalLayout_9.addWidget(self.label_22)
+
+        self.comboBox_parameters_band_beta_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_beta_low.setObjectName(u"comboBox_parameters_band_beta_low")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_beta_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_beta_low.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_beta_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_beta_low.setMaximumSize(QSize(75, 25))
+
+        self.horizontalLayout_9.addWidget(self.comboBox_parameters_band_beta_low, 0, Qt.AlignRight)
+
+        self.comboBox_parameters_band_beta_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_beta_high.setObjectName(u"comboBox_parameters_band_beta_high")
+        self.comboBox_parameters_band_beta_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_beta_high.setMaximumSize(QSize(75, 25))
+
+        self.horizontalLayout_9.addWidget(self.comboBox_parameters_band_beta_high)
+
+
+        self.verticalLayout_band_param.addLayout(self.horizontalLayout_9)
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
@@ -1045,26 +1065,23 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_4.addWidget(self.label_6, 0, Qt.AlignLeft|Qt.AlignTop)
 
-        self.label_parameters_bands_gamma = QLabel(self.centralwidget)
-        self.label_parameters_bands_gamma.setObjectName(u"label_parameters_bands_gamma")
-        sizePolicy1.setHeightForWidth(self.label_parameters_bands_gamma.sizePolicy().hasHeightForWidth())
-        self.label_parameters_bands_gamma.setSizePolicy(sizePolicy1)
-        self.label_parameters_bands_gamma.setMinimumSize(QSize(100, 0))
-        self.label_parameters_bands_gamma.setMaximumSize(QSize(100, 16777215))
-        self.label_parameters_bands_gamma.setFont(font)
-        self.label_parameters_bands_gamma.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.comboBox_parameters_band_gamma_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_gamma_low.setObjectName(u"comboBox_parameters_band_gamma_low")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_gamma_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_gamma_low.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_gamma_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_gamma_low.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_4.addWidget(self.label_parameters_bands_gamma)
+        self.horizontalLayout_4.addWidget(self.comboBox_parameters_band_gamma_low, 0, Qt.AlignRight)
 
-        self.horizontalSlider_parameters_bands_gamma = QSlider(self.centralwidget)
-        self.horizontalSlider_parameters_bands_gamma.setObjectName(u"horizontalSlider_parameters_bands_gamma")
-        sizePolicy5.setHeightForWidth(self.horizontalSlider_parameters_bands_gamma.sizePolicy().hasHeightForWidth())
-        self.horizontalSlider_parameters_bands_gamma.setSizePolicy(sizePolicy5)
-        self.horizontalSlider_parameters_bands_gamma.setMinimumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_gamma.setMaximumSize(QSize(100, 25))
-        self.horizontalSlider_parameters_bands_gamma.setOrientation(Qt.Horizontal)
+        self.comboBox_parameters_band_gamma_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_band_gamma_high.setObjectName(u"comboBox_parameters_band_gamma_high")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_band_gamma_high.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_band_gamma_high.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_band_gamma_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_band_gamma_high.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_4.addWidget(self.horizontalSlider_parameters_bands_gamma)
+        self.horizontalLayout_4.addWidget(self.comboBox_parameters_band_gamma_high, 0, Qt.AlignRight)
 
 
         self.verticalLayout_band_param.addLayout(self.horizontalLayout_4)
@@ -1072,13 +1089,36 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_p.addLayout(self.verticalLayout_band_param)
 
+        self.line_8 = QFrame(self.centralwidget)
+        self.line_8.setObjectName(u"line_8")
+        self.line_8.setFrameShape(QFrame.Shape.HLine)
+        self.line_8.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout_p.addWidget(self.line_8)
+
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.label_23 = QLabel(self.centralwidget)
+        self.label_23.setObjectName(u"label_23")
+
+        self.verticalLayout_4.addWidget(self.label_23)
+
+
+        self.verticalLayout_p.addLayout(self.verticalLayout_4)
+
+        self.textBrowser = QTextBrowser(self.centralwidget)
+        self.textBrowser.setObjectName(u"textBrowser")
+        sizePolicy5.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
+        self.textBrowser.setSizePolicy(sizePolicy5)
+        self.textBrowser.setMinimumSize(QSize(240, 150))
+        self.textBrowser.setMaximumSize(QSize(240, 150))
+
+        self.verticalLayout_p.addWidget(self.textBrowser)
+
         self.label_34 = QLabel(self.centralwidget)
         self.label_34.setObjectName(u"label_34")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.label_34.sizePolicy().hasHeightForWidth())
-        self.label_34.setSizePolicy(sizePolicy7)
+        sizePolicy6.setHeightForWidth(self.label_34.sizePolicy().hasHeightForWidth())
+        self.label_34.setSizePolicy(sizePolicy6)
 
         self.verticalLayout_p.addWidget(self.label_34)
 
@@ -1107,11 +1147,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_hypnogram.setObjectName(u"horizontalLayout_hypnogram")
         self.graphicsView_hypnogram = QGraphicsView(self.centralwidget)
         self.graphicsView_hypnogram.setObjectName(u"graphicsView_hypnogram")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy8.setHorizontalStretch(0)
-        sizePolicy8.setVerticalStretch(0)
-        sizePolicy8.setHeightForWidth(self.graphicsView_hypnogram.sizePolicy().hasHeightForWidth())
-        self.graphicsView_hypnogram.setSizePolicy(sizePolicy8)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.graphicsView_hypnogram.sizePolicy().hasHeightForWidth())
+        self.graphicsView_hypnogram.setSizePolicy(sizePolicy7)
         self.graphicsView_hypnogram.setMinimumSize(QSize(0, 90))
         self.graphicsView_hypnogram.setMaximumSize(QSize(16777215, 90))
 
@@ -1163,8 +1203,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_spectrogram.setObjectName(u"horizontalLayout_spectrogram")
         self.graphicsView_spectrogram = QGraphicsView(self.centralwidget)
         self.graphicsView_spectrogram.setObjectName(u"graphicsView_spectrogram")
-        sizePolicy8.setHeightForWidth(self.graphicsView_spectrogram.sizePolicy().hasHeightForWidth())
-        self.graphicsView_spectrogram.setSizePolicy(sizePolicy8)
+        sizePolicy7.setHeightForWidth(self.graphicsView_spectrogram.sizePolicy().hasHeightForWidth())
+        self.graphicsView_spectrogram.setSizePolicy(sizePolicy7)
         self.graphicsView_spectrogram.setMinimumSize(QSize(0, 90))
         self.graphicsView_spectrogram.setMaximumSize(QSize(16777215, 90))
 
@@ -1348,15 +1388,28 @@ class Ui_MainWindow(object):
         self.checkBox_2.setText(QCoreApplication.translate("MainWindow", u"# of CPUs", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Spectral Bands", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u03b4", None))
-        self.label_parameters_bands_delta.setText(QCoreApplication.translate("MainWindow", u"0.5 - 4.0 Hz", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u03b8", None))
-        self.label_parameters_bands_theta.setText(QCoreApplication.translate("MainWindow", u"4.0 - 8.0 Hz", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u03b1", None))
-        self.label_parameters_bands_alpha.setText(QCoreApplication.translate("MainWindow", u"8.0 - 12.0 Hz", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u03c3", None))
-        self.label_parameters_bands_sigma.setText(QCoreApplication.translate("MainWindow", u"12.0 - 15.0 Hz", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"\u03b2", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u03b3", None))
-        self.label_parameters_bands_gamma.setText(QCoreApplication.translate("MainWindow", u"30.0 - 50.0 Hz", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Setting Reccomendations:", None))
+        self.textBrowser.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Suggested Settings<br /><span style=\" font-size:10pt;\">Noise Detection </span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14px; color:#58566d; background-color:#e9e9fd;\">     \u0394</span><span style=\" font-size:"
+                        "10pt;\"> = 2.0, </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14px; color:#58566d; background-color:#e9e9fd;\">\u0392</span><span style=\" font-size:10pt;\"> = 2.5</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">Spectral Bands</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">     \u03b4</span><span style=\" font-size:10pt;\"> :   0.5 -  4.0 Hz,      </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">\u03b8:   </span><span style=\" font-size:10pt;\">4.0 -    8.0 Hz,</span></p>\n"
+"<p style=\" margin-top:"
+                        "0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">     \u03b1:   </span><span style=\" font-size:10pt;\">8.0 -12.0 Hz,      </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">\u03c3: </span><span style=\" font-size:10pt;\">12.0 - 15.0 Hz,</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">     \u03b2 </span><span style=\" font-size:10pt;\">15.0 - 30.0 Hz,      </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; backgr"
+                        "ound-color:#e9e9fd;\">\u03b3: </span><span style=\" font-size:10pt;\">30.0 - 50.0 Hz</span></p></body></html>", None))
         self.label_34.setText("")
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Show", None))

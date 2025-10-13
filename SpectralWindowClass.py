@@ -29,6 +29,8 @@ from AnnotationXmlClass import AnnotationXml
 # GUI Interface
 from SpectralViewer import Ui_MainWindow  # the generated file from your .ui
 
+# Interface Utility
+
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
 
@@ -151,9 +153,9 @@ class SpectralWindow(QMainWindow):
         self.notch_menu_items:list[str]
 
         # Define parameter variables
-        self.noise_alpha_n_factor:list[float]
+        self.noise_delta_n_factor:list[float]
         self.noise_beta_n_factor:list[float]
-        self.noise_alpha_n_menu_items:list[str]
+        self.noise_selta_n_menu_items:list[str]
         self.noise_beta_n_menu_items:list[str]
 
         # Set up window control
@@ -263,20 +265,28 @@ class SpectralWindow(QMainWindow):
         self.notch_menu_items      = notch_menu_items
     def setup_parmeters(self):
         # setup noise detection
-        noise_alpha_n_factor = [1.50, 2.00, 2.25, 2.50, 2.75, 3.00]
+        noise_delta_n_factor = [1.50, 2.00, 2.25, 2.50, 2.75, 3.00]
         noise_beta_n_factor = [1.50, 2.00, 2.25, 2.50, 2.75, 3.00]
+        noise_delta_default_value = 2.0
+        noise_beta_default_value  = 2.5
+        noise_delta_index =  noise_delta_n_factor.index(noise_delta_default_value)
+        noise_beta_index  =  noise_beta_n_factor.index(noise_beta_default_value)
         create_noise_menu_item_f = lambda x: f'{x:.2f}'
-        noise_alpha_n_menu_items = list(map(create_noise_menu_item_f, noise_alpha_n_factor))
+        noise_delta_n_menu_items = list(map(create_noise_menu_item_f, noise_delta_n_factor))
         noise_beta_n_menu_items = list(map(create_noise_menu_item_f, noise_beta_n_factor))
 
         # setup noise detection menu
-        self.ui.comboBox_parameters_noise_delta.addItems(noise_alpha_n_menu_items)
+        self.ui.comboBox_parameters_noise_delta.addItems(noise_delta_n_menu_items)
         self.ui.comboBox_parameters_noise_beta.addItems(noise_beta_n_menu_items)
+        self.ui.comboBox_parameters_noise_delta.setCurrentIndex(noise_delta_index)
+        self.ui.comboBox_parameters_noise_beta.setCurrentIndex(noise_beta_index)
 
 
         # setup taper windows
         taper_window_values = [1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0]
         taper_step_values = [0.25, 0.50, 1.0, 2.0, 3.0, 4.0, 5.0]
+        default_taper_window = 5.0
+        default_taper_step   = 1.0
         create_taper_menu_item_f = lambda x: f'{x:.2f} s'
         taper_window_menu_items = list(map(create_taper_menu_item_f, taper_window_values))
         taper_step_menu_items   = list(map(create_taper_menu_item_f, taper_step_values))
@@ -284,16 +294,57 @@ class SpectralWindow(QMainWindow):
         # setup taper combo box
         self.ui.comboBox_parameters_taper_window.addItems(taper_window_menu_items)
         self.ui.comboBox_parameters_taper_step.addItems(taper_step_menu_items)
-
+        self.ui.comboBox_parameters_taper_window.setCurrentIndex(taper_window_values.index(default_taper_window))
+        self.ui.comboBox_parameters_taper_step.setCurrentIndex(taper_step_values.index(default_taper_step))
 
         # setup cpu selection
         num_physical_cpu = psutil.cpu_count(logical=True)
         cpu_list_menu_items = [str(c) for c in range(1,num_physical_cpu+1,1)]
+        default_index = math.ceil(float(num_physical_cpu)/2)
         self.ui.comboBox_parameters_taper_num_cpus.addItems(cpu_list_menu_items)
+        self.ui.comboBox_parameters_taper_num_cpus.setCurrentIndex(default_index)
+
+        # Set up band values
+        band_default_low  = [[0.5, 4.0],  [4.0,8.0],  [8.0,12.0], [12.0,15.0], [15.0,30.0], [30.0,50.0]]
+        band_combos_low  = [[self.ui.comboBox_parameters_band_delta_low, self.ui.comboBox_parameters_band_delta_high],
+                            [self.ui.comboBox_parameters_band_theta_low, self.ui.comboBox_parameters_band_theta_high],
+                            [self.ui.comboBox_parameters_band_alpha_low, self.ui.comboBox_parameters_band_alpha_high],
+                            [self.ui.comboBox_parameters_band_sigma_low, self.ui.comboBox_parameters_band_sigma_high]]
+        band_default_high = [[15.0, 30.0], [30.0, 50.0]]
+        band_combos_high = [[self.ui.comboBox_parameters_band_beta_low,  self.ui.comboBox_parameters_band_beta_high],
+                            [self.ui.comboBox_parameters_band_gamma_low, self.ui.comboBox_parameters_band_gamma_high]]
+        band_menu_items_low  = [0.1, 0.2, 0.3, 0.4, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0,
+                                12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
+        band_menu_items_high = list(range(10, 101, 1))
+        for combo_pair, default_pair in zip(band_combos_low, band_default_low):
+            bcl_low, bcl_high = combo_pair
+            def_low, def_hgh = default_pair
+            bcl_low.clear()
+            bcl_high.clear()
+            bcl_low.addItems([f'{x:.1f}' for x in band_menu_items_low])
+            bcl_high.addItems([f'{x:.1f}' for x in band_menu_items_low])
+            bcl_low.setCurrentIndex(band_menu_items_low.index(def_low))
+            bcl_high.setCurrentIndex(band_menu_items_low.index(def_hgh))
+        for combo_pair, default_pair in zip(band_combos_high, band_default_high):
+            bcl_low, bcl_high = combo_pair
+            def_low, def_hgh = default_pair
+            bcl_low.clear()
+            bcl_high.clear()
+            bcl_low.addItems([f'{x:.1f}' for x in band_menu_items_high])
+            bcl_high.addItems([f'{x:.1f}' for x in band_menu_items_high])
+            bcl_low.setCurrentIndex(band_menu_items_high.index(def_low))
+            bcl_high.setCurrentIndex(band_menu_items_high.index(def_hgh))
+
+
+
 
         # Save parameters
-        self.noise_alpha_n_factor = noise_alpha_n_factor
+        self.noise_delta_n_factor = noise_delta_n_factor
         self.noise_beta_n_factor = noise_beta_n_factor
         self.create_noise_menu_item_f = create_noise_menu_item_f
-        self.noise_alpha_n_menu_items = noise_alpha_n_menu_items
+        self.noise_delta_n_menu_items = noise_delta_n_menu_items
         self.noise_beta_n_menu_items = noise_beta_n_menu_items
+
+        # Save interface
+
+
