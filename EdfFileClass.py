@@ -403,7 +403,7 @@ class EdfSignals:
         self.output_dir = output_dir
 
     # Return signals
-    def return_edf_signal(self, signal_key: str, signal_type: str):
+    def return_edf_signal(self, signal_key: str, signal_type: str='Continuous'):
         edf_signal = self.signals_dict[signal_key]
         signal_label = signal_key
         signal_type = signal_type

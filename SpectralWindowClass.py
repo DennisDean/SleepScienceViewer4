@@ -27,15 +27,7 @@ from EdfFileClass import EdfFile, EdfSignalAnalysis
 from AnnotationXmlClass import AnnotationXml
 
 # GUI Interface
-from SpectralViewer import Ui_MainWindow  # the generated file from your .ui
-
-# Interface Utility
-
-# Set up a module-level logger
-logger = logging.getLogger(__name__)
-
-# To Do List
-
+from SpectralViewer import Ui_MainWindow
 
 # Utilities
 def clear_graphic_view_plot(parent_widget = None):
@@ -127,6 +119,41 @@ class NumericTextEditFilter(QObject):
                 return True  # Filter out non-numeric input
 
         return False
+def clear_spectrogram_plot(parent_widget = None):
+    layout = parent_widget.layout()
+    if layout:
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget:
+                widget.setParent(None)
+def set_layout_visible(layout, visible: bool):
+    """
+    Recursively set visibility for all widgets in a layout and its nested layouts.
+
+    Args:
+        layout: QLayout object to process
+        visible: Boolean indicating whether to show (True) or hide (False) widgets
+    """
+    for i in range(layout.count()):
+        item = layout.itemAt(i)
+
+        # Check if the item is a widget
+        widget = item.widget()
+        if widget:
+            widget.setVisible(visible)
+
+        # Check if the item is a nested layout
+        nested_layout = item.layout()
+        if nested_layout:
+            # Recursively process the nested layout
+            set_layout_visible(nested_layout, visible)
+
+# Set up a module-level logger
+logger = logging.getLogger(__name__)
+
+# To Do List
+
 
 # GUI Classes
 class SpectralWindow(QMainWindow):
@@ -163,6 +190,16 @@ class SpectralWindow(QMainWindow):
         self.setup_menu()
         self.setup_settings()
         self.setup_parmeters()
+
+        # Set up histogram
+        self.hypnogram_combobox_selection:int|None = None
+        self.automatic_histogram_redraw:bool|None = None
+        self.hypnogram_combobox_selection:int|None = None
+        self.sleep_stage_mappings:dict|None = None
+        self.setup_hypnogram()
+
+        # Set up spectrogram
+        self.setup_spectrogram()
 
     # Setup
     def setup_menu(self):
@@ -235,7 +272,6 @@ class SpectralWindow(QMainWindow):
         # Set reference methods
         reference_methods = ['No Reference', 'Single Reference', 'Reference Each Signal', 'Average Reference']
         self.ui.comboBox_settings_reference_method.addItems(reference_methods)
-        print(reference_methods)
 
         # Setup signal comboboxes
         signal_labels = self.edf_obj.edf_signals.signal_labels
@@ -347,4 +383,214 @@ class SpectralWindow(QMainWindow):
 
         # Save interface
 
+    # Hypnogram
+    def setup_hypnogram(self):
+        # Set Sleep Stage Labels
+        sleep_stage_labels = self.xml_obj.sleep_stages_obj.return_sleep_stage_labels()
+        sleep_stage_labels.remove(sleep_stage_labels[0])
+        self.ui.comboBox_hynogram.blockSignals(True)
+        self.ui.comboBox_hynogram.clear()
+        self.ui.comboBox_hynogram.addItems(sleep_stage_labels)
 
+        # Get Sleep Stage Mappings
+        self.sleep_stage_mappings = self.xml_obj.sleep_stages_obj.return_sleep_stage_mappings()
+
+        # Connect Responses
+        self.ui.comboBox_hynogram.currentIndexChanged.connect(self.on_hypnogram_changed)
+        self.hypnogram_combobox_selection = None
+        self.ui.pushButton_hypnogram_show_stages.toggled.connect(self.show_stages_on_hypnogram)
+        self.ui.pushButton_hypnogram_legend.clicked.connect(self.show_hypnogram_legend)
+
+        # Plot Hypnogram
+        show_stage_colors = self.ui.pushButton_hypnogram_show_stages.isChecked()
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     show_stage_colors = show_stage_colors)
+
+        # Turn on hypnogram signal
+        self.ui.comboBox_hynogram.blockSignals(False)
+        self.automatic_histogram_redraw = True
+    def on_hypnogram_changed(self, index):
+        # Update Variables
+        if self.automatic_histogram_redraw:
+            selected_text = self.ui.comboBox_hynogram.itemText(index)
+            self.hypnogram_combobox_selection = index
+            logger.info(f"Combo box changed to index {index}: {selected_text}")
+
+            # Update Hypnogram
+            if self.sleep_stage_mappings is not None:
+                # Get stage flag
+                show_stage_colors = self.ui.pushButton_hypnogram_show_stages.isChecked()
+
+                stage_map = index
+                self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                            stage_index=stage_map,
+                                                            show_stage_colors=show_stage_colors)
+    def show_stages_on_hypnogram(self):
+        # Pretend hypnogram combobox change to update
+        if self.automatic_histogram_redraw:
+            index = self.ui.comboBox_hynogram.currentIndex()
+            self.on_hypnogram_changed(index)
+    def show_hypnogram_legend(self):
+        self.xml_obj.sleep_stages_obj.show_sleep_stages_legend()
+
+    # Spectrogram
+    def setup_spectrogram(self):
+        # Spectrogram Buttons
+        self.ui.pushButton_spectrogram_show.clicked.connect(self.compute_and_display_spectrogram)
+        self.ui.pushButton_spectrogram_legend.clicked.connect(self.show_spectrogram_legend)
+        self.ui.pushButton_spectrogram_heatmap_show.clicked.connect(self.show_heatmap)
+        self.ui.pushButton_sectrogram_heatmap_legend.clicked.connect(self.show_heapmap_legend)
+    def compute_and_display_spectrogram(self):
+        # Check before starting long computation
+
+        process_eeg = False
+        if self.edf_obj is not None:
+            process_eeg = self.show_ok_cancel_dialog()
+        else:
+            logger.info(f'EDF file not loaded. Can not compute spectrogram.')
+
+        if process_eeg:
+            # Turn on busy cursor
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+            # Make sure figures are not inadvertenly generated
+            self.automatic_signal_redraw = False
+
+            # Get Continuous Signals
+            signal_label = self.ui.comboBox_spectrogram_signals.currentText()
+            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+
+            # Compute Spectrogram
+            logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
+            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+            if multitaper_spectrogram_obj.spectrogram_computed:
+                # Plot spectrogram if computer
+                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
+                                                double_click_callback=self.on_spectrogram_double_click)
+                # Update log
+                logger.info(f'Spectrogram plotted')
+            else:
+                # Plot signal heatmap
+                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
+                                                     double_click_callback=self.on_spectrogram_double_click)
+                logger.info(f'Plotted heatmap instead')
+
+            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+
+            # Record Spectrogram Completions
+            if self.multitaper_spectrogram_obj.spectrogram_computed:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+                self.ui.label_spectrogram.setText(f'Multitaper Spectrogram - {signal_label}')
+                logger.info('Computing spectrogram: Computation completed')
+            else:
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+                self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
+                logger.info('Computing spectrogram: Computation completed')
+
+            # Turn off busy cursor
+            QApplication.restoreOverrideCursor()
+
+            # Turn on signal update
+            self.automatic_signal_redraw = True
+
+            # Turn on Legend Pushbutton
+            self.ui.pushButton_spectrogram_legend.setEnabled(True)
+    def on_spectrogram_double_click(self, x_value, _y_value):
+        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
+        # Slot to handle double-click events on QListWidget items.
+        logger.info(f"Annotation plot double-clicked: time in seconds {x_value}")
+        if self.edf_obj is None:
+            return
+
+        # Change cursor to busy
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        # Get double click x value
+        annotation_time_in_sec = x_value
+
+        # Change Current epoch
+        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
+        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
+        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
+        new_epoch = math.floor(new_epoch) + 1
+        self.ui.textEdit_epoch.setText(str(new_epoch))
+        self.current_epoch = new_epoch
+
+        # Update signal graphic views to annotation epoch
+        # self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
+
+        # Plot Hypnogram
+        hypnogram_marker = annotation_time_in_sec
+        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
+                                                     hypnogram_marker=hypnogram_marker,
+                                                     double_click_callback=self.on_hypnogram_double_click,
+                                                     show_stage_colors=show_stage_colors
+                                                     )
+
+        # Update Signals
+        self.draw_signal_in_graphic_views()
+
+        # Revert cursor to pointer
+        QApplication.restoreOverrideCursor()
+
+        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
+    def show_spectrogram_legend(self):
+        if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
+            logger.info("Error: Spectrogram data not available. Generate spectrogram first.")
+            return
+
+        # Display legend dialog
+        if self.multitaper_spectrogram_obj.spectrogram_computed:
+            self.multitaper_spectrogram_obj.show_colorbar_legend_dialog()
+            logger.info('Sleep Science Signal Viewer: Spectrogram dialog plotted')
+        else:
+            self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
+            logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
+    def show_heatmap(self):
+        # Check before starting long computation
+
+        # Turn on busy cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        # Make sure figures are not inadvertenly generated
+        self.automatic_signal_redraw = False
+
+        # Get Continuous Signals
+        signal_label = self.ui.comboBox_signals.currentText()
+        signal_type = 'continuous'
+        signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label, signal_type)
+        signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+
+        # Compute Spectrogram
+        logger.info(f'Plotting heatmap: ({signal_label})')
+        multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+
+        # Plot signal heatmap
+        multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
+                                        double_click_callback=self.on_spectrogram_double_click)
+        self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
+
+        # print(self.multitaper_spectrogram_obj.heatmap_fs)
+
+        # Record Spectrogram Completions
+        self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
+        logger.info('Computing spectrogram: Computation completed')
+
+        # Turn off busy cursor
+        QApplication.restoreOverrideCursor()
+
+        # Turn on signal update
+        self.automatic_signal_redraw = True
+
+        # Turn on Legend Pushbutton
+        self.ui.pushButton_spectrogram_legend.setEnabled(True)
+    def show_heapmap_legend(self):
+        if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
+            logger.info(f"Signal Window Error: Heapmap data not available.")
+            return
+
+        # Display legend dialog
+        self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
+        logger.info('Sleep Science Signal Viewer: Data heatmap plotted')

@@ -1838,6 +1838,28 @@
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QLabel" name="label_41">
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
                 <item alignment="Qt::AlignRight">
                  <widget class="QComboBox" name="comboBox_parameters_band_delta_high">
                   <property name="sizePolicy">
@@ -1857,6 +1879,30 @@
                     <width>75</width>
                     <height>25</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_8">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Hz</string>
                   </property>
                  </widget>
                 </item>
@@ -1922,6 +1968,28 @@
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QLabel" name="label_42">
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
                 <item alignment="Qt::AlignRight">
                  <widget class="QComboBox" name="comboBox_parameters_band_theta_high">
                   <property name="sizePolicy">
@@ -1941,6 +2009,30 @@
                     <width>75</width>
                     <height>25</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_24">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Hz</string>
                   </property>
                  </widget>
                 </item>
@@ -2006,6 +2098,28 @@
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QLabel" name="label_43">
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
                 <item alignment="Qt::AlignRight">
                  <widget class="QComboBox" name="comboBox_parameters_band_alpha_high">
                   <property name="sizePolicy">
@@ -2025,6 +2139,30 @@
                     <width>75</width>
                     <height>25</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_25">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Hz</string>
                   </property>
                  </widget>
                 </item>
@@ -2090,6 +2228,28 @@
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QLabel" name="label_44">
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
                 <item alignment="Qt::AlignRight">
                  <widget class="QComboBox" name="comboBox_parameters_band_sigma_high">
                   <property name="sizePolicy">
@@ -2109,6 +2269,30 @@
                     <width>75</width>
                     <height>25</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_29">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Hz</string>
                   </property>
                  </widget>
                 </item>
@@ -2172,6 +2356,28 @@
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="label_45">
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QComboBox" name="comboBox_parameters_band_beta_high">
                   <property name="minimumSize">
                    <size>
@@ -2184,6 +2390,30 @@
                     <width>75</width>
                     <height>25</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_30">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Hz</string>
                   </property>
                  </widget>
                 </item>
@@ -2249,6 +2479,28 @@
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QLabel" name="label_46">
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
                 <item alignment="Qt::AlignRight">
                  <widget class="QComboBox" name="comboBox_parameters_band_gamma_high">
                   <property name="sizePolicy">
@@ -2268,6 +2520,30 @@
                     <width>75</width>
                     <height>25</height>
                    </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_40">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Hz</string>
                   </property>
                  </widget>
                 </item>
@@ -2421,16 +2697,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="comboBox_4">
+                   <widget class="QComboBox" name="comboBox_hynogram">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <property name="minimumSize">
                      <size>
-                      <width>0</width>
+                      <width>95</width>
                       <height>25</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>16777215</width>
+                      <width>95</width>
                       <height>25</height>
                      </size>
                     </property>
@@ -2439,7 +2721,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_19">
                     <item alignment="Qt::AlignTop">
-                     <widget class="QPushButton" name="pushButton_6">
+                     <widget class="QPushButton" name="pushButton_hypnogram_show_stages">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
                       <property name="minimumSize">
                        <size>
                         <width>62</width>
@@ -2455,10 +2743,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
                       <property name="text">
                        <string>Show</string>
                       </property>
+                      <property name="checkable">
+                       <bool>true</bool>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
                      </widget>
                     </item>
                     <item alignment="Qt::AlignTop">
-                     <widget class="QPushButton" name="pushButton_7">
+                     <widget class="QPushButton" name="pushButton_hypnogram_legend">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
                       <property name="minimumSize">
                        <size>
                         <width>25</width>
@@ -2509,12 +2809,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_12">
                   <item>
-                   <widget class="QComboBox" name="comboBox_35"/>
+                   <widget class="QComboBox" name="comboBox_spectrogram_signals"/>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_14">
                     <item alignment="Qt::AlignTop">
-                     <widget class="QPushButton" name="pushButton_10">
+                     <widget class="QPushButton" name="pushButton_spectrogram_show">
                       <property name="minimumSize">
                        <size>
                         <width>62</width>
@@ -2533,7 +2833,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                      </widget>
                     </item>
                     <item alignment="Qt::AlignTop">
-                     <widget class="QPushButton" name="pushButton_9">
+                     <widget class="QPushButton" name="pushButton_spectrogram_legend">
                       <property name="minimumSize">
                        <size>
                         <width>25</width>
@@ -2556,7 +2856,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_21">
                     <item alignment="Qt::AlignTop">
-                     <widget class="QPushButton" name="pushButton_12">
+                     <widget class="QPushButton" name="pushButton_spectrogram_heatmap_show">
                       <property name="minimumSize">
                        <size>
                         <width>62</width>
@@ -2575,7 +2875,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                      </widget>
                     </item>
                     <item alignment="Qt::AlignTop">
-                     <widget class="QPushButton" name="pushButton_11">
+                     <widget class="QPushButton" name="pushButton_sectrogram_heatmap_legend">
                       <property name="minimumSize">
                        <size>
                         <width>25</width>
