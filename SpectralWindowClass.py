@@ -149,6 +149,9 @@ def set_layout_visible(layout, visible: bool):
             # Recursively process the nested layout
             set_layout_visible(nested_layout, visible)
 
+# Classes
+from multitaper_spectrogram_python_class import MultitaperSpectrogram
+
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
 
@@ -199,6 +202,9 @@ class SpectralWindow(QMainWindow):
         self.setup_hypnogram()
 
         # Set up spectrogram
+        self.signal_labels:list[str]|None = None
+        self.signal_label:str|None = None
+        self.multitaper_spectrogram_obj:MultitaperSpectrogram|None = None
         self.setup_spectrogram()
 
     # Setup
@@ -435,6 +441,14 @@ class SpectralWindow(QMainWindow):
 
     # Spectrogram
     def setup_spectrogram(self):
+        # Add signal list
+        # Set signal labels
+        self.signal_labels = self.edf_obj.edf_signals.signal_labels
+        self.ui.comboBox_spectrogram_signals.addItems(self.signal_labels )
+        signal_combobox_index = 0
+        self.signal_label = self.signal_labels[signal_combobox_index]
+        self.ui.comboBox_spectrogram_signals.setCurrentIndex(signal_combobox_index)
+
         # Spectrogram Buttons
         self.ui.pushButton_spectrogram_show.clicked.connect(self.compute_and_display_spectrogram)
         self.ui.pushButton_spectrogram_legend.clicked.connect(self.show_spectrogram_legend)
@@ -466,14 +480,13 @@ class SpectralWindow(QMainWindow):
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
-                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
-                                                double_click_callback=self.on_spectrogram_double_click)
+                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram)
+
                 # Update log
                 logger.info(f'Spectrogram plotted')
             else:
                 # Plot signal heatmap
-                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
-                                                     double_click_callback=self.on_spectrogram_double_click)
+                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram)
                 logger.info(f'Plotted heatmap instead')
 
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
@@ -481,11 +494,9 @@ class SpectralWindow(QMainWindow):
             # Record Spectrogram Completions
             if self.multitaper_spectrogram_obj.spectrogram_computed:
                 self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-                self.ui.label_spectrogram.setText(f'Multitaper Spectrogram - {signal_label}')
                 logger.info('Computing spectrogram: Computation completed')
             else:
                 self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-                self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
                 logger.info('Computing spectrogram: Computation completed')
 
             # Turn off busy cursor
@@ -558,9 +569,8 @@ class SpectralWindow(QMainWindow):
         self.automatic_signal_redraw = False
 
         # Get Continuous Signals
-        signal_label = self.ui.comboBox_signals.currentText()
-        signal_type = 'continuous'
-        signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label, signal_type)
+        signal_label = self.ui.comboBox_spectrogram_signals.currentText()
+        signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
         signal_analysis_obj = EdfSignalAnalysis(signal_obj)
 
         # Compute Spectrogram
@@ -575,7 +585,6 @@ class SpectralWindow(QMainWindow):
         # print(self.multitaper_spectrogram_obj.heatmap_fs)
 
         # Record Spectrogram Completions
-        self.ui.label_spectrogram.setText(f'Data Heatmap - {signal_label}')
         logger.info('Computing spectrogram: Computation completed')
 
         # Turn off busy cursor
@@ -594,3 +603,20 @@ class SpectralWindow(QMainWindow):
         # Display legend dialog
         self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
         logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
+    def show_ok_cancel_dialog(parent=None):
+        msg_box = QMessageBox(parent)
+        msg_box.setWindowTitle("Confirm Action")
+        msg_box.setText(
+            "Computing a multitaper spectrogram can be time consuming. Future versions will include a less computational alternative. \n\nDo you want to proceed?")
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+        msg_box.setDefaultButton(QMessageBox.StandardButton.Ok)
+
+        result = msg_box.exec()
+
+        if result == QMessageBox.StandardButton.Ok:
+            logger.info("OK clicked: Will continue ")
+            return True
+        else:
+            logger.info(
+                f"Message Dialog Box - Cancel clicked, Msg: {'Computing a multitaper spectrogram can be time consuming. Do you want to proceed?'} ")
+            return False
