@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1339, 965)
+        MainWindow.resize(1339, 2547)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -1367,15 +1367,231 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.graphicsView = QGraphicsView(self.centralwidget)
-        self.graphicsView.setObjectName(u"graphicsView")
+        self.verticalLayout_spectral_results = QVBoxLayout()
+        self.verticalLayout_spectral_results.setObjectName(u"verticalLayout_spectral_results")
+        self.horizontalLayout_results_1 = QHBoxLayout()
+        self.horizontalLayout_results_1.setObjectName(u"horizontalLayout_results_1")
+        self.label_47 = QLabel(self.centralwidget)
+        self.label_47.setObjectName(u"label_47")
+        sizePolicy5.setHeightForWidth(self.label_47.sizePolicy().hasHeightForWidth())
+        self.label_47.setSizePolicy(sizePolicy5)
+        self.label_47.setMinimumSize(QSize(100, 25))
+        self.label_47.setMaximumSize(QSize(100, 25))
 
-        self.horizontalLayout.addWidget(self.graphicsView)
+        self.horizontalLayout_results_1.addWidget(self.label_47)
+
+        self.graphicsView_results_1 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_1.setObjectName(u"graphicsView_results_1")
+        self.graphicsView_results_1.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_1.addWidget(self.graphicsView_results_1)
 
 
-        self.horizontalLayout_20.addLayout(self.horizontalLayout)
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_1)
+
+        self.horizontalLayout_results_2 = QHBoxLayout()
+        self.horizontalLayout_results_2.setObjectName(u"horizontalLayout_results_2")
+        self.label_results_2 = QLabel(self.centralwidget)
+        self.label_results_2.setObjectName(u"label_results_2")
+        sizePolicy5.setHeightForWidth(self.label_results_2.sizePolicy().hasHeightForWidth())
+        self.label_results_2.setSizePolicy(sizePolicy5)
+        self.label_results_2.setMinimumSize(QSize(100, 25))
+        self.label_results_2.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_2.addWidget(self.label_results_2)
+
+        self.graphicsView_results_2 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_2.setObjectName(u"graphicsView_results_2")
+        self.graphicsView_results_2.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_2.addWidget(self.graphicsView_results_2)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_2)
+
+        self.horizontalLayout_results_3 = QHBoxLayout()
+        self.horizontalLayout_results_3.setObjectName(u"horizontalLayout_results_3")
+        self.label_results_3 = QLabel(self.centralwidget)
+        self.label_results_3.setObjectName(u"label_results_3")
+        sizePolicy5.setHeightForWidth(self.label_results_3.sizePolicy().hasHeightForWidth())
+        self.label_results_3.setSizePolicy(sizePolicy5)
+        self.label_results_3.setMinimumSize(QSize(100, 25))
+        self.label_results_3.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_3.addWidget(self.label_results_3)
+
+        self.graphicsView_results_3 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_3.setObjectName(u"graphicsView_results_3")
+        self.graphicsView_results_3.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_3.addWidget(self.graphicsView_results_3)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_3)
+
+        self.horizontalLayout_results_4 = QHBoxLayout()
+        self.horizontalLayout_results_4.setObjectName(u"horizontalLayout_results_4")
+        self.label_results_4 = QLabel(self.centralwidget)
+        self.label_results_4.setObjectName(u"label_results_4")
+        sizePolicy5.setHeightForWidth(self.label_results_4.sizePolicy().hasHeightForWidth())
+        self.label_results_4.setSizePolicy(sizePolicy5)
+        self.label_results_4.setMinimumSize(QSize(100, 25))
+        self.label_results_4.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_4.addWidget(self.label_results_4)
+
+        self.graphicsView_results_4 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_4.setObjectName(u"graphicsView_results_4")
+        self.graphicsView_results_4.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_4.addWidget(self.graphicsView_results_4)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_4)
+
+        self.horizontalLayout_results_5 = QHBoxLayout()
+        self.horizontalLayout_results_5.setObjectName(u"horizontalLayout_results_5")
+        self.label_results_5 = QLabel(self.centralwidget)
+        self.label_results_5.setObjectName(u"label_results_5")
+        sizePolicy5.setHeightForWidth(self.label_results_5.sizePolicy().hasHeightForWidth())
+        self.label_results_5.setSizePolicy(sizePolicy5)
+        self.label_results_5.setMinimumSize(QSize(100, 25))
+        self.label_results_5.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_5.addWidget(self.label_results_5)
+
+        self.graphicsView_results_5 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_5.setObjectName(u"graphicsView_results_5")
+        self.graphicsView_results_5.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_5.addWidget(self.graphicsView_results_5)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_5)
+
+        self.horizontalLayout_results_6 = QHBoxLayout()
+        self.horizontalLayout_results_6.setObjectName(u"horizontalLayout_results_6")
+        self.label_results_6 = QLabel(self.centralwidget)
+        self.label_results_6.setObjectName(u"label_results_6")
+        sizePolicy5.setHeightForWidth(self.label_results_6.sizePolicy().hasHeightForWidth())
+        self.label_results_6.setSizePolicy(sizePolicy5)
+        self.label_results_6.setMinimumSize(QSize(100, 25))
+        self.label_results_6.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_6.addWidget(self.label_results_6)
+
+        self.graphicsView_results_6 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_6.setObjectName(u"graphicsView_results_6")
+        self.graphicsView_results_6.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_6.addWidget(self.graphicsView_results_6)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_6)
+
+        self.horizontalLayout_results_7 = QHBoxLayout()
+        self.horizontalLayout_results_7.setObjectName(u"horizontalLayout_results_7")
+        self.label_results_7 = QLabel(self.centralwidget)
+        self.label_results_7.setObjectName(u"label_results_7")
+        sizePolicy5.setHeightForWidth(self.label_results_7.sizePolicy().hasHeightForWidth())
+        self.label_results_7.setSizePolicy(sizePolicy5)
+        self.label_results_7.setMinimumSize(QSize(100, 25))
+        self.label_results_7.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_7.addWidget(self.label_results_7)
+
+        self.graphicsView_results_7 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_7.setObjectName(u"graphicsView_results_7")
+        self.graphicsView_results_7.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_7.addWidget(self.graphicsView_results_7)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_7)
+
+        self.horizontalLayout_results_8 = QHBoxLayout()
+        self.horizontalLayout_results_8.setObjectName(u"horizontalLayout_results_8")
+        self.label_results_8 = QLabel(self.centralwidget)
+        self.label_results_8.setObjectName(u"label_results_8")
+        sizePolicy5.setHeightForWidth(self.label_results_8.sizePolicy().hasHeightForWidth())
+        self.label_results_8.setSizePolicy(sizePolicy5)
+        self.label_results_8.setMinimumSize(QSize(100, 25))
+        self.label_results_8.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_8.addWidget(self.label_results_8)
+
+        self.graphicsView_results_8 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_8.setObjectName(u"graphicsView_results_8")
+        self.graphicsView_results_8.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_8.addWidget(self.graphicsView_results_8)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_8)
+
+        self.horizontalLayout_results_9 = QHBoxLayout()
+        self.horizontalLayout_results_9.setObjectName(u"horizontalLayout_results_9")
+        self.label_results_9 = QLabel(self.centralwidget)
+        self.label_results_9.setObjectName(u"label_results_9")
+        sizePolicy5.setHeightForWidth(self.label_results_9.sizePolicy().hasHeightForWidth())
+        self.label_results_9.setSizePolicy(sizePolicy5)
+        self.label_results_9.setMinimumSize(QSize(100, 25))
+        self.label_results_9.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_9.addWidget(self.label_results_9)
+
+        self.graphicsView_results_9 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_9.setObjectName(u"graphicsView_results_9")
+        self.graphicsView_results_9.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_9.addWidget(self.graphicsView_results_9)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_9)
+
+        self.horizontalLayout_results_10 = QHBoxLayout()
+        self.horizontalLayout_results_10.setObjectName(u"horizontalLayout_results_10")
+        self.label_results_10 = QLabel(self.centralwidget)
+        self.label_results_10.setObjectName(u"label_results_10")
+        sizePolicy5.setHeightForWidth(self.label_results_10.sizePolicy().hasHeightForWidth())
+        self.label_results_10.setSizePolicy(sizePolicy5)
+        self.label_results_10.setMinimumSize(QSize(100, 25))
+        self.label_results_10.setMaximumSize(QSize(100, 25))
+
+        self.horizontalLayout_results_10.addWidget(self.label_results_10)
+
+        self.graphicsView_results_10 = QGraphicsView(self.centralwidget)
+        self.graphicsView_results_10.setObjectName(u"graphicsView_results_10")
+        self.graphicsView_results_10.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_results_10.addWidget(self.graphicsView_results_10)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_results_10)
+
+        self.horizontalLayout_time_axis = QHBoxLayout()
+        self.horizontalLayout_time_axis.setObjectName(u"horizontalLayout_time_axis")
+        self.label_results_time = QLabel(self.centralwidget)
+        self.label_results_time.setObjectName(u"label_results_time")
+        sizePolicy5.setHeightForWidth(self.label_results_time.sizePolicy().hasHeightForWidth())
+        self.label_results_time.setSizePolicy(sizePolicy5)
+        self.label_results_time.setMinimumSize(QSize(100, 0))
+        self.label_results_time.setMaximumSize(QSize(100, 16777215))
+        self.label_results_time.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_time_axis.addWidget(self.label_results_time)
+
+        self.graphicsView_time_axis = QGraphicsView(self.centralwidget)
+        self.graphicsView_time_axis.setObjectName(u"graphicsView_time_axis")
+        self.graphicsView_time_axis.setMinimumSize(QSize(0, 40))
+
+        self.horizontalLayout_time_axis.addWidget(self.graphicsView_time_axis)
+
+
+        self.verticalLayout_spectral_results.addLayout(self.horizontalLayout_time_axis)
+
+
+        self.horizontalLayout_20.addLayout(self.verticalLayout_spectral_results)
 
         self.verticalLayout_mark = QVBoxLayout()
         self.verticalLayout_mark.setObjectName(u"verticalLayout_mark")
@@ -1534,6 +1750,17 @@ class Ui_MainWindow(object):
         self.pushButton_spectrogram_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
         self.pushButton_spectrogram_heatmap_show.setText(QCoreApplication.translate("MainWindow", u"Heat", None))
         self.pushButton_sectrogram_heatmap_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
+        self.label_47.setText("")
+        self.label_results_2.setText("")
+        self.label_results_3.setText("")
+        self.label_results_4.setText("")
+        self.label_results_5.setText("")
+        self.label_results_6.setText("")
+        self.label_results_7.setText("")
+        self.label_results_8.setText("")
+        self.label_results_9.setText("")
+        self.label_results_10.setText("")
+        self.label_results_time.setText("")
         self.menuShow.setTitle(QCoreApplication.translate("MainWindow", u"Show", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi

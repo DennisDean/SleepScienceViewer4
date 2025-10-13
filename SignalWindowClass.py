@@ -98,15 +98,15 @@ class SignalWindow(QMainWindow):
         self.setWindowTitle("Signal Viewer")
 
         # Make a copy of the edf and xml information
-        self.edf_obj = copy.copy(edf_obj)
+        self.edf_obj = edf_obj
         self.edf_obj.handlers = {} # reset handlers
-        self.xml_obj = copy.copy(xml_obj)
+        self.xml_obj = xml_obj
         self.xml_obj.handlers = {} # reset handlers
 
         # Set signal labels
         self.signal_labels = self.edf_obj.edf_signals.signal_labels
         self.ui.comboBox_signals.addItems(self.signal_labels )
-        signal_combobox_index = signal_combobox_index if signal_combobox_index is not None else 0
+        signal_combobox_index = next((i for i,s in enumerate(self.signal_labels) if s), None)
         self.signal_label = self.signal_labels[signal_combobox_index]
         self.ui.comboBox_signals.setCurrentIndex(signal_combobox_index)
 
