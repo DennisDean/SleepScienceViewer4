@@ -11,8 +11,9 @@
 # Modules
 import logging
 import psutil
-from functools import partial
 import math
+from functools import partial
+from typing import Callable
 import numpy as np
 import copy
 
@@ -193,6 +194,18 @@ class SpectralWindow(QMainWindow):
         self.noise_selta_n_menu_items:list[str]
         self.noise_beta_n_menu_items:list[str]
 
+        # Parameter Dictionaries - Inprocess of replacing single varaibles
+        self.param_noise_names = ['delta', 'beta']
+        self.param_noise_dict:dict|None = None
+        self.param_taper_names = ['window', 'step', 'num_cpus']
+        self.param_taper_dict:dict|None = None
+        self.param_band_names = ['alpha', 'theta', 'alpha', 'sigma', 'beta', 'gamma']
+        self.param_band_dict:dict|None = None
+
+
+
+
+
         # Set up window control
         self.setup_control_bar()
         self.setup_menu()
@@ -212,9 +225,15 @@ class SpectralWindow(QMainWindow):
         self.multitaper_spectrogram_obj:MultitaperSpectrogram|None = None
         self.setup_spectrogram()
 
+        # Setup parameters
+        self.spectral_bands_low_cb:list|None = None
+        self.spectral_bands_high_cb:list|None = None
+
         # Set up analysis
+        self.analyis_signal_labels:list|None = None
         self.analyis_signal_combo_boxes:list|None = None
         self.results_graphic_views:list|None = None
+        self.result_layouts:list|None = None
         self.setup_analysis()
 
     # Setup
@@ -339,7 +358,7 @@ class SpectralWindow(QMainWindow):
         taper_step_values = [0.25, 0.50, 1.0, 2.0, 3.0, 4.0, 5.0]
         default_taper_window = 5.0
         default_taper_step   = 1.0
-        create_taper_menu_item_f = lambda x: f'{x:.2f} s'
+        create_taper_menu_item_f = lambda x: f'{x:.2f}'
         taper_window_menu_items = list(map(create_taper_menu_item_f, taper_window_values))
         taper_step_menu_items   = list(map(create_taper_menu_item_f, taper_step_values))
 
@@ -386,9 +405,6 @@ class SpectralWindow(QMainWindow):
             bcl_high.addItems([f'{x:.1f}' for x in band_menu_items_high])
             bcl_low.setCurrentIndex(band_menu_items_high.index(def_low))
             bcl_high.setCurrentIndex(band_menu_items_high.index(def_hgh))
-
-
-
 
         # Save parameters
         self.noise_delta_n_factor = noise_delta_n_factor
@@ -657,22 +673,41 @@ class SpectralWindow(QMainWindow):
 
                                # Setup pushup
         self.ui.pushButton_control_compute.clicked.connect(self.analyze_signal_list)
+
+        self.spectral_bands_low_cb = [self.ui.comboBox_parameters_band_alpha_low,
+                                      self.ui.comboBox_parameters_band_theta_low,
+                                      self.ui.comboBox_parameters_band_alpha_low,
+                                      self.ui.comboBox_parameters_band_sigma_low,
+                                      self.ui.comboBox_parameters_band_beta_low,
+                                      self.ui.comboBox_parameters_band_gamma_low]
+        self.spectral_bands_high_cb = [self.ui.comboBox_parameters_band_alpha_high,
+                                      self.ui.comboBox_parameters_band_theta_high,
+                                      self.ui.comboBox_parameters_band_alpha_high,
+                                      self.ui.comboBox_parameters_band_sigma_high,
+                                      self.ui.comboBox_parameters_band_beta_high,
+                                      self.ui.comboBox_parameters_band_gamma_high]
     def analyze_signal_list(self):
-        # Write to log file
-        logger.info(f'Preparing to compute spectrograms.')
-
-        # Get number of CPUs
-        n_jobs = int(self.ui.comboBox_parameters_taper_num_cpus.currentText())
-        multiprocess = False
-        if n_jobs > 1:
-            multiprocess = True
-
         # Check user if we should move forward
-        process_eeg = False
+        process_signals = False
         if self.edf_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
         else:
-            logger.info(f'EDF file not loaded. Can not compute spectrogram.')
+            logger.info(f'EDF file not loaded. Can not analyze signal list.')
+
+        # Write to log file
+        logger.info(f'Preparing to compute spectrograms.')
+
+        # Get settings
+
+
+        # Get parameters
+        noise_param_dict, taper_param_dict, band_params_dict = self.get_parameters()
+        noise_delta = noise_param_dict['delta']
+        noise_beta = noise_param_dict['beta']
+        n_jobs = taper_param_dict['num_cpus']
+        window = taper_param_dict['window']
+        step = taper_param_dict['step']
+        multiprocess = False if n_jobs >= 1 else True
 
         # Turn on busy cursor
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
@@ -736,3 +771,33 @@ class SpectralWindow(QMainWindow):
 
         # Turn off busy cursor
         QApplication.restoreOverrideCursor()
+    def get_parameters(self):
+        # Noise Detection
+        names = self.param_noise_names
+        cbs = [self.ui.comboBox_parameters_noise_delta, self.ui.comboBox_parameters_noise_beta]
+        noise_param_dict = self.create_param_dict(names, cbs, float)
+        print(noise_param_dict)
+
+        # Multi-taper
+        param_taper_names = self.param_taper_names
+        taper_cbs = [self.ui.comboBox_parameters_taper_window, self.ui.comboBox_parameters_taper_step,
+                     self.ui.comboBox_parameters_taper_num_cpus]
+        taper_param_dict = self.create_param_dict(param_taper_names, taper_cbs, float)
+        print(taper_param_dict)
+
+        # Spectral bands - Create a dictionary to create bands
+        band_params_dict = {}
+        param_band_names = self.param_band_names
+        for band_limits in zip(param_band_names, self.spectral_bands_low_cb, self.spectral_bands_high_cb):
+            # Get band limits and add to parmeter dictionary
+            band_name, band_low_cb, band_high_cb = band_limits
+            band_params_dict[band_name] = [float(band_low_cb.currentText()), float(band_high_cb.currentText())]
+        print(band_params_dict)
+
+        return noise_param_dict, taper_param_dict, band_params_dict
+    def create_param_dict(self, names:list[str], cbs:list, convert_f:Callable=lambda x:x)->dict:
+        param_dict = {}
+        for taper_bands in zip(names, cbs):
+            name, cb = taper_bands
+            param_dict[name] = convert_f(cb.currentText())
+        return param_dict
