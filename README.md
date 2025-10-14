@@ -13,7 +13,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 
 ## Key Features
 
-* **Sleep Science Viewer** 
+### **Sleep Science Viewer** 
   * EDF & Annotation Support
 
     * Load EDF files with associated XML annotation files
@@ -57,7 +57,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 ![Signal Viewer Interface](Media/signal_viewer_beta.png)
 *Figure 2. Signal Viewer interface displaying a single channel with epochs and overlays.*
 
-* **Signal Viewer**
+### **Signal Viewer**
 
   * Signals
 
@@ -87,14 +87,27 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 *Figure 4. Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.*
 </p>
 
-## Coming Soon
+### **Spectral Viewer**
 
-Signal Spectral analysis will be the first analysis supported by the Sleep Science Viewer.
+Signal spectral analysis will be the first analysis module supported by the Sleep Science Viewer.
+
+The interface includes two main sections: Settings and Parameters. The Settings section allows users to select 
+up to ten signals for analysis and choose whether to display an x-axis label. Signal reference and filter 
+parameters are visible in the interface but are not yet implemented. The Parameters section provides options 
+for identifying signal noise, specifying multi-taper spectrogram settings, and defining spectral bands. Currently, 
+only the “number of CPUs” parameter is functional.
 
 <p align="center">    
-<img src="Media/Spectral Viewer_beta.png" width="600" /><br>
-*Figure 5. Sprectral Viewer for performing spectral analysis on signals.*
+<img src="Media/Spectral Viewer_beta.png" /><br>
+*Figure 5. Spectral Viewer for performing spectral analysis on signals.*
 </p>
+
+<p align="center">    
+<img src="Media/Spectral Viewer_output_only_beta.png"  /><br>
+*Figure 6. Spectral Viewer configured to show spectrams for multiple signals.*
+</p>
+
+
 ## Known Limitations
 Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations with PySide6. The framework is in place, but full functionality cannot be guaranteed at this time.
 

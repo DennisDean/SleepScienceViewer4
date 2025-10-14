@@ -667,12 +667,18 @@ class SpectralWindow(QMainWindow):
         if n_jobs > 1:
             multiprocess = True
 
-        # Double check EEG signals are available
+        # Check user if we should move forward
         process_eeg = False
         if self.edf_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
         else:
             logger.info(f'EDF file not loaded. Can not compute spectrogram.')
+
+        # Turn on busy cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        # Check if x-labels
+        turn_axis_units_off = not self.ui.checkBox_plotting_xlabels.isChecked()
 
         # Get signals to analyze
         analysis_signal_labels = []
@@ -695,15 +701,19 @@ class SpectralWindow(QMainWindow):
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
             # Plot spectrogram
+            layout = self.result_layouts[i]
+            set_layout_visible(layout, True)
+
+            # Plot spectrogram or heatmap if not computed
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
-                multitaper_spectrogram_obj.plot(self.results_graphic_views[i])
+                multitaper_spectrogram_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off)
 
                 # Update log
                 logger.info(f'Spectrogram plotted')
             else:
                 # Plot signal heatmap
-                multitaper_spectrogram_obj.plot_data(self.results_graphic_views[i])
+                multitaper_spectrogram_obj.plot_data(self.results_graphic_views[i], turn_axis_units_off = turn_axis_units_off)
                 logger.info(f'Plotted heatmap instead')
 
         # Hide graphic views not used
@@ -715,73 +725,14 @@ class SpectralWindow(QMainWindow):
         self.ui.label_results_time.setText('Time')
 
         # Create x-axis for reference
-        time_axis_units = 'h'
-        convert_time_f = lambda x:float(x)/3600
-        graphic_view = self.ui.graphicsView_time_axis
-        signal_length_in_sec = self.edf_obj.edf_signals.signal_length_in_sec
-        time_axis_units = 'h'
-        self.create_time_axis_plot(graphic_view, signal_length_in_sec, convert_time_f, time_axis_units)
+        turn_axis_units_off = False
+        axis_only = True
+        graphics_view = self.ui.graphicsView_time_axis
+        signal_label = analysis_signal_labels[0]
+        signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
+        signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+        multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+        multitaper_spectrogram_obj.plot(graphics_view, turn_axis_units_off=turn_axis_units_off, axis_only=axis_only)
 
-    def create_time_axis_plot(self, graphic_view, signal_length_in_sec, convert_time_f, time_axis_units):
-        """
-        Creates a responsive time-axis in hours using matplotlib embedded in a QGraphicsView.
-
-        - Expands to fill the QGraphicsView.
-        - Rescales when window size changes.
-        - Shows hourly tick marks and 'h' labels.
-        - Allows manual scaling via ax.set_xlim() externally.
-        """
-
-        # Clear existing scene
-        scene = QGraphicsScene()
-        graphic_view.setScene(scene)
-
-        # Convert full duration to desired time units (e.g., hours)
-        t_end = convert_time_f(signal_length_in_sec)
-        t_units = np.linspace(0, t_end, num=100)
-
-        # Create matplotlib figure and axis
-        fig = Figure(figsize=(6, 1))
-        ax = fig.add_subplot(111)
-
-        # Plot invisible line for axis scaling
-        ax.plot(t_units, np.zeros_like(t_units), alpha=0)
-
-        # Configure axis
-        ax.set_xlim(0, t_end)
-        ax.set_yticks([])  # Hide y-axis completely
-        ax.set_ylabel('')
-        ax.set_xlabel(f'Time ({time_axis_units})')
-
-        # Set hourly major ticks
-        ax.xaxis.set_major_locator(MultipleLocator(1))  # every 1 hour
-        ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{int(x)}h"))
-
-        # Remove extra gridlines/spines for clean look
-        ax.grid(False)
-        for spine in ax.spines.values():
-            spine.set_visible(False)
-
-        fig.tight_layout(pad=0.5)
-
-        # Embed Matplotlib canvas in QGraphicsView
-        canvas = FigureCanvas(fig)
-        scene.addWidget(canvas)
-        scene.setSceneRect(canvas.rect())
-
-        # Fit view so the x-axis expands to the full view width
-        graphic_view.fitInView(scene.sceneRect(), Qt.IgnoreAspectRatio)
-
-        # --- Enable dynamic resizing ---
-        def resize_event(event):
-            canvas.resize(graphic_view.viewport().size())
-            graphic_view.fitInView(scene.sceneRect(), mode=1)
-            event.accept()
-
-        # Override resizeEvent for responsiveness
-        graphic_view.resizeEvent = resize_event
-
-        # Return references so you can adjust axis later (e.g. ax.set_xlim(...))
-        return fig, ax, canvas
-
-
+        # Turn off busy cursor
+        QApplication.restoreOverrideCursor()

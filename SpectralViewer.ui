@@ -953,26 +953,51 @@
              </layout>
             </item>
             <item>
-             <widget class="Line" name="line_5">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="Line" name="line_5">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_47">
+                <property name="text">
+                 <string>Plotting</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_plotting_xlabels">
+                <property name="text">
+                 <string>x labels</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_window_size_2">
+              <item>
+               <widget class="Line" name="line_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QLabel" name="label_27">
                 <property name="text">
@@ -3365,7 +3390,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_mark">
                   <item>
-                   <widget class="QComboBox" name="comboBox_5">
+                   <widget class="QComboBox" name="comboBox_mark">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3387,7 +3412,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                    </widget>
                   </item>
                   <item>
-                   <widget class="QListWidget" name="listWidget">
+                   <widget class="QListWidget" name="listWidget_mark">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
                       <horstretch>0</horstretch>

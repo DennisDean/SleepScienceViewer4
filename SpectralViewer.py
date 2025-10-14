@@ -489,6 +489,8 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_s.addLayout(self.horizontalLayout_30)
 
+        self.verticalLayout_6 = QVBoxLayout()
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.line_5 = QFrame(self.centralwidget)
         self.line_5.setObjectName(u"line_5")
         self.line_5.setMinimumSize(QSize(0, 20))
@@ -496,10 +498,30 @@ class Ui_MainWindow(object):
         self.line_5.setFrameShape(QFrame.Shape.HLine)
         self.line_5.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.verticalLayout_s.addWidget(self.line_5)
+        self.verticalLayout_6.addWidget(self.line_5)
+
+        self.label_47 = QLabel(self.centralwidget)
+        self.label_47.setObjectName(u"label_47")
+
+        self.verticalLayout_6.addWidget(self.label_47)
+
+        self.checkBox_plotting_xlabels = QCheckBox(self.centralwidget)
+        self.checkBox_plotting_xlabels.setObjectName(u"checkBox_plotting_xlabels")
+
+        self.verticalLayout_6.addWidget(self.checkBox_plotting_xlabels)
+
+
+        self.verticalLayout_s.addLayout(self.verticalLayout_6)
 
         self.verticalLayout_window_size_2 = QVBoxLayout()
         self.verticalLayout_window_size_2.setObjectName(u"verticalLayout_window_size_2")
+        self.line_9 = QFrame(self.centralwidget)
+        self.line_9.setObjectName(u"line_9")
+        self.line_9.setFrameShape(QFrame.Shape.HLine)
+        self.line_9.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout_window_size_2.addWidget(self.line_9)
+
         self.label_27 = QLabel(self.centralwidget)
         self.label_27.setObjectName(u"label_27")
 
@@ -1600,23 +1622,23 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_mark = QVBoxLayout()
         self.verticalLayout_mark.setObjectName(u"verticalLayout_mark")
-        self.comboBox_5 = QComboBox(self.centralwidget)
-        self.comboBox_5.setObjectName(u"comboBox_5")
-        sizePolicy5.setHeightForWidth(self.comboBox_5.sizePolicy().hasHeightForWidth())
-        self.comboBox_5.setSizePolicy(sizePolicy5)
-        self.comboBox_5.setMinimumSize(QSize(200, 0))
-        self.comboBox_5.setMaximumSize(QSize(200, 16777215))
+        self.comboBox_mark = QComboBox(self.centralwidget)
+        self.comboBox_mark.setObjectName(u"comboBox_mark")
+        sizePolicy5.setHeightForWidth(self.comboBox_mark.sizePolicy().hasHeightForWidth())
+        self.comboBox_mark.setSizePolicy(sizePolicy5)
+        self.comboBox_mark.setMinimumSize(QSize(200, 0))
+        self.comboBox_mark.setMaximumSize(QSize(200, 16777215))
 
-        self.verticalLayout_mark.addWidget(self.comboBox_5)
+        self.verticalLayout_mark.addWidget(self.comboBox_mark)
 
-        self.listWidget = QListWidget(self.centralwidget)
-        self.listWidget.setObjectName(u"listWidget")
-        sizePolicy6.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy6)
-        self.listWidget.setMinimumSize(QSize(200, 0))
-        self.listWidget.setMaximumSize(QSize(200, 16777215))
+        self.listWidget_mark = QListWidget(self.centralwidget)
+        self.listWidget_mark.setObjectName(u"listWidget_mark")
+        sizePolicy6.setHeightForWidth(self.listWidget_mark.sizePolicy().hasHeightForWidth())
+        self.listWidget_mark.setSizePolicy(sizePolicy6)
+        self.listWidget_mark.setMinimumSize(QSize(200, 0))
+        self.listWidget_mark.setMaximumSize(QSize(200, 16777215))
 
-        self.verticalLayout_mark.addWidget(self.listWidget)
+        self.verticalLayout_mark.addWidget(self.listWidget_mark)
 
 
         self.horizontalLayout_20.addLayout(self.verticalLayout_mark)
@@ -1691,6 +1713,8 @@ class Ui_MainWindow(object):
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Reference Method", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Analysis", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Reference", None))
+        self.label_47.setText(QCoreApplication.translate("MainWindow", u"Plotting", None))
+        self.checkBox_plotting_xlabels.setText(QCoreApplication.translate("MainWindow", u"x labels", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"Filter", None))
         self.checkBox_settings_band.setText(QCoreApplication.translate("MainWindow", u"Band", None))
         self.label_35.setText("")

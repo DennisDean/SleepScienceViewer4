@@ -553,16 +553,25 @@ class MultitaperSpectrogram:
         logger.info('     Detrend: ' + detrend_opt + '\n')
 
     # Spectrogram Functions
-    def plot(self, parent_widget=None, double_click_callback=None):
+    def plot(self, parent_widget=None, x_tick_settings:Optional[list[int]] = None, convert_time_f=lambda x:x/3600.0,
+             time_axis_unit:str|None = 'h', turn_axis_units_off:bool = False, double_click_callback=None,
+             axis_only:bool=False):
         # Plot multitaper spectrogram
-
-        # Bringing some plotting parameters to the top
 
         # cleanup handlers since plots are writing to the same graphics view
         self.cleanup_events()
 
-        label_fontsize = 6
-        use_y_ticks    = False
+        # Define plotting variables
+        label_fontsize = 8
+        tick_label_fontsize = 8
+        use_y_ticks = False
+
+        # Set x values
+        if x_tick_settings is None:
+            # Assuming a night of data
+            # Hourly major, 15 minutes
+            x_tick_settings = [3600, 900]
+        major_tick_step, minor_tick_step = x_tick_settings
 
         # Get spectrogram information from class
         mt_spectrogram = self.mt_spectrogram
@@ -577,13 +586,72 @@ class MultitaperSpectrogram:
 
         # Create the figure and canvas
         fig = Figure()
-        ax = fig.add_subplot(111)
-        im = ax.imshow(spect_data, extent=extent, aspect='auto')
+        if not axis_only:
+            ax = fig.add_subplot(111)
+            im = ax.imshow(spect_data, extent=extent, aspect='auto')
+        else:
+            # Create a matching axis for time alignment with the spectrogram
+            ax = fig.add_subplot(111)
+
+            # Plot a zero-valued line to define identical x-axis scaling
+            y = np.zeros_like(stimes)
+            ax.plot(stimes, y, alpha=0)  # invisible line, just for scale
+
+            # Ensure identical x-limits as the spectrogram would use
+            ax.set_xlim(extent[0], extent[1])
+
+            # Keep a small vertical range
+            ax.set_ylim(-0.1, 0.1)
+
+            # Hide all spines except the bottom one (the time axis)
+            for spine in ax.spines.values():
+                spine.set_visible(False)
+            ax.spines['bottom'].set_visible(True)
+            ax.spines['bottom'].set_position(('data', 0))
+
+            # Hide y-axis completely
+            ax.get_yaxis().set_visible(False)
+
+            # Set up major tick locations and labels
+            major_ticks = np.arange(stimes[0], stimes[-1] + major_tick_step, major_tick_step)
+            ax.set_xticks(major_ticks)
+            ax.set_xticklabels(
+                [f"{int(convert_time_f(x))}{time_axis_unit}" for x in major_ticks],
+                fontsize=tick_label_fontsize
+            )
+
+            # Optional: minor ticks for aesthetics
+            minor_ticks = np.arange(stimes[0], stimes[-1] + minor_tick_step, minor_tick_step)
+            ax.set_xticks(minor_ticks, minor=True)
+            ax.tick_params(axis='x', which='both', length=3, direction='in')
+
+            # Make background transparent (optional)
+            ax.set_facecolor('none')
+            fig.patch.set_facecolor('none')
 
         # Store references for event handling
         self.current_spectrogram_ax = ax
         self.current_spectrogram_fig = fig
         self.spectrogram_double_click_callback = double_click_callback
+
+        # Set major and minor ticks
+        major_ticks = list(range(1, int(stimes[-1] + 1), int(major_tick_step)))
+        minor_ticks = [x for x in range(0, int(stimes[-1] + 1), minor_tick_step) if x not in major_ticks]
+
+        # Set tick parameters
+        ax.tick_params(axis='x', which='major', direction='in')
+        ax.tick_params(axis='x', which='minor', direction='in')
+
+        # Set major and minor ticks
+        ax.set_xticks(major_ticks)
+        ax.set_xticks(minor_ticks, minor=True)
+
+        # Set labels only for major ticks
+        ax.set_xticklabels([f"{int(convert_time_f(x))} {time_axis_unit}" for x in major_ticks],
+                               fontsize=tick_label_fontsize)
+
+        if turn_axis_units_off:
+            ax.set_xticklabels([])
 
         # Customize plot
         if parent_widget:
@@ -591,26 +659,36 @@ class MultitaperSpectrogram:
             y_label = "F(Hz)"
             # color_bar_label = 'dB'
         else:
-            y_label = "Frequency (Hz)"
-            color_bar_label = 'PSD (dB)'
-            fig.colorbar(im, ax=ax, label=color_bar_label, shrink=0.8)
+            if not axis_only:
+                if parent_widget:
+                    y_label = "F(Hz)"
+                else:
+                    y_label = "Frequency (Hz)"
+                    color_bar_label = 'PSD (dB)'
+                    fig.colorbar(im, ax=ax, label=color_bar_label, shrink=0.8)
 
         # fig.colorbar(im, ax=ax, label=color_bar_label, shrink=0.8)
-        ax.set_xlabel("Time (HH:MM:SS)")
-        ax.set_ylabel(y_label)
-        cmap = self.spectrogram_colormap
-        im.set_cmap(cmap)
-        ax.invert_yaxis()
+        if not axis_only:
+            ax.set_xlabel("Time (HH:MM:SS)")
+            ax.set_ylabel(y_label)
+            cmap = self.spectrogram_colormap
+            im.set_cmap(cmap)
+            ax.invert_yaxis()
 
-        ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} Hz"))
-        if use_y_ticks:
-            yticks = ax.get_yticks()
-            ax.set_yticklabels([f"{int(y)} Hz" for y in yticks])
-        ax.tick_params(axis='y', labelsize=label_fontsize)
+        if not axis_only:
+            ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} Hz"))
+            if use_y_ticks:
+                yticks = ax.get_yticks()
+                ax.set_yticklabels([f"{int(y)} Hz" for y in yticks])
+                ax.tick_params(axis='y', labelsize=label_fontsize)
 
-        if self.clim_scale:
+        if self.clim_scale and not axis_only:
             clim = np.percentile(spect_data, [5, 98])
             im.set_clim(clim)
+
+        # Ensure x and y labels aer the same size
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize)
+        ax.tick_params(axis='y', labelsize=tick_label_fontsize)
 
         # Embed canvas into the provided QWidget
         if parent_widget:
@@ -645,12 +723,13 @@ class MultitaperSpectrogram:
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
 
-            ax.set_xlabel("")
-            ax.set_ylabel("")
-            im.set_cmap(self.spectrogram_colormap)
-            ax.invert_yaxis()
+            if not axis_only:
+                ax.set_xlabel("")
+                ax.set_ylabel("")
+                im.set_cmap(self.spectrogram_colormap)
+                ax.invert_yaxis()
 
-            if self.clim_scale:
+            if self.clim_scale and not axis_only:
                clim = np.percentile(spect_data, [5, 98])
                im.set_clim(clim)
         elif parent_widget is None:
