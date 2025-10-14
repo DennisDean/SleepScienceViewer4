@@ -202,9 +202,15 @@ class SpectralWindow(QMainWindow):
         self.param_band_names = ['alpha', 'theta', 'alpha', 'sigma', 'beta', 'gamma']
         self.param_band_dict:dict|None = None
 
-
-
-
+        # Setting Dictionaries
+        self.setting_description_dict:dict|None = None
+        self.setting_description_names = ['description', 'output_suffix']
+        self.setting_signal_dict:dict|None = None
+        self.setting_signal_names = ['reference_method', 'analysis_signals', 'reference_signal']
+        self.setting_plotting_dict:dict|None = None
+        self.setting_plotting_names = ['show_x_labels']
+        self.setting_filter_dict:dict|None = None
+        self.setting_filter_names = ['apply_band', 'band_low', 'band_high', 'apply_notch', 'notch']
 
         # Set up window control
         self.setup_control_bar()
@@ -660,6 +666,11 @@ class SpectralWindow(QMainWindow):
                                       self.ui.comboBox_settings_analysis_sig5, self.ui.comboBox_settings_analysis_sig6,
                                       self.ui.comboBox_settings_analysis_sig7, self.ui.comboBox_settings_analysis_sig8,
                                       self.ui.comboBox_settings_analysis_sig9, self.ui.comboBox_settings_analysis_sig10]
+        self.reference_signal_combo_boxes = [self.ui.comboBox_settings_ref_sig1, self.ui.comboBox_settings_ref_sig2,
+                                      self.ui.comboBox_settings_ref_sig3, self.ui.comboBox_settings_ref_sig4,
+                                      self.ui.comboBox_settings_ref_sig5, self.ui.comboBox_settings_ref_sig6,
+                                      self.ui.comboBox_settings_ref_sig7, self.ui.comboBox_settings_ref_sig8,
+                                      self.ui.comboBox_settings_ref_sig9, self.ui.comboBox_settings_ref_sig10]
         self.results_graphic_views = [self.ui.graphicsView_results_1, self.ui.graphicsView_results_2,
                                       self.ui.graphicsView_results_3, self.ui.graphicsView_results_4,
                                       self.ui.graphicsView_results_5, self.ui.graphicsView_results_6,
@@ -698,7 +709,7 @@ class SpectralWindow(QMainWindow):
         logger.info(f'Preparing to compute spectrograms.')
 
         # Get settings
-
+        setting_description_dict, setting_plotting_dict, setting_plotting_dict, setting_filter_dict = self.get_settings()
 
         # Get parameters
         noise_param_dict, taper_param_dict, band_params_dict = self.get_parameters()
@@ -771,6 +782,58 @@ class SpectralWindow(QMainWindow):
 
         # Turn off busy cursor
         QApplication.restoreOverrideCursor()
+    def get_settings(self)->tuple[dict,dict,dict,dict]:
+        # Create setting description dictionary
+        setting_description_dict = {}
+        setting_description_names = self.setting_description_names
+        setting_description_cb = [self.ui.plainTextEdit_settings_description,
+                                  self.ui.plainTextEdit_settings_output_suffix]
+        for setting_param in zip(setting_description_names, setting_description_cb):
+            name, cb = setting_param
+            setting_description_dict[name] = cb.toPlainText()
+        print(setting_description_dict)
+
+        # Signals
+        reference_method = self.ui.comboBox_settings_reference_method.currentText()
+
+        # Analysis Signal Label
+        analysis_signal_labels = []
+        for cb in self.analyis_signal_combo_boxes:
+            analysis_signal_labels.append(cb.currentText())
+        analysis_signal_labels = [s for s in analysis_signal_labels if s.strip()]
+        self.analysis_signal_labels = analysis_signal_labels
+        print(analysis_signal_labels)
+
+        # Reference Signal Label
+        reference_signal_labels = []
+        for cb in self.reference_signal_combo_boxes:
+            reference_signal_labels.append(cb.currentText())
+        reference_signal_labels = [s for s in reference_signal_labels if s.strip()]
+        self.reference_signal_labels = reference_signal_labels
+        print(reference_signal_labels)
+
+        setting_signal_dict = {}
+        setting_signal_dict['reference_method'] = reference_method
+        setting_signal_dict['analysis_signals'] = analysis_signal_labels
+        setting_signal_dict['reference_signal'] = reference_signal_labels
+        print(setting_signal_dict)
+
+        # Plotting
+        setting_plotting_dict = {}
+        setting_plotting_dict['show_x_labels'] = self.ui.checkBox_plotting_xlabels.isChecked()
+        print(setting_plotting_dict)
+
+        # Filter
+        setting_filter_dict = {}
+        setting_filter_dict['apply_band'] = self.ui.checkBox_settings_band.isChecked()
+        safe_float_f = lambda x: float(x) if x.strip() else None
+        setting_filter_dict['band_low'] = safe_float_f(self.ui.comboBox_settings_band_low.currentText())
+        setting_filter_dict['band_high'] = safe_float_f(self.ui.comboBox_settings_band_high.currentText())
+        setting_filter_dict['apply_notch'] = self.ui.checkBox_settings_notch.isChecked()
+        setting_filter_dict['notch'] = safe_float_f(self.ui.comboBox_settings_notch.currentText())
+        print(setting_filter_dict)
+
+        return setting_description_dict, setting_plotting_dict, setting_plotting_dict, setting_filter_dict
     def get_parameters(self):
         # Noise Detection
         names = self.param_noise_names

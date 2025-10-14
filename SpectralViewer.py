@@ -180,6 +180,14 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_s.addWidget(self.label_7)
 
+        self.label_53 = QLabel(self.centralwidget)
+        self.label_53.setObjectName(u"label_53")
+        font = QFont()
+        font.setPointSize(10)
+        self.label_53.setFont(font)
+
+        self.verticalLayout_s.addWidget(self.label_53)
+
         self.plainTextEdit_settings_description = QPlainTextEdit(self.centralwidget)
         self.plainTextEdit_settings_description.setObjectName(u"plainTextEdit_settings_description")
         sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
@@ -201,8 +209,6 @@ class Ui_MainWindow(object):
         self.label_14.setSizePolicy(sizePolicy5)
         self.label_14.setMinimumSize(QSize(100, 20))
         self.label_14.setMaximumSize(QSize(100, 20))
-        font = QFont()
-        font.setPointSize(10)
         self.label_14.setFont(font)
 
         self.verticalLayout_s.addWidget(self.label_14)
@@ -229,6 +235,17 @@ class Ui_MainWindow(object):
         self.label_15.setObjectName(u"label_15")
 
         self.verticalLayout_s.addWidget(self.label_15)
+
+        self.label_52 = QLabel(self.centralwidget)
+        self.label_52.setObjectName(u"label_52")
+        sizePolicy5.setHeightForWidth(self.label_52.sizePolicy().hasHeightForWidth())
+        self.label_52.setSizePolicy(sizePolicy5)
+        self.label_52.setMinimumSize(QSize(150, 0))
+        self.label_52.setMaximumSize(QSize(150, 16777215))
+        self.label_52.setFont(font)
+        self.label_52.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_s.addWidget(self.label_52, 0, Qt.AlignHCenter)
 
         self.comboBox_settings_reference_method = QComboBox(self.centralwidget)
         self.comboBox_settings_reference_method.setObjectName(u"comboBox_settings_reference_method")
@@ -678,6 +695,15 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_17.addWidget(self.comboBox_parameters_noise_delta, 0, Qt.AlignRight)
 
+        self.label_50 = QLabel(self.centralwidget)
+        self.label_50.setObjectName(u"label_50")
+        sizePolicy5.setHeightForWidth(self.label_50.sizePolicy().hasHeightForWidth())
+        self.label_50.setSizePolicy(sizePolicy5)
+        self.label_50.setMinimumSize(QSize(20, 20))
+        self.label_50.setMaximumSize(QSize(20, 20))
+
+        self.horizontalLayout_17.addWidget(self.label_50)
+
 
         self.horizontalLayout_13.addLayout(self.horizontalLayout_17)
 
@@ -716,6 +742,11 @@ class Ui_MainWindow(object):
         self.comboBox_parameters_noise_beta.setLayoutDirection(Qt.LeftToRight)
 
         self.horizontalLayout_15.addWidget(self.comboBox_parameters_noise_beta, 0, Qt.AlignRight)
+
+        self.label_51 = QLabel(self.centralwidget)
+        self.label_51.setObjectName(u"label_51")
+
+        self.horizontalLayout_15.addWidget(self.label_51)
 
 
         self.verticalLayout_error_detection.addLayout(self.horizontalLayout_15)
@@ -784,6 +815,15 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_37.addWidget(self.comboBox_parameters_taper_window, 0, Qt.AlignRight)
 
+        self.label_48 = QLabel(self.centralwidget)
+        self.label_48.setObjectName(u"label_48")
+        sizePolicy5.setHeightForWidth(self.label_48.sizePolicy().hasHeightForWidth())
+        self.label_48.setSizePolicy(sizePolicy5)
+        self.label_48.setMinimumSize(QSize(20, 20))
+        self.label_48.setMaximumSize(QSize(20, 20))
+
+        self.horizontalLayout_37.addWidget(self.label_48)
+
 
         self.verticalLayout_window_size.addLayout(self.horizontalLayout_37)
 
@@ -818,6 +858,15 @@ class Ui_MainWindow(object):
         self.comboBox_parameters_taper_step.setMaximumSize(QSize(50, 16777215))
 
         self.horizontalLayout_35.addWidget(self.comboBox_parameters_taper_step, 0, Qt.AlignRight)
+
+        self.label_49 = QLabel(self.centralwidget)
+        self.label_49.setObjectName(u"label_49")
+        sizePolicy5.setHeightForWidth(self.label_49.sizePolicy().hasHeightForWidth())
+        self.label_49.setSizePolicy(sizePolicy5)
+        self.label_49.setMinimumSize(QSize(20, 20))
+        self.label_49.setMaximumSize(QSize(20, 20))
+
+        self.horizontalLayout_35.addWidget(self.label_49)
 
 
         self.verticalLayout_window_size.addLayout(self.horizontalLayout_35)
@@ -1709,8 +1758,10 @@ class Ui_MainWindow(object):
         self.pushButton_control_markings.setText(QCoreApplication.translate("MainWindow", u"Markings", None))
         self.pushButton_control_figures.setText(QCoreApplication.translate("MainWindow", u"Figures", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Description", None))
+        self.label_53.setText(QCoreApplication.translate("MainWindow", u"Brief Description", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Output Suffix", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Reference Method", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Signals", None))
+        self.label_52.setText(QCoreApplication.translate("MainWindow", u"Reference Method", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Analysis", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Reference", None))
         self.label_47.setText(QCoreApplication.translate("MainWindow", u"Plotting", None))
@@ -1724,14 +1775,18 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Noise Detection (30s)", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u0394 (0.6-4.6Hz)", None))
         self.label_5.setText("")
+        self.label_50.setText(QCoreApplication.translate("MainWindow", u"Hz", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"\u0392 (40-60Hz)", None))
         self.label_26.setText("")
+        self.label_51.setText(QCoreApplication.translate("MainWindow", u"Hz", None))
         self.label_28.setText(QCoreApplication.translate("MainWindow", u"Multi-taper", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Spectral Epoch", None))
         self.label_31.setText("")
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Window", None))
+        self.label_48.setText(QCoreApplication.translate("MainWindow", u"s", None))
         self.label_32.setText("")
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"Step", None))
+        self.label_49.setText(QCoreApplication.translate("MainWindow", u"s", None))
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Multi-Processing", None))
         self.label_33.setText("")
         self.checkBox_2.setText(QCoreApplication.translate("MainWindow", u"# of CPUs", None))

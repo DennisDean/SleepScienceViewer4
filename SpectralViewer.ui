@@ -262,6 +262,18 @@
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="label_53">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Brief Description</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPlainTextEdit" name="plainTextEdit_settings_description">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -357,7 +369,40 @@
             <item>
              <widget class="QLabel" name="label_15">
               <property name="text">
+               <string>Signals</string>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QLabel" name="label_52">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
                <string>Reference Method</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
