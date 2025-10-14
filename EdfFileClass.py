@@ -1040,7 +1040,8 @@ class EdfSignal:
     def __str__(self):
         return f'EDF Signal: {self.signal_type}, {self.signal_label}, # of pts = {len(self.signal)} '
 class EdfSignalAnalysis:
-    def __init__(self, edf_signal_ob:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False):
+    def __init__(self, edf_signal_ob:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False,
+                 window_params:list=[5,1], n_jobs:int=1, multiprocess:bool = False):
         if param_dict is None:
             param_dict = {}
 
@@ -1048,13 +1049,21 @@ class EdfSignalAnalysis:
         self.param_dict = param_dict
         self.completed_analyses = []
         self.verbose = verbose
+
+        # Get multi-taper variables if avaialble
+        self.mt_window_params = window_params
+        self.mt_n_jobs = n_jobs
+        self.mt_multiprocess = multiprocess
     def multitapper_spectrogram(self):
         # Multitapper Spectrogram Parameters
         data = np.array(self.edf_signal_ob.signal)       # Numpy signal
         fs   = 1/self.edf_signal_ob.signal_sampling_time # Sampling frequency in hz
 
         # Compute spectrogram
-        multi_taper_spectrum_obj = MultitaperSpectrogram(data, fs)
+        multi_taper_spectrum_obj = MultitaperSpectrogram(data, fs,
+                                                         window_params=self.mt_window_params,
+                                                         n_jobs=self.mt_n_jobs,
+                                                         multiprocess=self.mt_multiprocess)
         multi_taper_spectrum_obj.compute_spectrogram()
         self.completed_analyses.append('Multitaper Analysis')
 

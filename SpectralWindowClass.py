@@ -709,15 +709,19 @@ class SpectralWindow(QMainWindow):
         logger.info(f'Preparing to compute spectrograms.')
 
         # Get settings
-        setting_description_dict, setting_plotting_dict, setting_plotting_dict, setting_filter_dict = self.get_settings()
+        setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict = self.get_settings()
+        analysis_signal_labels = setting_signal_dict['analysis_signals']
+        self.analysis_signal_labels = analysis_signal_labels
+        if not analysis_signal_labels:
+            logger.info('Aborting spectral analysis: No analysis signals selected.')
+            return
 
         # Get parameters
         noise_param_dict, taper_param_dict, band_params_dict = self.get_parameters()
         noise_delta = noise_param_dict['delta']
         noise_beta = noise_param_dict['beta']
         n_jobs = taper_param_dict['num_cpus']
-        window = taper_param_dict['window']
-        step = taper_param_dict['step']
+        window_params = [taper_param_dict['window'], taper_param_dict['step']]
         multiprocess = False if n_jobs >= 1 else True
 
         # Turn on busy cursor
@@ -725,13 +729,6 @@ class SpectralWindow(QMainWindow):
 
         # Check if x-labels
         turn_axis_units_off = not self.ui.checkBox_plotting_xlabels.isChecked()
-
-        # Get signals to analyze
-        analysis_signal_labels = []
-        for cb in self.analyis_signal_combo_boxes:
-            analysis_signal_labels.append(cb.currentText())
-        analysis_signal_labels = [s for s in analysis_signal_labels if s.strip()]
-        self.analysis_signal_labels = analysis_signal_labels
 
         # Compute each signal
         spectrogram_obj_list = []
@@ -743,7 +740,8 @@ class SpectralWindow(QMainWindow):
             # Setup and compute spectrogram
             signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
             # signal_analysis_obj = EdfSignalAnalysis(signal_obj,multiprocess=multiprocess, n_jobs=n_jobs)
-            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj, multiprocess=multiprocess, n_jobs=n_jobs,
+                                                    window_params=window_params)
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
             # Plot spectrogram
@@ -791,7 +789,6 @@ class SpectralWindow(QMainWindow):
         for setting_param in zip(setting_description_names, setting_description_cb):
             name, cb = setting_param
             setting_description_dict[name] = cb.toPlainText()
-        print(setting_description_dict)
 
         # Signals
         reference_method = self.ui.comboBox_settings_reference_method.currentText()
@@ -802,7 +799,6 @@ class SpectralWindow(QMainWindow):
             analysis_signal_labels.append(cb.currentText())
         analysis_signal_labels = [s for s in analysis_signal_labels if s.strip()]
         self.analysis_signal_labels = analysis_signal_labels
-        print(analysis_signal_labels)
 
         # Reference Signal Label
         reference_signal_labels = []
@@ -810,18 +806,15 @@ class SpectralWindow(QMainWindow):
             reference_signal_labels.append(cb.currentText())
         reference_signal_labels = [s for s in reference_signal_labels if s.strip()]
         self.reference_signal_labels = reference_signal_labels
-        print(reference_signal_labels)
 
         setting_signal_dict = {}
         setting_signal_dict['reference_method'] = reference_method
         setting_signal_dict['analysis_signals'] = analysis_signal_labels
         setting_signal_dict['reference_signal'] = reference_signal_labels
-        print(setting_signal_dict)
 
         # Plotting
         setting_plotting_dict = {}
         setting_plotting_dict['show_x_labels'] = self.ui.checkBox_plotting_xlabels.isChecked()
-        print(setting_plotting_dict)
 
         # Filter
         setting_filter_dict = {}
@@ -831,22 +824,19 @@ class SpectralWindow(QMainWindow):
         setting_filter_dict['band_high'] = safe_float_f(self.ui.comboBox_settings_band_high.currentText())
         setting_filter_dict['apply_notch'] = self.ui.checkBox_settings_notch.isChecked()
         setting_filter_dict['notch'] = safe_float_f(self.ui.comboBox_settings_notch.currentText())
-        print(setting_filter_dict)
 
-        return setting_description_dict, setting_plotting_dict, setting_plotting_dict, setting_filter_dict
+        return setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict
     def get_parameters(self):
         # Noise Detection
         names = self.param_noise_names
         cbs = [self.ui.comboBox_parameters_noise_delta, self.ui.comboBox_parameters_noise_beta]
         noise_param_dict = self.create_param_dict(names, cbs, float)
-        print(noise_param_dict)
 
         # Multi-taper
         param_taper_names = self.param_taper_names
         taper_cbs = [self.ui.comboBox_parameters_taper_window, self.ui.comboBox_parameters_taper_step,
                      self.ui.comboBox_parameters_taper_num_cpus]
         taper_param_dict = self.create_param_dict(param_taper_names, taper_cbs, float)
-        print(taper_param_dict)
 
         # Spectral bands - Create a dictionary to create bands
         band_params_dict = {}
@@ -855,7 +845,6 @@ class SpectralWindow(QMainWindow):
             # Get band limits and add to parmeter dictionary
             band_name, band_low_cb, band_high_cb = band_limits
             band_params_dict[band_name] = [float(band_low_cb.currentText()), float(band_high_cb.currentText())]
-        print(band_params_dict)
 
         return noise_param_dict, taper_param_dict, band_params_dict
     def create_param_dict(self, names:list[str], cbs:list, convert_f:Callable=lambda x:x)->dict:
