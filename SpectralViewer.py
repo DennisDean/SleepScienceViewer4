@@ -99,10 +99,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_36.addWidget(self.pushButton_control_compute)
 
-        self.pushButton_spectrum = QPushButton(self.centralwidget)
-        self.pushButton_spectrum.setObjectName(u"pushButton_spectrum")
+        self.pushButton_control_spectrum_average = QPushButton(self.centralwidget)
+        self.pushButton_control_spectrum_average.setObjectName(u"pushButton_control_spectrum_average")
 
-        self.horizontalLayout_36.addWidget(self.pushButton_spectrum)
+        self.horizontalLayout_36.addWidget(self.pushButton_control_spectrum_average)
 
         self.label_39 = QLabel(self.centralwidget)
         self.label_39.setObjectName(u"label_39")
@@ -1757,7 +1757,7 @@ class Ui_MainWindow(object):
         self.checkBox_control_coherence.setText(QCoreApplication.translate("MainWindow", u"Coherence", None))
         self.label_38.setText("")
         self.pushButton_control_compute.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
-        self.pushButton_spectrum.setText(QCoreApplication.translate("MainWindow", u"Spectrum", None))
+        self.pushButton_control_spectrum_average.setText(QCoreApplication.translate("MainWindow", u"Spectrum", None))
         self.label_39.setText("")
         self.pushButton_control_hypnogram.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.pushButton_control_spectrogram.setText(QCoreApplication.translate("MainWindow", u"Spectrogram", None))

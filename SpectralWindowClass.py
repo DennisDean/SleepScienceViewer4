@@ -253,6 +253,7 @@ class SpectralWindow(QMainWindow):
         # Set up summary
         self.setup_summarize()
 
+
     # Setup
     def setup_menu(self):
         # Create function make menu selection a toggle switch
@@ -292,7 +293,9 @@ class SpectralWindow(QMainWindow):
         self.ui.pushButton_control_hypnogram.toggled.connect(show_layout_hypnogram)
         self.ui.pushButton_control_markings.toggled.connect(show_layout_markings)
 
-        # Add signals to combobox
+        # Turn off Spectrum
+        self.ui.pushButton_control_spectrum_average.setEnabled(False)
+        self.ui.pushButton_control_spectrum_average.clicked.connect(self.compute_and_display_spectrogram)
     def setup_settings(self):
         # Log status
         logger.info(f'Preparing setting options')
@@ -550,6 +553,9 @@ class SpectralWindow(QMainWindow):
 
             # Turn on Legend Pushbutton
             self.ui.pushButton_spectrogram_legend.setEnabled(True)
+
+            # TODO: Delete
+            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
     def on_spectrogram_double_click(self, x_value, _y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
@@ -872,7 +878,7 @@ class SpectralWindow(QMainWindow):
         self.band_params_dict = band_params_dict
 
         # Turn on summarize button
-        self.ui.pushButton_control_spectrogram.setEnabled(True)
+        self.ui.pushButton_control_spectrum_average.setEnabled(True)
 
         # Turn off busy cursor
         QApplication.restoreOverrideCursor()
@@ -880,14 +886,22 @@ class SpectralWindow(QMainWindow):
     # Summarize
     def setup_summarize(self):
         # Turn off spectrum button
-        self.ui.pushButton_control_spectrogram.setEnabled(False)
-        self.ui.pushButton_control_spectrogram.clicked.connect(self.summarize_by_stage)
+        self.ui.pushButton_control_spectrum_average.setEnabled(False)
+        self.ui.pushButton_control_spectrum_average.clicked.connect(self.summarize_by_stage)
 
         #
 
 
     def summarize_by_stage(self):
         # Update log file
-        logger.log('Summarize spectrogram by stage.')
+        logger.info('Summarize spectrogram by stage.')
+        print('test')
 
         # Check if spectrogram is avaialble
+        print(self.multitaper_spectrogram_obj)
+        multi_taper_spec_reult_dict = self.multitaper_spectrogram_obj.get_multi_taper_results()
+        print(multi_taper_spec_reult_dict)
+        turn_axis_units_off = True
+        p_widget = self.ui.graphicsView_results_1
+        self.multitaper_spectrogram_obj.plot_spectral_summary(parent_widget=p_widget,
+                                                              turn_axis_units_off=turn_axis_units_off)

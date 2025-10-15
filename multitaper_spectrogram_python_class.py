@@ -1134,6 +1134,7 @@ class MultitaperSpectrogram:
 
         # Get spectral summary data
         spectral_summary, spectrogram_std = self.compute_spectral_summary()
+        print(spectral_summary, spectrogram_std)
         if spectral_summary is None:
             logger.warning("No spectral summary available to plot")
             return
@@ -1213,8 +1214,6 @@ class MultitaperSpectrogram:
             if not axis_only:
                 ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
                 ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
-
-
 
     # HELPER FUNCTIONS
     @staticmethod
