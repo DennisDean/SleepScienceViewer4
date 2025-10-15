@@ -170,7 +170,6 @@ class SpectralWindow(QMainWindow):
     def __init__(self, edf_obj:EdfFile=None, xml_obj:AnnotationXml=None, parent=None):
         super().__init__(parent)
 
-
         # Setup and Draw Window
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -235,12 +234,24 @@ class SpectralWindow(QMainWindow):
         self.spectral_bands_low_cb:list|None = None
         self.spectral_bands_high_cb:list|None = None
 
+        # Settings and Parameter dictionaries
+        self.setting_description_dict:dict|None = None
+        self.setting_signal_dict:dict|None = None
+        self.setting_plotting_dict:dict|None = None
+        self.setting_filter_dict:dict|None = None
+        self.noise_param_dict:dict|None = None
+        self.taper_param_dict:dict|None = None
+        self.band_params_dict:dict|None = None
+
         # Set up analysis
         self.analyis_signal_labels:list|None = None
         self.analyis_signal_combo_boxes:list|None = None
         self.results_graphic_views:list|None = None
         self.result_layouts:list|None = None
         self.setup_analysis()
+
+        # Set up summary
+        self.setup_summarize()
 
     # Setup
     def setup_menu(self):
@@ -697,6 +708,79 @@ class SpectralWindow(QMainWindow):
                                       self.ui.comboBox_parameters_band_sigma_high,
                                       self.ui.comboBox_parameters_band_beta_high,
                                       self.ui.comboBox_parameters_band_gamma_high]
+    def get_settings(self)->tuple[dict,dict,dict,dict]:
+        # Create setting description dictionary
+        setting_description_dict = {}
+        setting_description_names = self.setting_description_names
+        setting_description_cb = [self.ui.plainTextEdit_settings_description,
+                                  self.ui.plainTextEdit_settings_output_suffix]
+        for setting_param in zip(setting_description_names, setting_description_cb):
+            name, cb = setting_param
+            setting_description_dict[name] = cb.toPlainText()
+
+        # Signals
+        reference_method = self.ui.comboBox_settings_reference_method.currentText()
+
+        # Analysis Signal Label
+        analysis_signal_labels = []
+        for cb in self.analyis_signal_combo_boxes:
+            analysis_signal_labels.append(cb.currentText())
+        analysis_signal_labels = [s for s in analysis_signal_labels if s.strip()]
+        self.analysis_signal_labels = analysis_signal_labels
+
+        # Reference Signal Label
+        reference_signal_labels = []
+        for cb in self.reference_signal_combo_boxes:
+            reference_signal_labels.append(cb.currentText())
+        reference_signal_labels = [s for s in reference_signal_labels if s.strip()]
+        self.reference_signal_labels = reference_signal_labels
+
+        setting_signal_dict = {}
+        setting_signal_dict['reference_method'] = reference_method
+        setting_signal_dict['analysis_signals'] = analysis_signal_labels
+        setting_signal_dict['reference_signal'] = reference_signal_labels
+
+        # Plotting
+        setting_plotting_dict = {}
+        setting_plotting_dict['show_x_labels'] = self.ui.checkBox_plotting_xlabels.isChecked()
+
+        # Filter
+        setting_filter_dict = {}
+        setting_filter_dict['apply_band'] = self.ui.checkBox_settings_band.isChecked()
+        safe_float_f = lambda x: float(x) if x.strip() else None
+        setting_filter_dict['band_low'] = safe_float_f(self.ui.comboBox_settings_band_low.currentText())
+        setting_filter_dict['band_high'] = safe_float_f(self.ui.comboBox_settings_band_high.currentText())
+        setting_filter_dict['apply_notch'] = self.ui.checkBox_settings_notch.isChecked()
+        setting_filter_dict['notch'] = safe_float_f(self.ui.comboBox_settings_notch.currentText())
+
+        return setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict
+    def get_parameters(self):
+        # Noise Detection
+        names = self.param_noise_names
+        cbs = [self.ui.comboBox_parameters_noise_delta, self.ui.comboBox_parameters_noise_beta]
+        noise_param_dict = self.create_param_dict(names, cbs, float)
+
+        # Multi-taper
+        param_taper_names = self.param_taper_names
+        taper_cbs = [self.ui.comboBox_parameters_taper_window, self.ui.comboBox_parameters_taper_step,
+                     self.ui.comboBox_parameters_taper_num_cpus]
+        taper_param_dict = self.create_param_dict(param_taper_names, taper_cbs, float)
+
+        # Spectral bands - Create a dictionary to create bands
+        band_params_dict = {}
+        param_band_names = self.param_band_names
+        for band_limits in zip(param_band_names, self.spectral_bands_low_cb, self.spectral_bands_high_cb):
+            # Get band limits and add to parmeter dictionary
+            band_name, band_low_cb, band_high_cb = band_limits
+            band_params_dict[band_name] = [float(band_low_cb.currentText()), float(band_high_cb.currentText())]
+
+        return noise_param_dict, taper_param_dict, band_params_dict
+    def create_param_dict(self, names:list[str], cbs:list, convert_f:Callable=lambda x:x)->dict:
+        param_dict = {}
+        for taper_bands in zip(names, cbs):
+            name, cb = taper_bands
+            param_dict[name] = convert_f(cb.currentText())
+        return param_dict
     def analyze_signal_list(self):
         # Check user if we should move forward
         process_signals = False
@@ -778,78 +862,29 @@ class SpectralWindow(QMainWindow):
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
         multitaper_spectrogram_obj.plot(graphics_view, turn_axis_units_off=turn_axis_units_off, axis_only=axis_only)
 
+        # Save settings and parameters dictionaries
+        self.setting_description_dict = setting_description_dict
+        self.setting_signal_dict = setting_signal_dict
+        self.setting_plotting_dict = setting_plotting_dict
+        self.setting_filter_dict = setting_filter_dict
+        self.noise_param_dict = noise_param_dict
+        self.taper_param_dict = taper_param_dict
+        self.band_params_dict = band_params_dict
+
+        # Turn on summarize button
+        self.ui.pushButton_control_spectrogram.setEnabled(True)
+
         # Turn off busy cursor
         QApplication.restoreOverrideCursor()
-    def get_settings(self)->tuple[dict,dict,dict,dict]:
-        # Create setting description dictionary
-        setting_description_dict = {}
-        setting_description_names = self.setting_description_names
-        setting_description_cb = [self.ui.plainTextEdit_settings_description,
-                                  self.ui.plainTextEdit_settings_output_suffix]
-        for setting_param in zip(setting_description_names, setting_description_cb):
-            name, cb = setting_param
-            setting_description_dict[name] = cb.toPlainText()
 
-        # Signals
-        reference_method = self.ui.comboBox_settings_reference_method.currentText()
+    # Summarize
+    def setup_summarize(self):
+        # Turn off spectrum button
+        self.ui.pushButton_control_spectrogram.setEnabled(False)
 
-        # Analysis Signal Label
-        analysis_signal_labels = []
-        for cb in self.analyis_signal_combo_boxes:
-            analysis_signal_labels.append(cb.currentText())
-        analysis_signal_labels = [s for s in analysis_signal_labels if s.strip()]
-        self.analysis_signal_labels = analysis_signal_labels
 
-        # Reference Signal Label
-        reference_signal_labels = []
-        for cb in self.reference_signal_combo_boxes:
-            reference_signal_labels.append(cb.currentText())
-        reference_signal_labels = [s for s in reference_signal_labels if s.strip()]
-        self.reference_signal_labels = reference_signal_labels
+    def summarize_by_stage(self):
+        # Update log file
+        logger.log('Summarize spectrogram by stage.')
 
-        setting_signal_dict = {}
-        setting_signal_dict['reference_method'] = reference_method
-        setting_signal_dict['analysis_signals'] = analysis_signal_labels
-        setting_signal_dict['reference_signal'] = reference_signal_labels
-
-        # Plotting
-        setting_plotting_dict = {}
-        setting_plotting_dict['show_x_labels'] = self.ui.checkBox_plotting_xlabels.isChecked()
-
-        # Filter
-        setting_filter_dict = {}
-        setting_filter_dict['apply_band'] = self.ui.checkBox_settings_band.isChecked()
-        safe_float_f = lambda x: float(x) if x.strip() else None
-        setting_filter_dict['band_low'] = safe_float_f(self.ui.comboBox_settings_band_low.currentText())
-        setting_filter_dict['band_high'] = safe_float_f(self.ui.comboBox_settings_band_high.currentText())
-        setting_filter_dict['apply_notch'] = self.ui.checkBox_settings_notch.isChecked()
-        setting_filter_dict['notch'] = safe_float_f(self.ui.comboBox_settings_notch.currentText())
-
-        return setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict
-    def get_parameters(self):
-        # Noise Detection
-        names = self.param_noise_names
-        cbs = [self.ui.comboBox_parameters_noise_delta, self.ui.comboBox_parameters_noise_beta]
-        noise_param_dict = self.create_param_dict(names, cbs, float)
-
-        # Multi-taper
-        param_taper_names = self.param_taper_names
-        taper_cbs = [self.ui.comboBox_parameters_taper_window, self.ui.comboBox_parameters_taper_step,
-                     self.ui.comboBox_parameters_taper_num_cpus]
-        taper_param_dict = self.create_param_dict(param_taper_names, taper_cbs, float)
-
-        # Spectral bands - Create a dictionary to create bands
-        band_params_dict = {}
-        param_band_names = self.param_band_names
-        for band_limits in zip(param_band_names, self.spectral_bands_low_cb, self.spectral_bands_high_cb):
-            # Get band limits and add to parmeter dictionary
-            band_name, band_low_cb, band_high_cb = band_limits
-            band_params_dict[band_name] = [float(band_low_cb.currentText()), float(band_high_cb.currentText())]
-
-        return noise_param_dict, taper_param_dict, band_params_dict
-    def create_param_dict(self, names:list[str], cbs:list, convert_f:Callable=lambda x:x)->dict:
-        param_dict = {}
-        for taper_bands in zip(names, cbs):
-            name, cb = taper_bands
-            param_dict[name] = convert_f(cb.currentText())
-        return param_dict
+        # Check if spectrogram is avaialble

@@ -214,19 +214,12 @@ class MultitaperSpectrogram:
         self.spectrogram_connection = []
         self.heatmap_connection    = []
 
-        # Color map information
-        #self.spectrogram_colormap = cc.rainbow4
-        # self.spectrogram_colormap = cc.cm["bgyw"]
-        # self.spectrogram_colormap = cmocean.cm.thermal
-
         # Create a custom color map
-        gradient_colors_1 = ["#FFB3BA", "#FFF5BA", "#BAE1FF", "#CBAACB"]  # Soft Pink, pale yellow, soft baby blue, muted lavendar
-        gradient_colors_2 = ['#D0F0C0', '#BAE1FF', '#CBAACB', '#B5EAD7'] #green - blue - pink, very gentle
-        gradient_colors_3 = ['#FFD6A5', '#FFF5BA', '#FFB3BA', '#FFDFD3'] # orange - yellow - pink
-        gradient_colors_4 = ['#E0BBE4', '#CBAACB', '#FFDFD3', '#F3EAC2'] # natural pastel with beige undertones
-        gradient_colors_5 = ['#FFE4B5', '#FFE4B5', '#FFB6C1', '#D8BFD8', '#B0E0E6', '#98FB98', '#3CB371']
-        custom_cmap_continuous = LinearSegmentedColormap.from_list("SleepViewerGradient", gradient_colors_5)
+        gradient_colors = ['#FFE4B5', '#FFE4B5', '#FFB6C1', '#D8BFD8', '#B0E0E6', '#98FB98', '#3CB371']
+        custom_cmap_continuous = LinearSegmentedColormap.from_list("SleepViewerGradient", gradient_colors)
         self.spectrogram_colormap = custom_cmap_continuous
+
+        # Spectrogram Result Dictionary
     # Manage connections
     def cleanup_events(self):
         for cid in self.spectrogram_connection:
