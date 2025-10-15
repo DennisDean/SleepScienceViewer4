@@ -22,7 +22,7 @@ import numpy as np
 import numpy.typing as npt
 from   scipy.signal.windows import dpss
 from   scipy.signal import detrend
-from   typing import Tuple, Literal, Optional
+from   typing import Tuple, Literal, Optional, Callable
 
 # Logistical Imports
 import warnings
@@ -47,6 +47,7 @@ import matplotlib.colors as mcolors
 
 # Interface
 from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
+from sympy.codegen.cnodes import sizeof
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -171,31 +172,30 @@ class MultitaperSpectrogram:
 
 
         # Computed taper parameters
-        self.winsize_samples: int|None                    = None    # number of samples in single time window
-        self.winstep_samples: Optional[int] |None                    = None    # number of samples in a single window step
-        self.window_start:Optional[np.ndarray]|None                   = None    # array of timestamps representing the beginning time for each window
-        self.num_windows: int|None                        = None    # Number of windows in the data
-        self.nfft:int|None                                = None    # length of signal to calculate fft on
+        self.winsize_samples: int|None = None    # number of samples in single time window
+        self.winstep_samples: Optional[int] |None = None    # number of samples in a single window step
+        self.window_start:Optional[np.ndarray]|None = None    # array of timestamps representing the beginning time for each window
+        self.num_windows: int|None = None    # Number of windows in the data
+        self.nfft:int|None  = None    # length of signal to calculate fft on
 
         self.window_start: Optional[np.ndarray] = None        # array of timestamps representing the beginning time for each                                           window -- required
-        self.datawin_size: Optional[float]|None                     = None    # seconds in one window -- required
+        self.datawin_size: Optional[float]|None = None    # seconds in one window -- required
         self.data_window_params: Optional[Tuple[float, float]] = None # [window length(s), window step size(s)] - - required
 
-        self.window_idxs = None
-        self.freq_inds = None
-
+        self.window_idxs:list = None
+        self.freq_inds:list = None
 
         # Store Result information
-        self.mt_spectrogram          = None
-        self.stimes                  = None
-        self.sfreqs                  = None
-        self.spectrogram_computed    = None
+        self.mt_spectrogram:list = None
+        self.stimes:list = None
+        self.sfreqs:list = None
+        self.spectrogram_computed:bool = None
 
         # Visualization Variables
-        self.current_spectrogram_ax            = None
-        self.current_spectrogram_fig           = None
-        self.current_spectrogram_canvas        = None
-        self.spectrogram_double_click_callback = None
+        self.current_spectrogram_ax:Optional[Axes] = None
+        self.current_spectrogram_fig: Optional[Figure] = None
+        self.current_spectrogram_canvas: Optional[FigureCanvasTkAgg] = None
+        self.spectrogram_double_click_callback: Optional[Callable] = None
 
         # Save heatmap data and parameters for legend
         self.heatmap_data                      = None
@@ -1073,6 +1073,148 @@ class MultitaperSpectrogram:
         ]:
             if not hasattr(self, attr):
                 setattr(self, attr, None)
+
+    # Summary function
+    def get_multi_taper_results(self):
+        multi_taper_result_dict = {'spectrogram':None, 'spectral_times':None,
+                                   'spectral_frequency':None, 'spectrogram_computed':False }
+        if self.spectrogram_computed:
+            spectrogram_result_dict = {}
+            spectrogram_result_dict['spectrogram'] = self.mt_spectrogram
+            spectrogram_result_dict['spectral_times'] = self.stimes
+            spectrogram_result_dict['spectral_frequency'] = self.sfreqs
+            spectrogram_result_dict['spectrogram_computed'] = True
+        return multi_taper_result_dict
+    def get_multi_taper_properties(self):
+        # Get properties
+        fs = self.fs
+        time_bandwidth = self.time_bandwidth
+        num_tapers = self.num_tapers
+        data_window_params = self.data_window_params
+        frequency_range = self.frequency_range
+        nfft = self.nfft
+        detrend_opt = self.detrend_opt
+
+        # Compute (normalize) data window params
+        data_window_params = np.asarray(data_window_params) / fs
+
+        multi_taper_param_dict = {'spectral_resolution':None,'window_length':None,'window_step':None,
+                                  'time_half_bandwidth_product':None,'number_of_tapers':None,
+                                  'frequency_range':None,'nfft':None,'detrend':None}
+        if self.spectrogram_computed:
+            multi_taper_param_dict['spectral_resolution'] = 2 * time_bandwidth / data_window_params[0]
+            multi_taper_param_dict['window_length'] = data_window_params[0]
+            multi_taper_param_dict['window_step'] = data_window_params[1]
+            multi_taper_param_dict['time_half_bandwidth_product'] = time_bandwidth
+            multi_taper_param_dict['number_of_tapers'] = num_tapers
+            multi_taper_param_dict['frequency_range'] = [frequency_range[0], frequency_range[1]]
+            multi_taper_param_dict['nfft'] = nfft
+            multi_taper_param_dict['detrend'] = detrend_opt
+        return multi_taper_param_dict
+    def compute_spectral_summary(self):
+        logger.info('Computing spectral summary by stage')
+        if not self.spectrogram_computed:
+            return None
+
+        mt_spectrogram = self.mt_spectrogram
+        spectrogram_np = np.array(mt_spectrogram)
+        spectrogram_avg = np.mean(spectrogram_np, axis=1)
+        spectrogram_std = np.std(spectrogram_np, axis=1, ddof=1)
+        return spectrogram_avg, spectrogram_std
+    def plot_spectral_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
+                              axis_only: bool = False):
+        """Plot 1D spectral summary (average power across frequencies)"""
+
+        # Cleanup handlers
+        self.cleanup_events()
+
+        # Define plotting variables
+        label_fontsize = 8
+        tick_label_fontsize = 8
+
+        # Get spectral summary data
+        spectral_summary, spectrogram_std = self.compute_spectral_summary()
+        if spectral_summary is None:
+            logger.warning("No spectral summary available to plot")
+            return
+
+        sfreqs = self.sfreqs
+
+        # Convert to dB if needed
+        summary_db = self.nanpow2db(spectral_summary)
+
+        # Create the figure and canvas
+        fig = Figure()
+        ax = fig.add_subplot(111)
+
+        if not axis_only:
+            # Plot the 1D spectral summary
+            line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
+            ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
+            ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
+            ax.grid(True, alpha=0.3)
+        else:
+            # Minimal axis for alignment
+            ax.plot(sfreqs, summary_db, alpha=0)
+            ax.set_xlim(sfreqs[0], sfreqs[-1])
+
+            # Hide all spines except bottom
+            for spine in ax.spines.values():
+                spine.set_visible(False)
+            ax.spines['bottom'].set_visible(True)
+
+            # Hide y-axis
+            ax.get_yaxis().set_visible(False)
+
+            # Make background transparent
+            ax.set_facecolor('none')
+            fig.patch.set_facecolor('none')
+
+        # Store references
+        self.current_spectrogram_ax = ax
+        self.current_spectrogram_fig = fig
+        self.current_spectrogram_canvas = None
+
+        # Set tick parameters
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize)
+        ax.tick_params(axis='y', labelsize=tick_label_fontsize)
+
+        if turn_axis_units_off:
+            ax.set_xticklabels([])
+
+        # Embed canvas into the provided QWidget
+        if parent_widget:
+            canvas = FigureCanvas(fig)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+            canvas.updateGeometry()
+
+            # Store canvas reference
+            self.current_spectrogram_canvas = canvas
+
+            # Adjust figure margins
+            fig.subplots_adjust(left=0.1, right=0.95, top=0.95, bottom=0.1)
+
+            # Remove existing layout and widgets
+            existing_layout = parent_widget.layout()
+            if existing_layout:
+                while existing_layout.count():
+                    item = existing_layout.takeAt(0)
+                    widget = item.widget()
+                    if widget is not None:
+                        widget.setParent(None)
+            else:
+                existing_layout = QVBoxLayout(parent_widget)
+                parent_widget.setLayout(existing_layout)
+
+            # Add new canvas
+            existing_layout.setContentsMargins(0, 0, 0, 0)
+            existing_layout.addWidget(canvas)
+
+            if not axis_only:
+                ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
+                ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
+
+
 
     # HELPER FUNCTIONS
     @staticmethod

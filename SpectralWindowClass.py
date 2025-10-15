@@ -881,6 +881,9 @@ class SpectralWindow(QMainWindow):
     def setup_summarize(self):
         # Turn off spectrum button
         self.ui.pushButton_control_spectrogram.setEnabled(False)
+        self.ui.pushButton_control_spectrogram.clicked.connect(self.summarize_by_stage)
+
+        #
 
 
     def summarize_by_stage(self):
