@@ -909,5 +909,6 @@ class SpectralWindow(QMainWindow):
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off)
 
+
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)
