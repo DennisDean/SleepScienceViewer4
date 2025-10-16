@@ -301,7 +301,7 @@ class SpectralWindow(QMainWindow):
             toggle_function, layout_control_button = layout_tupple
             is_checked = layout_control_button.isChecked()
             toggle_function(is_checked)
-            layout_control_button.toggled.connect(show_layout_spectrogram)
+            layout_control_button.toggled.connect(toggle_function)
 
     def setup_settings(self):
         # Log status

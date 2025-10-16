@@ -1179,8 +1179,11 @@ class MultitaperSpectrogram:
         self.current_spectrogram_canvas = None
 
         # Set tick parameters
-        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in')
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in', pad=-9)
         ax.tick_params(axis='y', labelsize=tick_label_fontsize, direction='in')
+        for label in ax.get_xticklabels():
+            label.set_text(f' {label.get_text()}')
+            label.set_horizontalalignment('left')
 
         if turn_axis_units_off:
             ax.set_xticklabels([])
@@ -1195,7 +1198,7 @@ class MultitaperSpectrogram:
             self.current_spectrogram_canvas = canvas
 
             # Adjust figure margins
-            fig.subplots_adjust(left=0.1, right=0.95, top=0.95, bottom=0.1)
+            fig.subplots_adjust(left=0.1, right=0.95, top=0.95, bottom=0.15)
 
             # Remove existing layout and widgets
             existing_layout = parent_widget.layout()
