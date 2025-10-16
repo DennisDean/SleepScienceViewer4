@@ -1129,8 +1129,10 @@ class MultitaperSpectrogram:
         self.cleanup_events()
 
         # Define plotting variables
-        label_fontsize = 8
-        tick_label_fontsize = 8
+        label_fontsize = 6
+        tick_label_fontsize = 6
+        x_label_text = "Frequency (Hz)"
+        y_label_text = "Average PSD (dB)"
 
         # Get spectral summary data
         spectral_summary, spectrogram_std = self.compute_spectral_summary()
@@ -1151,8 +1153,8 @@ class MultitaperSpectrogram:
         if not axis_only:
             # Plot the 1D spectral summary
             line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
-            ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
-            ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
+            ax.set_xlabel(x_label_text, fontsize=label_fontsize)
+            ax.set_ylabel(y_label_text, fontsize=label_fontsize)
             ax.grid(True, alpha=0.3)
         else:
             # Minimal axis for alignment
@@ -1177,8 +1179,8 @@ class MultitaperSpectrogram:
         self.current_spectrogram_canvas = None
 
         # Set tick parameters
-        ax.tick_params(axis='x', labelsize=tick_label_fontsize)
-        ax.tick_params(axis='y', labelsize=tick_label_fontsize)
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in')
+        ax.tick_params(axis='y', labelsize=tick_label_fontsize, direction='in')
 
         if turn_axis_units_off:
             ax.set_xticklabels([])

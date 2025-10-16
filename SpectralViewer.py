@@ -71,7 +71,7 @@ class Ui_MainWindow(object):
         self.pushButton_control_parameters.setMinimumSize(QSize(0, 25))
         self.pushButton_control_parameters.setMaximumSize(QSize(16777215, 25))
         self.pushButton_control_parameters.setCheckable(True)
-        self.pushButton_control_parameters.setChecked(True)
+        self.pushButton_control_parameters.setChecked(False)
 
         self.horizontalLayout_36.addWidget(self.pushButton_control_parameters)
 
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
         self.pushButton_control_spectrogram = QPushButton(self.centralwidget)
         self.pushButton_control_spectrogram.setObjectName(u"pushButton_control_spectrogram")
         self.pushButton_control_spectrogram.setCheckable(True)
-        self.pushButton_control_spectrogram.setChecked(True)
+        self.pushButton_control_spectrogram.setChecked(False)
 
         self.horizontalLayout_36.addWidget(self.pushButton_control_spectrogram)
 

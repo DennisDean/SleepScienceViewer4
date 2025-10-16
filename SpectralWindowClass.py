@@ -10,6 +10,8 @@
 
 # Modules
 import logging
+from copy import deepcopy
+
 import psutil
 import math
 from functools import partial
@@ -253,6 +255,9 @@ class SpectralWindow(QMainWindow):
         # Set up summary
         self.setup_summarize()
 
+        # Result Varaibiles
+        self.result_spectrogram_obj_list:list|None = None
+        self.result_average_spectrogram_list:list|None = None
 
     # Setup
     def setup_menu(self):
@@ -286,16 +291,18 @@ class SpectralWindow(QMainWindow):
         show_layout_hypnogram = partial(set_layout_visible, self.ui.horizontalLayout_hypnogram)
         show_layout_markings= partial(set_layout_visible, self.ui.verticalLayout_mark)
 
-        # connect push buttons to actions
-        self.ui.pushButton_control_spectrogram.toggled.connect(show_layout_spectrogram)
-        self.ui.pushButton_control_settings.toggled.connect(show_layout_settings)
-        self.ui.pushButton_control_parameters.toggled.connect(show_layout_parameters)
-        self.ui.pushButton_control_hypnogram.toggled.connect(show_layout_hypnogram)
-        self.ui.pushButton_control_markings.toggled.connect(show_layout_markings)
+        # get visability defaults from UI
+        layout_toggle_functions = [show_layout_spectrogram, show_layout_settings, show_layout_parameters,
+                                   show_layout_hypnogram, show_layout_markings]
+        layout_control_buttons = [self.ui.pushButton_control_spectrogram, self.ui.pushButton_control_settings,
+                                  self.ui.pushButton_control_parameters, self.ui.pushButton_control_hypnogram,
+                                  self.ui.pushButton_control_markings]
+        for layout_tupple in zip(layout_toggle_functions, layout_control_buttons):
+            toggle_function, layout_control_button = layout_tupple
+            is_checked = layout_control_button.isChecked()
+            toggle_function(is_checked)
+            layout_control_button.toggled.connect(show_layout_spectrogram)
 
-        # Turn off Spectrum
-        self.ui.pushButton_control_spectrum_average.setEnabled(False)
-        self.ui.pushButton_control_spectrum_average.clicked.connect(self.compute_and_display_spectrogram)
     def setup_settings(self):
         # Log status
         logger.info(f'Preparing setting options')
@@ -510,6 +517,7 @@ class SpectralWindow(QMainWindow):
             logger.info(f'EDF file not loaded. Can not compute spectrogram.')
 
         if process_eeg:
+            self.result_spectrograph_obj_list = [] if self.result_spectrograph_obj_list == None else self.result_spectrograph_obj_list
             # Turn on busy cursor
             QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
@@ -524,9 +532,11 @@ class SpectralWindow(QMainWindow):
             # Compute Spectrogram
             logger.info(f'Computing spectrogram ({signal_label}): computation may be time consuming')
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
                 multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram)
+                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
                 # Update log
                 logger.info(f'Spectrogram plotted')
@@ -553,9 +563,6 @@ class SpectralWindow(QMainWindow):
 
             # Turn on Legend Pushbutton
             self.ui.pushButton_spectrogram_legend.setEnabled(True)
-
-            # TODO: Delete
-            self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
     def on_spectrogram_double_click(self, x_value, _y_value):
         # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
@@ -819,9 +826,9 @@ class SpectralWindow(QMainWindow):
 
         # Check if x-labels
         turn_axis_units_off = not self.ui.checkBox_plotting_xlabels.isChecked()
+        set_layout_visible(self.ui.horizontalLayout_time_axis, turn_axis_units_off)
 
-        # Compute each signal
-        spectrogram_obj_list = []
+        self.result_spectrogram_obj_list = []
         for i, signal_label in enumerate(analysis_signal_labels):
             # Setup labels
             gui_signal_lbl = self.analyis_signal_labels[i]
@@ -833,6 +840,7 @@ class SpectralWindow(QMainWindow):
             signal_analysis_obj = EdfSignalAnalysis(signal_obj, multiprocess=multiprocess, n_jobs=n_jobs,
                                                     window_params=window_params)
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+            self.result_spectrogram_obj_list.append(multitaper_spectrogram_obj)
 
             # Plot spectrogram
             layout = self.result_layouts[i]
@@ -888,20 +896,20 @@ class SpectralWindow(QMainWindow):
         # Turn off spectrum button
         self.ui.pushButton_control_spectrum_average.setEnabled(False)
         self.ui.pushButton_control_spectrum_average.clicked.connect(self.summarize_by_stage)
-
-        #
-
-
     def summarize_by_stage(self):
         # Update log file
         logger.info('Summarize spectrogram by stage.')
         print('test')
 
         # Check if spectrogram is avaialble
-        print(self.multitaper_spectrogram_obj)
-        multi_taper_spec_reult_dict = self.multitaper_spectrogram_obj.get_multi_taper_results()
-        print(multi_taper_spec_reult_dict)
-        turn_axis_units_off = True
-        p_widget = self.ui.graphicsView_results_1
-        self.multitaper_spectrogram_obj.plot_spectral_summary(parent_widget=p_widget,
-                                                              turn_axis_units_off=turn_axis_units_off)
+        print(self.result_spectrogram_obj_list)
+        for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
+            print(spec_obj)
+            multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
+            print(multi_taper_spec_reult_dict)
+            turn_axis_units_off = False
+            p_widget = self.results_graphic_views[i]
+            spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off)
+
+        # Turn Off X axis
+        set_layout_visible(self.ui.horizontalLayout_time_axis, False)
