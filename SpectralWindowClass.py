@@ -303,6 +303,9 @@ class SpectralWindow(QMainWindow):
             toggle_function(is_checked)
             layout_control_button.toggled.connect(toggle_function)
 
+        # Set up analysis buttons
+        self.enable_spectrogram_options(False)
+
     def setup_settings(self):
         # Log status
         logger.info(f'Preparing setting options')
@@ -333,6 +336,7 @@ class SpectralWindow(QMainWindow):
 
         # Set reference methods
         reference_methods = ['No Reference', 'Single Reference', 'Reference Each Signal', 'Average Reference']
+        self.ui.comboBox_settings_reference_method.clear()
         self.ui.comboBox_settings_reference_method.addItems(reference_methods)
 
         # Setup signal comboboxes
@@ -432,6 +436,11 @@ class SpectralWindow(QMainWindow):
             bcl_high.addItems([f'{x:.1f}' for x in band_menu_items_high])
             bcl_low.setCurrentIndex(band_menu_items_high.index(def_low))
             bcl_high.setCurrentIndex(band_menu_items_high.index(def_hgh))
+
+        # Set up analysis
+        analysis_range_values = ['All', 'Wake through Sleep', 'Sleep Only']
+        self.ui.comboBox_parameters_analysis_range.clear()
+        self.ui.comboBox_parameters_analysis_range.addItems(analysis_range_values)
 
         # Save parameters
         self.noise_delta_n_factor = noise_delta_n_factor
@@ -706,7 +715,7 @@ class SpectralWindow(QMainWindow):
                                self.ui.horizontalLayout_results_7, self.ui.horizontalLayout_results_8,
                                self.ui.horizontalLayout_results_9, self.ui.horizontalLayout_results_10]
 
-                               # Setup pushup
+        # Setup pushup
         self.ui.pushButton_control_compute.clicked.connect(self.analyze_signal_list)
 
         self.spectral_bands_low_cb = [self.ui.comboBox_parameters_band_alpha_low,
@@ -876,6 +885,9 @@ class SpectralWindow(QMainWindow):
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
         multitaper_spectrogram_obj.plot(graphics_view, turn_axis_units_off=turn_axis_units_off, axis_only=axis_only)
 
+        # Set up analysis buttons
+        self.enable_spectrogram_options(True)
+
         # Save settings and parameters dictionaries
         self.setting_description_dict = setting_description_dict
         self.setting_signal_dict = setting_signal_dict
@@ -886,15 +898,19 @@ class SpectralWindow(QMainWindow):
         self.band_params_dict = band_params_dict
 
         # Turn on summarize button
-        self.ui.pushButton_control_spectrum_average.setEnabled(True)
+        self.enable_spectrogram_options(True)
 
         # Turn off busy cursor
         QApplication.restoreOverrideCursor()
+    def enable_spectrogram_options(self, enable:bool=True):
+        spectral_analysis_options = [self.ui.pushButton_control_display_spectrogram, self.ui.pushButton_control_spectrum_average]
+        for each_button in spectral_analysis_options:
+            each_button.setEnabled(enable)
 
     # Summarize
     def setup_summarize(self):
         # Turn off spectrum button
-        self.ui.pushButton_control_spectrum_average.setEnabled(False)
+        self.enable_spectrogram_options(False)
         self.ui.pushButton_control_spectrum_average.clicked.connect(self.summarize_by_stage)
     def summarize_by_stage(self):
         # Update log file
@@ -908,7 +924,6 @@ class SpectralWindow(QMainWindow):
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off)
-
 
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)

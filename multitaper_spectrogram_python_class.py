@@ -1178,7 +1178,7 @@ class MultitaperSpectrogram:
         self.current_spectrogram_canvas = None
 
         # Set tick parameters
-        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in', length=2, pad=-10)
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in', length=1, pad=-8)
         ax.tick_params(axis='y', labelsize=tick_label_fontsize, direction='in')
         for label in ax.get_xticklabels():
             label.set_text(f' {label.get_text()}')

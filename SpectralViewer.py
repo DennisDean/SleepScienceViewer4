@@ -20,8 +20,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
     QGraphicsView, QHBoxLayout, QLabel, QLayout,
     QListWidget, QListWidgetItem, QMainWindow, QMenu,
     QMenuBar, QPlainTextEdit, QPushButton, QSizePolicy,
-    QStatusBar, QTextBrowser, QToolBar, QVBoxLayout,
-    QWidget)
+    QStatusBar, QToolBar, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -99,6 +98,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_36.addWidget(self.pushButton_control_compute)
 
+        self.pushButton_control_display_spectrogram = QPushButton(self.centralwidget)
+        self.pushButton_control_display_spectrogram.setObjectName(u"pushButton_control_display_spectrogram")
+
+        self.horizontalLayout_36.addWidget(self.pushButton_control_display_spectrogram)
+
         self.pushButton_control_spectrum_average = QPushButton(self.centralwidget)
         self.pushButton_control_spectrum_average.setObjectName(u"pushButton_control_spectrum_average")
 
@@ -136,12 +140,6 @@ class Ui_MainWindow(object):
         self.pushButton_control_markings.setChecked(False)
 
         self.horizontalLayout_36.addWidget(self.pushButton_control_markings)
-
-        self.pushButton_control_figures = QPushButton(self.centralwidget)
-        self.pushButton_control_figures.setObjectName(u"pushButton_control_figures")
-        self.pushButton_control_figures.setCheckable(True)
-
-        self.horizontalLayout_36.addWidget(self.pushButton_control_figures)
 
 
         self.verticalLayout_top_controls.addLayout(self.horizontalLayout_36)
@@ -656,9 +654,9 @@ class Ui_MainWindow(object):
         self.label_10.setSizePolicy(sizePolicy5)
         self.label_10.setMinimumSize(QSize(150, 25))
         self.label_10.setMaximumSize(QSize(150, 25))
-        self.label_10.setAlignment(Qt.AlignCenter)
+        self.label_10.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.horizontalLayout_16.addWidget(self.label_10, 0, Qt.AlignHCenter)
+        self.horizontalLayout_16.addWidget(self.label_10, 0, Qt.AlignLeft)
 
 
         self.verticalLayout_error_detection.addLayout(self.horizontalLayout_16)
@@ -774,7 +772,7 @@ class Ui_MainWindow(object):
         self.label_28.setSizePolicy(sizePolicy1)
         self.label_28.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_p.addWidget(self.label_28, 0, Qt.AlignHCenter)
+        self.verticalLayout_p.addWidget(self.label_28, 0, Qt.AlignLeft)
 
         self.verticalLayout_window_size = QVBoxLayout()
         self.verticalLayout_window_size.setObjectName(u"verticalLayout_window_size")
@@ -950,7 +948,7 @@ class Ui_MainWindow(object):
         self.label_9.setMaximumSize(QSize(16777215, 25))
         self.label_9.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_12.addWidget(self.label_9, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+        self.horizontalLayout_12.addWidget(self.label_9, 0, Qt.AlignLeft|Qt.AlignVCenter)
 
 
         self.verticalLayout_band_param.addLayout(self.horizontalLayout_12)
@@ -1272,20 +1270,34 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.label_23 = QLabel(self.centralwidget)
         self.label_23.setObjectName(u"label_23")
+        sizePolicy5.setHeightForWidth(self.label_23.sizePolicy().hasHeightForWidth())
+        self.label_23.setSizePolicy(sizePolicy5)
+        self.label_23.setMinimumSize(QSize(150, 25))
+        self.label_23.setMaximumSize(QSize(150, 25))
 
         self.verticalLayout_4.addWidget(self.label_23)
 
 
         self.verticalLayout_p.addLayout(self.verticalLayout_4)
 
-        self.textBrowser = QTextBrowser(self.centralwidget)
-        self.textBrowser.setObjectName(u"textBrowser")
-        sizePolicy5.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
-        self.textBrowser.setSizePolicy(sizePolicy5)
-        self.textBrowser.setMinimumSize(QSize(240, 150))
-        self.textBrowser.setMaximumSize(QSize(240, 150))
+        self.label_54 = QLabel(self.centralwidget)
+        self.label_54.setObjectName(u"label_54")
+        sizePolicy5.setHeightForWidth(self.label_54.sizePolicy().hasHeightForWidth())
+        self.label_54.setSizePolicy(sizePolicy5)
+        self.label_54.setMinimumSize(QSize(150, 25))
+        self.label_54.setMaximumSize(QSize(150, 25))
+        self.label_54.setFont(font)
 
-        self.verticalLayout_p.addWidget(self.textBrowser)
+        self.verticalLayout_p.addWidget(self.label_54)
+
+        self.comboBox_parameters_analysis_range = QComboBox(self.centralwidget)
+        self.comboBox_parameters_analysis_range.setObjectName(u"comboBox_parameters_analysis_range")
+        sizePolicy5.setHeightForWidth(self.comboBox_parameters_analysis_range.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_analysis_range.setSizePolicy(sizePolicy5)
+        self.comboBox_parameters_analysis_range.setMinimumSize(QSize(200, 25))
+        self.comboBox_parameters_analysis_range.setMaximumSize(QSize(200, 25))
+
+        self.verticalLayout_p.addWidget(self.comboBox_parameters_analysis_range, 0, Qt.AlignHCenter)
 
         self.label_34 = QLabel(self.centralwidget)
         self.label_34.setObjectName(u"label_34")
@@ -1757,12 +1769,18 @@ class Ui_MainWindow(object):
         self.checkBox_control_coherence.setText(QCoreApplication.translate("MainWindow", u"Coherence", None))
         self.label_38.setText("")
         self.pushButton_control_compute.setText(QCoreApplication.translate("MainWindow", u"Compute", None))
-        self.pushButton_control_spectrum_average.setText(QCoreApplication.translate("MainWindow", u"Spectrum", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_control_display_spectrogram.setToolTip(QCoreApplication.translate("MainWindow", u"Display Spectrogram", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_control_display_spectrogram.setText(QCoreApplication.translate("MainWindow", u"Display", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_control_spectrum_average.setToolTip(QCoreApplication.translate("MainWindow", u"Compute Average Spectrogram", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_control_spectrum_average.setText(QCoreApplication.translate("MainWindow", u"Average", None))
         self.label_39.setText("")
         self.pushButton_control_hypnogram.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.pushButton_control_spectrogram.setText(QCoreApplication.translate("MainWindow", u"Spectrogram", None))
         self.pushButton_control_markings.setText(QCoreApplication.translate("MainWindow", u"Markings", None))
-        self.pushButton_control_figures.setText(QCoreApplication.translate("MainWindow", u"Figures", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Description", None))
         self.label_53.setText(QCoreApplication.translate("MainWindow", u"Brief Description", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Output Suffix", None))
@@ -1815,23 +1833,8 @@ class Ui_MainWindow(object):
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u03b3", None))
         self.label_46.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_40.setText(QCoreApplication.translate("MainWindow", u"Hz", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Setting Reccomendations:", None))
-        self.textBrowser.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Suggested Settings<br /><span style=\" font-size:10pt;\">Noise Detection </span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14px; color:#58566d; background-color:#e9e9fd;\">     \u0394</span><span style=\" font-size:"
-                        "10pt;\"> = 2.0, </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14px; color:#58566d; background-color:#e9e9fd;\">\u0392</span><span style=\" font-size:10pt;\"> = 2.5</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">Spectral Bands</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">     \u03b4</span><span style=\" font-size:10pt;\"> :   0.5 -  4.0 Hz,      </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">\u03b8:   </span><span style=\" font-size:10pt;\">4.0 -    8.0 Hz,</span></p>\n"
-"<p style=\" margin-top:"
-                        "0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">     \u03b1:   </span><span style=\" font-size:10pt;\">8.0 -12.0 Hz,      </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">\u03c3: </span><span style=\" font-size:10pt;\">12.0 - 15.0 Hz,</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; background-color:#e9e9fd;\">     \u03b2 </span><span style=\" font-size:10pt;\">15.0 - 30.0 Hz,      </span><span style=\" font-family:'Verdana','Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:10pt; color:#58566d; backgr"
-                        "ound-color:#e9e9fd;\">\u03b3: </span><span style=\" font-size:10pt;\">30.0 - 50.0 Hz</span></p></body></html>", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Analysis", None))
+        self.label_54.setText(QCoreApplication.translate("MainWindow", u"Range", None))
         self.label_34.setText("")
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.pushButton_hypnogram_show_stages.setText(QCoreApplication.translate("MainWindow", u"Show", None))
