@@ -89,20 +89,20 @@
             <item>
              <widget class="QLabel" name="label_38">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>40</width>
+                <width>0</width>
                 <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>40</width>
+                <width>16777215</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -125,22 +125,22 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_control_display_spectrogram">
-              <property name="toolTip">
-               <string>Display Spectrogram</string>
-              </property>
-              <property name="text">
-               <string>Display</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QPushButton" name="pushButton_control_spectrum_average">
               <property name="toolTip">
                <string>Compute Average Spectrogram</string>
               </property>
               <property name="text">
                <string>Average</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_control_display_spectrogram">
+              <property name="toolTip">
+               <string>Display Spectrogram</string>
+              </property>
+              <property name="text">
+               <string>Display</string>
               </property>
              </widget>
             </item>

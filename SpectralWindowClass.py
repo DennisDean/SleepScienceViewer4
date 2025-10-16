@@ -305,7 +305,6 @@ class SpectralWindow(QMainWindow):
 
         # Set up analysis buttons
         self.enable_spectrogram_options(False)
-
     def setup_settings(self):
         # Log status
         logger.info(f'Preparing setting options')
@@ -715,9 +714,7 @@ class SpectralWindow(QMainWindow):
                                self.ui.horizontalLayout_results_7, self.ui.horizontalLayout_results_8,
                                self.ui.horizontalLayout_results_9, self.ui.horizontalLayout_results_10]
 
-        # Setup pushup
-        self.ui.pushButton_control_compute.clicked.connect(self.analyze_signal_list)
-
+        # Setup bands
         self.spectral_bands_low_cb = [self.ui.comboBox_parameters_band_alpha_low,
                                       self.ui.comboBox_parameters_band_theta_low,
                                       self.ui.comboBox_parameters_band_alpha_low,
@@ -730,6 +727,10 @@ class SpectralWindow(QMainWindow):
                                       self.ui.comboBox_parameters_band_sigma_high,
                                       self.ui.comboBox_parameters_band_beta_high,
                                       self.ui.comboBox_parameters_band_gamma_high]
+
+        # Setup pushButtons
+        self.ui.pushButton_control_compute.clicked.connect(self.analyze_signal_list)
+        self.ui.pushButton_control_display_spectrogram.clicked.connect(self.display_spectrogram)
     def get_settings(self)->tuple[dict,dict,dict,dict]:
         # Create setting description dictionary
         setting_description_dict = {}
@@ -906,6 +907,31 @@ class SpectralWindow(QMainWindow):
         spectral_analysis_options = [self.ui.pushButton_control_display_spectrogram, self.ui.pushButton_control_spectrum_average]
         for each_button in spectral_analysis_options:
             each_button.setEnabled(enable)
+    def display_spectrogram(self):
+        # Check if spectrogram results are available
+        if self.result_spectrogram_obj_list is None:
+            logger.info('Spectrogram results are not available.')
+            return
+
+        # Update log file
+        logger.info('Summarize spectrogram by stage.')
+
+        # Turn off button
+        self.ui.pushButton_control_display_spectrogram.setEnabled(False)
+
+        # Check if spectrogram is avaialble
+        for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
+            # print(spec_obj)
+            multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
+            # print(multi_taper_spec_reult_dict)
+            turn_axis_units_off = True
+            spec_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off)
+
+        # Turn Off X axis
+        set_layout_visible(self.ui.horizontalLayout_time_axis, False)
+
+        # Turn off button
+        self.ui.pushButton_control_display_spectrogram.setEnabled(True)
 
     # Summarize
     def setup_summarize(self):
@@ -913,8 +939,16 @@ class SpectralWindow(QMainWindow):
         self.enable_spectrogram_options(False)
         self.ui.pushButton_control_spectrum_average.clicked.connect(self.summarize_by_stage)
     def summarize_by_stage(self):
+        # Check if spectrogram results are available
+        if self.result_spectrogram_obj_list is None:
+            logger.info('Spectrogram results are not available.')
+            return
+
         # Update log file
         logger.info('Summarize spectrogram by stage.')
+
+        # Turn off button
+        self.ui.pushButton_control_spectrum_average.setEnabled(False)
 
         # Check if spectrogram is avaialble
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
@@ -927,3 +961,6 @@ class SpectralWindow(QMainWindow):
 
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)
+
+        # Turn off button
+        self.ui.pushButton_control_spectrum_average.setEnabled(True)
