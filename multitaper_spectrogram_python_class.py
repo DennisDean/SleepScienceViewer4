@@ -1136,7 +1136,6 @@ class MultitaperSpectrogram:
 
         # Get spectral summary data
         spectral_summary, spectrogram_std = self.compute_spectral_summary()
-        print(spectral_summary, spectrogram_std)
         if spectral_summary is None:
             logger.warning("No spectral summary available to plot")
             return
@@ -1179,11 +1178,11 @@ class MultitaperSpectrogram:
         self.current_spectrogram_canvas = None
 
         # Set tick parameters
-        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in', pad=-9)
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in', length=2, pad=-10)
         ax.tick_params(axis='y', labelsize=tick_label_fontsize, direction='in')
         for label in ax.get_xticklabels():
             label.set_text(f' {label.get_text()}')
-            label.set_horizontalalignment('left')
+            label.set_horizontalalignment('center')
 
         if turn_axis_units_off:
             ax.set_xticklabels([])

@@ -899,14 +899,12 @@ class SpectralWindow(QMainWindow):
     def summarize_by_stage(self):
         # Update log file
         logger.info('Summarize spectrogram by stage.')
-        print('test')
 
         # Check if spectrogram is avaialble
-        print(self.result_spectrogram_obj_list)
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
-            print(spec_obj)
+            #print(spec_obj)
             multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
-            print(multi_taper_spec_reult_dict)
+            #print(multi_taper_spec_reult_dict)
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off)
