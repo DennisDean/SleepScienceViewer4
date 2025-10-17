@@ -537,6 +537,9 @@ class SleepStages:
         # Collect Connection IDS
         self.hypnogram_connection = []
 
+        # Creating a set of values to facilitate analysis
+        self.stage_time_dic:list|None = None
+
     # Event Management
     def cleanup_events(self):
         """
@@ -684,6 +687,37 @@ class SleepStages:
         return sleep_stages
 
         # Summarize and export
+    def return_stage_time_dict(self):
+        # Returns start <= x < end times
+
+        # Create a ditionary to return times
+        stage_time_dict = {}
+
+        # Find wake value: assume a w in the wake stage
+        stage_keys = self.num_stage_to_text_dict.keys()
+        wake_value = [s for s in stage_keys if 'W' in self.num_stage_to_text_dict[s].upper()]
+        wake_value = wake_value[0]
+
+        # Get start and end values
+        non_wake_indexes = [i for i, v in enumerate(self.num_stages) if v != wake_value]
+        sleep_start_index = non_wake_indexes[0]
+        sleep_end_index = non_wake_indexes[-1]
+        sleep_start_time = (sleep_start_index-1)*self.sleep_epoch
+        sleep_end_time = sleep_end_index*self.sleep_epoch
+
+        print(sleep_start_index, sleep_end_index, sleep_start_time, sleep_end_time)
+
+        # Create dictionary
+        sleep_time_keys = ['sleep_start_index', 'sleep_end_index', 'sleep_start_time', 'sleep_end_time']
+        sleep_time_values = [sleep_start_index, sleep_end_index, sleep_start_time, sleep_end_time]
+        for time_tupple in zip(sleep_time_keys, sleep_time_values):
+            stage_key, stage_value = time_tupple
+            stage_time_dict[stage_key] = stage_value
+
+        # Store keys while in development
+        self.stage_time_dict = stage_time_dict
+
+        return stage_time_dict
     @staticmethod
     def summarize_sleep_stages(stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
         """

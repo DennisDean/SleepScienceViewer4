@@ -20,9 +20,10 @@ This code is companion to the paper:
 import math
 import numpy as np
 import numpy.typing as npt
-from   scipy.signal.windows import dpss
-from   scipy.signal import detrend
-from   typing import Tuple, Literal, Optional, Callable
+from scipy.signal.windows import dpss
+from scipy.signal import detrend
+from typing import Tuple, Literal, Optional, Callable
+from copy import deepcopy
 
 # Logistical Imports
 import warnings
@@ -1111,22 +1112,37 @@ class MultitaperSpectrogram:
             multi_taper_param_dict['nfft'] = nfft
             multi_taper_param_dict['detrend'] = detrend_opt
         return multi_taper_param_dict
-    def compute_spectral_summary(self):
-        logger.info('Computing spectral summary by stage')
+    def compute_spectral_summary(self, analysis_range:list=None):
+        # Update log
+        logger.info(f'Computing spectral summary by stage{analysis_range}')
+
+        print(analysis_range)
+
+       # checks
         if not self.spectrogram_computed:
             return None
 
+        # Get ispectral data and times
         mt_spectrogram = self.mt_spectrogram
+        stimes = self.stimes
+
+        # Compute masks
+        stimes_np = np.array(stimes)
+        mask = stimes_np is not None
+        if analysis_range is not None:
+            analysis_range = analysis_range
+            mask = (stimes_np >= analysis_range[0]) & (stimes_np < analysis_range[1])
+
+        # Compute statistics
         spectrogram_np = np.array(mt_spectrogram)
-        spectrogram_avg = np.mean(spectrogram_np, axis=1)
-        spectrogram_std = np.std(spectrogram_np, axis=1, ddof=1)
+        spectrogram_avg = np.mean(spectrogram_np[:,mask], axis=1)
+        spectrogram_std = np.std(spectrogram_np[:,mask], axis=1, ddof=1)
+
+
         return spectrogram_avg, spectrogram_std
     def plot_spectral_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
-                              axis_only: bool = False):
+                              axis_only: bool = False, analysis_range:list|None=None):
         """Plot 1D spectral summary (average power across frequencies)"""
-
-        # Cleanup handlers
-        self.cleanup_events()
 
         # Define plotting variables
         label_fontsize = 6
@@ -1134,8 +1150,17 @@ class MultitaperSpectrogram:
         x_label_text = "Frequency (Hz)"
         y_label_text = "Average PSD (dB)"
 
+        # Cleanup handlers
+        self.cleanup_events()
+
+
+        # Process input
+        if analysis_range is not None:
+            analysis_range = deepcopy(analysis_range)
+
         # Get spectral summary data
-        spectral_summary, spectrogram_std = self.compute_spectral_summary()
+        print(analysis_range)
+        spectral_summary, spectrogram_std = self.compute_spectral_summary(analysis_range=analysis_range)
         if spectral_summary is None:
             logger.warning("No spectral summary available to plot")
             return

@@ -437,7 +437,7 @@ class SpectralWindow(QMainWindow):
             bcl_high.setCurrentIndex(band_menu_items_high.index(def_hgh))
 
         # Set up analysis
-        analysis_range_values = ['All', 'Wake through Sleep', 'Sleep Only']
+        analysis_range_values = ['All', 'Wake', 'Wake through Sleep', 'Sleep Only', 'Ending Wake']
         self.ui.comboBox_parameters_analysis_range.clear()
         self.ui.comboBox_parameters_analysis_range.addItems(analysis_range_values)
 
@@ -938,7 +938,7 @@ class SpectralWindow(QMainWindow):
         # Turn off spectrum button
         self.enable_spectrogram_options(False)
         self.ui.pushButton_control_spectrum_average.clicked.connect(self.summarize_by_stage)
-    def summarize_by_stage(self):
+    def summarize_by_stage(self, analysis_range_str:str=''):
         # Check if spectrogram results are available
         if self.result_spectrogram_obj_list is None:
             logger.info('Spectrogram results are not available.')
@@ -950,14 +950,33 @@ class SpectralWindow(QMainWindow):
         # Turn off button
         self.ui.pushButton_control_spectrum_average.setEnabled(False)
 
+        # Get analysis range
+        analysis_range_setting = self.ui.comboBox_parameters_analysis_range.currentText()
+        print(analysis_range_setting)
+
+        # Enable Data Segment Selection
+        stage_time_dict = self.xml_obj.sleep_stages_obj.return_stage_time_dict()
+        sleep_start_time = stage_time_dict['sleep_start_time']
+        sleep_end_time = stage_time_dict['sleep_end_time']
+        max_recording_time = self.xml_obj.sleep_stages_obj.max_time_sec
+        analysis_range = [0.0, max_recording_time]
+        if  analysis_range_setting == 'All':
+            analysis_range = [0.0, max_recording_time]
+        elif analysis_range_setting == 'Wake':
+            analysis_range = [0.0, sleep_start_time]
+        elif analysis_range_setting == 'Wake through Sleep':
+            analysis_range = [0.0, sleep_end_time]
+        elif analysis_range_setting == 'Sleep Only':
+            analysis_range = [sleep_start_time, sleep_end_time]
+        elif analysis_range_setting == 'Ending Wake':
+            analysis_range = [sleep_end_time, max_recording_time]
+
         # Check if spectrogram is avaialble
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
-            #print(spec_obj)
-            multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
-            #print(multi_taper_spec_reult_dict)
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
-            spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off)
+            spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off,
+                                           analysis_range=analysis_range)
 
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)
