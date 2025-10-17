@@ -169,6 +169,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_show_spectrogram">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>38</width>

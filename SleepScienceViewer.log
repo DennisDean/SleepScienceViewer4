@@ -2626,3 +2626,1607 @@
 [2025-10-17 00:07:41,720] INFO - SpectralWindowClass - Spectrogram plotted
 [2025-10-17 00:07:44,193] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.44 seconds
 [2025-10-17 00:07:44,199] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 00:52:56,437] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-17 06:57:02,534] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-10-17 06:57:02,878] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-10-17 06:57:02,883] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 06:57:02,904] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:02,905] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 06:57:02,905] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 06:57:02,918] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:02,919] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 06:57:02,919] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 06:57:02,931] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:02,932] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 06:57:02,932] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 06:57:02,944] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:02,944] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 06:57:02,944] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 06:57:02,957] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:02,957] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 06:57:02,957] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 06:57:02,970] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:02,970] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 06:57:02,970] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 06:57:02,982] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:02,982] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 06:57:02,983] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 06:57:03,028] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:03,028] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 06:57:03,028] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 06:57:03,041] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:03,042] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 06:57:03,042] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 06:57:03,054] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:03,054] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 06:57:03,054] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 06:57:03,067] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 06:57:03,884] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 06:57:05,503] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1364
+[2025-10-17 06:57:05,531] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-10-17 06:57:05,813] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-10-17 06:57:05,813] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr03, learn-nsrr03-profusion
+[2025-10-17 06:57:09,165] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 06:57:09,187] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-17 06:57:09,413] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-17 06:57:26,586] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 06:57:26,588] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 06:57:31,013] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.29 seconds
+[2025-10-17 06:57:31,042] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:57:31,506] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 06:57:34,269] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.72 seconds
+[2025-10-17 06:57:34,276] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:57:34,465] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 06:57:38,809] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.23 seconds
+[2025-10-17 06:57:38,836] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:00,751] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 06:58:00,752] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 06:58:05,205] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.34 seconds
+[2025-10-17 06:58:05,231] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:05,680] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 06:58:08,447] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.73 seconds
+[2025-10-17 06:58:08,454] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:08,574] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 06:58:13,053] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.38 seconds
+[2025-10-17 06:58:13,079] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:13,475] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 06:58:16,273] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.76 seconds
+[2025-10-17 06:58:16,281] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:16,407] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 06:58:20,850] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.34 seconds
+[2025-10-17 06:58:20,876] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:39,144] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 06:58:39,145] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:39,146] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-17 06:58:39,304] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:39,304] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-17 06:58:39,347] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:39,347] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-17 06:58:39,503] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:39,503] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-17 06:58:54,290] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 06:58:54,290] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:54,290] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 06:58:54,398] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:54,398] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 06:58:54,429] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:54,429] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 06:58:54,532] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:58:54,532] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 06:59:00,829] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 06:59:00,830] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:59:01,331] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:59:01,447] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 06:59:01,827] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:44,882] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 07:01:44,882] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:45,439] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:45,562] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:45,966] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:49,672] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 07:01:49,673] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:49,673] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 07:01:49,773] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:49,773] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 07:01:49,800] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:49,800] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 07:01:49,896] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:49,896] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 07:01:52,138] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 07:01:52,138] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:52,628] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:52,748] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 07:01:53,135] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:29:41,831] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 10:29:41,832] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:29:41,832] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 10:29:41,933] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:29:41,933] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 10:29:41,960] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:29:41,960] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 10:29:42,056] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:29:42,056] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[3330.0, 27300.0]
+[2025-10-17 10:36:33,787] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 10:36:33,788] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:36:34,277] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:36:34,402] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:36:34,809] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:51:14,940] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 10:51:15,248] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 10:51:15,252] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 10:51:15,270] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,270] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 10:51:15,270] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 10:51:15,283] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,283] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 10:51:15,283] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 10:51:15,296] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,296] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 10:51:15,296] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 10:51:15,309] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,309] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 10:51:15,310] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 10:51:15,323] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,323] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 10:51:15,323] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 10:51:15,336] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,336] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 10:51:15,336] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 10:51:15,349] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,349] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 10:51:15,349] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 10:51:15,400] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,400] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 10:51:15,400] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 10:51:15,413] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,413] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 10:51:15,414] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 10:51:15,426] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,426] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 10:51:15,426] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 10:51:15,439] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:51:15,990] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 10:51:17,618] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 10:51:17,629] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 10:51:17,898] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 10:51:17,898] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 10:51:19,539] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 10:51:19,563] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-17 10:51:19,834] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-17 10:51:28,443] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 10:51:28,444] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 10:52:20,568] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 10:52:20,874] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 10:52:20,878] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 10:52:20,895] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:20,896] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 10:52:20,896] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 10:52:20,909] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:20,910] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 10:52:20,910] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 10:52:20,922] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:20,923] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 10:52:20,923] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 10:52:20,936] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:20,936] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 10:52:20,936] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 10:52:20,949] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:20,949] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 10:52:20,949] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 10:52:20,962] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:20,962] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 10:52:20,962] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 10:52:20,975] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:20,975] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 10:52:20,975] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 10:52:21,024] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:21,024] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 10:52:21,024] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 10:52:21,038] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:21,038] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 10:52:21,038] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 10:52:21,050] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:21,051] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 10:52:21,051] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 10:52:21,063] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 10:52:21,558] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 10:52:23,318] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 10:52:23,331] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 10:52:23,592] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 10:52:23,592] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 10:52:25,327] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 10:52:25,339] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-17 10:52:25,616] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-17 10:56:43,259] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 10:56:43,259] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 10:56:47,229] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.85 seconds
+[2025-10-17 10:56:47,255] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:56:47,593] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 10:56:53,965] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.20 seconds
+[2025-10-17 10:56:54,016] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:56:54,800] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 10:56:58,862] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.97 seconds
+[2025-10-17 10:56:58,890] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:57:03,259] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 10:57:03,260] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:57:03,261] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 10:57:03,409] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:57:03,409] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 10:57:06,455] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 10:57:06,456] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:57:06,808] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:57:10,090] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 10:57:10,090] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:57:10,091] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 10:57:10,249] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 10:57:10,249] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 10:58:40,090] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 10:59:10,474] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 10:59:51,260] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:04:36,323] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:07:59,712] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 11:08:00,004] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 11:08:00,008] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 11:08:00,025] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,026] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 11:08:00,026] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 11:08:00,039] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,039] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 11:08:00,039] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 11:08:00,052] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,052] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 11:08:00,053] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 11:08:00,065] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,065] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 11:08:00,066] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 11:08:00,079] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,079] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 11:08:00,079] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 11:08:00,092] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,092] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 11:08:00,092] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 11:08:00,105] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,105] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 11:08:00,105] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 11:08:00,153] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,154] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 11:08:00,154] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 11:08:00,167] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,167] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 11:08:00,167] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 11:08:00,180] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,180] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 11:08:00,180] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 11:08:00,193] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:08:00,620] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 11:08:02,513] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 11:08:02,519] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 11:08:02,784] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 11:08:02,784] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 11:08:05,518] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 11:08:05,539] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-17 11:08:05,818] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-17 11:08:18,434] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:08:18,436] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:08:22,464] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.91 seconds
+[2025-10-17 11:08:22,490] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:08:22,831] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:08:29,137] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.11 seconds
+[2025-10-17 11:08:29,187] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:08:29,989] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:08:33,902] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.83 seconds
+[2025-10-17 11:08:33,927] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:08:48,987] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:09:35,069] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:09:35,071] INFO - SpectralWindowClass - Computing spectrogram (EEG(sec)): computation may be time consuming
+[2025-10-17 11:09:39,195] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.01 seconds
+[2025-10-17 11:09:39,219] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:09:39,556] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:09:39,556] INFO - SpectralWindowClass - Computing spectrogram: Computation completed
+[2025-10-17 11:09:58,116] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:09:58,118] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:10:02,041] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.81 seconds
+[2025-10-17 11:10:02,067] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:10:02,395] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:10:08,745] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.18 seconds
+[2025-10-17 11:10:08,798] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:10:09,600] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:10:09,601] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-10-17 11:10:28,885] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:10:28,886] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:10:32,888] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.90 seconds
+[2025-10-17 11:10:32,914] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:10:33,241] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:10:39,489] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.07 seconds
+[2025-10-17 11:10:39,541] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:10:40,328] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:10:40,329] INFO - multitaper_spectrogram_python_class - Invalid parameters: Kmax must be greater than 0 and less than M
+[2025-10-17 11:11:52,590] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 11:11:52,882] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 11:11:52,886] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 11:11:52,904] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:52,904] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 11:11:52,904] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 11:11:52,917] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:52,918] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 11:11:52,918] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 11:11:52,930] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:52,930] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 11:11:52,931] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 11:11:52,943] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:52,944] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 11:11:52,944] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 11:11:52,957] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:52,957] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 11:11:52,957] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 11:11:52,970] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:52,970] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 11:11:52,970] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 11:11:52,983] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:52,983] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 11:11:52,983] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 11:11:53,031] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:53,031] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 11:11:53,032] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 11:11:53,045] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:53,045] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 11:11:53,045] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 11:11:53,057] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:53,058] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 11:11:53,058] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 11:11:53,070] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:11:53,846] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 11:11:55,471] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 11:11:55,486] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 11:11:55,744] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 11:11:55,744] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 11:11:59,914] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 11:11:59,930] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-17 11:12:00,205] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-17 11:12:13,081] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:12:13,083] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:12:19,313] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.02 seconds
+[2025-10-17 11:12:19,364] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:12:20,150] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:12:24,263] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.03 seconds
+[2025-10-17 11:12:24,290] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:12:24,622] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:12:27,107] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.45 seconds
+[2025-10-17 11:12:27,114] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:12:27,224] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:12:33,352] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 5.95 seconds
+[2025-10-17 11:12:33,403] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:12:47,349] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:12:47,351] INFO - SpectralWindowClass - Computing spectrogram (ECG): computation may be time consuming
+[2025-10-17 11:12:53,607] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.04 seconds
+[2025-10-17 11:12:53,660] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:12:54,581] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:12:54,581] INFO - SpectralWindowClass - Computing spectrogram: Computation completed
+[2025-10-17 11:13:05,122] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:13:05,131] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:13:11,422] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.10 seconds
+[2025-10-17 11:13:11,473] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:13:12,260] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:13:16,210] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.86 seconds
+[2025-10-17 11:13:16,235] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:13:16,562] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:13:19,057] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.46 seconds
+[2025-10-17 11:13:19,064] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:13:19,173] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:13:21,654] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.45 seconds
+[2025-10-17 11:13:21,662] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:13:21,779] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:13:28,154] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.20 seconds
+[2025-10-17 11:13:28,206] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:10,726] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 11:14:10,727] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:10,727] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 11:14:11,098] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:11,098] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 11:14:11,238] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:11,238] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 11:14:11,276] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:11,276] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 11:14:20,865] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 11:14:20,866] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:21,694] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:22,027] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:14:22,141] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:21:36,397] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:21:36,398] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:32:50,818] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 11:32:51,103] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 11:32:51,108] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 11:32:51,125] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,125] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 11:32:51,126] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 11:32:51,139] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,139] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 11:32:51,139] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 11:32:51,152] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,152] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 11:32:51,152] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 11:32:51,165] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,165] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 11:32:51,165] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 11:32:51,178] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,178] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 11:32:51,178] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 11:32:51,191] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,192] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 11:32:51,192] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 11:32:51,204] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,204] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 11:32:51,205] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 11:32:51,253] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,253] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 11:32:51,253] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 11:32:51,266] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,267] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 11:32:51,267] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 11:32:51,279] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:51,279] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 11:32:51,279] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 11:32:51,292] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 11:32:52,102] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 11:32:53,653] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 11:32:53,664] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 11:32:53,924] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 11:32:53,925] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 11:32:57,727] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 11:32:57,749] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-17 11:32:58,032] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-17 11:33:27,266] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:33:27,268] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:33:31,279] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.88 seconds
+[2025-10-17 11:33:31,305] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:33:31,632] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:33:37,892] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.08 seconds
+[2025-10-17 11:33:37,943] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:33:38,727] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:33:42,776] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.96 seconds
+[2025-10-17 11:33:42,802] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:34:16,444] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 11:34:16,445] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:34:16,446] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 11:34:16,614] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:34:16,614] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 11:34:19,412] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 11:34:19,413] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 11:34:23,397] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.87 seconds
+[2025-10-17 11:34:23,422] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:34:23,749] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:34:29,983] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.06 seconds
+[2025-10-17 11:34:30,036] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:34:30,819] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 11:34:34,686] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.78 seconds
+[2025-10-17 11:34:34,711] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:36:39,301] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 11:36:39,302] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:36:39,302] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 11:36:39,461] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 11:36:39,461] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 14:11:53,118] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-17 14:12:11,586] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:12:11,876] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:12:11,880] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:12:11,898] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:11,898] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:12:11,899] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:12:11,911] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:11,912] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:12:11,912] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:12:11,925] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:11,925] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:12:11,925] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:12:11,938] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:11,938] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:12:11,938] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:12:11,951] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:11,951] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:12:11,951] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:12:11,964] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:11,964] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:12:11,965] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:12:11,977] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:11,977] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:12:11,977] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:12:12,028] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:12,028] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:12:12,029] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:12:12,042] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:12,042] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:12:12,042] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:12:12,055] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:12,055] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:12:12,055] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:12:12,068] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:12:12,805] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 14:12:14,243] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 14:12:14,250] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:12:14,512] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:12:14,512] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 14:12:16,717] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 14:12:16,735] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-17 14:12:17,006] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-17 14:12:25,869] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 14:12:25,870] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-17 14:12:29,830] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.84 seconds
+[2025-10-17 14:12:29,856] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:12:30,184] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 14:12:36,491] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.13 seconds
+[2025-10-17 14:12:36,542] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:12:37,340] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 14:12:41,272] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.85 seconds
+[2025-10-17 14:12:41,297] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:12:47,615] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 14:12:47,616] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:12:47,617] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 14:12:47,780] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:12:47,780] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 35850.0]
+[2025-10-17 14:12:48,820] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-17 14:12:48,820] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:12:49,165] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:13:05,451] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-17 14:13:05,453] INFO - SpectralWindowClass - Computing spectrogram (ECG): computation may be time consuming
+[2025-10-17 14:13:11,679] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.02 seconds
+[2025-10-17 14:13:11,730] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:13:12,512] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-17 14:13:12,512] INFO - SpectralWindowClass - Computing spectrogram: Computation completed
+[2025-10-17 14:13:21,699] INFO - SleepScienceViewer - Spectrogram combobox signal changed to ECG
+[2025-10-17 14:13:23,952] INFO - SleepScienceViewer - OK clicked: Will continue 
+[2025-10-17 14:13:23,954] INFO - SleepScienceViewer - Computing spectrogram (ECG): computation may be time consuming
+[2025-10-17 14:13:30,385] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.21 seconds
+[2025-10-17 14:13:30,436] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:13:31,221] INFO - SleepScienceViewer - Spectrogram plotted
+[2025-10-17 14:13:31,222] INFO - SleepScienceViewer - Computing spectrogram: Computation completed
+[2025-10-17 14:13:35,333] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-17 14:13:35,333] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-17 14:13:58,052] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:13:58,396] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:13:58,401] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:13:58,418] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,419] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:13:58,419] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:13:58,432] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,432] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:13:58,432] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:13:58,445] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,445] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:13:58,446] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:13:58,458] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,459] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:13:58,459] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:13:58,472] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,472] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:13:58,472] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:13:58,485] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,485] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:13:58,486] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:13:58,498] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,498] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:13:58,498] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:13:58,549] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,549] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:13:58,549] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:13:58,562] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,563] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:13:58,563] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:13:58,575] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:58,575] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:13:58,576] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:13:58,588] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:13:59,421] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 14:14:01,024] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 14:14:01,033] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:14:01,310] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:14:01,310] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 14:14:04,941] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 14:14:04,990] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,004] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,017] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,031] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,044] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,058] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,071] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,085] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,161] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,175] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,189] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,203] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,217] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,231] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,244] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,244] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:14:05,257] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:14:05,611] INFO - SleepScienceViewer - Loading signal viewer in independent  mode
+[2025-10-17 14:14:17,656] INFO - SignalWindowClass - Setting notch parameter: notch = 50.0
+[2025-10-17 14:14:22,882] INFO - SignalWindowClass - Setting filtering parameters: lowcut = 0.1, highcut  = 60.0
+[2025-10-17 14:14:26,939] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 60.0, notch = 50.0
+[2025-10-17 14:15:48,900] INFO - SignalWindowClass - Signal Viewer - closeEvent
+[2025-10-17 14:15:50,133] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-17 14:16:01,009] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:16:01,295] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:16:01,300] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:16:01,317] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,318] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:16:01,318] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:16:01,331] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,331] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:16:01,331] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:16:01,344] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,344] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:16:01,344] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:16:01,357] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,357] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:16:01,357] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:16:01,370] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,371] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:16:01,371] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:16:01,384] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,384] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:16:01,384] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:16:01,396] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,397] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:16:01,397] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:16:01,445] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,446] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:16:01,446] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:16:01,459] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,460] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:16:01,460] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:16:01,472] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:01,473] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:16:01,473] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:16:01,486] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:02,166] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 14:16:04,011] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 14:16:04,019] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:16:04,280] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:16:04,281] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 14:16:06,498] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 14:16:06,541] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,555] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,568] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,582] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,595] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,608] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,621] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,635] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,648] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,724] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,738] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,751] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,764] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,778] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,791] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:06,792] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:16:06,805] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:16:07,144] INFO - SleepScienceViewer - Loading signal viewer in independent  mode
+[2025-10-17 14:16:12,315] INFO - SignalWindowClass - Setting filtering parameters: lowcut = 0.1, highcut  = 60.0
+[2025-10-17 14:16:15,123] INFO - SignalWindowClass - Setting notch parameter: notch = 60.0
+[2025-10-17 14:16:29,623] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 60.0, notch = 60.0
+[2025-10-17 14:17:04,665] INFO - SignalWindowClass - Signal Viewer - closeEvent
+[2025-10-17 14:17:05,367] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-17 14:17:18,477] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:17:18,758] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:17:18,762] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:17:18,780] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,780] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:17:18,780] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:17:18,793] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,794] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:17:18,794] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:17:18,807] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,807] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:17:18,807] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:17:18,820] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,820] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:17:18,820] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:17:18,833] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,834] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:17:18,834] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:17:18,846] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,847] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:17:18,847] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:17:18,860] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,861] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:17:18,861] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:17:18,911] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,912] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:17:18,912] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:17:18,925] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,925] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:17:18,925] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:17:18,938] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:18,938] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:17:18,938] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:17:18,951] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:19,403] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 14:17:21,173] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 14:17:21,188] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:17:21,454] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:17:21,454] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 14:17:24,437] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 14:17:24,473] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,487] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,500] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,513] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,527] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,540] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,553] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,567] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,581] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,653] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,667] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,681] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,694] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,708] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,722] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:24,722] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:17:24,735] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:17:25,071] INFO - SleepScienceViewer - Loading signal viewer in independent  mode
+[2025-10-17 14:17:28,968] INFO - SignalWindowClass - Setting filtering parameters: lowcut = 0.1, highcut  = 50.0
+[2025-10-17 14:17:30,766] INFO - SignalWindowClass - Setting notch parameter: notch = 50.0
+[2025-10-17 14:17:36,300] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 50.0, notch = 50.0
+[2025-10-17 14:19:12,248] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:19:12,554] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-17 14:19:12,559] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:19:12,576] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,576] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-17 14:19:12,576] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:19:12,589] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,590] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-17 14:19:12,590] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:19:12,603] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,603] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-17 14:19:12,603] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:19:12,616] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,616] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-17 14:19:12,616] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:19:12,629] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,629] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-17 14:19:12,629] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:19:12,642] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,642] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-17 14:19:12,642] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:19:12,655] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,655] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-17 14:19:12,656] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:19:12,704] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,705] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-17 14:19:12,705] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:19:12,718] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,718] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-17 14:19:12,719] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:19:12,731] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:12,731] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-17 14:19:12,732] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:19:12,744] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:14,864] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-17 14:19:16,762] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-17 14:19:16,772] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:19:17,035] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-17 14:19:17,035] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-17 14:19:19,619] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-17 14:19:19,655] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,668] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,681] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,694] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,707] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,721] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,734] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,747] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,760] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,840] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,854] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,868] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,881] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,894] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,908] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:19,908] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:19:19,921] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:20,269] INFO - SleepScienceViewer - Loading signal viewer in independent  mode
+[2025-10-17 14:19:29,647] INFO - SignalWindowClass - Setting filtering parameters: lowcut = 0.1, highcut  = 70.0
+[2025-10-17 14:19:31,147] INFO - SignalWindowClass - Setting notch parameter: notch = 50.0
+[2025-10-17 14:19:31,984] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:31,984] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:31,984] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:31,984] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:31,985] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:31,985] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,017] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,017] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,017] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,017] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,017] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,017] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,017] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,030] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,030] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,030] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,030] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,031] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,031] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,031] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,043] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,044] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,044] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,044] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,044] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,044] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,044] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,057] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,057] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,058] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,058] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,058] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,058] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,058] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,070] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,071] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,071] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,071] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,071] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,071] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,071] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,084] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,084] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,084] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,084] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,084] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,084] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,084] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,097] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,097] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,098] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,098] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,098] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,098] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,098] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,111] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,111] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,111] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,111] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,111] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,111] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,111] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,124] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,124] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,124] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,124] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,124] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,124] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,124] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,137] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,137] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,137] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,137] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,137] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,137] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,137] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,150] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,151] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,151] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,151] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,151] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,151] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,151] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,163] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,164] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,164] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,164] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,164] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,164] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,164] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,177] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,177] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,177] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,177] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,177] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,177] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,177] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,190] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,190] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,191] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 140.000000
+[2025-10-17 14:19:32,191] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:19:32,191] INFO - EdfFileClass - Setting filtering parameters: fs = 1.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:32,191] INFO - EdfFileClass - Filtering SaO2 notch parameters: notch = 50.0
+[2025-10-17 14:19:32,191] ERROR - EdfFileClass - Notch filter not applied: Sampling rate too low to apply filter
+[2025-10-17 14:19:32,204] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:32,204] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:19:32,216] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,100] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,115] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,115] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,115] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,117] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,277] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,277] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,278] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,278] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,278] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,279] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,292] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,293] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,294] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,294] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,294] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,294] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,307] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,307] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,308] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,308] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,308] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,308] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,322] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,322] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,323] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,323] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,323] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,323] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,337] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,337] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,338] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,338] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,338] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,338] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,351] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,351] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,352] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,352] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,352] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,353] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,366] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,366] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,367] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,367] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,367] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,368] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,381] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,382] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,383] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,383] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,383] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,383] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,397] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,398] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,399] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,399] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,399] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,399] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,412] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,413] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,413] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,414] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,414] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,414] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,427] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,428] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,429] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,429] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,429] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,429] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,442] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,443] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,444] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,444] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,444] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,444] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,457] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,457] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,458] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,458] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,458] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,458] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,472] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,472] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,473] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:35,473] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:35,473] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:35,473] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:35,487] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:35,487] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:19:35,500] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:42,595] INFO - SignalWindowClass - Turning filter Setting Off
+[2025-10-17 14:19:44,513] INFO - SignalWindowClass - Setting filtering parameters: lowcut = 0.1, highcut  = 70.0
+[2025-10-17 14:19:50,522] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,526] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,527] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,527] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,529] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,563] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,564] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,565] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,565] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,565] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,565] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,579] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,580] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,581] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,581] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,581] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,581] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,602] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,603] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,605] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,605] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,605] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,605] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,635] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,636] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,638] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,638] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,638] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,639] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,665] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,666] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,668] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,668] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,668] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,668] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,695] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,697] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,699] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,699] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,699] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,699] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,723] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,724] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,726] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,727] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,727] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,727] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,747] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,747] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,749] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,749] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,749] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,749] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,766] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,767] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,768] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,768] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,768] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,768] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,783] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,784] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,785] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,785] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,785] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,786] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,967] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,968] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,969] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,969] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,969] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,969] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,983] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,984] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,985] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:50,985] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:50,985] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:50,985] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:50,998] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:50,999] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,000] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:51,000] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,000] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:51,000] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:51,014] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:51,015] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,016] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:51,016] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,016] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:51,016] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:51,030] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:51,030] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:19:51,043] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:51,949] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,954] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:51,955] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,955] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:51,956] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:51,970] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:51,971] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,972] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:51,972] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,972] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:51,972] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:51,986] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:51,986] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,987] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:51,987] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:51,987] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:51,988] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,001] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,001] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,002] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,002] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,002] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,003] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,016] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,016] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,017] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,017] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,017] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,018] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,031] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,031] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,032] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,032] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,032] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,032] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,046] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,046] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,047] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,047] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,047] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,047] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,060] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,060] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,061] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,061] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,061] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,062] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,075] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,075] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,076] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,076] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,076] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,076] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,089] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,089] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,090] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,090] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,090] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,091] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,103] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,104] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,105] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,105] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,105] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,105] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,118] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,119] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,120] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,120] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,120] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,120] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,133] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,133] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,134] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,134] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,134] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,134] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,147] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,147] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,148] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,148] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,148] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,149] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,162] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,162] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,163] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:19:52,163] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:19:52,163] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:19:52,163] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:19:52,177] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:19:52,177] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:19:52,190] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,153] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,174] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,192] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,192] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,205] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,397] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,400] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,406] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,409] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,409] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,421] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,460] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,463] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,470] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,472] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,472] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,484] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,525] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,527] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,533] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,536] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,536] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,547] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,587] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,589] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,596] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,598] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,598] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,609] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,651] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,653] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,660] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,662] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,662] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,673] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,714] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,717] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,724] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,726] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,726] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,736] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,776] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,779] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,786] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,788] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,788] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,801] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,844] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,847] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,854] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,857] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,857] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,868] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,910] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,914] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,921] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,923] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,923] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,934] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:02,974] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:02,977] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,984] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:02,987] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:02,987] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:02,998] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:03,040] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:03,043] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,050] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:03,052] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,052] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:03,063] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:03,106] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:03,109] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,116] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:03,118] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,118] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:03,129] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:03,171] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:03,174] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,181] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:03,183] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,183] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:03,194] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:03,235] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:03,238] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,245] INFO - EdfFileClass - Band pass filter applied.
+[2025-10-17 14:20:03,248] INFO - EdfFileClass - Setting filtering parameters: fs = 250.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:03,248] INFO - EdfFileClass - Filtering ECG notch parameters: notch = 50.0
+[2025-10-17 14:20:03,259] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:03,301] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:03,303] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:20:03,316] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:03,316] INFO - SignalWindowClass - Signal combobox changed to 30 min
+[2025-10-17 14:20:10,015] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,016] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,016] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,021] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,021] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,032] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,064] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,065] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,065] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,065] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,066] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,066] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,072] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,104] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,106] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,106] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,106] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,107] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,107] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,113] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,144] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,145] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,146] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,146] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,147] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,147] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,153] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,184] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,186] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,186] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,186] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,187] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,187] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,193] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,225] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,226] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,227] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,227] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,228] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,228] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,234] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,265] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,267] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,267] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,267] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,268] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,268] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,274] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,306] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,307] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,307] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,307] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,308] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,308] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,315] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,346] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,348] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,348] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,348] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,349] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,349] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,355] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,386] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,388] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,388] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,388] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,389] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,389] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,395] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,426] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,428] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,428] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,428] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,429] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,429] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,435] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,467] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,469] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,469] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,469] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,470] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,470] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,476] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,508] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,510] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,510] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,510] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,511] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,511] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,517] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,548] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,550] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,550] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,550] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,551] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,551] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,557] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,588] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,590] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,590] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:10,590] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:10,591] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:10,591] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:10,597] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:10,629] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:10,630] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:20:10,642] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,071] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,071] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,071] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,074] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,074] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,091] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,312] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,313] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,314] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,314] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,315] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,315] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,320] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,365] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,366] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,367] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,367] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,368] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,368] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,373] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,418] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,420] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,420] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,420] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,421] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,421] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,426] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,471] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,472] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,472] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,472] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,473] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,473] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,479] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,524] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,525] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,525] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,525] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,526] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,526] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,532] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,577] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,579] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,579] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,579] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,580] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,580] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,585] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,631] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,632] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,632] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,632] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,633] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,633] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,638] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,683] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,684] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,684] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,684] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,685] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,685] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,690] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,736] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,737] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,737] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,738] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,739] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,739] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,744] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,789] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,790] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,791] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,791] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,791] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,792] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,797] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,842] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,844] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,844] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,844] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,845] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,845] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,850] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,895] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,897] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,897] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,897] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,898] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,898] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,903] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:14,948] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:14,950] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,950] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:14,950] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:14,951] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:14,951] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:14,956] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:15,002] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:15,004] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,004] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:15,004] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:15,005] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,005] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:15,010] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:15,056] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:15,057] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:20:15,070] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:15,872] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,872] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:15,873] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:15,877] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,877] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:15,887] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:15,919] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:15,921] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,921] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:15,921] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:15,922] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,923] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:15,928] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:15,958] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:15,959] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,960] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:15,960] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:15,961] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:15,961] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:15,966] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,183] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,184] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,185] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,185] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,186] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,186] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,191] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,222] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,223] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,224] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,224] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,225] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,225] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,230] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,259] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,261] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,261] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,261] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,262] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,262] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,268] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,298] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,299] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,299] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,299] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,300] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,300] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,305] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,336] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,338] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,338] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,338] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,339] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,339] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,344] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,375] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,376] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,376] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,376] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,377] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,377] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,383] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,414] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,415] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,415] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,415] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,417] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,417] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,422] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,452] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,453] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,454] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,454] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,455] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,455] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,460] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,491] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,492] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,493] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,493] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,494] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,494] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,499] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,529] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,531] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,531] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,531] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,532] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,532] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,537] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,566] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,568] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,568] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,568] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,569] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,569] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,574] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,605] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,606] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,606] ERROR - EdfFileClass - Normalized high frequency must be between 0 and 1. highcut=70.0 Hz -> 1.120000
+[2025-10-17 14:20:16,606] ERROR - EdfFileClass - Band pass filter not applied. Parameters are not valid
+[2025-10-17 14:20:16,607] INFO - EdfFileClass - Setting filtering parameters: fs = 125.0, lowcut = 0.1, highcut  = 70.0, notch = 50.0
+[2025-10-17 14:20:16,607] INFO - EdfFileClass - Filtering EEG notch parameters: notch = 50.0
+[2025-10-17 14:20:16,612] INFO - EdfFileClass - Notch filter applied: notch = 50.0
+[2025-10-17 14:20:16,643] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:16,644] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-17 14:20:16,656] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-17 14:20:23,632] INFO - SignalWindowClass - Signal Viewer - closeEvent
+[2025-10-17 14:20:25,185] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event

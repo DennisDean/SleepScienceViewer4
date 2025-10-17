@@ -202,6 +202,8 @@ class SpectralWindow(QMainWindow):
         self.param_taper_dict:dict|None = None
         self.param_band_names = ['alpha', 'theta', 'alpha', 'sigma', 'beta', 'gamma']
         self.param_band_dict:dict|None = None
+        self.param_analysis_names = ['range']
+        self.param_analysis_dict:dict|None = None
 
         # Setting Dictionaries
         self.setting_description_dict:dict|None = None
@@ -251,6 +253,9 @@ class SpectralWindow(QMainWindow):
         self.results_graphic_views:list|None = None
         self.result_layouts:list|None = None
         self.setup_analysis()
+
+        # Set up spectral analysis list
+        self.result_spectrograph_obj_list:list|None=None
 
         # Set up summary
         self.setup_summarize()
@@ -313,7 +318,7 @@ class SpectralWindow(QMainWindow):
         band_low_values         = [0.1, 0.5, 1.0, 10.0 ]
         band_high_values        = [50.0, 60.0, 70.0]
         notch_values            = [50.0, 60.0]
-        create_freq_menu_item_f = lambda x:f'{x:.1f} Hz'
+        create_freq_menu_item_f = lambda x:f'{x:.1f}'
         band_low_menu_items     = list(map(create_freq_menu_item_f, band_low_values))
         band_high_menu_items    = list(map(create_freq_menu_item_f, band_high_values))
         notch_menu_items        = list(map(create_freq_menu_item_f, notch_values))
@@ -797,7 +802,15 @@ class SpectralWindow(QMainWindow):
             band_name, band_low_cb, band_high_cb = band_limits
             band_params_dict[band_name] = [float(band_low_cb.currentText()), float(band_high_cb.currentText())]
 
-        return noise_param_dict, taper_param_dict, band_params_dict
+        # Analysis
+        analysis_param_dict = {}
+        param_analysis_names = self.param_analysis_names
+        analysis_cb = [self.ui.comboBox_parameters_analysis_range]
+        for analysis_tuple in zip(param_analysis_names, analysis_cb):
+            analysis_name, analysis_cb = analysis_tuple
+            analysis_param_dict[analysis_name] = analysis_cb.currentText()
+
+        return noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict
     def create_param_dict(self, names:list[str], cbs:list, convert_f:Callable=lambda x:x)->dict:
         param_dict = {}
         for taper_bands in zip(names, cbs):
@@ -824,7 +837,7 @@ class SpectralWindow(QMainWindow):
             return
 
         # Get parameters
-        noise_param_dict, taper_param_dict, band_params_dict = self.get_parameters()
+        noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict = self.get_parameters()
         noise_delta = noise_param_dict['delta']
         noise_beta = noise_param_dict['beta']
         n_jobs = taper_param_dict['num_cpus']
@@ -865,7 +878,7 @@ class SpectralWindow(QMainWindow):
                 logger.info(f'Spectrogram plotted')
             else:
                 # Plot signal heatmap
-                multitaper_spectrogram_obj.plot_data(self.results_graphic_views[i], turn_axis_units_off = turn_axis_units_off)
+                multitaper_spectrogram_obj.plot_data(self.results_graphic_views[i])
                 logger.info(f'Plotted heatmap instead')
 
         # Hide graphic views not used
@@ -952,7 +965,6 @@ class SpectralWindow(QMainWindow):
 
         # Get analysis range
         analysis_range_setting = self.ui.comboBox_parameters_analysis_range.currentText()
-        print(analysis_range_setting)
 
         # Enable Data Segment Selection
         stage_time_dict = self.xml_obj.sleep_stages_obj.return_stage_time_dict()

@@ -934,6 +934,34 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_p.addWidget(self.line_7)
 
+        self.label_23 = QLabel(self.centralwidget)
+        self.label_23.setObjectName(u"label_23")
+        sizePolicy4.setHeightForWidth(self.label_23.sizePolicy().hasHeightForWidth())
+        self.label_23.setSizePolicy(sizePolicy4)
+        self.label_23.setMinimumSize(QSize(150, 25))
+        self.label_23.setMaximumSize(QSize(150, 25))
+
+        self.verticalLayout_p.addWidget(self.label_23)
+
+        self.label_54 = QLabel(self.centralwidget)
+        self.label_54.setObjectName(u"label_54")
+        sizePolicy4.setHeightForWidth(self.label_54.sizePolicy().hasHeightForWidth())
+        self.label_54.setSizePolicy(sizePolicy4)
+        self.label_54.setMinimumSize(QSize(150, 25))
+        self.label_54.setMaximumSize(QSize(150, 25))
+        self.label_54.setFont(font)
+
+        self.verticalLayout_p.addWidget(self.label_54)
+
+        self.comboBox_parameters_analysis_range = QComboBox(self.centralwidget)
+        self.comboBox_parameters_analysis_range.setObjectName(u"comboBox_parameters_analysis_range")
+        sizePolicy4.setHeightForWidth(self.comboBox_parameters_analysis_range.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_analysis_range.setSizePolicy(sizePolicy4)
+        self.comboBox_parameters_analysis_range.setMinimumSize(QSize(200, 25))
+        self.comboBox_parameters_analysis_range.setMaximumSize(QSize(200, 25))
+
+        self.verticalLayout_p.addWidget(self.comboBox_parameters_analysis_range, 0, Qt.AlignHCenter)
+
         self.verticalLayout_band_param = QVBoxLayout()
         self.verticalLayout_band_param.setObjectName(u"verticalLayout_band_param")
         self.verticalLayout_band_param.setSizeConstraint(QLayout.SetMinimumSize)
@@ -946,6 +974,7 @@ class Ui_MainWindow(object):
         self.label_9.setSizePolicy(sizePolicy6)
         self.label_9.setMinimumSize(QSize(0, 25))
         self.label_9.setMaximumSize(QSize(16777215, 25))
+        self.label_9.setFont(font)
         self.label_9.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_12.addWidget(self.label_9, 0, Qt.AlignLeft|Qt.AlignVCenter)
@@ -1268,36 +1297,8 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.label_23 = QLabel(self.centralwidget)
-        self.label_23.setObjectName(u"label_23")
-        sizePolicy4.setHeightForWidth(self.label_23.sizePolicy().hasHeightForWidth())
-        self.label_23.setSizePolicy(sizePolicy4)
-        self.label_23.setMinimumSize(QSize(150, 25))
-        self.label_23.setMaximumSize(QSize(150, 25))
-
-        self.verticalLayout_4.addWidget(self.label_23)
-
 
         self.verticalLayout_p.addLayout(self.verticalLayout_4)
-
-        self.label_54 = QLabel(self.centralwidget)
-        self.label_54.setObjectName(u"label_54")
-        sizePolicy4.setHeightForWidth(self.label_54.sizePolicy().hasHeightForWidth())
-        self.label_54.setSizePolicy(sizePolicy4)
-        self.label_54.setMinimumSize(QSize(150, 25))
-        self.label_54.setMaximumSize(QSize(150, 25))
-        self.label_54.setFont(font)
-
-        self.verticalLayout_p.addWidget(self.label_54)
-
-        self.comboBox_parameters_analysis_range = QComboBox(self.centralwidget)
-        self.comboBox_parameters_analysis_range.setObjectName(u"comboBox_parameters_analysis_range")
-        sizePolicy4.setHeightForWidth(self.comboBox_parameters_analysis_range.sizePolicy().hasHeightForWidth())
-        self.comboBox_parameters_analysis_range.setSizePolicy(sizePolicy4)
-        self.comboBox_parameters_analysis_range.setMinimumSize(QSize(200, 25))
-        self.comboBox_parameters_analysis_range.setMaximumSize(QSize(200, 25))
-
-        self.verticalLayout_p.addWidget(self.comboBox_parameters_analysis_range, 0, Qt.AlignHCenter)
 
         self.label_34 = QLabel(self.centralwidget)
         self.label_34.setObjectName(u"label_34")
@@ -1814,6 +1815,8 @@ class Ui_MainWindow(object):
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Multi-Processing", None))
         self.label_33.setText("")
         self.checkBox_2.setText(QCoreApplication.translate("MainWindow", u"# of CPUs", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Analysis", None))
+        self.label_54.setText(QCoreApplication.translate("MainWindow", u"Range", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Spectral Bands", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u03b4", None))
         self.label_41.setText(QCoreApplication.translate("MainWindow", u"-", None))
@@ -1833,8 +1836,6 @@ class Ui_MainWindow(object):
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u03b3", None))
         self.label_46.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_40.setText(QCoreApplication.translate("MainWindow", u"Hz", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Analysis", None))
-        self.label_54.setText(QCoreApplication.translate("MainWindow", u"Range", None))
         self.label_34.setText("")
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
         self.pushButton_hypnogram_show_stages.setText(QCoreApplication.translate("MainWindow", u"Show", None))
