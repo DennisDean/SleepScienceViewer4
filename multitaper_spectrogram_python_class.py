@@ -1270,7 +1270,6 @@ class MultitaperSpectrogram:
         if analysis_range is not None:
             dataset = []
             sfreqs = np.array(self.sfreqs)
-            print(spectral_bands)
             for band_range in spectral_bands:
                 mask = np.logical_and(band_range[0]<=sfreqs, sfreqs<band_range[1])
                 dataset.append(summary_db[mask])
