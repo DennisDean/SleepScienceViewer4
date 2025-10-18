@@ -868,7 +868,6 @@ class MainApp(QMainWindow):
             # Update annotations plot
             total_time_in_seconds = self.annotation_xml_obj.sleep_stages_obj.time_seconds
             cur_annotation_setting = self.ui.annotation_comboBox.currentText()
-            #print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                         self.ui.graphicsView_annotation,
                                                         annotation_filter = cur_annotation_setting,
@@ -958,7 +957,6 @@ class MainApp(QMainWindow):
                                                             double_click_callback=self.on_hypnogram_double_click_1,
                                                             show_stage_colors=show_stage_colors)
     def on_hypnogram_double_click_1(self, x_value, y_value):
-        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Hypnogram plot double-clicked: time in seconds {x_value}")
         if self.edf_file_obj is None:
@@ -1039,7 +1037,6 @@ class MainApp(QMainWindow):
         if self.annotation_xml_obj is not None:
             self.annotation_xml_obj.scored_event_obj.show_annotation_legend()
     def on_annotation_double_click_1(self, x_value, y_value):
-        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Annotation plot double-clicked: time in seconds {x_value}")
         if self.edf_file_obj is None:
@@ -1131,7 +1128,7 @@ class MainApp(QMainWindow):
     def show_spectrogram_legend(self):
         pass
         if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
-            print("Error: Spectrogram data not available. Generate spectrogram first.")
+            logger.error("Error: Spectrogram data not available. Generate spectrogram first.")
             return
 
         # Display legend dialog
@@ -1163,7 +1160,6 @@ class MainApp(QMainWindow):
             self.ui.pushButton_spectrogra_legend.setEnabled(False)
             self.ui.pushButton_heat_legend.setEnabled(False)
     def on_spectrogram_double_click_1(self, x_value, y_value):
-        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Spectrogram plot double-clicked: time in seconds {x_value}")
         if self.edf_file_obj is None:
@@ -1221,8 +1217,6 @@ class MainApp(QMainWindow):
         multitaper_spectrogram_obj.plot_data(self.ui.spectrogram_graphicsView,
                                              double_click_callback=self.on_spectrogram_double_click_1)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-
-        # print(self.multitaper_spectrogram_obj.heatmap_fs)
 
         # Record Spectrogram Completions
         self.ui.spectrogram_label.setText(f'Data Heatmap - {signal_label}')
@@ -1619,11 +1613,9 @@ class MainApp(QMainWindow):
             signal_units.strip()
             if signal_units == "":
                 signal_units = None
-            # print(f'signal units = {signal_units}')
 
             # Get color
             signal_color = signal_colors[i]
-            # print(f'signal_color = {signal_color}')
 
             # Plot signal segment
             self.edf_file_obj.edf_signals.plot_signal_segment(signal_label,

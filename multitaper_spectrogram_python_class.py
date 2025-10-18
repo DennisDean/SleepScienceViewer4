@@ -220,6 +220,9 @@ class MultitaperSpectrogram:
         custom_cmap_continuous = LinearSegmentedColormap.from_list("SleepViewerGradient", gradient_colors)
         self.spectrogram_colormap = custom_cmap_continuous
 
+        # Plot parameters
+        self.spectral_bands_default = [[0.5, 4.0], [4.0, 8.0], [8.0, 12.0], [12.0, 15.0], [15.0, 30.0], [30.0, 60.0]]
+        self.spectral_bands_titles_default = ['delta', 'beta', 'alpha', 'sigma', 'beta', 'gamma']
         # Spectrogram Result Dictionary
     # Manage connections
     def cleanup_events(self):
@@ -987,7 +990,6 @@ class MultitaperSpectrogram:
         Show a colorbar legend dialog for the data heatmap.
         """
         # Check that heatmap data is available
-        #print('show heatmap legend')
         if not hasattr(self, 'heatmap_data') or self.heatmap_data is None:
             logger.error(f"Error: Heatmap data not available. Generate heatmap first: {self.heatmap_data}.")
             return
@@ -1139,7 +1141,7 @@ class MultitaperSpectrogram:
 
         return spectrogram_avg, spectrogram_std
     def plot_spectral_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
-                              axis_only: bool = False, analysis_range:list|None=None, filter_param:list|None=None):
+                              axis_only: bool = False, analysis_range:list|None=None):
         """Plot 1D spectral summary (average power across frequencies)"""
 
         # Define plotting variables
@@ -1151,11 +1153,6 @@ class MultitaperSpectrogram:
         # Cleanup handlers
         self.cleanup_events()
 
-
-        # Process input
-        if analysis_range is not None:
-            analysis_range = deepcopy(analysis_range)
-
         # Get spectral summary data
         spectral_summary, spectrogram_std = self.compute_spectral_summary(analysis_range=analysis_range)
         if spectral_summary is None:
@@ -1163,7 +1160,6 @@ class MultitaperSpectrogram:
             return
         sfreqs = self.sfreqs
         summary_db = self.nanpow2db(spectral_summary) #  # Convert to dB if needed
-
 
         # Create the figure and canvas
         fig = Figure()
@@ -1238,115 +1234,133 @@ class MultitaperSpectrogram:
             if not axis_only:
                 ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
                 ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
+    def plot_band_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
+                              axis_only: bool = False, analysis_range:list|None=None, spectral_bands:list|None=None,
+                              spectral_titles:list|None=None):
+        """Plot 1D spectral summary (average power across frequencies)"""
 
-    # Utilities
-    def apply_bandpass_filter(self, data, fs, lowcut, highcut, order=5):
-        """
-        Applies a Butterworth bandpass filter to  data.
+        # Define plotting variables
+        label_fontsize = 6
+        tick_label_fontsize = 6
+        x_label_text = "Frequency (Hz)"
+        y_label_text = "Average PSD (dB)"
 
-        Args:
-            data (np.ndarray): The 1D  signal.
-            fs (float): The sampling frequency of the data.
-            lowcut (float): The lower cutoff frequency.
-            highcut (float): The upper cutoff frequency.
-            order (int): The filter order.
+        # Cleanup handlers
+        self.cleanup_events()
 
-        Returns:
-            np.ndarray: The filtered  signal.
-        """
+        # Process input
+        if analysis_range is not None:
+            analysis_range = deepcopy(analysis_range)
+        if spectral_bands is None:
+            spectral_bands = self.spectral_bands_default
+        if spectral_titles is None:
+            spectral_titles = self.spectral_bands_titles_default
 
-        if self.validate_bandpass_params(fs, lowcut, highcut, order):
-            nyquist = 0.5 * fs
-            low = lowcut / nyquist
-            high = highcut / nyquist
-            sos = butter(order, [low, high], btype='bandpass', output='sos')
-            filtered_data = sosfiltfilt(sos, data)
-            logger.info(f'Band pass filter applied.')
+
+        # Get spectral summary data
+        spectral_summary, spectrogram_std = self.compute_spectral_summary(analysis_range=analysis_range)
+        if spectral_summary is None:
+            logger.warning("No spectral summary available to plot")
+            return
+        sfreqs = self.sfreqs
+        summary_db = self.nanpow2db(spectral_summary) #  # Convert to dB if needed
+
+        # Create Box Plot Data SET
+        # Process input
+        if analysis_range is not None:
+            dataset = []
+            sfreqs = np.array(self.sfreqs)
+            print(spectral_bands)
+            for band_range in spectral_bands:
+                mask = np.logical_and(band_range[0]<=sfreqs, sfreqs<band_range[1])
+                dataset.append(summary_db[mask])
         else:
-            filtered_data = data
-            logger.error(f'Band pass filter not applied. Parameters are not valid')
-        return filtered_data
-    @staticmethod
-    def validate_bandpass_params(fs, lowcut, highcut, order) -> bool:
-        # Set return value
-        valid_params = True
+            dataset = deepcopy(summary_db)
 
-        # Check parameter values
-        if fs is None or fs <= 0:
-            valid_params = False
-            logger.error("fs (sampling rate) must be a positive number.")
-        if lowcut is None or highcut is None:
-            valid_params = False
-            logger.error("Both lowcut and highcut must be provided for a bandpass filter.")
-        if not (np.isfinite(lowcut) and np.isfinite(highcut)):
-            valid_params = False
-            logger.error("lowcut and highcut must be finite numbers.")
-        if lowcut <= 0:
-            valid_params = False
-            logger.error(f"lowcut must be > 0 Hz. got lowcut={lowcut}")
-        if highcut <= 0:
-            valid_params = False
-            logger.error(f"highcut must be > 0 Hz. got highcut={highcut}")
-        if lowcut >= highcut:
-            valid_params = False
-            logger.error(f"lowcut must be less than highcut. got lowcut={lowcut}, highcut={highcut}")
 
-        # Check frequency values
-        nyq = 0.5 * fs
-        low = lowcut / nyq
-        high = highcut / nyq
-        if not (0 < low < 1):
-            valid_params = False
-            logger.error(f"Normalized low frequency must be between 0 and 1. lowcut={lowcut} Hz -> {low:.6f}")
-        if not (0 < high < 1):
-            valid_params = False
-            logger.error(
-                f"Normalized high frequency must be between 0 and 1. highcut={highcut} Hz -> {high:.6f}")
-        if not (low < high):
-            valid_params = False
-            logger.error(f"Normalized low must be less than normalized high. low={low:.6f}, high={high:.6f}")
+        # Create the figure and canvas
+        fig = Figure()
+        ax = fig.add_subplot(111)
 
-        # Check Order parameter
-        if order <= 0:
-            valid_params = False
-            logger.error(f"Order must be greater than zero: order={order:i}")
-        if order > 20:
-            valid_params = False
-            logger.error(f"Order too high (>20), may cause numerical instability: order={order:i}")
-
-        return valid_params
-    @staticmethod
-    def apply_notch_filter(signal, fs, notch_freq:int = 60, Q=30.0): # noinspection PyPep8Naming
-        """
-        Apply a 50 Hz (Europe) or 60 Hz (US) notch filter to EEG/sleep study data.
-
-        Parameters
-        ----------
-        signal : array_like
-            Input signal.
-        fs : float
-            Sampling frequency in Hz.
-        notch_freq : 60Hz US and 50Hz for Europe
-            "US" for 60 Hz or "EU" for 50 Hz.
-        Q : float 20-35 common, <20 wider and frequency drift, 40-50 narrow incomplete filtering
-            Quality factor. Higher = narrower notch.
-
-        Returns
-        -------
-        filtered_signal : ndarray
-            Filtered output.
-        """
-        nyquist = fs/2
-
-        if 0 < notch_freq < nyquist:
-            notch_freq = notch_freq
-            b, a = iirnotch(w0=notch_freq, Q=Q, fs=fs)
-            return_signal = filtfilt(b, a, signal)
-            logger.info(f'Notch filter applied: notch = {notch_freq}')
+        if not axis_only:
+            # Plot the 1D spectral summary
+            #line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
+            VP = ax.boxplot(dataset,
+                            labels = spectral_titles,
+                            patch_artist=True,
+                            showmeans=False, showfliers=False,
+                            medianprops={"color": "white", "linewidth": 0.5},
+                            boxprops={"facecolor": "C0", "edgecolor": "white",
+                                      "linewidth": 0.5},
+                            whiskerprops={"color": "C0", "linewidth": 1.5},
+                            capprops={"color": "C0", "linewidth": 1.5})
+            ax.set_xlabel(x_label_text, fontsize=label_fontsize)
+            ax.set_ylabel(y_label_text, fontsize=label_fontsize)
+            ax.grid(True, alpha=0.3)
         else:
-            return_signal = signal
-            logger.error('Notch filter not applied: Sampling rate too low to apply filter')
-        return return_signal
+            # Minimal axis for alignment
+            ax.plot(sfreqs, summary_db, alpha=0)
+
+            ax.set_xlim(sfreqs[0], sfreqs[-1])
+
+            # Hide all spines except bottom
+            for spine in ax.spines.values():
+                spine.set_visible(False)
+            ax.spines['bottom'].set_visible(True)
+
+            # Hide y-axis
+            ax.get_yaxis().set_visible(False)
+
+            # Make background transparent
+            ax.set_facecolor('none')
+            fig.patch.set_facecolor('none')
+
+        # Store references
+        self.current_spectrogram_ax = ax
+        self.current_spectrogram_fig = fig
+        self.current_spectrogram_canvas = None
+
+        # Set tick parameters
+        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in', length=1, pad=-8)
+        ax.tick_params(axis='y', labelsize=tick_label_fontsize, direction='in')
+        for label in ax.get_xticklabels():
+            label.set_text(f' {label.get_text()}')
+            label.set_horizontalalignment('center')
+
+        if turn_axis_units_off:
+            ax.set_xticklabels([])
+
+        # Embed canvas into the provided QWidget
+        if parent_widget:
+            canvas = FigureCanvas(fig)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+            canvas.updateGeometry()
+
+            # Store canvas reference
+            self.current_spectrogram_canvas = canvas
+
+            # Adjust figure margins
+            fig.subplots_adjust(left=0.1, right=0.95, top=0.95, bottom=0.15)
+
+            # Remove existing layout and widgets
+            existing_layout = parent_widget.layout()
+            if existing_layout:
+                while existing_layout.count():
+                    item = existing_layout.takeAt(0)
+                    widget = item.widget()
+                    if widget is not None:
+                        widget.setParent(None)
+            else:
+                existing_layout = QVBoxLayout(parent_widget)
+                parent_widget.setLayout(existing_layout)
+
+            # Add new canvas
+            existing_layout.setContentsMargins(0, 0, 0, 0)
+            existing_layout.addWidget(canvas)
+
+            if not axis_only:
+                ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
+                ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
 
     # HELPER FUNCTIONS
     @staticmethod

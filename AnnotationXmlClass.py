@@ -652,8 +652,6 @@ class SleepStages:
         epoch_width     = self.sleep_epoch
         sleep_stages_N3 = self.sleep_stages_N3
 
-        # print(f'start_epoch = {start_epoch}, epoch end = {epoch_end}, epoch_width = {epoch_width}, sleep_stages_N3 = {sleep_stages_N3}')
-
         # Determine the range of epochs to process
         if epoch_end is None:
             start_epoch = int(start_epoch)
@@ -667,7 +665,6 @@ class SleepStages:
         # Convert each epoch's text stage to time-based dictionary
         for current_epoch in range(start_epoch, end_epoch):
             # Check if we have data for this epoch
-            #print(current_epoch)
             if current_epoch < len(sleep_stages_N3):
                 stage_text = sleep_stages_N3[current_epoch]
 
@@ -705,8 +702,6 @@ class SleepStages:
         sleep_start_time = (sleep_start_index-1)*self.sleep_epoch
         sleep_end_time = sleep_end_index*self.sleep_epoch
 
-        print(sleep_start_index, sleep_end_index, sleep_start_time, sleep_end_time)
-
         # Create dictionary
         sleep_time_keys = ['sleep_start_index', 'sleep_end_index', 'sleep_start_time', 'sleep_end_time']
         sleep_time_values = [sleep_start_index, sleep_end_index, sleep_start_time, sleep_end_time]
@@ -718,6 +713,12 @@ class SleepStages:
         self.stage_time_dict = stage_time_dict
 
         return stage_time_dict
+    def return_stage_spectrogram_mask_array(self, hypnogram_str, spectrogram_times):
+        hypnogram_options = self.return_sleep_stage_labels()
+        hypnogram_index = hypnogram_options.index(hypnogram_str)
+        sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels, self.text_n3_labels]
+        print(hypnogram_options, hypnogram_index, sleep_stages_labels)
+
     @staticmethod
     def summarize_sleep_stages(stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
         """
@@ -1243,7 +1244,6 @@ class SleepStages:
                 # seconds = int(x_value % 60)
                 #time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
-                # print(f"Hypnogram double-clicked at time: {x_value:.2f}s ({time_str})")
 
                 # Call callback method if it exists
                 if hasattr(self, 'hypnogram_double_click_callback') and self.hypnogram_double_click_callback is not None:
@@ -1551,7 +1551,7 @@ class SignalAnnotations:
 
         # Check if we have scored events
         if not hasattr(self, 'scoredEvents') or not self.scoredEvents:
-            print("No scored events to plot")
+            logger.info("No scored events to plot")
             return
 
         # Create figure and axis
@@ -1594,9 +1594,6 @@ class SignalAnnotations:
         # Use the provided total time parameter
         max_time = max(total_time_in_seconds)
         min_time = 0
-
-        # print(f"Debug: Using time range: {min_time} to {max_time}")
-        # print(f"Debug: Found {len(start_times)} events with {len(unique_annotations)} unique annotations")
 
         # Set up the plot area
         ax.set_xlim(min_time, max_time)
@@ -1706,8 +1703,6 @@ class SignalAnnotations:
                 # minutes = int((x_value % 3600) // 60)
                 # seconds = int(x_value % 60)
                 # time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
-
-                # print(f"Annotation plot double-clicked at time: {x_value:.2f}s ({time_str})")
 
                 # Call the callback function if provided
                 if (hasattr(self, 'annotation_double_click_callback') and
@@ -2166,19 +2161,16 @@ class AnnotationXml:
             except (ET.ParseError, OSError) as e:
                 logger.error(f"Error parsing XML: {e}")
                 return
-            # print(xml_root.find('CMPStudyConfig'))
+
             for e in xml_root:
-                # print(e.tag)
                 if e.tag == 'EpochLength':
                     self.epochLength = float(e.text)
                 elif e.tag == 'StepChannels':
                     for steps in e:
-                        # print('     {}'.format(e.tag))
                         # stepChan = []
                         label_tags = ''
                         new_step_channel = ''
                         for step in steps:
-                            # print ('          {}'.format(step.tag))
                             if step.tag == 'Input':
                                 new_step_channel = step.text
                             if step.tag == 'Labels':
@@ -2186,10 +2178,9 @@ class AnnotationXml:
                                 for labels in step:
                                     label_tags.append(labels.text)
                         self.steppedChannels[new_step_channel] = label_tags
-                        # print(self.steppedChannels)
+
                 elif e.tag == 'ScoredEventSettings':
                     for eventSets in e:
-                        # print('     {}: {}'.format(eventSets.tag, eventSets.text))
                         eventSetEntry = {}
                         for eventSet in eventSets:
                             eventSetEntry[eventSet.tag] = eventSet.text
@@ -2204,23 +2195,18 @@ class AnnotationXml:
                         self.scoredEvents.append(entry)
                 elif e.tag == 'SleepStages':
                     for sleepStage in e:
-                        # print('     {}: {}'.format(sleepStage.tag, sleepStage.text))
                         self.sleepStages.append(int(sleepStage.text))
                 elif e.tag == 'Montage':
-                    # print('                   montage')
                     for montage in e:
-                        # print('     {}'.format(montage.tag))
                         for tracePane in montage:
-                            # print('     {}'.format(tracePane.tag))
                             for traces in tracePane:
-                                # print('        {}'.format(traces.tag))
                                 # trace_dict = {}
                                 for trace in traces:
-                                    # print ('               {} '.format(trace.tag))
+
                                     trace_dict = {}
                                     for traceEntry in trace:
                                         trace_dict[traceEntry.tag] = traceEntry.text
-                                    # print('                 ', trace_dict)
+
                                     input_name = trace_dict['Input']
                                     if input_name is None:
                                         input_name = self.montage_input_not_set

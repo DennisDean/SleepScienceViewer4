@@ -80,13 +80,6 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_control_coherence">
-              <property name="text">
-               <string>Coherence</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="label_38">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -125,6 +118,31 @@
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="label_58">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="pushButton_control_spectrum_average">
               <property name="toolTip">
                <string>Compute Average Spectrogram</string>
@@ -135,12 +153,19 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="pushButton_control_band">
+              <property name="text">
+               <string>Band</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="pushButton_control_display_spectrogram">
               <property name="toolTip">
                <string>Display Spectrogram</string>
               </property>
               <property name="text">
-               <string>Display</string>
+               <string>Spectrogram</string>
               </property>
              </widget>
             </item>

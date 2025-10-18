@@ -10,25 +10,15 @@
 
 # Modules
 import logging
-from copy import deepcopy
-
 import psutil
 import math
 from functools import partial
 from typing import Callable
-import numpy as np
-import copy
 
 # Interface packages and modules
-from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox,QGraphicsScene
-from PySide6.QtCore import QEvent, Qt, QObject,Signal, QTimer
-from PySide6.QtGui import QColor, QBrush, QFont, QFontDatabase
+from PySide6.QtWidgets import QMainWindow, QApplication, QMessageBox
+from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QKeyEvent
-
-# Matplotlib
-from matplotlib.figure import Figure
-from matplotlib.ticker import MultipleLocator, FuncFormatter
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 # Sleep Science Classes
 from EdfFileClass import EdfFile, EdfSignalAnalysis
@@ -65,7 +55,6 @@ def set_layout_visible(layout, visible: bool):
         # Check if the item is a widget
         widget = item.widget()
         if widget:
-            #print(f"  - Widget: {widget.objectName()}")
             widget.setVisible(visible)
 
         # Check if the item is a nested layout
@@ -212,8 +201,8 @@ class SpectralWindow(QMainWindow):
         self.setting_signal_names = ['reference_method', 'analysis_signals', 'reference_signal']
         self.setting_plotting_dict:dict|None = None
         self.setting_plotting_names = ['show_x_labels']
-        self.setting_filter_dict:dict|None = None
-        self.setting_filter_names = ['apply_band', 'band_low', 'band_high', 'apply_notch', 'notch']
+        self.setting_analysis_dict:dict|None = None
+        self.setting_analaysis_names = ['apply_band', 'band_low', 'band_high', 'apply_notch', 'notch']
 
         # Set up window control
         self.setup_control_bar()
@@ -560,14 +549,6 @@ class SpectralWindow(QMainWindow):
 
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
-            # Record Spectrogram Completions
-            if self.multitaper_spectrogram_obj.spectrogram_computed:
-                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-                logger.info('Computing spectrogram: Computation completed')
-            else:
-                self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-                logger.info('Computing spectrogram: Computation completed')
-
             # Turn off busy cursor
             QApplication.restoreOverrideCursor()
 
@@ -577,7 +558,6 @@ class SpectralWindow(QMainWindow):
             # Turn on Legend Pushbutton
             self.ui.pushButton_spectrogram_legend.setEnabled(True)
     def on_spectrogram_double_click(self, x_value, _y_value):
-        # print(f'Sleep Science Viewer: x_value = {x_value}, y_value = {y_value}')
         # Slot to handle double-click events on QListWidget items.
         logger.info(f"Annotation plot double-clicked: time in seconds {x_value}")
         if self.edf_obj is None:
@@ -650,8 +630,6 @@ class SpectralWindow(QMainWindow):
         multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
                                         double_click_callback=self.on_spectrogram_double_click)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-
-        # print(self.multitaper_spectrogram_obj.heatmap_fs)
 
         # Record Spectrogram Completions
         logger.info('Computing spectrogram: Computation completed')
@@ -736,6 +714,7 @@ class SpectralWindow(QMainWindow):
         # Setup pushButtons
         self.ui.pushButton_control_compute.clicked.connect(self.analyze_signal_list)
         self.ui.pushButton_control_display_spectrogram.clicked.connect(self.display_spectrogram)
+        self.ui.pushButton_control_band.clicked.connect(self.display_bands)
     def get_settings(self)->tuple[dict,dict,dict,dict]:
         # Create setting description dictionary
         setting_description_dict = {}
@@ -844,6 +823,13 @@ class SpectralWindow(QMainWindow):
         window_params = [taper_param_dict['window'], taper_param_dict['step']]
         multiprocess = False if n_jobs >= 1 else True
 
+        filter_param = [-1, -1, -1]
+        if setting_filter_dict['apply_band']:
+            filter_param[0] = setting_filter_dict['band_low']
+            filter_param[1] = setting_filter_dict['band_high']
+        if setting_filter_dict['apply_notch']:
+            filter_param[2] = setting_filter_dict['notch']
+
         # Turn on busy cursor
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
@@ -859,9 +845,8 @@ class SpectralWindow(QMainWindow):
 
             # Setup and compute spectrogram
             signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
-            # signal_analysis_obj = EdfSignalAnalysis(signal_obj,multiprocess=multiprocess, n_jobs=n_jobs)
             signal_analysis_obj = EdfSignalAnalysis(signal_obj, multiprocess=multiprocess, n_jobs=n_jobs,
-                                                    window_params=window_params)
+                                                    window_params=window_params, filter_param=filter_param)
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
             self.result_spectrogram_obj_list.append(multitaper_spectrogram_obj)
 
@@ -910,6 +895,7 @@ class SpectralWindow(QMainWindow):
         self.noise_param_dict = noise_param_dict
         self.taper_param_dict = taper_param_dict
         self.band_params_dict = band_params_dict
+        self.analysis_param_dict = analysis_param_dict
 
         # Turn on summarize button
         self.enable_spectrogram_options(True)
@@ -917,7 +903,10 @@ class SpectralWindow(QMainWindow):
         # Turn off busy cursor
         QApplication.restoreOverrideCursor()
     def enable_spectrogram_options(self, enable:bool=True):
-        spectral_analysis_options = [self.ui.pushButton_control_display_spectrogram, self.ui.pushButton_control_spectrum_average]
+        spectral_analysis_options = [self.ui.pushButton_control_display_spectrogram,
+                                     self.ui.pushButton_control_spectrum_average,
+                                     self.ui.pushButton_control_band]
+
         for each_button in spectral_analysis_options:
             each_button.setEnabled(enable)
     def display_spectrogram(self):
@@ -934,9 +923,7 @@ class SpectralWindow(QMainWindow):
 
         # Check if spectrogram is avaialble
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
-            # print(spec_obj)
             multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
-            # print(multi_taper_spec_reult_dict)
             turn_axis_units_off = True
             spec_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off)
 
@@ -988,6 +975,50 @@ class SpectralWindow(QMainWindow):
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off,
+                                           analysis_range=analysis_range)
+
+        # Turn Off X axis
+        set_layout_visible(self.ui.horizontalLayout_time_axis, False)
+
+        # Turn off button
+        self.ui.pushButton_control_spectrum_average.setEnabled(True)
+    def display_bands(self):
+        # Check if spectrogram results are available
+        if self.result_spectrogram_obj_list is None:
+            logger.info('Spectrogram results are not available.')
+            return
+
+        # Update log file
+        logger.info('Summarize spectrogram by stage.')
+
+        # Turn off button
+        self.ui.pushButton_control_spectrum_average.setEnabled(False)
+
+        # Get analysis range
+        analysis_range_setting = self.ui.comboBox_parameters_analysis_range.currentText()
+
+        # Enable Data Segment Selection
+        stage_time_dict = self.xml_obj.sleep_stages_obj.return_stage_time_dict()
+        sleep_start_time = stage_time_dict['sleep_start_time']
+        sleep_end_time = stage_time_dict['sleep_end_time']
+        max_recording_time = self.xml_obj.sleep_stages_obj.max_time_sec
+        analysis_range = [0.0, max_recording_time]
+        if analysis_range_setting == 'All':
+            analysis_range = [0.0, max_recording_time]
+        elif analysis_range_setting == 'Wake':
+            analysis_range = [0.0, sleep_start_time]
+        elif analysis_range_setting == 'Wake through Sleep':
+            analysis_range = [0.0, sleep_end_time]
+        elif analysis_range_setting == 'Sleep Only':
+            analysis_range = [sleep_start_time, sleep_end_time]
+        elif analysis_range_setting == 'Ending Wake':
+            analysis_range = [sleep_end_time, max_recording_time]
+
+        # Check if spectrogram is avaialble
+        for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
+            turn_axis_units_off = False
+            p_widget = self.results_graphic_views[i]
+            spec_obj.plot_band_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off,
                                            analysis_range=analysis_range)
 
         # Turn Off X axis

@@ -28,7 +28,7 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
-
+import copy
 # To Do List
 
 # Import Modules
@@ -125,7 +125,6 @@ def apply_bandpass_filter(data, fs, lowcut, highcut, order=5):
         filtered_data = data
         logger.error(f'Band pass filter not applied. Parameters are not valid')
     return filtered_data
-@staticmethod
 def validate_bandpass_params(fs, lowcut, highcut, order)->bool:
     # Set return value
     valid_params = True
@@ -174,7 +173,6 @@ def validate_bandpass_params(fs, lowcut, highcut, order)->bool:
         logger.error(f"Order too high (>20), may cause numerical instability: order={order:i}")
 
     return valid_params
-@staticmethod
 def apply_notch_filter(signal, fs, notch_freq:int = 60, Q=30.0): # noinspection PyPep8Naming
     """
     Apply a 50 Hz (Europe) or 60 Hz (US) notch filter to EEG/sleep study data.
@@ -824,17 +822,16 @@ class EdfSignals:
 
             # Check if filtering parameters are provided
             filter_test = True in [ x>0 for x in filter_param]
-            #print(f'Testing Filter Parameters: filter_test = {filter_test}, filter_param = {filter_param}')
             if filter_test:
                 lowcut  = filter_param[0]
                 highcut = filter_param[1]
                 notch   = filter_param[2]
-                # print('Extracted filter value')
+
                 if 0 < lowcut < highcut:
                     fs = 1/sampling_time
                     logger.info(
                         f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
-                    #print(signal_segment)
+
                     signal_segment_np = apply_bandpass_filter(np.array(signal_segment), fs, lowcut, highcut)
                     signal_segment    = signal_segment_np.tolist()
                     logger.info(
@@ -852,7 +849,6 @@ class EdfSignals:
         # ADD SLEEP STAGE RECTANGLES BEFORE PLOTTING THE SIGNAL
         if sleep_stages and signal_key != "":
             # Get the y-axis limits first (we'll need them for rectangle height)
-            #print('sleep_stages in plotting')
             if is_signal_stepped:
                 y_min_temp = 0
                 y_max_temp = len(stepped_dict)
@@ -861,12 +857,10 @@ class EdfSignals:
                     y_min_temp = y_limits[0]
                     y_max_temp = y_limits[1]
                 else:
-                    #print(f'signal_segment = {signal_segment}, signal_key = {signal_key}')
                     y_min_temp = np.min(signal_segment)
                     y_max_temp = np.max(signal_segment)
                     if y_min_temp == y_max_temp:
                         pass
-                        # print(f'y_min_temp = {y_min_temp}')
 
             # Adjust temporary y limits for a constant signal
             if y_min_temp - y_max_temp == 0:
@@ -876,7 +870,6 @@ class EdfSignals:
 
             # Add rectangles for each sleep stage
             for stage_info in sleep_stages:
-                #print(stage_info)
                 start_time = stage_info.get('start_time')
                 end_time = stage_info.get('end_time', epoch_width)
                 stage_name = stage_info.get('stage', 'Unknown')
@@ -888,7 +881,6 @@ class EdfSignals:
                     rect_color = default_stage_colors[stage_name]
                 else:
                     rect_color = '#D3D3D3'  # Light gray for unknown stages
-                #print(rect_color)
 
                 # Create rectangle
                 width = end_time - start_time
@@ -903,7 +895,6 @@ class EdfSignals:
                     edgecolor='none',
                     zorder=0  # Put rectangles behind the signal
                 )
-                #print(rect)
                 ax.add_patch(rect)
 
         ax.plot(time_axis, signal_segment, color=signal_color, linewidth=1, zorder=2)
@@ -926,7 +917,6 @@ class EdfSignals:
             ax.set_yticklabels(y_tick_labels)
             ax.tick_params(axis='y', length=1, width=0.8, direction='in', labelsize=tick_label_fontsize)
         else:
-            #print(signal_segment)
             if y_limits is not None:
                 y_min = y_limits[0]
                 y_max = y_limits[1]
@@ -1039,7 +1029,7 @@ class EdfSignal:
         return f'EDF Signal: {self.signal_type}, {self.signal_label}, # of pts = {len(self.signal)} '
 class EdfSignalAnalysis:
     def __init__(self, edf_signal_ob:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False,
-                 window_params:list=[5,1], n_jobs:int=1, multiprocess:bool = False):
+                 window_params:list|None=None, n_jobs:int=1, multiprocess:bool = False, filter_param:list=None):
         if param_dict is None:
             param_dict = {}
 
@@ -1050,15 +1040,49 @@ class EdfSignalAnalysis:
 
         # Get multi-taper variables if avaialble
         self.mt_window_params = window_params
+        if window_params is None:
+            self.mt_window_params = [5,1]
         self.mt_n_jobs = n_jobs
         self.mt_multiprocess = multiprocess
-    def multitapper_spectrogram(self):
+
+        # Get filter parameters
+        self.filter_param = [-1,-1,-1]
+        if filter_param is not None:
+            self.filter_param = filter_param
+
+    def multitapper_spectrogram(self, ):
         # Multitapper Spectrogram Parameters
         data = np.array(self.edf_signal_ob.signal)       # Numpy signal
+        signal_segment = copy.deepcopy(data)
         fs   = 1/self.edf_signal_ob.signal_sampling_time # Sampling frequency in hz
 
+        # Signal Information
+        signal_key = self.edf_signal_ob.signal_label
+        sampling_time = self.edf_signal_ob.signal_sampling_time
+
+        # Check if filtering parameters are provided
+        filter_param = self.filter_param
+        filter_test = True in [x > 0 for x in filter_param]
+        if filter_test:
+            lowcut = filter_param[0]
+            highcut = filter_param[1]
+            notch = filter_param[2]
+
+            if 0 < lowcut < highcut:
+                fs = 1 / sampling_time
+                logger.info(
+                    f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
+                signal_segment = apply_bandpass_filter(np.array(signal_segment), fs, lowcut, highcut)
+                logger.info(
+                    f'Setting filtering parameters: fs = {fs}, lowcut = {lowcut}, highcut  = {highcut}, notch = {notch}')
+
+            if notch > 0:
+                fs = 1 / sampling_time
+                logger.info(f'Filtering {signal_key} notch parameters: notch = {notch}')
+                apply_notch_filter(signal_segment, fs, notch_freq=notch)
+
         # Compute spectrogram
-        multi_taper_spectrum_obj = MultitaperSpectrogram(data, fs,
+        multi_taper_spectrum_obj = MultitaperSpectrogram(signal_segment, fs,
                                                          window_params=self.mt_window_params,
                                                          n_jobs=self.mt_n_jobs,
                                                          multiprocess=self.mt_multiprocess)
@@ -1371,5 +1395,65 @@ def main():
     edf_file.edf_signals.set_output_dir(str(Path("./exports/json/")))
     edf_file.edf_signals.export_sig_stats_to_csv(str(Path("signal_stats.csv")))
     edf_file.edf_signals.export_sig_stats_to_excel(str(Path("signal_stats.xlsx")))
+
+    import numpy as np
+    from scipy import signal
+    import matplotlib.pyplot as plt
+
+    # 1. Define signal parameters
+    fs = 1000  # Sampling frequency in Hz
+    t = np.linspace(0, 1, fs, endpoint=False)  # 1 second of signal
+    f_signal = 10  # Desired signal frequency in Hz
+    f_noise = 60  # Noise frequency to remove (e.g., power line hum) in Hz
+
+    # 2. Create a synthetic signal with noise
+    clean_signal = np.sin(2 * np.pi * f_signal * t)
+    noisy_signal = clean_signal + 0.5 * np.sin(2 * np.pi * f_noise * t)  # Add 60 Hz noise
+
+    # 3. Design the notch filter
+    # w0: normalized frequency to remove (f_noise / (fs/2))
+    # Q: Quality factor, determines bandwidth of the notch
+    w0 = f_noise / (fs / 2)
+    Q = 30  # A higher Q value results in a narrower notch
+
+    b, a = signal.iirnotch(w0, Q)
+
+    # 4. Apply the filter to the noisy signal
+    filtered_signal = signal.filtfilt(b, a, noisy_signal)
+    filtered_signal_2 = apply_notch_filter(noisy_signal, fs,notch_freq=60, Q = 30.0)
+
+    # 5. Plot the results for comparison
+    plt.figure(figsize=(12, 6))
+
+    plt.subplot(3, 1, 1)
+    plt.plot(t, clean_signal)
+    plt.title('Clean Signal')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Amplitude')
+
+    plt.subplot(3, 1, 2)
+    plt.plot(t, noisy_signal)
+    plt.title(f'Noisy Signal (with {f_noise} Hz hum)')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Amplitude')
+
+    plt.subplot(3, 1, 3)
+    plt.plot(t, filtered_signal)
+    plt.title(f'Filtered Signal (60 Hz notch)')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Amplitude')
+
+    plt.tight_layout()
+    plt.show()
+
+    # Optional: Plot frequency response of the filter
+    w, h = signal.freqz(b, a, worN=8000)
+    plt.figure()
+    plt.plot((fs * 0.5 / np.pi) * w, abs(h))
+    plt.title('Notch Filter Frequency Response')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Gain')
+    plt.grid()
+    plt.show()
 if __name__ == "__main__":
     main()
