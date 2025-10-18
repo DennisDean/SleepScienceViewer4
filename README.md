@@ -8,6 +8,11 @@ SleepScienceViewer is a Python-native application for visualizing and analyzing 
 
 SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs/EDF_File_Class.md) and [annotation files](Media/Docs/Annotation_XML_Class.md). These classes can also be used independently to access specific information from the files, supporting flexible review and analysis within notebooks or other Python programs.
 
+
+The vision for the viewer emerged years ago and is made possible by the wealth of open 
+source software currently available. Guiding principles for development and features 
+under consideration can be found in the [vision statement](Media/vision.md).
+
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 *Figure 1. Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.*
 
