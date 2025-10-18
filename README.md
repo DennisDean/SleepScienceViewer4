@@ -11,7 +11,7 @@ SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs
 
 The vision for the viewer emerged years ago and is made possible by the wealth of open 
 source software currently available. Guiding principles for development and features 
-under consideration can be found in the [vision statement](Media/vision.md).
+under consideration can be found in the [vision statement](vision.md).
 
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 *Figure 1. Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.*
