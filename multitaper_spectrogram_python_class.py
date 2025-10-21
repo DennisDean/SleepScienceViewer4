@@ -223,6 +223,21 @@ class MultitaperSpectrogram:
         # Plot parameters
         self.spectral_bands_default = [[0.5, 4.0], [4.0, 8.0], [8.0, 12.0], [12.0, 15.0], [15.0, 30.0], [30.0, 60.0]]
         self.spectral_bands_titles_default = ['delta', 'beta', 'alpha', 'sigma', 'beta', 'gamma']
+
+        # Colors
+        self.default_stage_colors = {
+            'W': '#B5B5B5',       # Light orange '#FFE4B5', converting to gray
+            'Wake': '#E4E4E4',    # Light orange
+            'REM': '#FFB6C1',     # Light pink
+            'N1': '#D8BFD8',      # Thistle
+            'N2': '#B0E0E6',      # Powder blue
+            'N3': '#98FB98',      # Pale green
+            'N4': '#3CB371',      # Medium sea green (darker than N3)
+            'NREM': '#87CEEB',    # Sky blue
+            'Artifact': '#FA8072' # Salmon
+        }
+
+
         # Spectrogram Result Dictionary
     # Manage connections
     def cleanup_events(self):
@@ -552,7 +567,7 @@ class MultitaperSpectrogram:
     # Spectrogram Functions
     def plot(self, parent_widget=None, x_tick_settings:Optional[list[int]] = None, convert_time_f=lambda x:x/3600.0,
              time_axis_unit:str|None = 'h', turn_axis_units_off:bool = False, double_click_callback=None,
-             axis_only:bool=False):
+             axis_only:bool=False, show_legend:bool=False):
         # Plot multitaper spectrogram
 
         # cleanup handlers since plots are writing to the same graphics view
@@ -586,6 +601,10 @@ class MultitaperSpectrogram:
         if not axis_only:
             ax = fig.add_subplot(111)
             im = ax.imshow(spect_data, extent=extent, aspect='auto')
+            if show_legend:
+                cbar = fig.colorbar(im, ax=ax, fraction=0.035, pad=0.02)
+                cbar.ax.tick_params(labelsize=tick_label_fontsize)
+                cbar.ax.yaxis.set_major_formatter(FuncFormatter(lambda val, pos: f"{val} dB"))
         else:
             # Create a matching axis for time alignment with the spectrogram
             ax = fig.add_subplot(111)
@@ -1114,7 +1133,8 @@ class MultitaperSpectrogram:
             multi_taper_param_dict['nfft'] = nfft
             multi_taper_param_dict['detrend'] = detrend_opt
         return multi_taper_param_dict
-    def compute_spectral_summary(self, analysis_range:list=None):
+    def compute_spectral_summary(self, analysis_range:list=None,
+                                 stage_mask:list|None=None):
         # Update log
         logger.info(f'Computing spectral summary by stage{analysis_range}')
 
@@ -1133,6 +1153,10 @@ class MultitaperSpectrogram:
             analysis_range = analysis_range
             mask = (stimes_np >= analysis_range[0]) & (stimes_np < analysis_range[1])
 
+        # Merge stage mask if present
+        if stage_mask is not None:
+            mask &= stage_mask
+
         # Compute statistics
         spectrogram_np = np.array(mt_spectrogram)
         spectrogram_avg = np.mean(spectrogram_np[:,mask], axis=1)
@@ -1141,8 +1165,12 @@ class MultitaperSpectrogram:
 
         return spectrogram_avg, spectrogram_std
     def plot_spectral_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
-                              axis_only: bool = False, analysis_range:list|None=None):
+                              axis_only: bool = False, analysis_range:list|None=None,
+                              stage_information:tuple[int,list]|None = None, stage_colors:dict|None=None):
         """Plot 1D spectral summary (average power across frequencies)"""
+
+        # Cleanup handlers
+        self.cleanup_events()
 
         # Define plotting variables
         label_fontsize = 6
@@ -1150,16 +1178,39 @@ class MultitaperSpectrogram:
         x_label_text = "Frequency (Hz)"
         y_label_text = "Average PSD (dB)"
 
-        # Cleanup handlers
-        self.cleanup_events()
-
         # Get spectral summary data
         spectral_summary, spectrogram_std = self.compute_spectral_summary(analysis_range=analysis_range)
         if spectral_summary is None:
             logger.warning("No spectral summary available to plot")
             return
+
+        # Average spectrum should stages not be provided
         sfreqs = self.sfreqs
         summary_db = self.nanpow2db(spectral_summary) #  # Convert to dB if needed
+
+        # Create time series for each stage
+        sum_db_list = []
+        if stage_information is not None:
+            # Process stage information
+            epoch = stage_information[0]
+            stages = stage_information[1]
+            masks, mlabels = self.generate_stage_masks(epoch, stages, self.stimes)
+            for mask_tuple in zip(masks, mlabels):
+                stage_mask, stage_label = mask_tuple
+                spect_sum, spect_std = self.compute_spectral_summary(analysis_range=analysis_range,
+                                                                     stage_mask=stage_mask)
+                sum_db = self.nanpow2db(spect_sum)
+                sum_db_list.append(sum_db)
+        else:
+            sum_db_list.append(summary_db)
+            mlabels = ['Avg']
+
+        # Set Colors
+        if stage_colors is not None:
+            stage_dict = stage_colors # Avoiding yello. will need to revisit
+            stage_dict = self.default_stage_colors
+        else:
+            stage_dict = self.default_stage_colors
 
         # Create the figure and canvas
         fig = Figure()
@@ -1167,14 +1218,19 @@ class MultitaperSpectrogram:
 
         if not axis_only:
             # Plot the 1D spectral summary
-            line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
-            ax.set_xlabel(x_label_text, fontsize=label_fontsize)
-            ax.set_ylabel(y_label_text, fontsize=label_fontsize)
-            ax.grid(True, alpha=0.3)
+            for plot_tuple in zip(sum_db_list, mlabels):
+                sum_db, mlabel = plot_tuple
+                plot_color = stage_dict[mlabel]
+                line = ax.plot(sfreqs, sum_db, linewidth=2.0, color=plot_color, label=mlabel)
+                ax.set_xlabel(x_label_text, fontsize=label_fontsize)
+                ax.set_ylabel(y_label_text, fontsize=label_fontsize)
+                ax.grid(True, alpha=0.3)
+                ax.legend(fontsize=tick_label_fontsize, loc='upper right', handlelength=1.0)
         else:
             # Minimal axis for alignment
-            ax.plot(sfreqs, summary_db, alpha=0)
-            ax.set_xlim(sfreqs[0], sfreqs[-1])
+            for sum_db in sum_db_list:
+                ax.plot(sfreqs, sum_db, alpha=0)
+                ax.set_xlim(sfreqs[0], sfreqs[-1])
 
             # Hide all spines except bottom
             for spine in ax.spines.values():
@@ -1236,7 +1292,7 @@ class MultitaperSpectrogram:
                 ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
     def plot_band_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
                               axis_only: bool = False, analysis_range:list|None=None, spectral_bands:list|None=None,
-                              spectral_titles:list|None=None):
+                              spectral_titles:list|None=None, stage_information:tuple[int,list]|None = None, stage_colors:dict|None=None):
         """Plot 1D spectral summary (average power across frequencies)"""
 
         # Define plotting variables
@@ -1256,7 +1312,6 @@ class MultitaperSpectrogram:
         if spectral_titles is None:
             spectral_titles = self.spectral_bands_titles_default
 
-
         # Get spectral summary data
         spectral_summary, spectrogram_std = self.compute_spectral_summary(analysis_range=analysis_range)
         if spectral_summary is None:
@@ -1267,7 +1322,25 @@ class MultitaperSpectrogram:
 
         # Create Box Plot Data SET
         # Process input
-        if analysis_range is not None:
+        num_stages = 1
+        num_bands = len(spectral_bands)
+        stage_information = None
+        if analysis_range is not None and stage_information is not None:
+            print(stage_information)
+            epoch = stage_information[0]
+            stages = stage_information[1]
+            masks, mlabels = self.generate_stage_masks(epoch, stages, self.stimes)
+            sfreqs = np.array(self.sfreqs)
+            num_stages = len(mlabels)
+            dataset = []
+            for band_range in spectral_bands:
+                bandset = []
+                for stage_mask, mlabel in zip(masks, mlabels):
+                    mask = np.logical_and(band_range[0]<=sfreqs, sfreqs<band_range[1])
+                    mask |= stage_mask
+                    bandset.append(summary_db[mask])
+                dataset.append(bandset)
+        elif analysis_range is not None:
             dataset = []
             sfreqs = np.array(self.sfreqs)
             for band_range in spectral_bands:
@@ -1276,12 +1349,46 @@ class MultitaperSpectrogram:
         else:
             dataset = deepcopy(summary_db)
 
-
         # Create the figure and canvas
         fig = Figure()
         ax = fig.add_subplot(111)
 
         if not axis_only:
+
+            if stage_information is None:
+                VP = ax.boxplot(dataset,
+                                labels=spectral_titles,
+                                patch_artist=True,
+                                showmeans=False, showfliers=False,
+                                medianprops={"color": "white", "linewidth": 0.5},
+                                boxprops={"facecolor": "C0", "edgecolor": "white",
+                                          "linewidth": 0.5},
+                                whiskerprops={"color": "C0", "linewidth": 1.5},
+                                capprops={"color": "C0", "linewidth": 1.5})
+                ax.set_xlabel(x_label_text, fontsize=label_fontsize)
+                ax.set_ylabel(y_label_text, fontsize=label_fontsize)
+                ax.grid(True, alpha=0.3)
+            elif stage_information is not None:
+            # Plot the 1D spectral summary
+            # line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
+                for i, band_set in enumerate(dataset):
+                    start_index = i*(num_stages+num_bands+1)
+                    end_index = start_index+num_stages
+                    positions = range(start_index, end_index)
+                    print(len(band_set), positions)
+                    VP = ax.boxplot(band_set, positions=positions,
+                                    # labels=spectral_titles,
+                                    patch_artist=True,
+                                    showmeans=False, showfliers=False,
+                                    medianprops={"color": "white", "linewidth": 0.5},
+                                    boxprops={"facecolor": "C0", "edgecolor": "white",
+                                              "linewidth": 0.5},
+                                    whiskerprops={"color": "C0", "linewidth": 1.5},
+                                    capprops={"color": "C0", "linewidth": 1.5})
+                ax.set_xlabel(x_label_text, fontsize=label_fontsize)
+                ax.set_ylabel(y_label_text, fontsize=label_fontsize)
+                ax.grid(True, alpha=0.3)
+        elif not axis_only:
             # Plot the 1D spectral summary
             #line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
             VP = ax.boxplot(dataset,
@@ -1361,7 +1468,7 @@ class MultitaperSpectrogram:
                 ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
                 ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
 
-    # HELPER FUNCTIONS
+    # SPECTROGRAM HELPER FUNCTIONS
     @staticmethod
     def nanpow2db(y):
         """ Power to dB conversion, setting bad values to nans
@@ -1456,6 +1563,49 @@ class MultitaperSpectrogram:
             mt_spectrum = np.reshape(mt_spectrum, nfft)  # reshape to 1D
 
         return mt_spectrum[freq_inds]
+
+    # STAGE UTILITY FUNCTION
+    @staticmethod
+    def generate_stage_masks(epoch: float, stages: list[str], spectral_times: np.ndarray) -> tuple[
+        list[np.ndarray], list[str]]:
+        """
+        Generate boolean masks for each sleep stage based on spectral times.
+
+        Parameters
+        ----------
+        epoch : float
+            Epoch length in seconds (e.g., 30.0).
+        stages : list[str]
+            List of sleep stages (e.g., ['W', 'N1', 'N2', 'REM', ...]).
+        spectral_times : np.ndarray
+            Array of times in seconds corresponding to spectrogram frames.
+
+        Returns
+        -------
+        tuple[list[np.ndarray], list[str]]
+            masks  : list of boolean arrays, one per unique stage
+            mlabels: list of stage labels corresponding to each mask
+        """
+        stages = np.array(stages)
+        unique_stages = np.unique(stages)
+        masks = []
+        mlabels = []
+
+        # Compute epoch start times (one per stage label)
+        epoch_starts = np.arange(0, len(stages) * epoch, epoch)
+        epoch_ends = epoch_starts + epoch
+
+        for stage in unique_stages:
+            mask = np.zeros_like(spectral_times, dtype=bool)
+            # For each epoch labeled with this stage, include its time range
+            indices = np.where(stages == stage)[0]
+            for idx in indices:
+                t_start = epoch_starts[idx]
+                t_end = epoch_ends[idx]
+                mask |= (spectral_times >= t_start) & (spectral_times < t_end)
+            masks.append(mask)
+            mlabels.append(stage)
+        return masks, mlabels
 
 #Main
 def main():

@@ -857,7 +857,9 @@ class SpectralWindow(QMainWindow):
             # Plot spectrogram or heatmap if not computed
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
-                multitaper_spectrogram_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off)
+                show_legend = True
+                multitaper_spectrogram_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off,
+                                                show_legend=show_legend)
 
                 # Update log
                 logger.info(f'Spectrogram plotted')
@@ -922,10 +924,12 @@ class SpectralWindow(QMainWindow):
         self.ui.pushButton_control_display_spectrogram.setEnabled(False)
 
         # Check if spectrogram is avaialble
+        show_legend = True
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
             turn_axis_units_off = True
-            spec_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off)
+            spec_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off,
+                          show_legend=show_legend)
 
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)
@@ -971,17 +975,25 @@ class SpectralWindow(QMainWindow):
             analysis_range = [sleep_end_time, max_recording_time]
 
         # Enable Sorting by stage
-        print(self.xml_obj.sleep_stages_obj.sleep_stages_N3)
-        print(self.xml_obj.sleep_stages_obj.return_sleep_stage_labels())
-        print(self.xml_obj.sleep_stages_obj.sleep_stages_text)
-        print(self.xml_obj.sleep_stages_obj.sleep_stages_NremRem)
+        epoch = self.xml_obj.sleep_stages_obj.sleep_epoch
+        hypnogram_style = self.ui.comboBox_hynogram.currentText()
+        stages = self.xml_obj.sleep_stages_obj.sleep_stages_text
+        if hypnogram_style == 'NREM_REM_W':
+            stages = self.xml_obj.sleep_stages_obj.sleep_stages_NremRem
+        elif hypnogram_style == 'N1_N2_N3_REM_W':
+            stages = self.xml_obj.sleep_stages_obj.sleep_stages_N3
+        stage_information = [epoch, stages]
+
+        # Get Default Colors
+        stage_colors = self.xml_obj.sleep_stages_obj.default_stage_colors
 
         # Check if spectrogram is avaialble
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_spectral_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off,
-                                           analysis_range=analysis_range)
+                                           analysis_range=analysis_range, stage_information = stage_information,
+                                           stage_colors=stage_colors)
 
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)

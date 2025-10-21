@@ -536,6 +536,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addWidget(self.checkBox_plotting_xlabels)
 
+        self.checkBox_description_plotting_legend = QCheckBox(self.centralwidget)
+        self.checkBox_description_plotting_legend.setObjectName(u"checkBox_description_plotting_legend")
+
+        self.verticalLayout_6.addWidget(self.checkBox_description_plotting_legend)
+
 
         self.verticalLayout_s.addLayout(self.verticalLayout_6)
 
@@ -1842,6 +1847,7 @@ class Ui_MainWindow(object):
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Reference", None))
         self.label_47.setText(QCoreApplication.translate("MainWindow", u"Plotting", None))
         self.checkBox_plotting_xlabels.setText(QCoreApplication.translate("MainWindow", u"x labels", None))
+        self.checkBox_description_plotting_legend.setText(QCoreApplication.translate("MainWindow", u"Legend", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"Filter", None))
         self.checkBox_settings_band.setText(QCoreApplication.translate("MainWindow", u"Band", None))
         self.label_56.setText(QCoreApplication.translate("MainWindow", u"Hz", None))
