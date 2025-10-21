@@ -1379,7 +1379,6 @@ class MultitaperSpectrogram:
         else:
             if isinstance(y, list):  # if y is a list, turn into array
                 y = np.asarray(y)
-            print(type(y))
             y = y.astype(float)  # make sure it's a float array so we can put nans in it
             y[y == 0] = np.nan
             ydB = 10 * np.log10(y)
