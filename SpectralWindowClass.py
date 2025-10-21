@@ -970,6 +970,12 @@ class SpectralWindow(QMainWindow):
         elif analysis_range_setting == 'Ending Wake':
             analysis_range = [sleep_end_time, max_recording_time]
 
+        # Enable Sorting by stage
+        print(self.xml_obj.sleep_stages_obj.sleep_stages_N3)
+        print(self.xml_obj.sleep_stages_obj.return_sleep_stage_labels())
+        print(self.xml_obj.sleep_stages_obj.sleep_stages_text)
+        print(self.xml_obj.sleep_stages_obj.sleep_stages_NremRem)
+
         # Check if spectrogram is avaialble
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             turn_axis_units_off = False

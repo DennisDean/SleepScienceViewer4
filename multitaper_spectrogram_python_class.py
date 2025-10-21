@@ -572,7 +572,7 @@ class MultitaperSpectrogram:
 
         # Get spectrogram information from class
         mt_spectrogram = self.mt_spectrogram
-        spect_data = self.nanpow2db(mt_spectrogram)
+        spect_data = self.nanpow2db(mt_spectrogram) if mt_spectrogram is not None else None
         stimes = self.stimes
         sfreqs = self.sfreqs
 
@@ -1379,6 +1379,7 @@ class MultitaperSpectrogram:
         else:
             if isinstance(y, list):  # if y is a list, turn into array
                 y = np.asarray(y)
+            print(type(y))
             y = y.astype(float)  # make sure it's a float array so we can put nans in it
             y[y == 0] = np.nan
             ydB = 10 * np.log10(y)
