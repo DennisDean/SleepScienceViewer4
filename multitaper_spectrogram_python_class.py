@@ -16,6 +16,9 @@ This code is companion to the paper:
         BSD 3-Clause License
 """
 
+# To Do
+#TODO: clean up warnings when computing masks
+
 # Analysis Imports
 import math
 import numpy as np
@@ -49,6 +52,51 @@ import warnings
 
 # Set up logging
 logger = logging.getLogger(__name__)
+
+# Stage Utilities
+def reorder_stages(stages: list[str]) -> list[str]:
+    """
+    Reorders sleep stages so Wake is first, REM is second, and NREM stages follow in numerical order.
+
+    Args:
+        stages: List of stage labels (e.g., ['N1', 'N2', 'REM', 'W', 'N3'])
+
+    Returns:
+        Reordered list of stages
+    """
+    ordered = []
+
+    # 1. Add Wake stages first
+    wake_patterns = ['W', 'WAKE', 'AWAKE']
+    for stage in stages:
+        if any(pattern in stage.upper() for pattern in wake_patterns) and stage not in ordered:
+            ordered.append(stage)
+
+    # 2. Add REM stages second
+    for stage in stages:
+        if stage.upper().strip() == 'REM' and stage not in ordered:
+            ordered.append(stage)
+
+    # 3. Add NREM stages in numerical order
+    nrem_patterns = ['N1', 'N2', 'N3', 'N4', 'STAGE 1', 'STAGE 2', 'STAGE 3', 'STAGE 4', 'S1', 'S2', 'S3', 'S4']
+    for pattern in nrem_patterns:
+        for stage in stages:
+            if stage.upper().strip() == pattern and stage not in ordered:
+                ordered.append(stage)
+
+    # 4. Add general NREM if no specific stages found
+    has_specific_nrem = any('N' in s.upper() and any(c.isdigit() for c in s) for s in stages)
+    if not has_specific_nrem:
+        for stage in stages:
+            if 'NREM' in stage.upper() and stage not in ordered:
+                ordered.append(stage)
+
+    # 5. Add any remaining stages
+    for stage in stages:
+        if stage not in ordered:
+            ordered.append(stage)
+
+    return ordered
 
 # Except from original file. See below for full description
 
@@ -1307,7 +1355,7 @@ class MultitaperSpectrogram:
             return
 
         epoch, stages = stage_information
-        unique_stages = self.reorder_stages(list(set(stages)))
+        unique_stages = reorder_stages(list(set(stages)))
         num_stages = len(unique_stages)
 
         fig, ax = plt.subplots(figsize=(10, 5))
@@ -1344,7 +1392,7 @@ class MultitaperSpectrogram:
                 pos += 1
 
             end_pos = pos - spacing - 1
-            band_centers.append((start_pos + end_pos) / 2)
+            band_centers.append((start_pos + end_pos + spacing) / 2)
             band_names.append(band_name)
 
             pos += spacing
@@ -1542,7 +1590,7 @@ class MultitaperSpectrogram:
             mlabels: list of stage labels corresponding to each mask
         """
         stages = np.array(stages)
-        unique_stages = np.unique(stages)
+        unique_stages = reorder_stages(np.unique(stages))
         masks = []
         mlabels = []
 
@@ -1561,50 +1609,6 @@ class MultitaperSpectrogram:
             masks.append(mask)
             mlabels.append(stage)
         return masks, mlabels
-    @staticmethod
-    def reorder_stages(stages: list[str]) -> list[str]:
-        """
-        Reorders sleep stages so Wake is first, REM is second, and NREM stages follow in numerical order.
-
-        Args:
-            stages: List of stage labels (e.g., ['N1', 'N2', 'REM', 'W', 'N3'])
-
-        Returns:
-            Reordered list of stages
-        """
-        ordered = []
-
-        # 1. Add Wake stages first
-        wake_patterns = ['W', 'WAKE', 'AWAKE']
-        for stage in stages:
-            if any(pattern in stage.upper() for pattern in wake_patterns) and stage not in ordered:
-                ordered.append(stage)
-
-        # 2. Add REM stages second
-        for stage in stages:
-            if stage.upper().strip() == 'REM' and stage not in ordered:
-                ordered.append(stage)
-
-        # 3. Add NREM stages in numerical order
-        nrem_patterns = ['N1', 'N2', 'N3', 'N4', 'STAGE 1', 'STAGE 2', 'STAGE 3', 'STAGE 4', 'S1', 'S2', 'S3', 'S4']
-        for pattern in nrem_patterns:
-            for stage in stages:
-                if stage.upper().strip() == pattern and stage not in ordered:
-                    ordered.append(stage)
-
-        # 4. Add general NREM if no specific stages found
-        has_specific_nrem = any('N' in s.upper() and any(c.isdigit() for c in s) for s in stages)
-        if not has_specific_nrem:
-            for stage in stages:
-                if 'NREM' in stage.upper() and stage not in ordered:
-                    ordered.append(stage)
-
-        # 5. Add any remaining stages
-        for stage in stages:
-            if stage not in ordered:
-                ordered.append(stage)
-
-        return ordered
 
 #Main
 def main():
