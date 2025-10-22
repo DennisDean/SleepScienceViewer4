@@ -1032,12 +1032,26 @@ class SpectralWindow(QMainWindow):
         elif analysis_range_setting == 'Ending Wake':
             analysis_range = [sleep_end_time, max_recording_time]
 
+        # Enable Sorting by stage
+        epoch = self.xml_obj.sleep_stages_obj.sleep_epoch
+        hypnogram_style = self.ui.comboBox_hynogram.currentText()
+        stages = self.xml_obj.sleep_stages_obj.sleep_stages_text
+        if hypnogram_style == 'NREM_REM_W':
+            stages = self.xml_obj.sleep_stages_obj.sleep_stages_NremRem
+        elif hypnogram_style == 'N1_N2_N3_REM_W':
+            stages = self.xml_obj.sleep_stages_obj.sleep_stages_N3
+        stage_information = [epoch, stages]
+
+        # Define Stage Colors
+        stage_colors = self.xml_obj.sleep_stages_obj.default_stage_colors
+
         # Check if spectrogram is avaialble
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_band_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off,
-                                           analysis_range=analysis_range)
+                                       analysis_range=analysis_range, stage_information=stage_information,
+                                       stage_colors=stage_colors)
 
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)

@@ -1294,6 +1294,7 @@ class MultitaperSpectrogram:
                               axis_only: bool = False, analysis_range:list|None=None, spectral_bands:list|None=None,
                               spectral_titles:list|None=None, stage_information:tuple[int,list]|None = None, stage_colors:dict|None=None):
         """Plot 1D spectral summary (average power across frequencies)"""
+        print('Creating band plots')
 
         # Define plotting variables
         label_fontsize = 6
@@ -1322,23 +1323,26 @@ class MultitaperSpectrogram:
 
         # Create Box Plot Data SET
         # Process input
-        num_stages = 1
-        num_bands = len(spectral_bands)
-        stage_information = None
+        stage_information = stage_information if stage_information is not None else None
         if analysis_range is not None and stage_information is not None:
             print(stage_information)
             epoch = stage_information[0]
             stages = stage_information[1]
+
+            # Generate time-based stage masks (same length as self.stimes)
             masks, mlabels = self.generate_stage_masks(epoch, stages, self.stimes)
+
             sfreqs = np.array(self.sfreqs)
             num_stages = len(mlabels)
             dataset = []
             for band_range in spectral_bands:
+                freq_mask = np.logical_and(band_range[0] <= sfreqs, sfreqs < band_range[1])
                 bandset = []
                 for stage_mask, mlabel in zip(masks, mlabels):
-                    mask = np.logical_and(band_range[0]<=sfreqs, sfreqs<band_range[1])
-                    mask |= stage_mask
-                    bandset.append(summary_db[mask])
+                    # stage_mask applies along the *time* axis
+                    # Extract relevant portion of summary_db
+                    band_data = self.mt_spectrogram[freq_mask, :][:, stage_mask]
+                    bandset.append(band_data)
                 dataset.append(bandset)
         elif analysis_range is not None:
             dataset = []
@@ -1354,8 +1358,9 @@ class MultitaperSpectrogram:
         ax = fig.add_subplot(111)
 
         if not axis_only:
-
+            print('if not axis_only')
             if stage_information is None:
+                print('stage_information is None')
                 VP = ax.boxplot(dataset,
                                 labels=spectral_titles,
                                 patch_artist=True,
@@ -1369,26 +1374,32 @@ class MultitaperSpectrogram:
                 ax.set_ylabel(y_label_text, fontsize=label_fontsize)
                 ax.grid(True, alpha=0.3)
             elif stage_information is not None:
-            # Plot the 1D spectral summary
-            # line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
+                print('stage_information is not None')
                 for i, band_set in enumerate(dataset):
-                    start_index = i*(num_stages+num_bands+1)
-                    end_index = start_index+num_stages
+                    start_index = i * (num_stages + 1)
+                    end_index = start_index + num_stages
                     positions = range(start_index, end_index)
-                    print(len(band_set), positions)
-                    VP = ax.boxplot(band_set, positions=positions,
-                                    # labels=spectral_titles,
-                                    patch_artist=True,
-                                    showmeans=False, showfliers=False,
-                                    medianprops={"color": "white", "linewidth": 0.5},
-                                    boxprops={"facecolor": "C0", "edgecolor": "white",
-                                              "linewidth": 0.5},
-                                    whiskerprops={"color": "C0", "linewidth": 1.5},
-                                    capprops={"color": "C0", "linewidth": 1.5})
-                ax.set_xlabel(x_label_text, fontsize=label_fontsize)
-                ax.set_ylabel(y_label_text, fontsize=label_fontsize)
-                ax.grid(True, alpha=0.3)
+
+                    # ✅ Flatten each 2D band array so Matplotlib sees 1D vectors
+                    band_set_flat = [np.ravel(b) for b in band_set]
+
+                    print(
+                        f"Plotting band {i}, num stages = {len(band_set_flat)}, shapes = {[np.shape(b) for b in band_set]}")
+
+                    VP = ax.boxplot(
+                        band_set_flat,
+                        positions=positions,
+                        patch_artist=True,
+                        showmeans=False,
+                        showfliers=False,
+                        medianprops={"color": "white", "linewidth": 0.5},
+                        boxprops={"facecolor": "C0", "edgecolor": "white", "linewidth": 0.5},
+                        whiskerprops={"color": "C0", "linewidth": 1.5},
+                        capprops={"color": "C0", "linewidth": 1.5},
+                    )
+
         elif not axis_only:
+            print('if not axis_only - oriniginal')
             # Plot the 1D spectral summary
             #line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
             VP = ax.boxplot(dataset,
@@ -1404,6 +1415,7 @@ class MultitaperSpectrogram:
             ax.set_ylabel(y_label_text, fontsize=label_fontsize)
             ax.grid(True, alpha=0.3)
         else:
+            print('print band degault')
             # Minimal axis for alignment
             ax.plot(sfreqs, summary_db, alpha=0)
 
