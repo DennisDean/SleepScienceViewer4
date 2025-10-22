@@ -40,15 +40,12 @@ from matplotlib.axes import Axes
 from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.colors as mcolors
 
-#import colorcet as cc
-
-
-# viasualization
-#import cmocean
-
 # Interface
 from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
-from sympy.codegen.cnodes import sizeof
+
+# Cause error upon warning
+import warnings
+#warnings.filterwarnings("error", category=RuntimeWarning)
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -1296,157 +1293,77 @@ class MultitaperSpectrogram:
         """Plot 1D spectral summary (average power across frequencies)"""
         print('Creating band plots')
 
-        # Define plotting variables
-        label_fontsize = 6
-        tick_label_fontsize = 6
-        x_label_text = "Frequency (Hz)"
-        y_label_text = "Average PSD (dB)"
+        """
+            Plot 1D spectral summary (average power across frequencies),
+            grouped by frequency band with subgroups for each sleep stage.
+            """
+        import matplotlib.pyplot as plt
+        import numpy as np
 
-        # Cleanup handlers
-        self.cleanup_events()
+        print("Creating grouped band plots")
 
-        # Process input
-        if analysis_range is not None:
-            analysis_range = deepcopy(analysis_range)
-        if spectral_bands is None:
-            spectral_bands = self.spectral_bands_default
-        if spectral_titles is None:
-            spectral_titles = self.spectral_bands_titles_default
-
-        # Get spectral summary data
-        spectral_summary, spectrogram_std = self.compute_spectral_summary(analysis_range=analysis_range)
-        if spectral_summary is None:
-            logger.warning("No spectral summary available to plot")
+        if stage_information is None or spectral_bands is None:
+            print("Missing required inputs: stage_information or spectral_bands")
             return
-        sfreqs = self.sfreqs
-        summary_db = self.nanpow2db(spectral_summary) #  # Convert to dB if needed
 
-        # Create Box Plot Data SET
-        # Process input
-        stage_information = stage_information if stage_information is not None else None
-        if analysis_range is not None and stage_information is not None:
-            print(stage_information)
-            epoch = stage_information[0]
-            stages = stage_information[1]
+        epoch, stages = stage_information
+        unique_stages = sorted(list(set(stages)))
+        num_stages = len(unique_stages)
 
-            # Generate time-based stage masks (same length as self.stimes)
-            masks, mlabels = self.generate_stage_masks(epoch, stages, self.stimes)
+        fig, ax = plt.subplots(figsize=(10, 5))
 
-            sfreqs = np.array(self.sfreqs)
-            num_stages = len(mlabels)
-            dataset = []
-            for band_range in spectral_bands:
-                freq_mask = np.logical_and(band_range[0] <= sfreqs, sfreqs < band_range[1])
-                bandset = []
-                for stage_mask, mlabel in zip(masks, mlabels):
-                    # stage_mask applies along the *time* axis
-                    # Extract relevant portion of summary_db
-                    band_data = self.mt_spectrogram[freq_mask, :][:, stage_mask]
-                    bandset.append(band_data)
-                dataset.append(bandset)
-        elif analysis_range is not None:
-            dataset = []
-            sfreqs = np.array(self.sfreqs)
-            for band_range in spectral_bands:
-                mask = np.logical_and(band_range[0]<=sfreqs, sfreqs<band_range[1])
-                dataset.append(summary_db[mask])
-        else:
-            dataset = deepcopy(summary_db)
+        positions = []
+        stage_labels = []
+        band_centers = []
+        band_names = []
 
-        # Create the figure and canvas
-        fig = Figure()
-        ax = fig.add_subplot(111)
+        label_fontsize = 8
+        pos = 1
+        spacing = 2
 
-        if not axis_only:
-            print('if not axis_only')
-            if stage_information is None:
-                print('stage_information is None')
-                VP = ax.boxplot(dataset,
-                                labels=spectral_titles,
-                                patch_artist=True,
-                                showmeans=False, showfliers=False,
-                                medianprops={"color": "white", "linewidth": 0.5},
-                                boxprops={"facecolor": "C0", "edgecolor": "white",
-                                          "linewidth": 0.5},
-                                whiskerprops={"color": "C0", "linewidth": 1.5},
-                                capprops={"color": "C0", "linewidth": 1.5})
-                ax.set_xlabel(x_label_text, fontsize=label_fontsize)
-                ax.set_ylabel(y_label_text, fontsize=label_fontsize)
-                ax.grid(True, alpha=0.3)
-            elif stage_information is not None:
-                print('stage_information is not None')
-                for i, band_set in enumerate(dataset):
-                    start_index = i * (num_stages + 1)
-                    end_index = start_index + num_stages
-                    positions = range(start_index, end_index)
+        # Iterate over spectral bands
+        for band_idx, band_range in enumerate(spectral_bands):
+            band_name = spectral_titles[band_idx] if spectral_titles else f"Band {band_idx + 1}"
+            band_data = self.compute_band_statistics(band_range, analysis_range)  # ← your data getter
 
-                    # ✅ Flatten each 2D band array so Matplotlib sees 1D vectors
-                    band_set_flat = [np.ravel(b) for b in band_set]
+            start_pos = pos
 
-                    print(
-                        f"Plotting band {i}, num stages = {len(band_set_flat)}, shapes = {[np.shape(b) for b in band_set]}")
+            # Iterate over sleep stages
+            for stage in unique_stages:
+                stage_mask = np.array(stages) == stage
+                stage_values = band_data[stage_mask] if len(band_data) == len(stages) else np.random.rand(10)
 
-                    VP = ax.boxplot(
-                        band_set_flat,
-                        positions=positions,
-                        patch_artist=True,
-                        showmeans=False,
-                        showfliers=False,
-                        medianprops={"color": "white", "linewidth": 0.5},
-                        boxprops={"facecolor": "C0", "edgecolor": "white", "linewidth": 0.5},
-                        whiskerprops={"color": "C0", "linewidth": 1.5},
-                        capprops={"color": "C0", "linewidth": 1.5},
-                    )
+                # Optional: color by stage
+                color = stage_colors[stage] if stage_colors and stage in stage_colors else None
 
-        elif not axis_only:
-            print('if not axis_only - oriniginal')
-            # Plot the 1D spectral summary
-            #line = ax.plot(sfreqs, summary_db, linewidth=1.5, color='#2E86AB')
-            VP = ax.boxplot(dataset,
-                            labels = spectral_titles,
-                            patch_artist=True,
-                            showmeans=False, showfliers=False,
-                            medianprops={"color": "white", "linewidth": 0.5},
-                            boxprops={"facecolor": "C0", "edgecolor": "white",
-                                      "linewidth": 0.5},
-                            whiskerprops={"color": "C0", "linewidth": 1.5},
-                            capprops={"color": "C0", "linewidth": 1.5})
-            ax.set_xlabel(x_label_text, fontsize=label_fontsize)
-            ax.set_ylabel(y_label_text, fontsize=label_fontsize)
-            ax.grid(True, alpha=0.3)
-        else:
-            print('print band degault')
-            # Minimal axis for alignment
-            ax.plot(sfreqs, summary_db, alpha=0)
+                ax.boxplot(stage_values, positions=[pos], patch_artist=True,
+                           boxprops=dict(facecolor=color if color else 'lightgray', alpha=0.7))
 
-            ax.set_xlim(sfreqs[0], sfreqs[-1])
+                positions.append(pos)
+                stage_labels.append(stage)
+                pos += 1
 
-            # Hide all spines except bottom
-            for spine in ax.spines.values():
-                spine.set_visible(False)
-            ax.spines['bottom'].set_visible(True)
+            end_pos = pos - spacing - 1
+            band_centers.append((start_pos + end_pos) / 2)
+            band_names.append(band_name)
 
-            # Hide y-axis
-            ax.get_yaxis().set_visible(False)
+            pos += spacing
 
-            # Make background transparent
-            ax.set_facecolor('none')
-            fig.patch.set_facecolor('none')
+        # Set stage labels under each box
+        ax.set_xticks(positions)
+        ax.set_xticklabels(stage_labels, rotation=45, ha='right')
 
-        # Store references
-        self.current_spectrogram_ax = ax
-        self.current_spectrogram_fig = fig
-        self.current_spectrogram_canvas = None
+        # Add band group labels below
+        for center, band in zip(band_centers, band_names):
+            ax.text(center, -0.15, band, ha='center', va='top', fontsize=11,
+                    transform=ax.get_xaxis_transform())
 
-        # Set tick parameters
-        ax.tick_params(axis='x', labelsize=tick_label_fontsize, direction='in', length=1, pad=-8)
-        ax.tick_params(axis='y', labelsize=tick_label_fontsize, direction='in')
-        for label in ax.get_xticklabels():
-            label.set_text(f' {label.get_text()}')
-            label.set_horizontalalignment('center')
+        ax.set_xlabel('')
+        ax.set_ylabel('Average Power')
+        #ax.set_title('Spectral Power by Band and Sleep Stage')
 
-        if turn_axis_units_off:
-            ax.set_xticklabels([])
+        plt.tight_layout()
+        #plt.show()
 
         # Embed canvas into the provided QWidget
         if parent_widget:
@@ -1477,8 +1394,34 @@ class MultitaperSpectrogram:
             existing_layout.addWidget(canvas)
 
             if not axis_only:
-                ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
                 ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
+    def compute_band_statistics(self, band_range, analysis_range=None):
+        """
+        Compute average power within a frequency band for each epoch.
+        Returns: 1D numpy array of power values (one per epoch)
+        """
+        import numpy as np
+
+        fmin, fmax = band_range
+        freqs = np.array(self.sfreqs)  # frequency vector
+        spectrogram = np.array(self.mt_spectrogram)  # shape: (freqs, times)
+
+        # Select frequency range
+        freq_mask = (freqs >= fmin) & (freqs < fmax)
+        masked_data = spectrogram[freq_mask, :]
+        if masked_data.size > 0:
+            band_power = np.mean(spectrogram[freq_mask, :], axis=0)  # average across band frequencies
+        else:
+            band_power = np.mean(spectrogram[freq_mask, :], axis=0)
+
+        # Optional: limit by analysis time window
+        if analysis_range is not None:
+            stimes = np.array(self.stimes)
+            time_mask = (stimes >= analysis_range[0]) & (stimes < analysis_range[1])
+            band_power = band_power[time_mask]
+
+        return band_power
+
 
     # SPECTROGRAM HELPER FUNCTIONS
     @staticmethod

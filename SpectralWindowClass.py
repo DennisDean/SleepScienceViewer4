@@ -171,6 +171,8 @@ class SpectralWindow(QMainWindow):
         self.xml_obj = xml_obj
 
         # Define settings variables
+        self.spectral_bands_default:list[list]
+        self.spectral_bands_titles_default:list
         self.band_low_values:list[float]
         self.band_high_values:list[float]
         self.notch_values:list[float]
@@ -400,6 +402,9 @@ class SpectralWindow(QMainWindow):
         self.ui.comboBox_parameters_taper_num_cpus.setCurrentIndex(default_index)
 
         # Set up band values
+        # Plot parameters
+        self.spectral_bands_default = [[0.5, 4.0], [4.0, 8.0], [8.0, 12.0], [12.0, 15.0], [15.0, 30.0], [30.0, 50.0]]
+        self.spectral_bands_titles_default = ['delta', 'beta', 'alpha', 'sigma', 'beta', 'gamma']
         band_default_low  = [[0.5, 4.0],  [4.0,8.0],  [8.0,12.0], [12.0,15.0], [15.0,30.0], [30.0,50.0]]
         band_combos_low  = [[self.ui.comboBox_parameters_band_delta_low, self.ui.comboBox_parameters_band_delta_high],
                             [self.ui.comboBox_parameters_band_theta_low, self.ui.comboBox_parameters_band_theta_high],
@@ -1032,6 +1037,10 @@ class SpectralWindow(QMainWindow):
         elif analysis_range_setting == 'Ending Wake':
             analysis_range = [sleep_end_time, max_recording_time]
 
+        # Set spectral bands
+        spectral_bands = self.spectral_bands_default
+        spectral_titles = self.spectral_bands_titles_default
+
         # Enable Sorting by stage
         epoch = self.xml_obj.sleep_stages_obj.sleep_epoch
         hypnogram_style = self.ui.comboBox_hynogram.currentText()
@@ -1046,12 +1055,15 @@ class SpectralWindow(QMainWindow):
         stage_colors = self.xml_obj.sleep_stages_obj.default_stage_colors
 
         # Check if spectrogram is avaialble
+        print('stage_information', stage_information)
+        print('stage_colors', stage_colors)
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_band_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off,
-                                       analysis_range=analysis_range, stage_information=stage_information,
-                                       stage_colors=stage_colors)
+                                       analysis_range=analysis_range, spectral_bands=spectral_bands,
+                                       stage_information=stage_information, stage_colors=stage_colors,
+                                       spectral_titles=spectral_titles)
 
         # Turn Off X axis
         set_layout_visible(self.ui.horizontalLayout_time_axis, False)
