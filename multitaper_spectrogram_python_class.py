@@ -1307,7 +1307,7 @@ class MultitaperSpectrogram:
             return
 
         epoch, stages = stage_information
-        unique_stages = sorted(list(set(stages)))
+        unique_stages = self.reorder_stages(list(set(stages)))
         num_stages = len(unique_stages)
 
         fig, ax = plt.subplots(figsize=(10, 5))
@@ -1561,86 +1561,50 @@ class MultitaperSpectrogram:
             masks.append(mask)
             mlabels.append(stage)
         return masks, mlabels
-    def reorder_labels_stages(stages:list[str]):
+    @staticmethod
+    def reorder_stages(stages: list[str]) -> list[str]:
         """
-            Reorders sleep stage labels and stages for hypnogram plotting.
-            Desired order: Wake, REM, then NREM stages (N1, N2, N3, N4, or NREM)
+        Reorders sleep stages so Wake is first, REM is second, and NREM stages follow in numerical order.
 
-            Works with various labeling schemes:
-            - Individual NREM stages: N1, N2, N3, N4
-            - Reduced NREM stages: N1, N2, N3 (no N4)
-            - Consolidated NREM: just "NREM"
-            - 3-stage system: W, NREM, REM
-            - Alternative formats: Stage 1, S1, etc.
+        Args:
+            stages: List of stage labels (e.g., ['N1', 'N2', 'REM', 'W', 'N3'])
 
-            Args:
-                y_labels: Dictionary mapping original stage numbers to stage labels
-                stages: List of stage numbers from sleep data
+        Returns:
+            Reordered list of stages
+        """
+        ordered = []
 
-            Returns:
-                plot_labels_plot: Dictionary mapping new stage numbers to stage labels
-                plot_stages: List of remapped stage numbers for plotting
-            """
-        plot_labels_plot = {}
-        #plot_stages = []
-
-        # Create mapping from original stage number to new plot position
-        original_to_plot = {}
-        plot_position = 0
-
-        # Step 1: Find and map Wake stages first
+        # 1. Add Wake stages first
         wake_patterns = ['W', 'WAKE', 'AWAKE']
-        for original_stage_num, label in y_labels.items():
-            if any(pattern in label.upper() for pattern in wake_patterns):
-                original_to_plot[original_stage_num] = plot_position
-                plot_labels_plot[plot_position] = label
-                plot_position += 1
+        for stage in stages:
+            if any(pattern in stage.upper() for pattern in wake_patterns) and stage not in ordered:
+                ordered.append(stage)
 
-        # Step 2: Find and map REM stages second
-        # rem_patterns = ['REM', 'R']
-        for original_stage_num, label in y_labels.items():
-            if (label.upper().strip() == "REM" and
-                    original_stage_num not in original_to_plot):
-                original_to_plot[original_stage_num] = plot_position
-                plot_labels_plot[plot_position] = label
-                plot_position += 1
+        # 2. Add REM stages second
+        for stage in stages:
+            if stage.upper().strip() == 'REM' and stage not in ordered:
+                ordered.append(stage)
 
-        # Step 3: Find and map NREM stages in order (N1, N2, N3, N4, or NREM)
-        # First try specific NREM stages in numerical order
+        # 3. Add NREM stages in numerical order
         nrem_patterns = ['N1', 'N2', 'N3', 'N4', 'STAGE 1', 'STAGE 2', 'STAGE 3', 'STAGE 4', 'S1', 'S2', 'S3', 'S4']
-        for nrem_pattern in nrem_patterns:
-            for original_stage_num, label in y_labels.items():
-                if (label.upper().strip() == nrem_pattern and
-                        original_stage_num not in original_to_plot):
-                    original_to_plot[original_stage_num] = plot_position
-                    plot_labels_plot[plot_position] = label
-                    plot_position += 1
-                    break  # Only add the first match for each pattern
+        for pattern in nrem_patterns:
+            for stage in stages:
+                if stage.upper().strip() == pattern and stage not in ordered:
+                    ordered.append(stage)
 
-        # Step 4: Handle general NREM label (if present and no specific N1-N4 found)
-        # Check if we have any specific NREM stages in the original labels
-        has_specific_nrem = any('N' in label.upper() and any(char.isdigit() for char in label)
-                                for label in y_labels.values())
+        # 4. Add general NREM if no specific stages found
+        has_specific_nrem = any('N' in s.upper() and any(c.isdigit() for c in s) for s in stages)
+        if not has_specific_nrem:
+            for stage in stages:
+                if 'NREM' in stage.upper() and stage not in ordered:
+                    ordered.append(stage)
 
-        if not has_specific_nrem:  # Only add general NREM if no specific stages exist
-            for original_stage_num, label in y_labels.items():
-                if ('NREM' in label.upper() and
-                        original_stage_num not in original_to_plot):
-                    original_to_plot[original_stage_num] = plot_position
-                    plot_labels_plot[plot_position] = label
-                    plot_position += 1
+        # 5. Add any remaining stages
+        for stage in stages:
+            if stage not in ordered:
+                ordered.append(stage)
 
-        # Step 5: Add any remaining stages that weren't categorized
-        for original_stage_num, label in y_labels.items():
-            if original_stage_num not in original_to_plot:
-                original_to_plot[original_stage_num] = plot_position
-                plot_labels_plot[plot_position] = label
-                plot_position += 1
-
-        # Remap the stages array using the new mapping
-        plot_stages = [original_to_plot[stage] for stage in stages]
-
-        return plot_labels_plot, plot_stages
+        return ordered
 
 #Main
 def main():

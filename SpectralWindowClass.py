@@ -373,10 +373,10 @@ class SpectralWindow(QMainWindow):
         noise_beta_n_menu_items = list(map(create_noise_menu_item_f, noise_beta_n_factor))
 
         # setup noise detection menu
-        self.ui.comboBox_parameters_noise_delta.addItems(noise_delta_n_menu_items)
-        self.ui.comboBox_parameters_noise_beta.addItems(noise_beta_n_menu_items)
-        self.ui.comboBox_parameters_noise_delta.setCurrentIndex(noise_delta_index)
-        self.ui.comboBox_parameters_noise_beta.setCurrentIndex(noise_beta_index)
+        self.ui.comboBox_parameters_noise_delta_factor.addItems(noise_delta_n_menu_items)
+        self.ui.comboBox_parameters_noise_beta_factor.addItems(noise_beta_n_menu_items)
+        self.ui.comboBox_parameters_noise_delta_factor.setCurrentIndex(noise_delta_index)
+        self.ui.comboBox_parameters_noise_beta_factor.setCurrentIndex(noise_beta_index)
 
 
         # setup taper windows
@@ -771,7 +771,7 @@ class SpectralWindow(QMainWindow):
     def get_parameters(self):
         # Noise Detection
         names = self.param_noise_names
-        cbs = [self.ui.comboBox_parameters_noise_delta, self.ui.comboBox_parameters_noise_beta]
+        cbs = [self.ui.comboBox_parameters_noise_delta_factor, self.ui.comboBox_parameters_noise_beta_factor]
         noise_param_dict = self.create_param_dict(names, cbs, float)
 
         # Multi-taper
@@ -930,6 +930,9 @@ class SpectralWindow(QMainWindow):
         # Update log file
         logger.info('Summarize spectrogram by stage.')
 
+        # Set wait cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
         # Turn off button
         self.ui.pushButton_control_display_spectrogram.setEnabled(False)
 
@@ -959,6 +962,9 @@ class SpectralWindow(QMainWindow):
 
         # Turn on button
         self.ui.pushButton_control_display_spectrogram.setEnabled(True)
+
+        # Turn off busy cursor
+        QApplication.restoreOverrideCursor()
 
     # Summarize
     def setup_summarize(self):

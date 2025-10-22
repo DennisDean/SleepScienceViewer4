@@ -713,12 +713,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_error_detection.addLayout(self.horizontalLayout_16)
 
-        self.horizontalLayout_13 = QHBoxLayout()
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.horizontalLayout_13.setSizeConstraint(QLayout.SetMinimumSize)
-        self.horizontalLayout_17 = QHBoxLayout()
-        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.horizontalLayout_17.setSizeConstraint(QLayout.SetFixedSize)
+        self.horizontalLayout_32 = QHBoxLayout()
+        self.horizontalLayout_32.setObjectName(u"horizontalLayout_32")
+        self.horizontalLayout_32.setSizeConstraint(QLayout.SetFixedSize)
         self.label_11 = QLabel(self.centralwidget)
         self.label_11.setObjectName(u"label_11")
         sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
@@ -732,8 +729,17 @@ class Ui_MainWindow(object):
         self.label_11.setLayoutDirection(Qt.RightToLeft)
         self.label_11.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.horizontalLayout_17.addWidget(self.label_11, 0, Qt.AlignRight)
+        self.horizontalLayout_32.addWidget(self.label_11, 0, Qt.AlignLeft)
 
+
+        self.verticalLayout_error_detection.addLayout(self.horizontalLayout_32)
+
+        self.horizontalLayout_13 = QHBoxLayout()
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.horizontalLayout_13.setSizeConstraint(QLayout.SetMinimumSize)
+        self.horizontalLayout_17 = QHBoxLayout()
+        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
+        self.horizontalLayout_17.setSizeConstraint(QLayout.SetFixedSize)
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
         sizePolicy2.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
@@ -743,15 +749,23 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_17.addWidget(self.label_5)
 
-        self.comboBox_parameters_noise_delta = QComboBox(self.centralwidget)
-        self.comboBox_parameters_noise_delta.setObjectName(u"comboBox_parameters_noise_delta")
-        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_delta.sizePolicy().hasHeightForWidth())
-        self.comboBox_parameters_noise_delta.setSizePolicy(sizePolicy2)
-        self.comboBox_parameters_noise_delta.setMinimumSize(QSize(75, 25))
-        self.comboBox_parameters_noise_delta.setMaximumSize(QSize(75, 25))
-        self.comboBox_parameters_noise_delta.setLayoutDirection(Qt.LeftToRight)
+        self.comboBox_parameters_noise_delta_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_noise_delta_low.setObjectName(u"comboBox_parameters_noise_delta_low")
+        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_delta_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_noise_delta_low.setSizePolicy(sizePolicy2)
+        self.comboBox_parameters_noise_delta_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_delta_low.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_17.addWidget(self.comboBox_parameters_noise_delta, 0, Qt.AlignRight)
+        self.horizontalLayout_17.addWidget(self.comboBox_parameters_noise_delta_low, 0, Qt.AlignLeft)
+
+        self.comboBox_parameters_noise_delta_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_noise_delta_high.setObjectName(u"comboBox_parameters_noise_delta_high")
+        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_delta_high.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_noise_delta_high.setSizePolicy(sizePolicy2)
+        self.comboBox_parameters_noise_delta_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_delta_high.setMaximumSize(QSize(75, 16777215))
+
+        self.horizontalLayout_17.addWidget(self.comboBox_parameters_noise_delta_high, 0, Qt.AlignLeft)
 
         self.label_50 = QLabel(self.centralwidget)
         self.label_50.setObjectName(u"label_50")
@@ -760,7 +774,17 @@ class Ui_MainWindow(object):
         self.label_50.setMinimumSize(QSize(20, 20))
         self.label_50.setMaximumSize(QSize(20, 20))
 
-        self.horizontalLayout_17.addWidget(self.label_50)
+        self.horizontalLayout_17.addWidget(self.label_50, 0, Qt.AlignLeft)
+
+        self.comboBox_parameters_noise_delta_factor = QComboBox(self.centralwidget)
+        self.comboBox_parameters_noise_delta_factor.setObjectName(u"comboBox_parameters_noise_delta_factor")
+        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_delta_factor.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_noise_delta_factor.setSizePolicy(sizePolicy2)
+        self.comboBox_parameters_noise_delta_factor.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_delta_factor.setMaximumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_delta_factor.setLayoutDirection(Qt.LeftToRight)
+
+        self.horizontalLayout_17.addWidget(self.comboBox_parameters_noise_delta_factor, 0, Qt.AlignRight)
 
 
         self.horizontalLayout_13.addLayout(self.horizontalLayout_17)
@@ -768,9 +792,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_error_detection.addLayout(self.horizontalLayout_13)
 
-        self.horizontalLayout_15 = QHBoxLayout()
-        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
-        self.horizontalLayout_15.setSizeConstraint(QLayout.SetFixedSize)
+        self.horizontalLayout_40 = QHBoxLayout()
+        self.horizontalLayout_40.setObjectName(u"horizontalLayout_40")
+        self.horizontalLayout_40.setSizeConstraint(QLayout.SetFixedSize)
         self.label_12 = QLabel(self.centralwidget)
         self.label_12.setObjectName(u"label_12")
         sizePolicy2.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
@@ -780,8 +804,14 @@ class Ui_MainWindow(object):
         self.label_12.setFont(font)
         self.label_12.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.horizontalLayout_15.addWidget(self.label_12, 0, Qt.AlignLeft)
+        self.horizontalLayout_40.addWidget(self.label_12, 0, Qt.AlignLeft)
 
+
+        self.verticalLayout_error_detection.addLayout(self.horizontalLayout_40)
+
+        self.horizontalLayout_15 = QHBoxLayout()
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.horizontalLayout_15.setSizeConstraint(QLayout.SetFixedSize)
         self.label_26 = QLabel(self.centralwidget)
         self.label_26.setObjectName(u"label_26")
         sizePolicy6.setHeightForWidth(self.label_26.sizePolicy().hasHeightForWidth())
@@ -791,20 +821,42 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_15.addWidget(self.label_26)
 
-        self.comboBox_parameters_noise_beta = QComboBox(self.centralwidget)
-        self.comboBox_parameters_noise_beta.setObjectName(u"comboBox_parameters_noise_beta")
-        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_beta.sizePolicy().hasHeightForWidth())
-        self.comboBox_parameters_noise_beta.setSizePolicy(sizePolicy2)
-        self.comboBox_parameters_noise_beta.setMinimumSize(QSize(75, 25))
-        self.comboBox_parameters_noise_beta.setMaximumSize(QSize(75, 25))
-        self.comboBox_parameters_noise_beta.setLayoutDirection(Qt.LeftToRight)
+        self.comboBox_parameters_noise_beta_low = QComboBox(self.centralwidget)
+        self.comboBox_parameters_noise_beta_low.setObjectName(u"comboBox_parameters_noise_beta_low")
+        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_beta_low.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_noise_beta_low.setSizePolicy(sizePolicy2)
+        self.comboBox_parameters_noise_beta_low.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_beta_low.setMaximumSize(QSize(75, 25))
 
-        self.horizontalLayout_15.addWidget(self.comboBox_parameters_noise_beta, 0, Qt.AlignRight)
+        self.horizontalLayout_15.addWidget(self.comboBox_parameters_noise_beta_low, 0, Qt.AlignLeft)
+
+        self.comboBox_parameters_noise_beta_high = QComboBox(self.centralwidget)
+        self.comboBox_parameters_noise_beta_high.setObjectName(u"comboBox_parameters_noise_beta_high")
+        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_beta_high.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_noise_beta_high.setSizePolicy(sizePolicy2)
+        self.comboBox_parameters_noise_beta_high.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_beta_high.setMaximumSize(QSize(75, 25))
+
+        self.horizontalLayout_15.addWidget(self.comboBox_parameters_noise_beta_high, 0, Qt.AlignLeft)
 
         self.label_51 = QLabel(self.centralwidget)
         self.label_51.setObjectName(u"label_51")
+        sizePolicy2.setHeightForWidth(self.label_51.sizePolicy().hasHeightForWidth())
+        self.label_51.setSizePolicy(sizePolicy2)
+        self.label_51.setMinimumSize(QSize(20, 20))
+        self.label_51.setMaximumSize(QSize(20, 20))
 
-        self.horizontalLayout_15.addWidget(self.label_51)
+        self.horizontalLayout_15.addWidget(self.label_51, 0, Qt.AlignLeft)
+
+        self.comboBox_parameters_noise_beta_factor = QComboBox(self.centralwidget)
+        self.comboBox_parameters_noise_beta_factor.setObjectName(u"comboBox_parameters_noise_beta_factor")
+        sizePolicy2.setHeightForWidth(self.comboBox_parameters_noise_beta_factor.sizePolicy().hasHeightForWidth())
+        self.comboBox_parameters_noise_beta_factor.setSizePolicy(sizePolicy2)
+        self.comboBox_parameters_noise_beta_factor.setMinimumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_beta_factor.setMaximumSize(QSize(75, 25))
+        self.comboBox_parameters_noise_beta_factor.setLayoutDirection(Qt.LeftToRight)
+
+        self.horizontalLayout_15.addWidget(self.comboBox_parameters_noise_beta_factor, 0, Qt.AlignRight)
 
 
         self.verticalLayout_error_detection.addLayout(self.horizontalLayout_15)
