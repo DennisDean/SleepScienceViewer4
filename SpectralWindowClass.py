@@ -844,6 +844,10 @@ class SpectralWindow(QMainWindow):
         turn_axis_units_off = not self.ui.checkBox_plotting_xlabels.isChecked()
         set_layout_visible(self.ui.horizontalLayout_time_axis, turn_axis_units_off)
 
+        # Show legend
+        show_legend = self.ui.checkBox_description_plotting_legend.isChecked()
+
+        # Process each signal
         self.result_spectrogram_obj_list = []
         for i, signal_label in enumerate(analysis_signal_labels):
             # Setup labels
@@ -864,7 +868,6 @@ class SpectralWindow(QMainWindow):
             # Plot spectrogram or heatmap if not computed
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
-                show_legend = True
                 multitaper_spectrogram_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off,
                                                 show_legend=show_legend)
 
@@ -931,17 +934,30 @@ class SpectralWindow(QMainWindow):
         self.ui.pushButton_control_display_spectrogram.setEnabled(False)
 
         # Check if spectrogram is avaialble
+        turn_axis_units_off = not self.ui.checkBox_plotting_xlabels.isChecked()
         show_legend = self.ui.checkBox_description_plotting_legend.isChecked()
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
-            turn_axis_units_off = True
             spec_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off,
                           show_legend=show_legend)
 
-        # Turn Off X axis
-        set_layout_visible(self.ui.horizontalLayout_time_axis, False)
 
-        # Turn off button
+        # Turn Off X axis
+        show_x_axis_layout = turn_axis_units_off
+        set_layout_visible(self.ui.horizontalLayout_time_axis, show_x_axis_layout)
+
+        # Create x-axis for reference
+        if show_x_axis_layout:
+            turn_axis_units_off = False
+            axis_only = True
+            graphics_view = self.ui.graphicsView_time_axis
+            signal_label = self.analysis_signal_labels[0]
+            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
+            signal_analysis_obj = EdfSignalAnalysis(signal_obj)
+            multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+            multitaper_spectrogram_obj.plot(graphics_view, turn_axis_units_off=turn_axis_units_off, axis_only=axis_only)
+
+        # Turn on button
         self.ui.pushButton_control_display_spectrogram.setEnabled(True)
 
     # Summarize

@@ -1355,7 +1355,7 @@ class MultitaperSpectrogram:
 
         # Add band group labels below
         for center, band in zip(band_centers, band_names):
-            ax.text(center, -0.075, band, ha='center', va='top', fontsize=label_fontsize,
+            ax.text(center, 0.045, band, ha='center', va='top', fontsize=label_fontsize,
                     transform=ax.get_xaxis_transform())
 
         ax.set_xlabel('')
