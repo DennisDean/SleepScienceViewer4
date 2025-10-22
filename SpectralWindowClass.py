@@ -542,7 +542,8 @@ class SpectralWindow(QMainWindow):
 
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
-                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram)
+                show_legend = self.ui.checkBox_description_plotting_legend.isChecked()
+                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram, show_legend=show_legend)
                 self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
                 # Update log
@@ -755,6 +756,7 @@ class SpectralWindow(QMainWindow):
         # Plotting
         setting_plotting_dict = {}
         setting_plotting_dict['show_x_labels'] = self.ui.checkBox_plotting_xlabels.isChecked()
+        setting_plotting_dict['show_legend'] = self.ui.checkBox_description_plotting_legend.isChecked()
 
         # Filter
         setting_filter_dict = {}
@@ -929,7 +931,7 @@ class SpectralWindow(QMainWindow):
         self.ui.pushButton_control_display_spectrogram.setEnabled(False)
 
         # Check if spectrogram is avaialble
-        show_legend = True
+        show_legend = self.ui.checkBox_description_plotting_legend.isChecked()
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
             turn_axis_units_off = True
