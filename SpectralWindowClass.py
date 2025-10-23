@@ -9,10 +9,14 @@
 # To Do:
 
 # Modules
+import csv
 import logging
-import psutil
 import math
 import numpy as np
+import os
+import psutil
+import xml.etree.ElementTree as ET
+from datetime import datetime
 from functools import partial
 from typing import Callable
 
@@ -153,6 +157,7 @@ from multitaper_spectrogram_python_class import MultitaperSpectrogram
 # To Do
 #TODO: Add check box support for dictionaries to hold parameters
 #TODO: Add checks for empty data slices
+#TODO: Add support for saving spectrogram support
 
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
@@ -751,6 +756,7 @@ class SpectralWindow(QMainWindow):
         self.ui.pushButton_control_compute.clicked.connect(self.analyze_signal_list)
         self.ui.pushButton_control_display_spectrogram.clicked.connect(self.display_spectrogram)
         self.ui.pushButton_control_band.clicked.connect(self.display_bands)
+        self.ui.pushButton_control_save.clicked.connect(self.save_spectral_results)
     def get_settings(self)->tuple[dict,dict,dict,dict]:
         # Create setting description dictionary
         setting_description_dict = {}
@@ -1127,3 +1133,165 @@ class SpectralWindow(QMainWindow):
 
         # Turn off button
         self.ui.pushButton_control_spectrum_average.setEnabled(True)
+
+    # Save
+    def save_spectral_results(self):
+        """
+            Save spectral results and parameters to files.
+            Creates an XML file with settings/parameters and CSV files for each signal.
+            """
+        # Get settings and parameters
+        setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict = self.get_settings()
+        noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict = self.get_parameters()
+
+        # Generate default filename with timestamp
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        base_filename = f"spectral_analysis_{timestamp}"
+
+        # Create output directory if it doesn't exist
+        output_dir = "spectral_results"
+        os.makedirs(output_dir, exist_ok=True)
+
+        # Collect signal information for XML
+        signal_info_list = []
+        spectrogram_obj_list = self.result_spectrograph_obj_list
+        print()
+
+        # Process each spectrogram object
+        for idx, spect_obj in enumerate(spectrogram_obj_list):
+            # Signal Information
+            signal_label = spect_obj.edf_signal_obj.signal_label
+            signal_units = spect_obj.edf_signal_obj.signal_units
+            signal_sampling_time = spect_obj.edf_signal_obj.signal_sampling_time
+
+            # Spectrogram Information
+            mt_spectrogram = spect_obj.mt_spectrogram
+            stimes = spect_obj.stimes
+            sfreqs = spect_obj.sfreqs
+
+            # Create CSV filename for this signal
+            safe_label = "".join(c if c.isalnum() or c in ('-', '_') else '_' for c in signal_label)
+            csv_filename = f"{base_filename}_{safe_label}.csv"
+            csv_filepath = os.path.join(output_dir, csv_filename)
+
+            # Save spectrogram data to CSV (transpose: times as rows, frequencies as columns)
+            with open(csv_filepath, 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+
+                # Write header: 'Time' followed by frequency values
+                header = ['Time'] + [f'{freq:.4f}' for freq in sfreqs]
+                writer.writerow(header)
+
+                # Write data rows: each row is [time, power_at_freq1, power_at_freq2, ...]
+                # mt_spectrogram shape is typically (frequencies, times), so we transpose
+                spectrogram_transposed = mt_spectrogram.T  # Now shape is (times, frequencies)
+
+                for time_idx, time_val in enumerate(stimes):
+                    row = [f'{time_val:.6f}'] + [f'{val:.6e}' for val in spectrogram_transposed[time_idx]]
+                    writer.writerow(row)
+
+            # Store signal info for XML
+            signal_info_list.append({
+                'index': idx,
+                'label': signal_label,
+                'units': signal_units,
+                'sampling_time': signal_sampling_time,
+                'csv_file': csv_filename,
+                'num_times': len(stimes),
+                'num_freqs': len(sfreqs),
+                'time_range': (float(stimes[0]), float(stimes[-1])),
+                'freq_range': (float(sfreqs[0]), float(sfreqs[-1]))
+            })
+
+        # Create XML file with settings and parameters
+        xml_filename = f"{base_filename}_config.xml"
+        xml_filepath = os.path.join(output_dir, xml_filename)
+
+        root = ET.Element('SpectralAnalysis')
+        root.set('timestamp', timestamp)
+
+        # Add Settings section
+        settings_elem = ET.SubElement(root, 'Settings')
+
+        # Description settings
+        desc_elem = ET.SubElement(settings_elem, 'Description')
+        for key, value in setting_description_dict.items():
+            item = ET.SubElement(desc_elem, key)
+            item.text = str(value)
+
+        # Signal settings
+        signal_elem = ET.SubElement(settings_elem, 'Signal')
+        for key, value in setting_signal_dict.items():
+            item = ET.SubElement(signal_elem, key)
+            item.text = str(value)
+
+        # Plotting settings
+        plot_elem = ET.SubElement(settings_elem, 'Plotting')
+        for key, value in setting_plotting_dict.items():
+            item = ET.SubElement(plot_elem, key)
+            item.text = str(value)
+
+        # Filter settings
+        filter_elem = ET.SubElement(settings_elem, 'Filter')
+        for key, value in setting_filter_dict.items():
+            item = ET.SubElement(filter_elem, key)
+            item.text = str(value)
+
+        # Add Parameters section
+        params_elem = ET.SubElement(root, 'Parameters')
+
+        # Noise parameters
+        noise_elem = ET.SubElement(params_elem, 'Noise')
+        for key, value in noise_param_dict.items():
+            item = ET.SubElement(noise_elem, key)
+            item.text = str(value)
+
+        # Taper parameters
+        taper_elem = ET.SubElement(params_elem, 'Taper')
+        for key, value in taper_param_dict.items():
+            item = ET.SubElement(taper_elem, key)
+            item.text = str(value)
+
+        # Band parameters
+        band_elem = ET.SubElement(params_elem, 'Band')
+        for key, value in band_params_dict.items():
+            item = ET.SubElement(band_elem, key)
+            item.text = str(value)
+
+        # Analysis parameters
+        analysis_elem = ET.SubElement(params_elem, 'Analysis')
+        for key, value in analysis_param_dict.items():
+            item = ET.SubElement(analysis_elem, key)
+            item.text = str(value)
+
+        # Add Signals section
+        signals_elem = ET.SubElement(root, 'Signals')
+        for sig_info in signal_info_list:
+            sig_elem = ET.SubElement(signals_elem, 'Signal')
+            sig_elem.set('index', str(sig_info['index']))
+
+            ET.SubElement(sig_elem, 'Label').text = sig_info['label']
+            ET.SubElement(sig_elem, 'Units').text = sig_info['units']
+            ET.SubElement(sig_elem, 'SamplingTime').text = str(sig_info['sampling_time'])
+            ET.SubElement(sig_elem, 'CSVFile').text = sig_info['csv_file']
+            ET.SubElement(sig_elem, 'NumTimePoints').text = str(sig_info['num_times'])
+            ET.SubElement(sig_elem, 'NumFrequencies').text = str(sig_info['num_freqs'])
+
+            time_range_elem = ET.SubElement(sig_elem, 'TimeRange')
+            time_range_elem.set('start', str(sig_info['time_range'][0]))
+            time_range_elem.set('end', str(sig_info['time_range'][1]))
+
+            freq_range_elem = ET.SubElement(sig_elem, 'FrequencyRange')
+            freq_range_elem.set('start', str(sig_info['freq_range'][0]))
+            freq_range_elem.set('end', str(sig_info['freq_range'][1]))
+
+        # Write XML file with pretty formatting
+        tree = ET.ElementTree(root)
+        ET.indent(tree, space='  ')
+        tree.write(xml_filepath, encoding='utf-8', xml_declaration=True)
+
+        print(f"Spectral results saved to: {output_dir}")
+        print(f"Configuration file: {xml_filename}")
+        print(f"CSV files: {len(signal_info_list)} signal(s) saved")
+
+        return xml_filepath, [os.path.join(output_dir, sig['csv_file']) for sig in signal_info_list]

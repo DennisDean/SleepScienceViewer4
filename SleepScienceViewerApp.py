@@ -38,7 +38,7 @@ from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon
 from PySide6.QtWidgets import QListWidgetItem
 
 # System Import
-import os, sys, subprocess
+import os
 import sys
 import math
 from functools import partial

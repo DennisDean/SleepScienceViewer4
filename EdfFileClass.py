@@ -1028,12 +1028,12 @@ class EdfSignal:
     def __str__(self):
         return f'EDF Signal: {self.signal_type}, {self.signal_label}, # of pts = {len(self.signal)} '
 class EdfSignalAnalysis:
-    def __init__(self, edf_signal_ob:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False,
+    def __init__(self, edf_signal_obj:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False,
                  window_params:list|None=None, n_jobs:int=1, multiprocess:bool = False, filter_param:list=None):
         if param_dict is None:
             param_dict = {}
 
-        self.edf_signal_ob = edf_signal_ob
+        self.edf_signal_obj = edf_signal_obj
         self.param_dict = param_dict
         self.completed_analyses = []
         self.verbose = verbose
@@ -1052,13 +1052,13 @@ class EdfSignalAnalysis:
 
     def multitapper_spectrogram(self, ):
         # Multitapper Spectrogram Parameters
-        data = np.array(self.edf_signal_ob.signal)       # Numpy signal
+        data = np.array(self.edf_signal_obj.signal)       # Numpy signal
         signal_segment = copy.deepcopy(data)
-        fs   = 1/self.edf_signal_ob.signal_sampling_time # Sampling frequency in hz
+        fs   = 1/self.edf_signal_obj.signal_sampling_time # Sampling frequency in hz
 
         # Signal Information
-        signal_key = self.edf_signal_ob.signal_label
-        sampling_time = self.edf_signal_ob.signal_sampling_time
+        signal_key = self.edf_signal_obj.signal_label
+        sampling_time = self.edf_signal_obj.signal_sampling_time
 
         # Check if filtering parameters are provided
         filter_param = self.filter_param
