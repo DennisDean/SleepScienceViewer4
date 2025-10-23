@@ -170,6 +170,38 @@
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="label_11">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_control_save">
+              <property name="text">
+               <string>Save</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QLabel" name="label_39">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -1385,42 +1417,21 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_32">
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetFixedSize</enum>
-                </property>
-                <item alignment="Qt::AlignLeft">
-                 <widget class="QLabel" name="label_11">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_parameters_noise_detection">
+                  <property name="text">
+                   <string>Epoch noise detection</string>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::RightToLeft</enum>
-                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_41">
+                <item>
+                 <widget class="QLabel" name="label_59">
                   <property name="text">
                    <string>Δ (0.6-4.6Hz)</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -1471,13 +1482,13 @@
                     </property>
                     <property name="minimumSize">
                      <size>
-                      <width>75</width>
+                      <width>60</width>
                       <height>25</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>75</width>
+                      <width>60</width>
                       <height>25</height>
                      </size>
                     </property>
@@ -1493,13 +1504,13 @@
                     </property>
                     <property name="minimumSize">
                      <size>
-                      <width>75</width>
+                      <width>60</width>
                       <height>25</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>75</width>
+                      <width>60</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -1530,7 +1541,7 @@
                     </property>
                    </widget>
                   </item>
-                  <item alignment="Qt::AlignRight">
+                  <item alignment="Qt::AlignLeft">
                    <widget class="QComboBox" name="comboBox_parameters_noise_delta_factor">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1540,13 +1551,13 @@
                     </property>
                     <property name="minimumSize">
                      <size>
-                      <width>75</width>
+                      <width>60</width>
                       <height>25</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>75</width>
+                      <width>60</width>
                       <height>25</height>
                      </size>
                     </property>
@@ -1639,13 +1650,13 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>75</width>
+                    <width>60</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>75</width>
+                    <width>60</width>
                     <height>25</height>
                    </size>
                   </property>
@@ -1661,13 +1672,13 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>75</width>
+                    <width>60</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>75</width>
+                    <width>60</width>
                     <height>25</height>
                    </size>
                   </property>
@@ -1698,7 +1709,7 @@
                   </property>
                  </widget>
                 </item>
-                <item alignment="Qt::AlignRight">
+                <item alignment="Qt::AlignLeft">
                  <widget class="QComboBox" name="comboBox_parameters_noise_beta_factor">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1708,13 +1719,13 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>75</width>
+                    <width>60</width>
                     <height>25</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>75</width>
+                    <width>60</width>
                     <height>25</height>
                    </size>
                   </property>

@@ -1338,8 +1338,6 @@ class MultitaperSpectrogram:
     def plot_band_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
                               axis_only: bool = False, analysis_range:list|None=None, spectral_bands:list|None=None,
                               spectral_titles:list|None=None, stage_information:tuple[int,list]|None = None, stage_colors:dict|None=None):
-        """Plot 1D spectral summary (average power across frequencies)"""
-        print('Creating band plots')
 
         """
             Plot 1D spectral summary (average power across frequencies),
@@ -1348,10 +1346,10 @@ class MultitaperSpectrogram:
         import matplotlib.pyplot as plt
         import numpy as np
 
-        print("Creating grouped band plots")
+
 
         if stage_information is None or spectral_bands is None:
-            print("Missing required inputs: stage_information or spectral_bands")
+            logger.error("Missing required inputs: stage_information or spectral_bands")
             return
 
         epoch, stages = stage_information

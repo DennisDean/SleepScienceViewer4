@@ -12,6 +12,7 @@
 import logging
 import psutil
 import math
+import numpy as np
 from functools import partial
 from typing import Callable
 
@@ -149,6 +150,10 @@ def set_layout_visible(layout, visible: bool):
 # Classes
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
 
+# To Do
+#TODO: Add check box support for dictionaries to hold parameters
+#TODO: Add checks for empty data slices
+
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
 
@@ -187,7 +192,8 @@ class SpectralWindow(QMainWindow):
         self.noise_beta_n_menu_items:list[str]
 
         # Parameter Dictionaries - Inprocess of replacing single varaibles
-        self.param_noise_names = ['delta', 'beta']
+        # currently includes only combo boxes, need to add check boxes
+        self.param_noise_names = ['delta_factor','delta_low','delta_high','beta_factor','beta_low','beta_high']
         self.param_noise_dict:dict|None = None
         self.param_taper_names = ['window', 'step', 'num_cpus']
         self.param_taper_dict:dict|None = None
@@ -361,7 +367,7 @@ class SpectralWindow(QMainWindow):
         self.band_high_menu_items  = band_high_menu_items
         self.notch_menu_items      = notch_menu_items
     def setup_parmeters(self):
-        # setup noise detection
+        # setup noise factor
         noise_delta_n_factor = [1.50, 2.00, 2.25, 2.50, 2.75, 3.00]
         noise_beta_n_factor = [1.50, 2.00, 2.25, 2.50, 2.75, 3.00]
         noise_delta_default_value = 2.0
@@ -378,6 +384,30 @@ class SpectralWindow(QMainWindow):
         self.ui.comboBox_parameters_noise_delta_factor.setCurrentIndex(noise_delta_index)
         self.ui.comboBox_parameters_noise_beta_factor.setCurrentIndex(noise_beta_index)
 
+        # setup delta frequency menu
+        noise_hertz_low = np.arange(0.1,10.1,.1)
+        noise_hertz_high = np.arange(30.0,70.0,1.0)
+        create_noise_menu_item_f = lambda x: f'{x:.1f}'
+        noise_hertz_low_items = list(map(create_noise_menu_item_f, noise_hertz_low))
+        noise_hertz_high_items = list(map(create_noise_menu_item_f, noise_hertz_high))
+        noise_delta_hertz_low_default = 0.6
+        noise_delta_hertz_high_degault = 4.6
+        noise_beta_hertz_low_default = 40.0
+        moise_beta_hertz_high_default = 60.0
+        noise_delta_hertz_low_default_index = int(np.where(noise_hertz_low == noise_delta_hertz_low_default)[0])
+        noise_delta_hertz_high_default_index  = int(np.where(noise_hertz_low == noise_delta_hertz_high_degault)[0])
+        noise_beta_hertz_low_default_index  = int(np.where(noise_hertz_high == noise_beta_hertz_low_default)[0])
+        moise_beta_hertz_high_default_index  = int(np.where(noise_hertz_high == moise_beta_hertz_high_default)[0])
+
+        # setup noise detection menu
+        self.ui.comboBox_parameters_noise_delta_low.addItems(noise_hertz_low_items)
+        self.ui.comboBox_parameters_noise_delta_high.addItems(noise_hertz_low_items)
+        self.ui.comboBox_parameters_noise_beta_low.addItems(noise_hertz_high_items)
+        self.ui.comboBox_parameters_noise_beta_high.addItems(noise_hertz_high_items)
+        self.ui.comboBox_parameters_noise_delta_low.setCurrentIndex(noise_delta_hertz_low_default_index)
+        self.ui.comboBox_parameters_noise_delta_high.setCurrentIndex(noise_delta_hertz_high_default_index)
+        self.ui.comboBox_parameters_noise_beta_low.setCurrentIndex(noise_beta_hertz_low_default_index)
+        self.ui.comboBox_parameters_noise_beta_high.setCurrentIndex(moise_beta_hertz_high_default_index)
 
         # setup taper windows
         taper_window_values = [1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0]
@@ -771,8 +801,12 @@ class SpectralWindow(QMainWindow):
     def get_parameters(self):
         # Noise Detection
         names = self.param_noise_names
-        cbs = [self.ui.comboBox_parameters_noise_delta_factor, self.ui.comboBox_parameters_noise_beta_factor]
+        cbs = [self.ui.comboBox_parameters_noise_delta_factor, self.ui.comboBox_parameters_noise_delta_low,
+               self.ui.comboBox_parameters_noise_delta_high,
+               self.ui.comboBox_parameters_noise_beta_factor, self.ui.comboBox_parameters_noise_delta_low,
+               self.ui.comboBox_parameters_noise_delta_high]
         noise_param_dict = self.create_param_dict(names, cbs, float)
+        noise_param_dict['apply_noise_detection'] = self.ui.checkBox_parameters_noise_detection.isChecked()
 
         # Multi-taper
         param_taper_names = self.param_taper_names
@@ -824,8 +858,8 @@ class SpectralWindow(QMainWindow):
 
         # Get parameters
         noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict = self.get_parameters()
-        noise_delta = noise_param_dict['delta']
-        noise_beta = noise_param_dict['beta']
+        noise_delta = noise_param_dict['delta_factor']
+        noise_beta = noise_param_dict['beta_factor']
         n_jobs = taper_param_dict['num_cpus']
         window_params = [taper_param_dict['window'], taper_param_dict['step']]
         multiprocess = False if n_jobs >= 1 else True
@@ -917,7 +951,8 @@ class SpectralWindow(QMainWindow):
     def enable_spectrogram_options(self, enable:bool=True):
         spectral_analysis_options = [self.ui.pushButton_control_display_spectrogram,
                                      self.ui.pushButton_control_spectrum_average,
-                                     self.ui.pushButton_control_band]
+                                     self.ui.pushButton_control_band,
+                                     self.ui.pushButton_control_save]
 
         for each_button in spectral_analysis_options:
             each_button.setEnabled(enable)
@@ -1079,8 +1114,6 @@ class SpectralWindow(QMainWindow):
         stage_colors = self.xml_obj.sleep_stages_obj.default_stage_colors
 
         # Check if spectrogram is avaialble
-        print('stage_information', stage_information)
-        print('stage_colors', stage_colors)
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
