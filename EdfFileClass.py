@@ -317,6 +317,8 @@ class EdfSignalHeader:
                 f"{self.transducer_type[i]:<30} {self.prefiltering[i]:<30}"
             )
             logger.info(row)
+
+    # Python
     def __str__(self) -> str:
         """String representation of signal labels."""
         if self.signal_labels.size == 0:
@@ -450,6 +452,10 @@ class EdfSignalsStats:
             logger.info("Excel export successful.")
         except Exception as e:
             logger.error(f"Excel export failed: {e}")
+
+    # Python
+    def __str__(self):
+        return f'EDF Signal Stats: {self.signal_labels}'
 class EdfSignals:
     """Class for storing and summarizing EDF signal data loaded from an EDF file."""
     BYTES_PER_SAMPLE = 2 # Set to original standard value. May support larger bytes per sample in the future
@@ -1025,6 +1031,8 @@ class EdfSignal:
     def set_output_dir(output_dir: str):
         """Set the directory to use for output files."""
         os.makedirs(output_dir, exist_ok=True)
+
+    # Python
     def __str__(self):
         return f'EDF Signal: {self.signal_type}, {self.signal_label}, # of pts = {len(self.signal)} '
 class EdfSignalAnalysis:

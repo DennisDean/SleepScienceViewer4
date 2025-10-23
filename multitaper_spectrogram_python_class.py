@@ -1608,6 +1608,9 @@ class MultitaperSpectrogram:
             mlabels.append(stage)
         return masks, mlabels
 
+    # Python
+    def __str__(self):
+        return f'Multi-Taper Spectrogram: Sample Frequency {self.fs} '
 #Main
 def main():
     pass

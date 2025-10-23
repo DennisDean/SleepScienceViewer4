@@ -258,6 +258,7 @@ class SpectralWindow(QMainWindow):
 
         # Set up spectral analysis list
         self.result_spectrograph_obj_list:list|None=None
+        self.signal_input_obj_list:list|None=None
 
         # Set up summary
         self.setup_summarize()
@@ -265,6 +266,7 @@ class SpectralWindow(QMainWindow):
         # Result Varaibiles
         self.result_spectrogram_obj_list:list|None = None
         self.result_average_spectrogram_list:list|None = None
+        self.input_signal_obj_list:list|None = None
 
     # Setup
     def setup_menu(self):
@@ -889,6 +891,7 @@ class SpectralWindow(QMainWindow):
 
         # Process each signal
         self.result_spectrogram_obj_list = []
+        self.input_signal_obj_list = []
         for i, signal_label in enumerate(analysis_signal_labels):
             # Setup labels
             gui_signal_lbl = self.analyis_signal_labels[i]
@@ -899,6 +902,9 @@ class SpectralWindow(QMainWindow):
             signal_analysis_obj = EdfSignalAnalysis(signal_obj, multiprocess=multiprocess, n_jobs=n_jobs,
                                                     window_params=window_params, filter_param=filter_param)
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+
+            # Store Results
+            self.input_signal_obj_list.append(signal_obj)
             self.result_spectrogram_obj_list.append(multitaper_spectrogram_obj)
 
             # Plot spectrogram
@@ -984,7 +990,6 @@ class SpectralWindow(QMainWindow):
             multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
             spec_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off,
                           show_legend=show_legend)
-
 
         # Turn Off X axis
         show_x_axis_layout = turn_axis_units_off
@@ -1154,20 +1159,21 @@ class SpectralWindow(QMainWindow):
 
         # Collect signal information for XML
         signal_info_list = []
-        spectrogram_obj_list = self.result_spectrograph_obj_list
-        print()
+
 
         # Process each spectrogram object
-        for idx, spect_obj in enumerate(spectrogram_obj_list):
+        for idx, input_output_obj in enumerate(zip(self.input_signal_obj_list, self.result_spectrogram_obj_list)):
+            in_signal_obj, multi_taper_obj = input_output_obj
+
             # Signal Information
-            signal_label = spect_obj.edf_signal_obj.signal_label
-            signal_units = spect_obj.edf_signal_obj.signal_units
-            signal_sampling_time = spect_obj.edf_signal_obj.signal_sampling_time
+            signal_label = in_signal_obj.signal_label
+            signal_units = in_signal_obj.signal_units
+            signal_sampling_time = in_signal_obj.signal_sampling_time
 
             # Spectrogram Information
-            mt_spectrogram = spect_obj.mt_spectrogram
-            stimes = spect_obj.stimes
-            sfreqs = spect_obj.sfreqs
+            mt_spectrogram = multi_taper_obj.mt_spectrogram
+            stimes = multi_taper_obj.stimes
+            sfreqs = multi_taper_obj.sfreqs
 
             # Create CSV filename for this signal
             safe_label = "".join(c if c.isalnum() or c in ('-', '_') else '_' for c in signal_label)
