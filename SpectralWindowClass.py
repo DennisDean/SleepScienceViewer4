@@ -7,6 +7,19 @@
 #
 
 # To Do:
+# Essential
+# TODO: Check band plot figure, pretty, not clear it is accurate
+# TODO: Add epoch level noise exclusion
+#
+# Best Practice
+# TODO: Remove mask empty warnings
+# TODO: Remove code errors, warnings, and weak warnings
+#
+# Facilitate large scale analysis
+# TODO: Use data name in spectral result save
+# TODO: Add time and spectral information to spectral result save
+# TODO: save range values, stage masks, nrem-rem masks
+# TODO: Include mask description in configureation file
 
 # Modules
 import csv
@@ -15,7 +28,6 @@ import math
 import numpy as np
 import os
 import psutil
-import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from functools import partial
@@ -83,7 +95,6 @@ class SpectralFolderDialog(QDialog):
         layout.addStretch()
         layout.addLayout(button_layout)
         self.setLayout(layout)
-
     def browse_folder(self):
         folder = QFileDialog.getExistingDirectory(
             self,
@@ -96,7 +107,6 @@ class SpectralFolderDialog(QDialog):
             self.folder_path.setText(folder)
             self.selected_folder = folder
             self.ok_button.setEnabled(True)
-
     def accept_selection(self):
         if not self.selected_folder:
             QMessageBox.warning(self, "No Folder Selected",
@@ -110,10 +120,8 @@ class SpectralFolderDialog(QDialog):
             return
 
         self.accept()
-
     def get_selected_folder(self):
         return self.selected_folder
-
 
 # Example MainWindow class that uses the dialog
 class MainWindow(QMainWindow):
@@ -178,7 +186,6 @@ class MainWindow(QMainWindow):
             self.info_text.append(f"Running spectral analysis...\n")
             self.info_text.append(f"Results will be saved to: {self.save_folder}\n")
             self.info_text.append("Analysis complete!\n\n")
-
 
 # Utilities
 def clear_graphic_view_plot(parent_widget = None):
@@ -1455,8 +1462,8 @@ class SpectralWindow(QMainWindow):
         ET.indent(tree, space='  ')
         tree.write(xml_filepath, encoding='utf-8', xml_declaration=True)
 
-        print(f"Spectral results saved to: {output_dir}")
-        print(f"Configuration file: {xml_filename}")
-        print(f"CSV files: {len(signal_info_list)} signal(s) saved")
+        logger.info(f"Spectral results saved to: {output_dir}")
+        logger.info(f"Configuration file: {xml_filename}")
+        logger.info(f"CSV files: {len(signal_info_list)} signal(s) saved")
 
         return xml_filepath, [os.path.join(output_dir, sig['csv_file']) for sig in signal_info_list]

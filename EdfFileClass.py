@@ -28,11 +28,13 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
-import copy
+
 # To Do List
+#TODO: Pass analysis window to EDF signal generation in order to facilitate simple noise detection
 
 # Import Modules
 # OS Imports
+import copy
 import os
 import logging
 from typing import List, Dict, Optional
@@ -1026,6 +1028,9 @@ class EdfSignal:
         self.signal_units:str = signal_units
         self.signal_sampling_time:float = signal_sampling_time
         self.output_dir = os.getcwd()
+
+        # Epoch Analysis Width
+        self.epoch_width = 30
         pass
     @staticmethod
     def set_output_dir(output_dir: str):
@@ -1037,7 +1042,8 @@ class EdfSignal:
         return f'EDF Signal: {self.signal_type}, {self.signal_label}, # of pts = {len(self.signal)} '
 class EdfSignalAnalysis:
     def __init__(self, edf_signal_obj:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False,
-                 window_params:list|None=None, n_jobs:int=1, multiprocess:bool = False, filter_param:list=None):
+                 window_params:list|None=None, n_jobs:int=1, multiprocess:bool = False, filter_param:list=None, ):
+                 noise_detect_param:list|None=None)
         if param_dict is None:
             param_dict = {}
 
@@ -1057,6 +1063,10 @@ class EdfSignalAnalysis:
         self.filter_param = [-1,-1,-1]
         if filter_param is not None:
             self.filter_param = filter_param
+
+        # Get noise detection parameters
+        if noise_detect_param is not None:
+            self.noise_detect_param = noise_detect_param
 
     def multitapper_spectrogram(self, ):
         # Multitapper Spectrogram Parameters
@@ -1095,6 +1105,13 @@ class EdfSignalAnalysis:
                                                          n_jobs=self.mt_n_jobs,
                                                          multiprocess=self.mt_multiprocess)
         multi_taper_spectrum_obj.compute_spectrogram()
+
+        # Check for post analysis noise detection
+        epoch_width = self.edf_signal_obj.
+        self.simple_noise_detection(epoch_width, multi_taper_spectrum_obj.mt_spectrogram,
+                                    multi_taper_spectrum_obj.sfreqs,multi_taper_spectrum_obj.stimes)
+
+        # Update log
         self.completed_analyses.append('Multitaper Analysis')
 
         # Write multi taper parameters to
@@ -1102,6 +1119,25 @@ class EdfSignalAnalysis:
             multi_taper_spectrum_obj.display_spectrogram_props()
 
         return multi_taper_spectrum_obj
+    @staticmethod
+    def simple_noise_detection(epoch_width, spectrogram_results, sfreqs, stimes):
+        if self.noise_detect_param is None:
+            logger.info('Noise detection parameters not provided')
+            return
+
+        # Unpack noise detection parameters
+        noise_detect_param_dict = self.noise_detect_param
+        noise_delta_hertz_low = noise_detect_param_dict['noise_delta_hertz_low']
+        noise_delta_hertz_high = noise_detect_param_dict['noise_delta_hertz_high']
+        noise_beta_hertz_low = noise_detect_param_dict['noise_beta_hertz_low']
+        moise_beta_hertz_high = noise_detect_param_dict['moise_beta_hertz_high']
+
+        # Create bands
+
+        # Create masks
+
+        # Create epoch and time masks
+
     def __str__(self):
         return f'EDF Signal Analysis: {self.param_dict}'
 class EdfFile:
