@@ -15,13 +15,16 @@ import math
 import numpy as np
 import os
 import psutil
+import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from functools import partial
+from pathlib import Path
 from typing import Callable
 
 # Interface packages and modules
-from PySide6.QtWidgets import QMainWindow, QApplication, QMessageBox
+from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, QMessageBox
+from PySide6.QtWidgets import QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QKeyEvent
 
@@ -31,6 +34,151 @@ from AnnotationXmlClass import AnnotationXml
 
 # GUI Interface
 from SpectralViewer import Ui_MainWindow
+
+# Dialog Boxes
+class SpectralFolderDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Save Spectral Results")
+        self.setMinimumSize(500, 200)
+        self.selected_folder = None
+
+        # Description label
+        description = QLabel("Select a folder where spectral analysis results will be saved.")
+        description.setWordWrap(True)
+
+        # Folder selection row
+        folder_label = QLabel("Folder:")
+        self.folder_path = QLineEdit()
+        self.folder_path.setPlaceholderText("No folder selected")
+        self.folder_path.setReadOnly(True)
+
+        browse_button = QPushButton("Browse...")
+        browse_button.clicked.connect(self.browse_folder)
+
+        folder_layout = QHBoxLayout()
+        folder_layout.addWidget(folder_label)
+        folder_layout.addWidget(self.folder_path)
+        folder_layout.addWidget(browse_button)
+
+        # Buttons
+        cancel_button = QPushButton("Cancel")
+        cancel_button.clicked.connect(self.reject)
+
+        self.ok_button = QPushButton("OK")
+        self.ok_button.setEnabled(False)
+        self.ok_button.clicked.connect(self.accept_selection)
+        self.ok_button.setDefault(True)
+
+        button_layout = QHBoxLayout()
+        button_layout.addStretch()
+        button_layout.addWidget(cancel_button)
+        button_layout.addWidget(self.ok_button)
+
+        # Main layout
+        layout = QVBoxLayout()
+        layout.addWidget(description)
+        layout.addSpacing(10)
+        layout.addLayout(folder_layout)
+        layout.addStretch()
+        layout.addLayout(button_layout)
+        self.setLayout(layout)
+
+    def browse_folder(self):
+        folder = QFileDialog.getExistingDirectory(
+            self,
+            "Select Folder for Spectral Results",
+            "",
+            QFileDialog.Option.ShowDirsOnly
+        )
+
+        if folder:
+            self.folder_path.setText(folder)
+            self.selected_folder = folder
+            self.ok_button.setEnabled(True)
+
+    def accept_selection(self):
+        if not self.selected_folder:
+            QMessageBox.warning(self, "No Folder Selected",
+                                "Please select a folder before continuing.")
+            return
+
+        folder_path = Path(self.selected_folder)
+        if not folder_path.exists() or not folder_path.is_dir():
+            QMessageBox.warning(self, "Invalid Folder",
+                                "The selected folder is not valid.")
+            return
+
+        self.accept()
+
+    def get_selected_folder(self):
+        return self.selected_folder
+
+
+# Example MainWindow class that uses the dialog
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Spectral Analysis Application")
+        self.setGeometry(100, 100, 800, 600)
+        self.save_folder = None
+
+        # Central widget
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+
+        # Title
+        title = QLabel("Spectral Analysis Tool")
+        title.setStyleSheet("font-size: 18px; font-weight: bold;")
+        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # Info display
+        self.info_text = QTextEdit()
+        self.info_text.setReadOnly(True)
+        self.info_text.setPlaceholderText("Select a save folder to begin...")
+
+        # Current folder display
+        self.current_folder_label = QLabel("Current Save Folder: <i>Not set</i>")
+        self.current_folder_label.setTextFormat(Qt.TextFormat.RichText)
+
+        # Buttons
+        select_folder_button = QPushButton("Select Save Folder")
+        select_folder_button.clicked.connect(self.open_folder_dialog)
+
+        self.run_analysis_button = QPushButton("Run Analysis")
+        self.run_analysis_button.setEnabled(False)
+        self.run_analysis_button.clicked.connect(self.run_analysis)
+
+        button_layout = QHBoxLayout()
+        button_layout.addWidget(select_folder_button)
+        button_layout.addWidget(self.run_analysis_button)
+        button_layout.addStretch()
+
+        # Main layout
+        layout = QVBoxLayout()
+        layout.addWidget(title)
+        layout.addWidget(self.info_text)
+        layout.addWidget(self.current_folder_label)
+        layout.addLayout(button_layout)
+        central_widget.setLayout(layout)
+
+    def open_folder_dialog(self):
+        dialog = SpectralFolderDialog(self)
+
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            self.save_folder = dialog.get_selected_folder()
+            self.current_folder_label.setText(f"Current Save Folder: <b>{self.save_folder}</b>")
+            self.run_analysis_button.setEnabled(True)
+            self.info_text.append(f"✓ Save folder set to: {self.save_folder}\n")
+        else:
+            self.info_text.append("Folder selection cancelled.\n")
+
+    def run_analysis(self):
+        if self.save_folder:
+            self.info_text.append(f"Running spectral analysis...\n")
+            self.info_text.append(f"Results will be saved to: {self.save_folder}\n")
+            self.info_text.append("Analysis complete!\n\n")
+
 
 # Utilities
 def clear_graphic_view_plot(parent_widget = None):
@@ -1145,6 +1293,22 @@ class SpectralWindow(QMainWindow):
             Save spectral results and parameters to files.
             Creates an XML file with settings/parameters and CSV files for each signal.
             """
+
+        # Launch dialog box
+        dialog = SpectralFolderDialog()
+
+        dialog = SpectralFolderDialog(self)
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            selected_folder = dialog.get_selected_folder()
+            logger.info(f"Selected folder: {selected_folder}")
+        else:
+            logger.info("Spectral results dialog cancelled")
+            return
+
+        # Create output directory if it doesn't exist
+        output_dir = selected_folder
+        os.makedirs(output_dir, exist_ok=True)
+
         # Get settings and parameters
         setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict = self.get_settings()
         noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict = self.get_parameters()
@@ -1153,13 +1317,8 @@ class SpectralWindow(QMainWindow):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         base_filename = f"spectral_analysis_{timestamp}"
 
-        # Create output directory if it doesn't exist
-        output_dir = "spectral_results"
-        os.makedirs(output_dir, exist_ok=True)
-
         # Collect signal information for XML
         signal_info_list = []
-
 
         # Process each spectrogram object
         for idx, input_output_obj in enumerate(zip(self.input_signal_obj_list, self.result_spectrogram_obj_list)):
