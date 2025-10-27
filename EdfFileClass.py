@@ -518,15 +518,20 @@ class EdfSignals:
         self.output_dir = output_dir
 
     # Return signals
-    def return_edf_signal(self, signal_key: str, signal_type: str='Continuous'):
+    def return_edf_signal(self, signal_key: str, signal_type: str='Continuous',
+                          epoch_width:float|None=None):
         edf_signal = self.signals_dict[signal_key]
         signal_label = signal_key
         signal_type = signal_type
         signal_units = self.signal_units_dict[signal_key]
         signal_sampling_time = self.signal_sampling_time_dict[signal_key]
 
-        signal_obj = EdfSignal(signal_type, signal_label, signal_units,
-                               signal_sampling_time, edf_signal)
+        if epoch_width is not None:
+            signal_obj = EdfSignal(signal_type, signal_label, signal_units,
+                                   signal_sampling_time, edf_signal, epoch_width = epoch_width)
+        else:
+            signal_obj = EdfSignal(signal_type, signal_label, signal_units,
+                                  signal_sampling_time, edf_signal)
 
         return signal_obj
     def return_signal_segment(self, signal_key: str, _signal_type: str, epoch_num, epoch_width):
@@ -1021,7 +1026,7 @@ class EdfSignals:
         return f"EDF Signals: {', '.join(self.signal_labels)}"
 class EdfSignal:
     def __init__(self, signal_type:str, signal_label:str, signal_units:str,
-                signal_sampling_time:float, edf_signal:List):
+                signal_sampling_time:float, edf_signal:List, epoch_width:float = 30.0):
         self.signal_type:str = signal_type
         self.signal_label:str = signal_label
         self.signal:List = edf_signal
@@ -1030,7 +1035,7 @@ class EdfSignal:
         self.output_dir = os.getcwd()
 
         # Epoch Analysis Width
-        self.epoch_width = 30
+        self.epoch_width = epoch_width
         pass
     @staticmethod
     def set_output_dir(output_dir: str):
@@ -1041,9 +1046,10 @@ class EdfSignal:
     def __str__(self):
         return f'EDF Signal: {self.signal_type}, {self.signal_label}, # of pts = {len(self.signal)} '
 class EdfSignalAnalysis:
+    # Intitialize
     def __init__(self, edf_signal_obj:EdfSignal, param_dict:dict[str,str|float|int]|None=None, verbose = False,
-                 window_params:list|None=None, n_jobs:int=1, multiprocess:bool = False, filter_param:list=None, ):
-                 noise_detect_param:list|None=None)
+                 window_params:list|None=None, n_jobs:int=1, multiprocess:bool = False, filter_param:list=None,
+                 noise_detect_param_dict:dict|None=None):
         if param_dict is None:
             param_dict = {}
 
@@ -1065,9 +1071,17 @@ class EdfSignalAnalysis:
             self.filter_param = filter_param
 
         # Get noise detection parameters
-        if noise_detect_param is not None:
-            self.noise_detect_param = noise_detect_param
+        self.noise_mask_dict:dict|None = None
+        self.noise_detect_param_dict:dict|None = None
+        self.noise_keys:list|None = None
+        if noise_detect_param_dict is not None:
+            self.noise_detect_param_dict = noise_detect_param_dict
+            self.noise_keys = ['delta_time_mask',  'beta_time_mask',
+                               'delta_epoch_mask', 'beta_epoch_mask',
+                               'union_time_mask',  'intersection_time_mask',
+                               'union_epoch_mask', 'intersection_epoch_mask']
 
+    # Methods
     def multitapper_spectrogram(self, ):
         # Multitapper Spectrogram Parameters
         data = np.array(self.edf_signal_obj.signal)       # Numpy signal
@@ -1107,9 +1121,12 @@ class EdfSignalAnalysis:
         multi_taper_spectrum_obj.compute_spectrogram()
 
         # Check for post analysis noise detection
-        epoch_width = self.edf_signal_obj.
-        self.simple_noise_detection(epoch_width, multi_taper_spectrum_obj.mt_spectrogram,
-                                    multi_taper_spectrum_obj.sfreqs,multi_taper_spectrum_obj.stimes)
+        if self.noise_detect_param_dict is not None:
+            epoch_width = self.edf_signal_obj.epoch_width
+            noise_mask_dict = self.simple_noise_detection(epoch_width, multi_taper_spectrum_obj.mt_spectrogram,
+                                    multi_taper_spectrum_obj.sfreqs,multi_taper_spectrum_obj.stimes,
+                                    self.noise_detect_param_dict)
+            self.noise_mask_dict = noise_mask_dict
 
         # Update log
         self.completed_analyses.append('Multitaper Analysis')
@@ -1120,24 +1137,125 @@ class EdfSignalAnalysis:
 
         return multi_taper_spectrum_obj
     @staticmethod
-    def simple_noise_detection(epoch_width, spectrogram_results, sfreqs, stimes):
-        if self.noise_detect_param is None:
-            logger.info('Noise detection parameters not provided')
-            return
+    def simple_noise_detection(epoch_width, spectrogram_results, sfreqs, stimes, noise_detect_param_dict):
+        """
+        Detects noisy epochs based on delta and beta band power.
 
-        # Unpack noise detection parameters
-        noise_detect_param_dict = self.noise_detect_param
-        noise_delta_hertz_low = noise_detect_param_dict['noise_delta_hertz_low']
-        noise_delta_hertz_high = noise_detect_param_dict['noise_delta_hertz_high']
-        noise_beta_hertz_low = noise_detect_param_dict['noise_beta_hertz_low']
-        moise_beta_hertz_high = noise_detect_param_dict['moise_beta_hertz_high']
+        Args:
+            epoch_width (float): Epoch duration in seconds (e.g., 30)
+            spectrogram_results (np.ndarray): Spectrogram data, shape (n_freqs, n_times)
+                                              or (n_channels, n_freqs, n_times)
+            sfreqs (np.ndarray): Frequency vector
+            stimes (np.ndarray): Time vector (in seconds)
+            noise_detect_param_dict (dict): Parameters with required keys:
+                'apply_noise_detection', 'delta_low', 'delta_high', 'beta_low', 'beta_high',
+                'noise_delta_factor', 'noise_beta_factor'
 
-        # Create bands
+        Returns:
+            noise_mask (dict): Dictionary with boolean masks:
+                - 'delta_time_mask', 'beta_time_mask'
+                - 'delta_epoch_mask', 'beta_epoch_mask'
+                - 'union_time_mask', 'union_epoch_mask'
+                - 'intersection_time_mask', 'intersection_epoch_mask'
+        """
+        noise_mask = {}
 
-        # Create masks
+        # --- User toggle ---
+        if  not noise_detect_param_dict:
+            logger.info('Noise detection parameters are empty. Skipping noise detection.')
+            return noise_mask
 
-        # Create epoch and time masks
+        logger.info('Starting simple noise detection.')
 
+        # --- Unpack parameters ---
+        noise_delta_low = noise_detect_param_dict['delta_low']
+        noise_delta_high = noise_detect_param_dict['delta_high']
+        noise_delta_factor = noise_detect_param_dict['delta_factor']
+        noise_beta_low = noise_detect_param_dict['beta_low']
+        noise_beta_high = noise_detect_param_dict['beta_high']
+        noise_beta_factor = noise_detect_param_dict['beta_factor']
+
+        # --- Frequency band masks ---
+        delta_freq_mask = (sfreqs >= noise_delta_low) & (sfreqs < noise_delta_high)
+        beta_freq_mask = (sfreqs >= noise_beta_low) & (sfreqs < noise_beta_high)
+
+        # --- Handle input shape ---
+        if spectrogram_results.ndim == 3:
+            power_by_time = np.mean(spectrogram_results, axis=0)  # (n_freqs, n_times)
+        elif spectrogram_results.ndim == 2:
+            power_by_time = spectrogram_results  # (n_freqs, n_times)
+        else:
+            raise ValueError("spectrogram_results must be 2D or 3D (channels x freqs x times)")
+
+        # --- Compute band power by time ---
+        delta_power_t = np.sum(power_by_time[delta_freq_mask, :], axis=0)
+        beta_power_t = np.sum(power_by_time[beta_freq_mask, :], axis=0)
+
+        # --- Compute thresholds ---
+        delta_avg = np.mean(delta_power_t)
+        beta_avg = np.mean(beta_power_t)
+        delta_threshold = noise_delta_factor * delta_avg
+        beta_threshold = noise_beta_factor * beta_avg
+
+        logger.info(f"Δ-band avg={delta_avg:.3f}, threshold={delta_threshold:.3f}")
+        logger.info(f"β-band avg={beta_avg:.3f}, threshold={beta_threshold:.3f}")
+
+        # --- Spectrogram-resolution masks (True = keep, False = noisy) ---
+        delta_time_mask = delta_power_t < delta_threshold
+        beta_time_mask = beta_power_t < beta_threshold
+
+        # --- Combined time masks ---
+        union_time_mask = delta_time_mask & beta_time_mask  # exclude if noisy in either
+        intersection_time_mask = delta_time_mask | beta_time_mask  # exclude only if both noisy
+
+        # --- Epoch-resolution masks ---
+        n_epochs = int(np.ceil(stimes[-1] / epoch_width))
+        delta_epoch_mask = np.ones(n_epochs, dtype=bool)
+        beta_epoch_mask = np.ones(n_epochs, dtype=bool)
+        union_epoch_mask = np.ones(n_epochs, dtype=bool)
+        intersection_epoch_mask = np.ones(n_epochs, dtype=bool)
+
+        for i in range(n_epochs):
+            start_t = i * epoch_width
+            end_t = start_t + epoch_width
+            epoch_inds = np.where((stimes >= start_t) & (stimes < end_t))[0]
+            if len(epoch_inds) == 0:
+                continue
+
+            # If any time point is noisy → epoch is noisy
+            delta_epoch_mask[i] = np.all(delta_time_mask[epoch_inds])
+            beta_epoch_mask[i] = np.all(beta_time_mask[epoch_inds])
+
+            # Union: exclude if *either* band is noisy
+            union_epoch_mask[i] = np.all(union_time_mask[epoch_inds])
+
+            # Intersection: exclude only if *both* bands are noisy
+            intersection_epoch_mask[i] = np.all(intersection_time_mask[epoch_inds])
+
+        # --- Collect all masks ---
+        noise_mask.update({
+            'delta_time_mask': delta_time_mask,
+            'beta_time_mask': beta_time_mask,
+            'delta_epoch_mask': delta_epoch_mask,
+            'beta_epoch_mask': beta_epoch_mask,
+            'union_time_mask': union_time_mask,
+            'intersection_time_mask': intersection_time_mask,
+            'union_epoch_mask': union_epoch_mask,
+            'intersection_epoch_mask': intersection_epoch_mask,
+        })
+
+        # Summarize to logger:
+        mask_length = float(len(delta_time_mask))
+        num_scoring_epochs = np.ceil(stimes[-1])
+        for key in noise_mask.keys():
+            m_length = mask_length if 'epoch' not in key else num_scoring_epochs
+            sepochs_percent_excluded = np.sum(np.logical_not(noise_mask[key]))/m_length
+            sepochs_excluded = np.sum(np.logical_not(noise_mask[key]))
+            logger.info(f'{key}: spectral epochs excluded = {sepochs_excluded}, % excluded = {sepochs_percent_excluded:.2%}')
+
+        return noise_mask
+
+    # Python
     def __str__(self):
         return f'EDF Signal Analysis: {self.param_dict}'
 class EdfFile:

@@ -27,6 +27,7 @@ import logging
 import math
 import numpy as np
 import os
+import pandas as pd
 import psutil
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -49,11 +50,12 @@ from SpectralViewer import Ui_MainWindow
 
 # Dialog Boxes
 class SpectralFolderDialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, default_folder=""):
         super().__init__(parent)
         self.setWindowTitle("Save Spectral Results")
         self.setMinimumSize(500, 200)
         self.selected_folder = None
+        self.default_folder = default_folder
 
         # Description label
         description = QLabel("Select a folder where spectral analysis results will be saved.")
@@ -99,7 +101,7 @@ class SpectralFolderDialog(QDialog):
         folder = QFileDialog.getExistingDirectory(
             self,
             "Select Folder for Spectral Results",
-            "",
+            self.default_folder,  # Start in this directory
             QFileDialog.Option.ShowDirsOnly
         )
 
@@ -422,6 +424,7 @@ class SpectralWindow(QMainWindow):
         self.result_spectrogram_obj_list:list|None = None
         self.result_average_spectrogram_list:list|None = None
         self.input_signal_obj_list:list|None = None
+        self.noise_mask_list:list|None = []
 
     # Setup
     def setup_menu(self):
@@ -966,8 +969,8 @@ class SpectralWindow(QMainWindow):
         names = self.param_noise_names
         cbs = [self.ui.comboBox_parameters_noise_delta_factor, self.ui.comboBox_parameters_noise_delta_low,
                self.ui.comboBox_parameters_noise_delta_high,
-               self.ui.comboBox_parameters_noise_beta_factor, self.ui.comboBox_parameters_noise_delta_low,
-               self.ui.comboBox_parameters_noise_delta_high]
+               self.ui.comboBox_parameters_noise_beta_factor, self.ui.comboBox_parameters_noise_beta_low,
+               self.ui.comboBox_parameters_noise_beta_high]
         noise_param_dict = self.create_param_dict(names, cbs, float)
         noise_param_dict['apply_noise_detection'] = self.ui.checkBox_parameters_noise_detection.isChecked()
 
@@ -1021,8 +1024,7 @@ class SpectralWindow(QMainWindow):
 
         # Get parameters
         noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict = self.get_parameters()
-        noise_delta = noise_param_dict['delta_factor']
-        noise_beta = noise_param_dict['beta_factor']
+        noise_detect_param_dict = noise_param_dict
         n_jobs = taper_param_dict['num_cpus']
         window_params = [taper_param_dict['window'], taper_param_dict['step']]
         multiprocess = False if n_jobs >= 1 else True
@@ -1045,6 +1047,7 @@ class SpectralWindow(QMainWindow):
         show_legend = self.ui.checkBox_description_plotting_legend.isChecked()
 
         # Process each signal
+        epoch_width = self.xml_obj.sleep_stages_obj.sleep_epoch
         self.result_spectrogram_obj_list = []
         self.input_signal_obj_list = []
         for i, signal_label in enumerate(analysis_signal_labels):
@@ -1053,14 +1056,18 @@ class SpectralWindow(QMainWindow):
             gui_signal_lbl.setText(signal_label)
 
             # Setup and compute spectrogram
-            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
+            signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label, epoch_width = epoch_width)
             signal_analysis_obj = EdfSignalAnalysis(signal_obj, multiprocess=multiprocess, n_jobs=n_jobs,
-                                                    window_params=window_params, filter_param=filter_param)
+                                                    window_params=window_params, filter_param=filter_param,
+                                                    noise_detect_param_dict=noise_detect_param_dict)
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
+            # noise_mask_dict = self.noise_mask_dict
 
             # Store Results
             self.input_signal_obj_list.append(signal_obj)
             self.result_spectrogram_obj_list.append(multitaper_spectrogram_obj)
+            noise_mask_dict = signal_analysis_obj.noise_mask_dict
+            self.noise_mask_list.append(noise_mask_dict)
 
             # Plot spectrogram
             layout = self.result_layouts[i]
@@ -1301,16 +1308,24 @@ class SpectralWindow(QMainWindow):
             Creates an XML file with settings/parameters and CSV files for each signal.
             """
 
+        # Get EDF file name base
+        edf_base_name = os.path.basename(self.edf_obj.file_name)
+        edf_base_name, _ = os.path.splitext(edf_base_name)
+        default_folder = os.path.abspath(self.edf_obj.file_name)
+
         # Launch dialog box
         dialog = SpectralFolderDialog()
 
-        dialog = SpectralFolderDialog(self)
+        dialog = SpectralFolderDialog(self, default_folder=default_folder)
         if dialog.exec() == QDialog.DialogCode.Accepted:
             selected_folder = dialog.get_selected_folder()
             logger.info(f"Selected folder: {selected_folder}")
         else:
             logger.info("Spectral results dialog cancelled")
             return
+
+        # Turn on busy cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         # Create output directory if it doesn't exist
         output_dir = selected_folder
@@ -1322,14 +1337,17 @@ class SpectralWindow(QMainWindow):
 
         # Generate default filename with timestamp
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        base_filename = f"spectral_analysis_{timestamp}"
+        base_filename = f"{edf_base_name}_spec_anl"
 
         # Collect signal information for XML
         signal_info_list = []
 
         # Process each spectrogram object
-        for idx, input_output_obj in enumerate(zip(self.input_signal_obj_list, self.result_spectrogram_obj_list)):
-            in_signal_obj, multi_taper_obj = input_output_obj
+        noise_fn_dict = {}
+        for idx, input_output_noise_obj in enumerate(zip(self.input_signal_obj_list,
+                                                   self.result_spectrogram_obj_list,
+                                                   self.noise_mask_list)):
+            in_signal_obj, multi_taper_obj, noise_mask_dict = input_output_noise_obj
 
             # Signal Information
             signal_label = in_signal_obj.signal_label
@@ -1343,7 +1361,7 @@ class SpectralWindow(QMainWindow):
 
             # Create CSV filename for this signal
             safe_label = "".join(c if c.isalnum() or c in ('-', '_') else '_' for c in signal_label)
-            csv_filename = f"{base_filename}_{safe_label}.csv"
+            csv_filename = f"{base_filename}_{str(idx+1).zfill(3)}_{safe_label}.csv"
             csv_filepath = os.path.join(output_dir, csv_filename)
 
             # Save spectrogram data to CSV (transpose: times as rows, frequencies as columns)
@@ -1375,8 +1393,13 @@ class SpectralWindow(QMainWindow):
                 'freq_range': (float(sfreqs[0]), float(sfreqs[-1]))
             })
 
+            # Write noise masks
+            noise_fn = f'{edf_base_name}_spec_anl_{str(idx+1).zfill(3)}_{signal_label}_noise_masks'
+            self.save_noise_masks(noise_mask_dict, stimes, output_dir, base_filename=noise_fn)
+            noise_fn_dict[signal_label]=noise_fn
+
         # Create XML file with settings and parameters
-        xml_filename = f"{base_filename}_config.xml"
+        xml_filename = f"{base_filename}_{str(0).zfill(3)}_config.xml"
         xml_filepath = os.path.join(output_dir, xml_filename)
 
         root = ET.Element('SpectralAnalysis')
@@ -1457,6 +1480,13 @@ class SpectralWindow(QMainWindow):
             freq_range_elem.set('start', str(sig_info['freq_range'][0]))
             freq_range_elem.set('end', str(sig_info['freq_range'][1]))
 
+        # Noise Mask Filename
+        noise_elem = ET.SubElement(root, 'Noise')
+        for key, value in noise_fn_dict.items():
+            item = ET.SubElement(noise_elem, key)
+            item.text = str(value)
+
+
         # Write XML file with pretty formatting
         tree = ET.ElementTree(root)
         ET.indent(tree, space='  ')
@@ -1466,4 +1496,43 @@ class SpectralWindow(QMainWindow):
         logger.info(f"Configuration file: {xml_filename}")
         logger.info(f"CSV files: {len(signal_info_list)} signal(s) saved")
 
+        # Turn off busy cursor
+        QApplication.restoreOverrideCursor()
+
         return xml_filepath, [os.path.join(output_dir, sig['csv_file']) for sig in signal_info_list]
+    @staticmethod
+    def save_noise_masks(noise_mask, stimes, save_dir, base_filename='noise_masks'):
+        """
+        Save noise detection results (time-resolution masks) to a CSV file.
+
+        Args:
+            noise_mask (dict): Output from simple_noise_detection().
+            stimes (np.ndarray): Time vector (same length as time masks).
+            save_dir (str): Directory where CSV will be saved.
+            base_filename (str): Base name for the output CSV file (default 'noise_masks').
+
+        Returns:
+            str: Full path to the saved CSV file.
+        """
+        os.makedirs(save_dir, exist_ok=True)
+        save_path = os.path.join(save_dir, f"{base_filename}.csv")
+
+        # Select only time-resolution keys (same length as stimes)
+        time_mask_keys = [k for k in noise_mask.keys() if k.endswith('_time_mask')]
+
+        # Validate lengths
+        for key in time_mask_keys:
+            if len(noise_mask[key]) != len(stimes):
+                raise ValueError(f"Mask '{key}' length ({len(noise_mask[key])}) "
+                                 f"does not match time vector ({len(stimes)}).")
+
+        # Construct DataFrame
+        df = pd.DataFrame({'time_sec': stimes})
+        for key in time_mask_keys:
+            df[key] = noise_mask[key].astype(int)  # Save as 1 (True) / 0 (False)
+
+        # Save CSV
+        df.to_csv(save_path, index=False)
+        logger.info(f"Saved noise mask CSV to {save_path}")
+
+        return save_path
