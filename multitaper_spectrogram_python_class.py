@@ -26,10 +26,8 @@ import numpy.typing as npt
 from scipy.signal.windows import dpss
 from scipy.signal import detrend
 from typing import Tuple, Literal, Optional, Callable
-from copy import deepcopy
 
 # Logistical Imports
-import warnings
 import timeit
 from   joblib import Parallel, delayed, cpu_count
 import logging
@@ -42,13 +40,13 @@ from matplotlib import cm
 from matplotlib.axes import Axes
 from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.colors as mcolors
+import matplotlib.pyplot as plt
 
 # Interface
 from PySide6.QtWidgets import QSizePolicy, QDialog, QVBoxLayout, QDialogButtonBox
 
 # Cause error upon warning
 import warnings
-#warnings.filterwarnings("error", category=RuntimeWarning)
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -103,6 +101,8 @@ def reorder_stages(stages: list[str]) -> list[str]:
 
 # MULTITAPER SPECTROGRAM #
 class MultitaperSpectrogram:
+    stimes: npt.NDArray[np.float64]
+    sfreqs: npt.NDArray[np.float64]
     def __init__(self, data:npt.NDArray, fs:float, frequency_range:list[float]|None=None, time_bandwidth=5,
                  num_tapers=None, window_params:list[float]=None, min_nfft=0,
                  detrend_opt:Literal['linear', 'constant', 'off']='linear', multiprocess=False,
@@ -233,14 +233,14 @@ class MultitaperSpectrogram:
 
         # Store Result information
         self.mt_spectrogram:list = None
-        self.stimes:list = None
-        self.sfreqs:list = None
+        self.stimes:npt.NDArray[np.float64] = None
+        self.sfreqs:npt.NDArray[np.float64] = None
         self.spectrogram_computed:bool = None
 
         # Visualization Variables
         self.current_spectrogram_ax:Optional[Axes] = None
         self.current_spectrogram_fig: Optional[Figure] = None
-        self.current_spectrogram_canvas: Optional[FigureCanvasTkAgg] = None
+        self.current_spectrogram_canvas: Optional[FigureCanvas] = None
         self.spectrogram_double_click_callback: Optional[Callable] = None
 
         # Save heatmap data and parameters for legend
@@ -259,6 +259,7 @@ class MultitaperSpectrogram:
         # Store Matplotlib Connections
         self.spectrogram_connection = []
         self.heatmap_connection    = []
+        self.heapmap_double_click_callback = None
 
         # Create a custom color map
         gradient_colors = ['#FFE4B5', '#FFE4B5', '#FFB6C1', '#D8BFD8', '#B0E0E6', '#98FB98', '#3CB371']
@@ -289,14 +290,14 @@ class MultitaperSpectrogram:
         for cid in self.spectrogram_connection:
             try:
                 self.current_spectrogram_fig.canvas.mpl_disconnect(cid)
-            except:
+            except ValueError:
                 pass  # In case connection is already gone
         self.spectrogram_connection.clear()
 
         for cid in self.heatmap_connection:
             try:
                 self.current_heatmap_fig.canvas.mpl_disconnect(cid)
-            except:
+            except ValueError:
                 pass  # In case connection is already gone
         self.heatmap_connection.clear()
 
@@ -556,7 +557,7 @@ class MultitaperSpectrogram:
 
         # create frequency vector
         df = fs / nfft
-        sfreqs = np.arange(0, fs, df)
+        sfreqs: npt.NDArray[np.float64]  = np.arange(0, fs, df)
 
         # Get frequencies for given frequency range
         freq_inds = (sfreqs >= frequency_range[0]) & (sfreqs <= frequency_range[1])
@@ -564,7 +565,7 @@ class MultitaperSpectrogram:
 
         # Compute times in the middle of each spectrum
         window_middle_samples = window_start + round(datawin_size / 2)
-        stimes = window_middle_samples / fs
+        stimes: npt.NDArray[np.float64]  = window_middle_samples / fs
 
         # Get indexes for each window
         window_idxs = np.atleast_2d(window_start).T + np.arange(0, datawin_size, 1)
@@ -643,6 +644,7 @@ class MultitaperSpectrogram:
 
         # Create the figure and canvas
         fig = Figure()
+        im = None
         if not axis_only:
             ax = fig.add_subplot(111)
             im = ax.imshow(spect_data, extent=extent, aspect='auto')
@@ -715,6 +717,7 @@ class MultitaperSpectrogram:
             ax.set_xticklabels([])
 
         # Customize plot
+        y_label = ""
         if parent_widget:
             # Enable expanding to fill the parent widget
             y_label = "F(Hz)"
@@ -737,7 +740,7 @@ class MultitaperSpectrogram:
             ax.invert_yaxis()
 
         if not axis_only:
-            ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{int(y)} Hz"))
+            ax.yaxis.set_major_formatter(FuncFormatter(lambda y_val, _: f"{int(y_val)} Hz"))
             if use_y_ticks:
                 yticks = ax.get_yticks()
                 ax.set_yticklabels([f"{int(y)} Hz" for y in yticks])
@@ -795,11 +798,6 @@ class MultitaperSpectrogram:
                im.set_clim(clim)
         elif parent_widget is None:
             pass
-
-
-        # Optionally return for other use
-        # if self.return_fig:
-        #    return mt_spectrogram, stimes, sfreqs, (fig, ax)
     def show_colorbar_legend_dialog(self):
         # Check that spectrogram was computed
         if not hasattr(self, 'mt_spectrogram') or self.mt_spectrogram is None:
@@ -1146,11 +1144,8 @@ class MultitaperSpectrogram:
         multi_taper_result_dict = {'spectrogram':None, 'spectral_times':None,
                                    'spectral_frequency':None, 'spectrogram_computed':False }
         if self.spectrogram_computed:
-            spectrogram_result_dict = {}
-            spectrogram_result_dict['spectrogram'] = self.mt_spectrogram
-            spectrogram_result_dict['spectral_times'] = self.stimes
-            spectrogram_result_dict['spectral_frequency'] = self.sfreqs
-            spectrogram_result_dict['spectrogram_computed'] = True
+            multi_taper_result_dict = {'spectrogram':self.mt_spectrogram,'spectral_times':self.stimes,
+                                       'spectral_frequency':self.sfreqs, 'spectrogram_computed':True}
         return multi_taper_result_dict
     def get_multi_taper_properties(self):
         # Get properties
@@ -1252,7 +1247,6 @@ class MultitaperSpectrogram:
 
         # Set Colors
         if stage_colors is not None:
-            stage_dict = stage_colors # Avoiding yello. will need to revisit
             stage_dict = self.default_stage_colors
         else:
             stage_dict = self.default_stage_colors
@@ -1266,7 +1260,7 @@ class MultitaperSpectrogram:
             for plot_tuple in zip(sum_db_list, mlabels):
                 sum_db, mlabel = plot_tuple
                 plot_color = stage_dict[mlabel]
-                line = ax.plot(sfreqs, sum_db, linewidth=2.0, color=plot_color, label=mlabel)
+                ax.plot(sfreqs, sum_db, linewidth=2.0, color=plot_color, label=mlabel)
                 ax.set_xlabel(x_label_text, fontsize=label_fontsize)
                 ax.set_ylabel(y_label_text, fontsize=label_fontsize)
                 ax.grid(True, alpha=0.3)
@@ -1335,18 +1329,14 @@ class MultitaperSpectrogram:
             if not axis_only:
                 ax.set_xlabel("Frequency (Hz)", fontsize=label_fontsize)
                 ax.set_ylabel("Average PSD (dB)", fontsize=label_fontsize)
-    def plot_band_summary(self, parent_widget=None, turn_axis_units_off: bool = False,
-                              axis_only: bool = False, analysis_range:list|None=None, spectral_bands:list|None=None,
-                              spectral_titles:list|None=None, stage_information:tuple[int,list]|None = None, stage_colors:dict|None=None):
+    def plot_band_summary(self, parent_widget=None, axis_only: bool = False,
+                          analysis_range:list|None=None, spectral_bands:list|None=None, spectral_titles:list|None=None,
+                          stage_information:tuple[int,list]|None = None, stage_colors:dict|None=None):
 
         """
             Plot 1D spectral summary (average power across frequencies),
             grouped by frequency band with subgroups for each sleep stage.
             """
-        import matplotlib.pyplot as plt
-        import numpy as np
-
-
 
         if stage_information is None or spectral_bands is None:
             logger.error("Missing required inputs: stage_information or spectral_bands")
@@ -1354,7 +1344,6 @@ class MultitaperSpectrogram:
 
         epoch, stages = stage_information
         unique_stages = reorder_stages(list(set(stages)))
-        num_stages = len(unique_stages)
 
         fig, ax = plt.subplots(figsize=(10, 5))
 
@@ -1446,7 +1435,6 @@ class MultitaperSpectrogram:
         Compute average power within a frequency band for each epoch.
         Returns: 1D numpy array of power values (one per epoch)
         """
-        import numpy as np
 
         fmin, fmax = band_range
         freqs = np.array(self.sfreqs)  # frequency vector
@@ -1567,8 +1555,7 @@ class MultitaperSpectrogram:
 
     # STAGE UTILITY FUNCTION
     @staticmethod
-    def generate_stage_masks(epoch: float, stages: list[str], spectral_times: np.ndarray) -> tuple[
-        list[np.ndarray], list[str]]:
+    def generate_stage_masks(epoch: float, stages: list[str], spectral_times: np.ndarray) -> tuple[list[np.ndarray], list[str]]:
         """
         Generate boolean masks for each sleep stage based on spectral times.
 

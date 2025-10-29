@@ -113,6 +113,19 @@ only the “number of CPUs” parameter is functional.
 </p>
 
 
+### ** Previewing Results**
+Average, Band, and spectrogram buttons on the spectral viewer interface allows the user to 
+view average spectrum and band boxplots by stage. The graphing functions use the hypnogram setting
+to create the summaries which include all available stages, redudction to stage N1-N3, and REM-NREM. Clicking 
+between selcting a different summary and the plotting function allows the user to view the data
+in multiple ways. 
+
+**Analysis Range**. The user can also selct which section of the data is summarized in plots. the options include
+First wake, first wake and sleep, sleep only and ending work. The application autoamticallidentifies the first
+and last sleep as the timeing for the sleep section.
+
+**Spectral Bands**. Six bands are defined: delta (), theta, alpha ()
+
 ## Known Limitations
 Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations with PySide6. The framework is in place, but full functionality cannot be guaranteed at this time.
 

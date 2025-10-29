@@ -49,9 +49,11 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from matplotlib.ticker import FuncFormatter
 from matplotlib.patches import Rectangle
+import matplotlib.pyplot as plt
 
 # Scientific Computing
 import numpy as np
+from scipy import signal
 from scipy.signal import butter, sosfiltfilt
 from scipy.signal import iirnotch, filtfilt
 import math
@@ -175,13 +177,13 @@ def validate_bandpass_params(fs, lowcut, highcut, order)->bool:
         logger.error(f"Order too high (>20), may cause numerical instability: order={order:i}")
 
     return valid_params
-def apply_notch_filter(signal, fs, notch_freq:int = 60, Q=30.0): # noinspection PyPep8Naming
+def apply_notch_filter(signal_data, fs, notch_freq:int = 60, Q=30.0): # noinspection PyPep8Naming
     """
     Apply a 50 Hz (Europe) or 60 Hz (US) notch filter to EEG/sleep study data.
 
     Parameters
     ----------
-    signal : array_like
+    signal_data : array_like
         Input signal.
     fs : float
         Sampling frequency in Hz.
@@ -203,7 +205,7 @@ def apply_notch_filter(signal, fs, notch_freq:int = 60, Q=30.0): # noinspection 
         return_signal = filtfilt(b, a, signal)
         logger.info(f'Notch filter applied: notch = {notch_freq}')
     else:
-        return_signal = signal
+        return_signal = signal_data
         logger.error('Notch filter not applied: Sampling rate too low to apply filter')
     return return_signal
 
@@ -370,8 +372,8 @@ class EdfSignalsStats:
     def convert_dictionary_to_table(signal_keys: List[str], stat_keys: List[str], stat_dict: Dict[str, Dict[str, float]]) -> List[List[float]]:
         """Convert a stats dictionary into a list of lists for easy table display."""
         table = []
-        for signal in signal_keys:
-            row = [stat_dict[signal][stat] for stat in stat_keys]
+        for signal_key in signal_keys:
+            row = [stat_dict[signal_key][stat] for stat in stat_keys]
             table.append(row)
         return table
     def summary(self):
@@ -679,12 +681,12 @@ class EdfSignals:
         os.makedirs(output_dir, exist_ok=True)
 
         for label in (label for label in self.signal_labels if label != ''):
-            signal = self.signals_dict[label]
+            signal_data = self.signals_dict[label]
             sampling_interval = self.signal_sampling_time_dict[label]
             unit = self.signal_units_dict.get(label, "")
 
             # Create time array
-            time = np.arange(len(signal)) * sampling_interval
+            time = np.arange(len(signal_data)) * sampling_interval
 
             # Create file-safe label
             safe_label = label.replace(" ", "_").replace("/", "_").replace("-", "_")
@@ -1215,6 +1217,11 @@ class EdfSignalAnalysis:
         union_epoch_mask = np.ones(n_epochs, dtype=bool)
         intersection_epoch_mask = np.ones(n_epochs, dtype=bool)
 
+        print(f"delta_epoch_mask type: {type(delta_epoch_mask)}, shape: {delta_epoch_mask.shape}")
+        print(f"beta_epoch_mask type: {type(beta_epoch_mask)}, shape: {beta_epoch_mask.shape}")
+        print(f"union_epoch_mask type: {type(union_epoch_mask)}, shape: {union_epoch_mask.shape}")
+        print(f"intersection_epoch_mask type: {type(intersection_epoch_mask)}, shape: {intersection_epoch_mask.shape}")
+
         for i in range(n_epochs):
             start_t = i * epoch_width
             end_t = start_t + epoch_width
@@ -1558,10 +1565,6 @@ def main():
     edf_file.edf_signals.export_sig_stats_to_csv(str(Path("signal_stats.csv")))
     edf_file.edf_signals.export_sig_stats_to_excel(str(Path("signal_stats.xlsx")))
 
-    import numpy as np
-    from scipy import signal
-    import matplotlib.pyplot as plt
-
     # 1. Define signal parameters
     fs = 1000  # Sampling frequency in Hz
     t = np.linspace(0, 1, fs, endpoint=False)  # 1 second of signal
@@ -1582,7 +1585,6 @@ def main():
 
     # 4. Apply the filter to the noisy signal
     filtered_signal = signal.filtfilt(b, a, noisy_signal)
-    filtered_signal_2 = apply_notch_filter(noisy_signal, fs,notch_freq=60, Q = 30.0)
 
     # 5. Plot the results for comparison
     plt.figure(figsize=(12, 6))

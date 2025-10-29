@@ -29,6 +29,7 @@ import numpy as np
 import os
 import pandas as pd
 import psutil
+import re
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from functools import partial
@@ -36,8 +37,8 @@ from pathlib import Path
 from typing import Callable
 
 # Interface packages and modules
-from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, QMessageBox
-from PySide6.QtWidgets import QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow
+from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, QMessageBox, QWidget
+from PySide6.QtWidgets import QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow, QTextEdit
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QKeyEvent
 
@@ -286,27 +287,29 @@ def clear_spectrogram_plot(parent_widget = None):
             widget = item.widget()
             if widget:
                 widget.setParent(None)
-def set_layout_visible(layout, visible: bool):
+def make_xml_safe_tag(key: str) -> str:
     """
-    Recursively set visibility for all widgets in a layout and its nested layouts.
+    Convert a given key into a valid XML tag name.
 
-    Args:
-        layout: QLayout object to process
-        visible: Boolean indicating whether to show (True) or hide (False) widgets
+    Rules:
+    - Must start with a letter or underscore
+    - Contains only letters, digits, hyphens, underscores, and periods
+    - Replace invalid characters with underscores
+    - If starts with 'xml' (case-insensitive), prefix with '_'
     """
-    for i in range(layout.count()):
-        item = layout.itemAt(i)
 
-        # Check if the item is a widget
-        widget = item.widget()
-        if widget:
-            widget.setVisible(visible)
+    # Replace invalid characters with underscores
+    safe_key = re.sub(r'[^a-zA-Z0-9_.-]', '_', key)
 
-        # Check if the item is a nested layout
-        nested_layout = item.layout()
-        if nested_layout:
-            # Recursively process the nested layout
-            set_layout_visible(nested_layout, visible)
+    # Ensure the first character is a letter or underscore
+    if not re.match(r'[A-Za-z_]', safe_key[0]):
+        safe_key = '_' + safe_key
+
+    # Avoid reserved XML prefixes like "xml"
+    if safe_key.lower().startswith('xml'):
+        safe_key = '_' + safe_key
+
+    return safe_key
 
 # Classes
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
@@ -997,7 +1000,8 @@ class SpectralWindow(QMainWindow):
             analysis_param_dict[analysis_name] = analysis_cb.currentText()
 
         return noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict
-    def create_param_dict(self, names:list[str], cbs:list, convert_f:Callable=lambda x:x)->dict:
+    @staticmethod
+    def create_param_dict(names:list[str], cbs:list, convert_f:Callable=lambda x:x)->dict:
         param_dict = {}
         for taper_bands in zip(names, cbs):
             name, cb = taper_bands
@@ -1005,11 +1009,14 @@ class SpectralWindow(QMainWindow):
         return param_dict
     def analyze_signal_list(self):
         # Check user if we should move forward
-        process_signals = False
+        process_eeg = False
         if self.edf_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
-        else:
             logger.info(f'EDF file not loaded. Can not analyze signal list.')
+            return
+        if not process_eeg:
+            logger.info(f'User cancelled analysis.')
+            return
 
         # Write to log file
         logger.info(f'Preparing to compute spectrograms.')
@@ -1179,7 +1186,7 @@ class SpectralWindow(QMainWindow):
         # Turn off spectrum button
         self.enable_spectrogram_options(False)
         self.ui.pushButton_control_spectrum_average.clicked.connect(self.summarize_by_stage)
-    def summarize_by_stage(self, analysis_range_str:str=''):
+    def summarize_by_stage(self):
         # Check if spectrogram results are available
         if self.result_spectrogram_obj_list is None:
             logger.info('Spectrogram results are not available.')
@@ -1314,8 +1321,6 @@ class SpectralWindow(QMainWindow):
         default_folder = os.path.abspath(self.edf_obj.file_name)
 
         # Launch dialog box
-        dialog = SpectralFolderDialog()
-
         dialog = SpectralFolderDialog(self, default_folder=default_folder)
         if dialog.exec() == QDialog.DialogCode.Accepted:
             selected_folder = dialog.get_selected_folder()
@@ -1483,7 +1488,7 @@ class SpectralWindow(QMainWindow):
         # Noise Mask Filename
         noise_elem = ET.SubElement(root, 'Noise')
         for key, value in noise_fn_dict.items():
-            item = ET.SubElement(noise_elem, key)
+            item = ET.SubElement(noise_elem, make_xml_safe_tag(key))
             item.text = str(value)
 
 
@@ -1499,7 +1504,7 @@ class SpectralWindow(QMainWindow):
         # Turn off busy cursor
         QApplication.restoreOverrideCursor()
 
-        return xml_filepath, [os.path.join(output_dir, sig['csv_file']) for sig in signal_info_list]
+        return
     @staticmethod
     def save_noise_masks(noise_mask, stimes, save_dir, base_filename='noise_masks'):
         """

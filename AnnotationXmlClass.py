@@ -415,7 +415,7 @@ class SleepStages:
         default_stage_colors : dict
             Dictionary mapping stage names to default hex color codes for plotting.
         hypnogram_connection : list
-            List of event connection IDs for hypnogram plotting.
+            Event connection IDs for hypnogram plotting.
 
         Notes
         -----
@@ -538,9 +538,9 @@ class SleepStages:
         self.hypnogram_connection = []
 
         # Creating a set of values to facilitate analysis
-        self.stage_time_dic:list|None = None
+        self.stage_time_dict:list|None = None
 
-    # Event Management
+        # Event Management
     def cleanup_events(self):
         """
             Disconnects all Matplotlib event handlers associated with the hypnogram figure.
@@ -713,7 +713,7 @@ class SleepStages:
         self.stage_time_dict = stage_time_dict
 
         return stage_time_dict
-    def return_stage_spectrogram_mask_array(self, hypnogram_str, spectrogram_times):
+    def return_stage_spectrogram_mask_array(self, hypnogram_str):
         hypnogram_options = self.return_sleep_stage_labels()
         hypnogram_index = hypnogram_options.index(hypnogram_str)
         sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels, self.text_n3_labels]

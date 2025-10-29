@@ -1841,7 +1841,7 @@ class MainApp(QMainWindow):
 
             # Will revisit multiple windows
 
-            self.signal_window.setWindowModality(Qt.ApplicationModal)
+            self.signal_window.setWindowModality(Qt.WindowModality.ApplicationModal)
 
             # Show as modal
             if isinstance(self.signal_window, QDialog):
@@ -1850,8 +1850,6 @@ class MainApp(QMainWindow):
                 # Start signal window in modal mode
                 self.signal_window.exec_()  # blocks until closed
 
-                # Reset figures
-                self.show_stages_on_hypnogram
             else:
                 logger.info(f'Loading signal viewer in independent  mode')
                 self.signal_window.show()
@@ -1871,7 +1869,6 @@ class MainApp(QMainWindow):
 
         if share_objects_and_stated:
             # Get index value for first signal graphic view
-            signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
             self.spectral_window = SpectralWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
                                                   parent=self)
 
