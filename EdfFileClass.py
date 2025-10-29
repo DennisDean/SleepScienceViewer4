@@ -1223,11 +1223,6 @@ class EdfSignalAnalysis:
         union_epoch_mask = np.ones(n_epochs, dtype=bool)
         intersection_epoch_mask = np.ones(n_epochs, dtype=bool)
 
-        print(f"delta_epoch_mask type: {type(delta_epoch_mask)}, shape: {delta_epoch_mask.shape}")
-        print(f"beta_epoch_mask type: {type(beta_epoch_mask)}, shape: {beta_epoch_mask.shape}")
-        print(f"union_epoch_mask type: {type(union_epoch_mask)}, shape: {union_epoch_mask.shape}")
-        print(f"intersection_epoch_mask type: {type(intersection_epoch_mask)}, shape: {intersection_epoch_mask.shape}")
-
         for i in range(n_epochs):
             start_t = i * epoch_width
             end_t = start_t + epoch_width

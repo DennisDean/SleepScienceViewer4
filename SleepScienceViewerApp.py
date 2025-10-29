@@ -1836,9 +1836,7 @@ class MainApp(QMainWindow):
 
         if share_objects_and_stated:
             # Get index value for first signal graphic view
-            signal_combobox_index = self.ui.signal_1_comboBox.currentIndex()
-            self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj,
-                                             signal_combobox_index = signal_combobox_index, parent=self)
+            self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj, parent=self)
 
             # Will revisit multiple windows
 

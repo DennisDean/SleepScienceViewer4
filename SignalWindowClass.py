@@ -80,7 +80,7 @@ class NumericTextEditFilter(QObject):
 # GUI Classes
 class SignalWindow(QMainWindow):
     # Initialize
-    def __init__(self, edf_obj:EdfFile=None, xml_obj:AnnotationXml=None, signal_combobox_index:int = None, parent=None):
+    def __init__(self, edf_obj:EdfFile=None, xml_obj:AnnotationXml=None, parent=None):
         super().__init__(parent)
         # Signal Window Features
         self.number_of_epochs_on_screen = 15
@@ -515,7 +515,6 @@ class SignalWindow(QMainWindow):
         if signal_units == "":
             signal_units = None
 
-        stepped_dict = {}  # Initialize to remove warning
         for i, graphic_view in enumerate(graphic_views):
             # Select graphic view
             signal_label = signal_label
@@ -578,7 +577,6 @@ class SignalWindow(QMainWindow):
         # Create x-axis for reference
         signal_label = "" # force no signal
         graphic_view = self.ui.graphicsView_signal_axis
-        is_signal_stepped = False
         self.edf_obj.edf_signals.plot_signal_segment(signal_label,
                                                      signal_type, epoch_num, epoch_width, graphic_view,
                                                      x_tick_settings       = epoch_display_axis_grid,

@@ -205,7 +205,6 @@ class MultitaperSpectrogram:
             raise ValueError(f"Invalid detrend option: {detrend_opt}")
         self.detrend_opt: Literal['linear', 'constant', 'off'] = detrend_opt_input
 
-
         self.multiprocess: bool = multiprocess
         self.n_jobs: int        = n_jobs
         self.weighting: str     = weighting
@@ -258,7 +257,9 @@ class MultitaperSpectrogram:
 
         # Store Matplotlib Connections
         self.spectrogram_connection = []
-        self.heatmap_connection    = []
+        self.heatmap_connection = []
+        self.average_connection = []
+        self.bandplot_connection  = []
         self.heapmap_double_click_callback = None
 
         # Create a custom color map
@@ -634,8 +635,8 @@ class MultitaperSpectrogram:
         # Get spectrogram information from class
         mt_spectrogram = self.mt_spectrogram
         spect_data = self.nanpow2db(mt_spectrogram) if mt_spectrogram is not None else None
-        stimes = self.stimes
-        sfreqs = self.sfreqs
+        stimes = np.array(self.stimes)
+        sfreqs = np.array(self.sfreqs)
 
         # Set x and y axes
         dx = stimes[1] - stimes[0]
@@ -1345,7 +1346,9 @@ class MultitaperSpectrogram:
         epoch, stages = stage_information
         unique_stages = reorder_stages(list(set(stages)))
 
-        fig, ax = plt.subplots(figsize=(10, 5))
+        fig = Figure()
+        ax = fig.add_subplot(111)
+        # fig, ax = plt.subplots(figsize=(10, 5))
 
         positions = []
         stage_labels = []
@@ -1603,6 +1606,7 @@ class MultitaperSpectrogram:
     # Python
     def __str__(self):
         return f'Multi-Taper Spectrogram: Sample Frequency {self.fs} '
+
 #Main
 def main():
     pass
