@@ -157,7 +157,7 @@ Providing access to a range of parameters through a visual interface enables int
 **Spectral Bands**. Six frequency bands are defined, with defaults commonly used for EEG analysis. These settings may need adjustment for other signal types.
 
 ## Saving Results
-Clicking on the save buttons initaitve writing a configuration file (xml) and results+noise detection mask files for each 
+Clicking on the save buttons initiates writing a configuration file (xml) and results+noise detection mask files for each 
 signal.
 
 <p align="center">    
