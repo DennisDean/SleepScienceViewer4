@@ -161,7 +161,7 @@ Clicking on the save buttons initiates writing a configuration file (xml) and re
 signal.
 
 <p align="center">    
-<img src="Media/spectral_results_folder.png"  width="300" /><br>
+<img src="Media/spectral_results_folder.png"  width="300" style="border: 2px solid grey;" /><br>
 Figure 10. Viewing bands by sleep stage.
 </p>
 
