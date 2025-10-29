@@ -1444,10 +1444,13 @@ class MultitaperSpectrogram:
         # Select frequency range
         freq_mask = (freqs >= fmin) & (freqs < fmax)
         masked_data = spectrogram[freq_mask, :]
-        if masked_data.size > 0:
-            band_power = np.mean(spectrogram[freq_mask, :], axis=0)  # average across band frequencies
-        else:
-            band_power = np.mean(spectrogram[freq_mask, :], axis=0)
+        #if masked_data.size > 0:
+        # Checking if band is present
+        # Making band computation safe for a range of signals
+        band_power = np.nanmean(spectrogram[freq_mask, :], axis=0) if np.any(freq_mask) else np.full(
+            spectrogram.shape[1], np.nan)
+        #else:
+        #    band_power = np.mean(spectrogram[freq_mask, :], axis=0)
 
         # Optional: limit by analysis time window
         if analysis_range is not None:
