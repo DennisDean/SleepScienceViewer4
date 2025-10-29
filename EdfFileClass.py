@@ -30,7 +30,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
-#TODO: Pass analysis window to EDF signal generation in order to facilitate simple noise detection
 
 # Import Modules
 # OS Imports

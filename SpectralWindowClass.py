@@ -11,13 +11,7 @@
 # TODO: Check band plot figure, pretty, not clear it is accurate
 # TODO: Add epoch level noise exclusion
 #
-# Best Practice
-# TODO: Remove mask empty warnings
-# TODO: Remove code errors, warnings, and weak warnings
-#
 # Facilitate large scale analysis
-# TODO: Use data name in spectral result save
-# TODO: Add time and spectral information to spectral result save
 # TODO: save range values, stage masks, nrem-rem masks
 # TODO: Include mask description in configureation file
 

@@ -7959,3 +7959,341 @@
 [2025-10-29 16:37:48,436] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
 [2025-10-29 16:37:48,436] INFO - SpectralWindowClass - Configuration file: learn-nsrr02_spec_anl_000_config.xml
 [2025-10-29 16:37:48,436] INFO - SpectralWindowClass - CSV files: 3 signal(s) saved
+[2025-10-29 16:42:36,898] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
+[2025-10-29 16:42:38,538] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-29 16:43:04,438] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01.edf
+[2025-10-29 16:43:04,783] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01.edf
+[2025-10-29 16:43:04,787] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-29 16:43:04,805] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,805] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-29 16:43:04,805] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-29 16:43:04,818] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,818] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-29 16:43:04,818] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-29 16:43:04,831] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,831] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-29 16:43:04,831] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-29 16:43:04,844] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,844] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-29 16:43:04,844] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-29 16:43:04,857] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,857] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-29 16:43:04,857] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-29 16:43:04,870] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,870] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-29 16:43:04,870] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-29 16:43:04,883] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,883] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-29 16:43:04,883] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-29 16:43:04,933] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,933] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-29 16:43:04,934] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-29 16:43:04,946] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,946] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-29 16:43:04,946] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-29 16:43:04,959] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:04,959] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-29 16:43:04,959] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-29 16:43:04,972] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 16:43:05,494] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-29 16:43:07,133] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1364
+[2025-10-29 16:43:07,149] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01-profusion.xml
+[2025-10-29 16:43:07,440] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01-profusion.xml
+[2025-10-29 16:43:07,440] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr01, learn-nsrr01-profusion
+[2025-10-29 16:43:10,113] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-29 16:43:10,136] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-29 16:43:10,381] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-29 16:43:16,880] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-29 16:43:16,881] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-10-29 16:43:16,881] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-29 16:43:21,153] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.13 seconds
+[2025-10-29 16:43:21,183] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:43:21,195] INFO - EdfFileClass - Δ-band avg=1863.057, threshold=3726.114
+[2025-10-29 16:43:21,196] INFO - EdfFileClass - β-band avg=281.780, threshold=704.449
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 2484, % excluded = 6.07%
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 2046, % excluded = 5.00%
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 149, % excluded = 0.36%
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 81, % excluded = 0.20%
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 2727, % excluded = 6.66%
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1803, % excluded = 4.41%
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 149, % excluded = 0.36%
+[2025-10-29 16:43:21,219] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 81, % excluded = 0.20%
+[2025-10-29 16:43:21,219] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:43:21,728] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:43:25,958] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.12 seconds
+[2025-10-29 16:43:25,987] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:43:30,363] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:43:30,364] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:43:30,364] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-29 16:43:30,535] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-29 16:43:30,604] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-29 16:43:30,647] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-29 16:43:30,675] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-29 16:43:30,745] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-29 16:43:30,767] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 40920.0]
+[2025-10-29 16:43:39,517] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:43:39,518] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:43:39,518] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:43:39,660] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:43:39,697] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:43:39,739] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:43:39,769] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:43:39,841] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:43:39,863] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:43:41,397] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:44:14,348] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-29 16:44:14,350] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-10-29 16:44:14,350] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-29 16:44:18,557] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.08 seconds
+[2025-10-29 16:44:18,586] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:44:18,597] INFO - EdfFileClass - Δ-band avg=1863.057, threshold=3726.114
+[2025-10-29 16:44:18,597] INFO - EdfFileClass - β-band avg=281.780, threshold=704.449
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 2484, % excluded = 6.07%
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 2046, % excluded = 5.00%
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 149, % excluded = 0.36%
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 81, % excluded = 0.20%
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 2727, % excluded = 6.66%
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1803, % excluded = 4.41%
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 149, % excluded = 0.36%
+[2025-10-29 16:44:18,620] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 81, % excluded = 0.20%
+[2025-10-29 16:44:18,620] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:44:19,127] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:44:21,147] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.01 seconds
+[2025-10-29 16:44:21,148] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:44:21,150] INFO - EdfFileClass - Δ-band avg=0.032, threshold=0.064
+[2025-10-29 16:44:21,150] INFO - EdfFileClass - β-band avg=0.000, threshold=0.000
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 2591, % excluded = 6.33%
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 40916, % excluded = 100.00%
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 179, % excluded = 0.44%
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 1364, % excluded = 3.33%
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 40916, % excluded = 100.00%
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 2591, % excluded = 6.33%
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 1364, % excluded = 3.33%
+[2025-10-29 16:44:21,171] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 179, % excluded = 0.44%
+[2025-10-29 16:44:21,171] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:44:21,216] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:44:25,424] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.10 seconds
+[2025-10-29 16:44:25,454] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:44:28,550] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:44:28,551] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:44:28,551] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:28,744] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:28,799] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:28,846] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:28,875] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:28,946] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:28,969] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:29,002] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:44:29,002] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:29,018] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:29,020] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:29,022] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:29,022] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:29,024] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:29,025] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:44:32,349] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:46:05,329] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:46:05,330] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:46:05,330] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,472] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,509] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,552] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,583] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,653] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,675] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,717] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:46:05,717] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,733] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,735] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,736] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,737] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,739] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:05,740] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:08,727] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:46:10,127] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:46:10,128] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:46:10,128] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,268] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,305] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,354] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,387] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,456] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,479] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,512] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:46:10,512] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,526] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,529] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,530] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,531] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,534] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:10,534] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:46:15,810] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:47:48,766] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:47:48,767] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:47:48,767] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:48,914] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:48,952] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:48,997] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,028] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,097] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,119] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,152] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:47:49,153] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,167] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,168] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,170] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,171] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,173] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:49,173] INFO - multitaper_spectrogram_python_class - Computing spectral summary by stage[0.0, 32190.0]
+[2025-10-29 16:47:57,084] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:51:33,796] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:51:35,276] INFO - SpectralWindowClass - Summarize spectrogram by stage.
+[2025-10-29 16:51:35,277] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:51:35,801] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:51:40,173] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.20 seconds
+[2025-10-29 16:51:40,202] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:52:17,898] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-10-29 16:52:17,899] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-10-29 16:52:17,899] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-10-29 16:52:24,759] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.63 seconds
+[2025-10-29 16:52:24,820] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:52:24,832] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:52:24,832] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:52:24,854] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:52:24,854] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:52:24,854] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:24,854] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:24,855] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:52:24,855] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:52:24,855] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:24,855] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:24,855] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:52:25,917] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:52:32,765] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.63 seconds
+[2025-10-29 16:52:32,822] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:52:32,833] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:52:32,833] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:32,857] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:32,858] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:52:33,914] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:52:40,724] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.60 seconds
+[2025-10-29 16:52:40,782] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:52:40,793] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:52:40,793] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:52:40,816] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:52:40,817] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:52:40,817] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:40,817] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:40,817] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:52:40,817] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:52:40,817] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:40,817] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:40,817] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:52:41,881] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:52:48,787] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.69 seconds
+[2025-10-29 16:52:48,845] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:52:48,857] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:52:48,857] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:52:48,879] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:52:48,879] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:52:48,879] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:48,879] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:48,880] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:52:48,880] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:52:48,880] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:48,880] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:48,880] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:52:49,937] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:52:56,639] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.49 seconds
+[2025-10-29 16:52:56,697] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:52:56,709] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:52:56,709] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:52:56,730] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:52:56,731] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:52:56,731] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:56,731] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:56,731] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:52:56,731] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:52:56,731] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:52:56,731] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:52:56,731] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:52:57,937] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:53:05,001] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.85 seconds
+[2025-10-29 16:53:05,059] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:53:05,070] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:53:05,070] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:53:05,094] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:53:05,094] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:53:05,094] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:05,094] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:05,094] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:53:05,094] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:53:05,094] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:05,095] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:05,095] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:53:06,155] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:53:12,977] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.61 seconds
+[2025-10-29 16:53:13,035] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:53:13,047] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:53:13,047] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:53:13,068] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:53:13,069] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:53:13,069] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:13,069] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:13,069] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:53:13,069] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:53:13,069] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:13,069] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:13,069] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:53:14,234] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:53:21,037] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.59 seconds
+[2025-10-29 16:53:21,095] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:53:21,106] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:53:21,106] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:53:21,127] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:53:21,127] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:53:21,127] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:21,127] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:21,128] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:53:21,128] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:53:21,128] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:21,128] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:21,128] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:53:22,186] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:53:29,157] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.76 seconds
+[2025-10-29 16:53:29,216] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:53:29,229] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:53:29,229] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:53:29,250] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:53:29,250] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:53:29,250] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:29,250] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:29,251] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:53:29,251] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:53:29,251] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:29,251] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:29,251] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:53:30,324] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:53:37,091] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.55 seconds
+[2025-10-29 16:53:37,148] INFO - EdfFileClass - Starting simple noise detection.
+[2025-10-29 16:53:37,160] INFO - EdfFileClass - Δ-band avg=0.234, threshold=0.468
+[2025-10-29 16:53:37,160] INFO - EdfFileClass - β-band avg=0.004, threshold=0.009
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 4021, % excluded = 9.83%
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 1717, % excluded = 4.20%
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 4108, % excluded = 10.04%
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 1630, % excluded = 3.98%
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 154, % excluded = 0.38%
+[2025-10-29 16:53:37,183] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 63, % excluded = 0.15%
+[2025-10-29 16:53:37,184] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-10-29 16:53:38,246] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-10-29 16:53:45,173] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 6.72 seconds
+[2025-10-29 16:53:45,230] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
