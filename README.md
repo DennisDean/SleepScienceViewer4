@@ -14,7 +14,7 @@ source software currently available. Guiding principles for development and feat
 under consideration can be found in the [vision statement](vision.md).
 
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
-*Figure 1. Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.*
+Figure 1. Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.
 
 ## Key Features
 
@@ -60,7 +60,7 @@ under consideration can be found in the [vision statement](vision.md).
     * Double-click on annotation list entries to jump to annotation start times
 
 ![Signal Viewer Interface](Media/signal_viewer_beta.png)
-*Figure 2. Signal Viewer interface displaying a single channel with epochs and overlays.*
+Figure 2. Signal Viewer interface displaying a single channel with epochs and overlays.
 
 ### **Signal Viewer**
 
@@ -84,12 +84,12 @@ under consideration can be found in the [vision statement](vision.md).
 
 <p align="center">    
 <img src="Media/SleepScienceViewer_signals_only.png" width="600" /><br>
-*Figure 3. Sleep Science Viewer with hypnogram, spectrogram, and annotations hidden (signal-only mode).*
+Figure 3. Sleep Science Viewer with hypnogram, spectrogram, and annotations hidden (signal-only mode).
 </p>
 
 <p align="center">    
 <img src="Media/signal_viewer_beta_signals_only.png" width="600" /><br>
-*Figure 4. Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.*
+Figure 4. Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.
 </p>
 
 ### **Spectral Viewer**
@@ -104,12 +104,12 @@ only the “number of CPUs” parameter is functional.
 
 <p align="center">    
 <img src="Media/Spectral Viewer_beta.png" /><br>
-*Figure 5. Spectral Viewer for performing spectral analysis on signals.*
+Figure 5. Spectral Viewer for performing spectral analysis on signals.
 </p>
 
 <p align="center">    
 <img src="Media/Spectral Viewer_output_only_beta.png"  /><br>
-*Figure 6. Spectral Viewer configured to show spectrams for multiple signals.*
+Figure 6. Spectral Viewer configured to show spectrams for multiple signals.
 </p>
 
 
@@ -122,17 +122,17 @@ in multiple ways.
 
 <p align="center">    
 <img src="Media/Spectral Viewer_plotting_spectrogram.png"  width="600" /><br>
-*Figure 7. Spectral Viewer configured to review a small number of signals.*
+Figure 7. Spectral Viewer configured to review a small number of signals.
 </p>
 
 <p align="center">    
 <img src="Media/Spectral Viewer_plotting_average.png"  width="600" /><br>
-*Figure 8. Viewing average spectrogram by sleep stage.*
+Figure 8. Viewing average spectrogram by sleep stage.
 </p>
 
 <p align="center">    
 <img src="Media/Spectral Viewer_plotting_bands.png"  width="600" /><br>
-*Figure 9. Viewing bands by sleep stage.*
+Figure 9. Viewing bands by sleep stage.
 </p>
 
 ### **Setting and Parameter Preview**
@@ -151,6 +151,13 @@ Providing access to a range of parameters through a visual interface enables int
 ## Saving Results
 Clicking on the save buttons initaitve writing a configuration file (xml) and results+noise detection mask files for each 
 signal.
+
+<p align="center">    
+<img src="Media/spectral_results_folder.png"  width="300" /><br>
+Figure 10. Viewing bands by sleep stage.
+</p>
+
+
 
 ## Known Limitations
 Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations 
