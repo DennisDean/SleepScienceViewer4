@@ -1372,7 +1372,7 @@ class MultitaperSpectrogram:
                 color = stage_colors[stage] if stage_colors and stage in stage_colors else None
 
                 if len(stage_values) > 0:
-                    ax.boxplot(stage_values, positions=[pos], patch_artist=True,
+                    ax.boxplot(stage_values, positions=[pos], patch_artist=True, widths=0.7,
                            boxprops=dict(facecolor=color if color else 'lightgray', alpha=0.7))
 
                 positions.append(pos)
@@ -1443,14 +1443,10 @@ class MultitaperSpectrogram:
 
         # Select frequency range
         freq_mask = (freqs >= fmin) & (freqs < fmax)
-        masked_data = spectrogram[freq_mask, :]
-        #if masked_data.size > 0:
-        # Checking if band is present
+
         # Making band computation safe for a range of signals
         band_power = np.nanmean(spectrogram[freq_mask, :], axis=0) if np.any(freq_mask) else np.full(
             spectrogram.shape[1], np.nan)
-        #else:
-        #    band_power = np.mean(spectrogram[freq_mask, :], axis=0)
 
         # Optional: limit by analysis time window
         if analysis_range is not None:

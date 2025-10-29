@@ -9,7 +9,6 @@
 import logging
 import math
 import numpy as np
-import copy
 
 # Interface packages and modules
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox

@@ -340,6 +340,11 @@ class SpectralWindow(QMainWindow):
         self.edf_obj = edf_obj
         self.xml_obj = xml_obj
 
+        # Control
+        self.automatic_signal_redraw:bool|None=None
+        self.current_epoch:int|None=None
+        self.reference_signal_labels:list|None=None
+
         # Define settings variables
         self.spectral_bands_default:list[list]
         self.spectral_bands_titles_default:list
@@ -396,9 +401,24 @@ class SpectralWindow(QMainWindow):
         self.multitaper_spectrogram_obj:MultitaperSpectrogram|None = None
         self.setup_spectrogram()
 
+        # Noise Parameters
+        self.noise_delta_n_factor:float|None = None
+        self.noise_beta_n_factor:float|None = None
+        self.create_noise_menu_item_f:float|None = None
+        self.noise_delta_n_menu_items:float|None = None
+        self.noise_beta_n_menu_items:float|None = None
+
         # Setup parameters
+        self.band_low_values:list|None = None
+        self.band_high_values:list|None = None
+        self.notch_values:list|None = None
+        self.band_low_menu_items:list|None = None
+        self.band_high_menu_items:list|None = None
+        self.notch_menu_items:list|None = None
         self.spectral_bands_low_cb:list|None = None
         self.spectral_bands_high_cb:list|None = None
+        self.spectral_bands_default = [[0.5, 4.0], [4.0, 8.0], [8.0, 12.0], [12.0, 15.0], [15.0, 30.0], [30.0, 50.0]]
+        self.spectral_bands_titles_default = ['delta', 'beta', 'alpha', 'sigma', 'beta', 'gamma']
 
         # Settings and Parameter dictionaries
         self.setting_description_dict:dict|None = None
@@ -412,6 +432,7 @@ class SpectralWindow(QMainWindow):
         # Set up analysis
         self.analyis_signal_labels:list|None = None
         self.analyis_signal_combo_boxes:list|None = None
+        self.reference_signal_combo_boxes:list|None = None
         self.results_graphic_views:list|None = None
         self.result_layouts:list|None = None
         self.setup_analysis()
@@ -427,7 +448,9 @@ class SpectralWindow(QMainWindow):
         self.result_spectrogram_obj_list:list|None = None
         self.result_average_spectrogram_list:list|None = None
         self.input_signal_obj_list:list|None = None
-        self.noise_mask_list:list|None = []
+        self.noise_mask_list:list|None=None
+        self.analysis_param_dict:dict|None=None
+        self.analysis_signal_labels:dict|None=None
 
     # Setup
     def setup_menu(self):
@@ -487,7 +510,6 @@ class SpectralWindow(QMainWindow):
         band_low_menu_items     = list(map(create_freq_menu_item_f, band_low_values))
         band_high_menu_items    = list(map(create_freq_menu_item_f, band_high_values))
         notch_menu_items        = list(map(create_freq_menu_item_f, notch_values))
-        add_blank_menu_item_f   = lambda x:x.insert(0, '')
         for l in [band_low_menu_items, band_high_menu_items, notch_menu_items]:
             l.insert(0,'')
 
@@ -722,7 +744,7 @@ class SpectralWindow(QMainWindow):
             logger.info(f'EDF file not loaded. Can not compute spectrogram.')
 
         if process_eeg:
-            self.result_spectrograph_obj_list = [] if self.result_spectrograph_obj_list == None else self.result_spectrograph_obj_list
+            self.result_spectrograph_obj_list = [] if self.result_spectrograph_obj_list is None else self.result_spectrograph_obj_list
             # Turn on busy cursor
             QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
@@ -761,45 +783,6 @@ class SpectralWindow(QMainWindow):
 
             # Turn on Legend Pushbutton
             self.ui.pushButton_spectrogram_legend.setEnabled(True)
-    def on_spectrogram_double_click(self, x_value, _y_value):
-        # Slot to handle double-click events on QListWidget items.
-        logger.info(f"Annotation plot double-clicked: time in seconds {x_value}")
-        if self.edf_obj is None:
-            return
-
-        # Change cursor to busy
-        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
-
-        # Get double click x value
-        annotation_time_in_sec = x_value
-
-        # Change Current epoch
-        epoch_window_in_seconds = self.epoch_display_options_width_sec[self.ui.comboBox_epoch.currentIndex()]
-        new_epoch = float(annotation_time_in_sec) / epoch_window_in_seconds
-        annotation_epoch_offset_start = (new_epoch - math.floor(new_epoch)) * epoch_window_in_seconds
-        new_epoch = math.floor(new_epoch) + 1
-        self.ui.textEdit_epoch.setText(str(new_epoch))
-        self.current_epoch = new_epoch
-
-        # Update signal graphic views to annotation epoch
-        # self.draw_signals_in_graphic_views(annotation_marker=annotation_epoch_offset_start)
-
-        # Plot Hypnogram
-        hypnogram_marker = annotation_time_in_sec
-        show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.graphicsView_hypnogram,
-                                                     hypnogram_marker=hypnogram_marker,
-                                                     double_click_callback=self.on_hypnogram_double_click,
-                                                     show_stage_colors=show_stage_colors
-                                                     )
-
-        # Update Signals
-        self.draw_signal_in_graphic_views()
-
-        # Revert cursor to pointer
-        QApplication.restoreOverrideCursor()
-
-        logger.info(f"Jumped to new signal epoch ({new_epoch}, epoch offset {int(annotation_epoch_offset_start)})")
     def show_spectrogram_legend(self):
         if not hasattr(self, 'multitaper_spectrogram_obj') or self.multitaper_spectrogram_obj is None:
             logger.info("Error: Spectrogram data not available. Generate spectrogram first.")
@@ -831,8 +814,7 @@ class SpectralWindow(QMainWindow):
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
         # Plot signal heatmap
-        multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
-                                        double_click_callback=self.on_spectrogram_double_click)
+        multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
         # Record Spectrogram Completions
@@ -854,6 +836,7 @@ class SpectralWindow(QMainWindow):
         # Display legend dialog
         self.multitaper_spectrogram_obj.show_heatmap_legend_dialog()
         logger.info('Sleep Science Signal Viewer: Data heatmap plotted')
+    @staticmethod
     def show_ok_cancel_dialog(parent=None):
         msg_box = QMessageBox(parent)
         msg_box.setWindowTitle("Confirm Action")
@@ -947,24 +930,20 @@ class SpectralWindow(QMainWindow):
         reference_signal_labels = [s for s in reference_signal_labels if s.strip()]
         self.reference_signal_labels = reference_signal_labels
 
-        setting_signal_dict = {}
-        setting_signal_dict['reference_method'] = reference_method
-        setting_signal_dict['analysis_signals'] = analysis_signal_labels
-        setting_signal_dict['reference_signal'] = reference_signal_labels
+        setting_signal_dict = {'reference_method':reference_method, 'analysis_signals':analysis_signal_labels,
+                               'reference_signal':reference_signal_labels}
 
         # Plotting
-        setting_plotting_dict = {}
-        setting_plotting_dict['show_x_labels'] = self.ui.checkBox_plotting_xlabels.isChecked()
-        setting_plotting_dict['show_legend'] = self.ui.checkBox_description_plotting_legend.isChecked()
+        setting_plotting_dict = {'show_x_labels', self.ui.checkBox_plotting_xlabels.isChecked(),
+                                 'show_legend', self.ui.checkBox_description_plotting_legend.isChecked()}
 
         # Filter
-        setting_filter_dict = {}
-        setting_filter_dict['apply_band'] = self.ui.checkBox_settings_band.isChecked()
         safe_float_f = lambda x: float(x) if x.strip() else None
-        setting_filter_dict['band_low'] = safe_float_f(self.ui.comboBox_settings_band_low.currentText())
-        setting_filter_dict['band_high'] = safe_float_f(self.ui.comboBox_settings_band_high.currentText())
-        setting_filter_dict['apply_notch'] = self.ui.checkBox_settings_notch.isChecked()
-        setting_filter_dict['notch'] = safe_float_f(self.ui.comboBox_settings_notch.currentText())
+        setting_filter_dict = { 'apply_band', self.ui.checkBox_settings_band.isChecked(),
+                                'band_low', safe_float_f(self.ui.comboBox_settings_band_low.currentText()),
+                                'band_high', safe_float_f(self.ui.comboBox_settings_band_high.currentText()),
+                                'apply_notch', self.ui.checkBox_settings_notch.isChecked(),
+                                'notch', safe_float_f(self.ui.comboBox_settings_notch.currentText())}
 
         return setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict
     def get_parameters(self):
@@ -1155,7 +1134,6 @@ class SpectralWindow(QMainWindow):
         turn_axis_units_off = not self.ui.checkBox_plotting_xlabels.isChecked()
         show_legend = self.ui.checkBox_description_plotting_legend.isChecked()
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
-            multi_taper_spec_reult_dict = spec_obj.get_multi_taper_results()
             spec_obj.plot(self.results_graphic_views[i], turn_axis_units_off=turn_axis_units_off,
                           show_legend=show_legend)
 
@@ -1294,7 +1272,6 @@ class SpectralWindow(QMainWindow):
 
         # Check if spectrogram is avaialble
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
-            turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
             spec_obj.plot_band_summary(parent_widget=p_widget,
                                        analysis_range=analysis_range, spectral_bands=spectral_bands,
