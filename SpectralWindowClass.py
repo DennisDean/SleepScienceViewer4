@@ -40,7 +40,7 @@ from typing import Callable
 from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, QMessageBox, QWidget
 from PySide6.QtWidgets import QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow, QTextEdit
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
-from PySide6.QtGui import QKeyEvent, QCloseEvent
+from PySide6.QtGui import QKeyEvent
 
 # Sleep Science Classes
 from EdfFileClass import EdfFile, EdfSignalAnalysis
@@ -1446,7 +1446,7 @@ class SpectralWindow(QMainWindow):
             })
 
             # Write noise masks
-            noise_fn = f'{edf_base_name}_spec_anl_{str(idx+1).zfill(3)}_{signal_label}_noise_masks'
+            noise_fn = f'{edf_base_name}_spec_anl_{str(idx+1).zfill(3)}_{safe_label}_noise_masks'
             self.save_noise_masks(noise_mask_dict, stimes, output_dir, base_filename=noise_fn)
             noise_fn_dict[signal_label]=noise_fn
 
