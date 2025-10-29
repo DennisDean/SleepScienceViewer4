@@ -562,10 +562,10 @@ class SpectralWindow(QMainWindow):
         noise_delta_hertz_high_degault = 4.6
         noise_beta_hertz_low_default = 40.0
         moise_beta_hertz_high_default = 60.0
-        noise_delta_hertz_low_default_index = int(np.where(noise_hertz_low == noise_delta_hertz_low_default)[0])
-        noise_delta_hertz_high_default_index  = int(np.where(noise_hertz_low == noise_delta_hertz_high_degault)[0])
-        noise_beta_hertz_low_default_index  = int(np.where(noise_hertz_high == noise_beta_hertz_low_default)[0])
-        moise_beta_hertz_high_default_index  = int(np.where(noise_hertz_high == moise_beta_hertz_high_default)[0])
+        noise_delta_hertz_low_default_index = int(np.where(noise_hertz_low == noise_delta_hertz_low_default)[0][0])
+        noise_delta_hertz_high_default_index  = int(np.where(noise_hertz_low == noise_delta_hertz_high_degault)[0][0])
+        noise_beta_hertz_low_default_index  = int(np.where(noise_hertz_high == noise_beta_hertz_low_default)[0][0])
+        moise_beta_hertz_high_default_index  = int(np.where(noise_hertz_high == moise_beta_hertz_high_default)[0][0])
 
         # setup noise detection menu
         self.ui.comboBox_parameters_noise_delta_low.addItems(noise_hertz_low_items)
@@ -1013,7 +1013,6 @@ class SpectralWindow(QMainWindow):
         if self.edf_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
             logger.info(f'EDF file not loaded. Can not analyze signal list.')
-            return
         if not process_eeg:
             logger.info(f'User cancelled analysis.')
             return
@@ -1297,7 +1296,7 @@ class SpectralWindow(QMainWindow):
         for i, spec_obj in enumerate(self.result_spectrogram_obj_list):
             turn_axis_units_off = False
             p_widget = self.results_graphic_views[i]
-            spec_obj.plot_band_summary(parent_widget=p_widget, turn_axis_units_off=turn_axis_units_off,
+            spec_obj.plot_band_summary(parent_widget=p_widget,
                                        analysis_range=analysis_range, spectral_bands=spectral_bands,
                                        stage_information=stage_information, stage_colors=stage_colors,
                                        spectral_titles=spectral_titles)

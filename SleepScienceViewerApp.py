@@ -1072,6 +1072,7 @@ class MainApp(QMainWindow):
         process_eeg = False
         if self.edf_file_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
+            print(f'process_eeg = {process_eeg}')
         else:
             logger.info(f'EDF file not loaded. Can not compute spectrogram.')
 

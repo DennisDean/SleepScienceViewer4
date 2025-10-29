@@ -67,6 +67,12 @@ import json
 # Methods
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
 
+
+import warnings
+DEBUG = True
+if DEBUG:
+    warnings.filterwarnings('error')
+
 # Set up logging
 logger = logging.getLogger(__name__)
 

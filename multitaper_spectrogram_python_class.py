@@ -1371,7 +1371,8 @@ class MultitaperSpectrogram:
                 # Optional: color by stage
                 color = stage_colors[stage] if stage_colors and stage in stage_colors else None
 
-                ax.boxplot(stage_values, positions=[pos], patch_artist=True,
+                if len(stage_values) > 0:
+                    ax.boxplot(stage_values, positions=[pos], patch_artist=True,
                            boxprops=dict(facecolor=color if color else 'lightgray', alpha=0.7))
 
                 positions.append(pos)
@@ -1522,7 +1523,12 @@ class MultitaperSpectrogram:
         # Multiply data by dpss tapers (STEP 2)
         # tapered_data = np.multiply(np.mat(data_segment).T, np.mat(dpss_tapers.T))
         # dad: `np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead
-        tapered_data = np.multiply(np.asmatrix(data_segment).T, np.asmatrix(dpss_tapers.T))
+        # dad: tapered_data = np.multiply(np.asmatrix(data_segment).T, np.asmatrix(dpss_tapers.T))
+        # dad:Reshape data_segment to column vector and multiply
+        # Changed again due to pending depracation
+        data_col = data_segment.reshape(-1, 1)  # Make it a column vector
+        tapers_transposed = dpss_tapers.T
+        tapered_data = data_col * tapers_transposed
 
         # Compute the FFT (STEP 3)
         fft_data = np.fft.fft(tapered_data, nfft, axis=0)
