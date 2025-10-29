@@ -113,27 +113,52 @@ only the “number of CPUs” parameter is functional.
 </p>
 
 
-### ** Previewing Results**
+### **Previewing Results**
 Average, Band, and spectrogram buttons on the spectral viewer interface allows the user to 
 view average spectrum and band boxplots by stage. The graphing functions use the hypnogram setting
 to create the summaries which include all available stages, redudction to stage N1-N3, and REM-NREM. Clicking 
 between selcting a different summary and the plotting function allows the user to view the data
 in multiple ways. 
 
-**Analysis Range**. The user can also selct which section of the data is summarized in plots. the options include
-First wake, first wake and sleep, sleep only and ending work. The application autoamticallidentifies the first
-and last sleep as the timeing for the sleep section.
+<p align="center">    
+<img src="Media/Spectral Viewer_plotting_spectrogram.png"  width="600" /><br>
+*Figure 7. Spectral Viewer configured to review a small number of signals.*
+</p>
 
-**Spectral Bands**. Six bands are defined: delta (), theta, alpha ()
+<p align="center">    
+<img src="Media/Spectral Viewer_plotting_average.png"  width="600" /><br>
+*Figure 8. Viewing average spectrogram by sleep stage.*
+</p>
+
+<p align="center">    
+<img src="Media/Spectral Viewer_plotting_bands.png"  width="600" /><br>
+*Figure 9. Viewing bands by sleep stage.*
+</p>
+
+### **Setting and Parameter Preview**
+Providing access to a range of parameters through a visual interface enables interactive analysis — the primary goal of this program. The expectation is that the application will allow users to manually review data in support of batch analyses.
+
+**Analysis Range**. Users can select which section of the data is summarized in plots. Options include First Wake, First Wake and Sleep, Sleep Only, and Ending Work. The application automatically identifies the first and last sleep periods to define the sleep section. An alternative method using lights-on and lights-off timing is noted but not yet implemented.
+
+**Filter**. Implements band and notch filtering. Spectrogram results reflect the applied filters. The code is implemented within the EDF and multi-taper modules.
+
+**Multi-Taper**. The multi-taper approach provides more flexibility for analyzing data than traditional Fourier transform methods. Parameters can be tuned to balance between frequency and time resolution, allowing users to explore the full range of signals available in a sleep study.
+
+**Noise Detection**. A simple noise detection algorithm identifies large perturbations in the sleep EEG. The program writes noise detection masks to disk as separate files. Since the viewer’s goal is to help users understand the data, these masks can be used for post-processing and further analysis.
+
+**Spectral Bands**. Six frequency bands are defined, with defaults commonly used for EEG analysis. These settings may need adjustment for other signal types.
+
+## Saving Results
+Clicking on the save buttons initaitve writing a configuration file (xml) and results+noise detection mask files for each 
+signal.
 
 ## Known Limitations
-Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations with PySide6. The framework is in place, but full functionality cannot be guaranteed at this time.
+Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations 
+with PySide6. Minimize frequent switching between the Sleep Science Viewer and Signal Viewer windows to reduce potential 
+instability.
 
-**Recommended Workarounds:**
-
-* Minimize frequent switching between the Sleep Science Viewer and Signal Viewer windows to reduce potential instability.
-* If returning to the Sleep Science Viewer, manually refresh the display by clicking the show button to redraw the hypnogram and changing the annotation combo box selection to refresh annotations.
-
+Testing included limited sample data developed for a tutorial. The test data clearly includes non-physiological components 
+which limit the ability to evaluate simple noise detection techniques and did not include reference data.
 
 ## Getting Started
 
@@ -147,7 +172,11 @@ Ideal for researchers, clinicians, and developers working in sleep research, hum
 
 ## Dependencies
 
-This application was developed in Python 3.12, with the GUI built using PySide6. Please refer to [requirements.txt](requirements.txt) for a complete list of required dependencies.
+This application was developed in Python 3.12, with the graphical user interface (GUI) built using PySide6. For a 
+complete list of required dependencies, please refer to requirements.txt.
+
+Users should be mindful of the memory demands associated with displaying multiple spectrograms. As a reference point, 
+displaying ten 11-hour ECG spectrograms requires approximately 25 GB of memory.
 
 ## Download Test Data
 
