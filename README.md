@@ -16,6 +16,14 @@ under consideration can be found in the [vision statement](vision.md).
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 Figure 1. Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.
 
+## Intended Use
+
+Ideal for researchers, clinicians, and developers working in sleep research, human performance, or bio-signal analysis. 
+The interface and tools are designed to streamline review and reporting workflows for sleep study data. The interface
+enables prelimiary review of results. Generation of spectrogram files and a prelimiary set of noise detection masks 
+enables result validation and further analysis.
+
+
 ## Key Features
 
 ### **Sleep Science Viewer** 
@@ -157,15 +165,15 @@ signal.
 Figure 10. Viewing bands by sleep stage.
 </p>
 
-
-
 ## Known Limitations
 Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations 
 with PySide6. Minimize frequent switching between the Sleep Science Viewer and Signal Viewer windows to reduce potential 
 instability.
 
-Testing included limited sample data developed for a tutorial. The test data clearly includes non-physiological components 
-which limit the ability to evaluate simple noise detection techniques and did not include reference data.
+Testing was conducted using a limited sample dataset developed for tutorial purposes. The test data contain clear 
+non-physiological components, which limit the ability to effectively evaluate simple noise detection methods and band 
+computations. Reference signals are collected in the interface; however, re-referencing was not implemented because the 
+sample data did not include reference EEG channels.
 
 ## Getting Started
 
@@ -173,9 +181,6 @@ The Sleep Science Viewer requires an EDF and Annotation file. We used files down
 
 We recommend using a virtual environment when running the Sleep Science Viewer.
 
-## Intended Use
-
-Ideal for researchers, clinicians, and developers working in sleep research, human performance, or bio-signal analysis. The interface and tools are designed to streamline review and reporting workflows for sleep study data.
 
 ## Dependencies
 
