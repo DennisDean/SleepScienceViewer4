@@ -26,72 +26,77 @@ The interface and tools are designed to streamline review and reporting workflow
 enables prelimiary review of results. Generation of spectrogram files and a prelimiary set of noise detection masks 
 enables result validation and further analysis.
 
-
 ## Key Features
 
-### **Sleep Science Viewer** 
-  * EDF & Annotation Support
+### **Sleep Science Viewer**
 
-    * Load EDF files with associated XML annotation files
-    * Visualize up to 10 simultaneous signals
-    * View and interact with a full hypnogram display (see Figure 1)
+* EDF & Annotation Support
+  
+  * Load EDF files with associated XML annotation files
+  * Visualize up to 10 simultaneous signals
+  * View and interact with a full hypnogram display (see Figure 1)
 
-  * Annotation Interaction
+* Annotation Interaction
+  
+  * Filter listed annotations by type
+  * Hypnogram-aligned annotation plot with [automatically assigned colors](Media/annotation_legend.png)
+  * Annotation combo box directly linked to annotation plot and list for synchronized selection (see Figure 1)
 
-    * Filter listed annotations by type
-    * Hypnogram-aligned annotation plot with [automatically assigned colors](Media/annotation_legend.png)
-    * Annotation combo box directly linked to annotation plot and list for synchronized selection (see Figure 1)
+* Custom Display Options
+  
+  * Change epoch duration for signal navigation
+  * Toggle visibility of hypnogram, spectrogram, and annotation plots (see Figure 3 for signal-only mode)
+  * Switch hypnogram rendering between line trace and background-colored stage rectangles
+  * Generate multi-taper spectrograms for selected signals; if not feasible (e.g., low sampling frequency), display a compact heatmap instead
+  * Customize signal colors via color picker; choices persist across pan/zoom events
+  * Legends automatically update with user-defined signal colors
 
-  * Custom Display Options
+* Report Generation & Export Tools
+  
+  * Generate [EDF summary reports](Media/edf_summary.png)
+  
+  * Export individual [signals to folder](Media/signal_export.png)(s) for downstream use
+  
+  * Export annotation data including:
+    
+    * A [full annotation listing](Media/sleep_event_export.png)
+    * [Sleep stage timeline](Media/sleep_stages.png)
+    * [Summary reports](Media/sleep_event_summary.png) for review and documentation
 
-    * Change epoch duration for signal navigation
-    * Toggle visibility of hypnogram, spectrogram, and annotation plots (see Figure 3 for signal-only mode)
-    * Switch hypnogram rendering between line trace and background-colored stage rectangles
-    * Generate multi-taper spectrograms for selected signals; if not feasible (e.g., low sampling frequency), display a compact heatmap instead
-    * Customize signal colors via color picker; choices persist across pan/zoom events
-    * Legends automatically update with user-defined signal colors
+* Interface
+  
+  * Show/hide hypnogram, spectrogram, and annotation panels from the main menu (see Figures 1 and 3)
 
-  * Report Generation & Export Tools
-
-    * Generate [EDF summary reports](Media/edf_summary.png)
-    * Export individual [signals to folder](Media/signal_export.png)(s) for downstream use
-    * Export annotation data including:
-
-      * A [full annotation listing](Media/sleep_event_export.png)
-      * [Sleep stage timeline](Media/sleep_stages.png)
-      * [Summary reports](Media/sleep_event_summary.png) for review and documentation
-
-  * Interface
-
-    * Show/hide hypnogram, spectrogram, and annotation panels from the main menu (see Figures 1 and 3)
-
-  * Navigation
-
-    * Double-click on hypnogram, spectrogram, or annotation plots to move to the selected epoch
-    * Double-click on annotation list entries to jump to annotation start times
+* Navigation
+  
+  * Double-click on hypnogram, spectrogram, or annotation plots to move to the selected epoch
+  * Double-click on annotation list entries to jump to annotation start times
 
 ![Signal Viewer Interface](Media/signal_viewer_beta.png)
 Figure 2. Signal Viewer interface displaying a single channel with epochs and overlays.
 
 ### **Signal Viewer**
 
-  * Signals
+* Signals
+  
+  * View a single signal as a raster plot with 15 epochs displayed vertically (see Figure 2)
+  * Sleep stages shown as background rectangles behind the signal trace
+  * X-axis moved to the bottom of the plot for improved readability
 
-    * View a single signal as a raster plot with 15 epochs displayed vertically (see Figure 2)
-    * Sleep stages shown as background rectangles behind the signal trace
-    * X-axis moved to the bottom of the plot for improved readability
-  * Interface/Plotting
+* Interface/Plotting
+  
+  * Toggle hypnogram, spectrogram, and annotation overlays similar to the main viewer
+  * Signal-only mode available (see Figure 4)
 
-    * Toggle hypnogram, spectrogram, and annotation overlays similar to the main viewer
-    * Signal-only mode available (see Figure 4)
-  * Processing & Analysis
+* Processing & Analysis
+  
+  * Compute spectrograms (or default to heatmap if sampling frequency is insufficient)
+  * Apply common Band Pass and Notch filters on demand
 
-    * Compute spectrograms (or default to heatmap if sampling frequency is insufficient)
-    * Apply common Band Pass and Notch filters on demand
-  * Considering (future work)
-
-    * Displaying annotations directly on signal plots
-    * Support for marking epochs in-progress
+* Considering (future work)
+  
+  * Displaying annotations directly on signal plots
+  * Support for marking epochs in-progress
 
 <p align="center">    
 <img src="Media/SleepScienceViewer_signals_only.png" width="600" /><br>
@@ -131,8 +136,8 @@ Figure 5. Spectral Viewer for performing spectral analysis on signals.
 Figure 6. Spectral Viewer configured to show spectrams for multiple signals.
 </p>
 
-
 ### **Previewing Results**
+
 Average, Band, and spectrogram buttons on the spectral viewer interface allows the user to 
 view average spectrum and band boxplots by stage. The graphing functions use the hypnogram setting
 to create the summaries which include all available stages, redudction to stage N1-N3, and REM-NREM. Clicking 
@@ -155,6 +160,7 @@ Figure 9. Viewing bands by sleep stage.
 </p>
 
 ### **Setting and Parameter Preview**
+
 Providing access to a range of parameters through a visual interface enables interactive analysis — the primary goal of this program. The expectation is that the application will allow users to manually review data in support of batch analyses.
 
 **Analysis Range**. Users can select which section of the data is summarized in plots. Options include First Wake, First Wake and Sleep, Sleep Only, and Ending Work. The application automatically identifies the first and last sleep periods to define the sleep section. An alternative method using lights-on and lights-off timing is noted but not yet implemented.
@@ -168,18 +174,18 @@ Providing access to a range of parameters through a visual interface enables int
 **Spectral Bands**. Six frequency bands are defined, with defaults commonly used for EEG analysis. These settings may need adjustment for other signal types.
 
 ## Saving Results
+
 Clicking on the save buttons initiates writing a configuration file (xml) and results+noise detection mask files for each 
 signal. The noise mask file includss: delta_time_mask, beta_time_mask, union_time_mask, and intersection_time_mask. The masked
 are provided as a starting point for evaluating noise content.
-
 
 <p align="center">    
 <img src="Media/spectral_results_folder.png"  width="300" style="border: 2px solid grey;" /><br>
 Figure 10. Viewing bands by sleep stage.
 </p>
 
-
 ## Known Limitations
+
 Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations 
 with PySide6. Minimize frequent switching between the Sleep Science Viewer and Signal Viewer windows to reduce potential 
 instability.
@@ -194,31 +200,30 @@ sample data did not include reference EEG channels.
 Several features are under consideration for future implementation. These capabilities can be developed quickly based on user interest. Please reach out if any of the following areas are of interest:
 
 - **Annotation**
-
-    - Overlay annotations directly on signals in both the main and signal views.
+  
+  - Overlay annotations directly on signals in both the main and signal views.
 
 - **Noise Mask Enhancements**
-
-    - Export stage masks to support offline summary generation.
-
-    - Export epoch-level noise masks for more granular data review.
+  
+  - Export stage masks to support offline summary generation.
+  
+  - Export epoch-level noise masks for more granular data review.
 
 - **Noise Mask Interaction**
-
-    - Write noise masks to the marking section for visual inspection and review.
-
-    - Display noise masks alongside spectrograms for improved interpretation.
+  
+  - Write noise masks to the marking section for visual inspection and review.
+  
+  - Display noise masks alongside spectrograms for improved interpretation.
 
 - **Open-Source Visualization**
-
-    - Automate the generation of publication-quality spectrogram, average, and band plots using open-source tools that provide functionality similar to Origin.
+  
+  - Automate the generation of publication-quality spectrogram, average, and band plots using open-source tools that provide functionality similar to Origin.
 
 # Getting Started
 
 The Sleep Science Viewer requires an EDF and Annotation file. We used files downloaded from the [National Sleep Research Resource](https://sleepdata.org/) tutorial to develop the interface.
 
 We recommend using a virtual environment when running the Sleep Science Viewer.
-
 
 ## Dependencies
 
@@ -266,9 +271,22 @@ For questions or feedback, feel free to reach out to the author listed below.
 [dennis.a.dean@gmail.com](mailto:dennis.a.dean@gmail.com)
 
 ## Version History
+* v0.4
 
+  * Spectral window is functional with the primary goal of reviewing results before batch processing.
+  * Sprectral settings and parameters that control computation are passed through to computation.
+  * Result visualizations include average spectrogram and band plots.
+  * Simple noise identification implemented and saved for post-processing.
+  * Saving results includes spectrograms (CSV), computation configuration (XML), and noise masks.
+
+* v0.3
+
+  * Initial release of the spectral window class for creating multi-taper spectrograms.
+  * Created parameter dictionaries to support saving results with full range of parameters.
+  * Spectrogram UI iterated on to define requirements. Reusing code from signal window.
+  
 * v0.2
-
+  
   * Added display toggles for hypnogram, spectrogram, and annotation panels
   * Hypnogram background color rendering for sleep stages
   * Annotation synchronization between combo box, plot, and list
@@ -277,7 +295,7 @@ For questions or feedback, feel free to reach out to the author listed below.
   * Added Signal Viewer with raster view of single-channel data
 
 * v0.1
-
+  
   * First functioning release
 
 ## License

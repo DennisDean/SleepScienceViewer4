@@ -40,6 +40,9 @@ from PySide6.QtGui import QKeyEvent
 from EdfFileClass import EdfFile, EdfSignalAnalysis
 from AnnotationXmlClass import AnnotationXml
 
+# Analsysis Classes
+from multitaper_spectrogram_python_class import MultitaperSpectrogram
+
 # GUI Interface
 from SpectralViewer import Ui_MainWindow
 
@@ -305,8 +308,7 @@ def make_xml_safe_tag(key: str) -> str:
 
     return safe_key
 
-# Classes
-from multitaper_spectrogram_python_class import MultitaperSpectrogram
+
 
 # To Do
 #TODO: Add check box support for dictionaries to hold parameters
