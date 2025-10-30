@@ -4,10 +4,13 @@ A Python-native EDF file and XML annotation viewer.
 
 ## Description
 
-SleepScienceViewer is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) and corresponding annotation files (XML). Designed with sleep science workflows in mind, the tool enables efficient review of signals and sleep stages through a responsive and customizable GUI.
+SleepScienceViewer is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) 
+and corresponding annotation files (XML). Designed with sleep science workflows in mind, the tool enables efficient review 
+of signals and sleep stages through a responsive and customizable GUI.
 
-SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs/EDF_File_Class.md) and [annotation files](Media/Docs/Annotation_XML_Class.md). These classes can also be used independently to access specific information from the files, supporting flexible review and analysis within notebooks or other Python programs.
-
+SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs/EDF_File_Class.md) and [annotation files](Media/Docs/Annotation_XML_Class.md). These classes 
+can also be used independently to access specific information from the files, supporting flexible review and analysis 
+within notebooks or other Python programs.
 
 The vision for the viewer emerged years ago and is made possible by the wealth of open 
 source software currently available. Guiding principles for development and features 
@@ -186,7 +189,31 @@ non-physiological components, which limit the ability to effectively evaluate si
 computations. Reference signals are collected in the interface; however, re-referencing was not implemented because the 
 sample data did not include reference EEG channels.
 
-## Getting Started
+## Not Ready for Prime Time
+
+Several features are under consideration for future implementation. These capabilities can be developed quickly based on user interest. Please reach out if any of the following areas are of interest:
+
+- **Annotation**
+
+    - Overlay annotations directly on signals in both the main and signal views.
+
+- **Noise Mask Enhancements**
+
+    - Export stage masks to support offline summary generation.
+
+    - Export epoch-level noise masks for more granular data review.
+
+- **Noise Mask Interaction**
+
+    - Write noise masks to the marking section for visual inspection and review.
+
+    - Display noise masks alongside spectrograms for improved interpretation.
+
+- **Open-Source Visualization**
+
+    - Automate the generation of publication-quality spectrogram, average, and band plots using open-source tools that provide functionality similar to Origin.
+
+# Getting Started
 
 The Sleep Science Viewer requires an EDF and Annotation file. We used files downloaded from the [National Sleep Research Resource](https://sleepdata.org/) tutorial to develop the interface.
 

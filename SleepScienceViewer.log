@@ -8630,3 +8630,47 @@
 [2025-10-29 21:16:04,058] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
 [2025-10-29 21:16:06,427] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
 [2025-10-29 21:16:07,679] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-10-29 21:38:01,157] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-29 21:38:01,464] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-10-29 21:38:01,468] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-29 21:38:01,486] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,486] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-10-29 21:38:01,487] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-29 21:38:01,500] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,500] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-10-29 21:38:01,500] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-29 21:38:01,513] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,513] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-10-29 21:38:01,513] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-29 21:38:01,526] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,526] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-10-29 21:38:01,526] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-29 21:38:01,539] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,539] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-10-29 21:38:01,539] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-29 21:38:01,552] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,553] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-10-29 21:38:01,553] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-29 21:38:01,567] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,567] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-10-29 21:38:01,567] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-29 21:38:01,622] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,622] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-10-29 21:38:01,623] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-29 21:38:01,636] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,636] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-10-29 21:38:01,636] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-29 21:38:01,648] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:01,648] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-10-29 21:38:01,648] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-10-29 21:38:01,661] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-10-29 21:38:02,693] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-10-29 21:38:04,704] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-10-29 21:38:04,711] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-29 21:38:04,971] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-10-29 21:38:04,971] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-10-29 21:38:08,403] INFO - SleepScienceViewer - Opening signal viewer
+[2025-10-29 21:38:08,421] INFO - SpectralWindowClass - Preparing setting options
+[2025-10-29 21:38:08,702] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-10-29 21:46:08,801] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
+[2025-10-29 21:46:10,435] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
