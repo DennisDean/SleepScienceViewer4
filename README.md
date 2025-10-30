@@ -102,13 +102,21 @@ Figure 4. Signal Viewer in signal-only mode with hypnogram, spectrogram, and ann
 
 ### **Spectral Viewer**
 
-Signal spectral analysis will be the first analysis module supported by the Sleep Science Viewer.
+**Signal spectral analysis** is the first analysis module supported by the **Sleep Science Viewer**.
 
-The interface includes two main sections: Settings and Parameters. The Settings section allows users to select 
-up to ten signals for analysis and choose whether to display an x-axis label. Signal reference and filter 
-parameters are visible in the interface but are not yet implemented. The Parameters section provides options 
-for identifying signal noise, specifying multi-taper spectrogram settings, and defining spectral bands. Currently, 
-only the “number of CPUs” parameter is functional.
+Users can show or hide interface components such as settings, parameters, the hypnogram, spectrogram, and marking 
+sections. These controls allow flexible customization of the workspace. The central button initiates spectrogram 
+computation for selected signals. Three additional buttons — **Average**, **Band**, and **Spectrogram** — allow users to view 
+results in different formats. A Save button enables exporting results and configurations in both computer- and 
+human-readable formats.
+
+The interface includes two main sections for controlling the analysis: **Settings** and **Parameters**.
+
+The **Settings** section allows users to select up to ten signals for analysis and choose whether to display an x-axis label. 
+Signal reference and filter parameters are visible but not yet implemented.
+
+The **Parameters** section provides options for noise detection, multi-taper spectrogram configuration, and spectral band 
+definition. 
 
 <p align="center">    
 <img src="Media/Spectral Viewer_beta.png" /><br>
@@ -158,12 +166,15 @@ Providing access to a range of parameters through a visual interface enables int
 
 ## Saving Results
 Clicking on the save buttons initiates writing a configuration file (xml) and results+noise detection mask files for each 
-signal.
+signal. The noise mask file includss: delta_time_mask, beta_time_mask, union_time_mask, and intersection_time_mask. The masked
+are provided as a starting point for evaluating noise content.
+
 
 <p align="center">    
 <img src="Media/spectral_results_folder.png"  width="300" style="border: 2px solid grey;" /><br>
 Figure 10. Viewing bands by sleep stage.
 </p>
+
 
 ## Known Limitations
 Double-click navigation has been implemented but may exhibit instability due to matplotlib's integration limitations 

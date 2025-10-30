@@ -1212,8 +1212,8 @@ class EdfSignalAnalysis:
         beta_time_mask = beta_power_t < beta_threshold
 
         # --- Combined time masks ---
-        union_time_mask = delta_time_mask & beta_time_mask  # exclude if noisy in either
-        intersection_time_mask = delta_time_mask | beta_time_mask  # exclude only if both noisy
+        union_time_mask = delta_time_mask | beta_time_mask  # exclude if noisy in either
+        intersection_time_mask = delta_time_mask & beta_time_mask  # exclude only if both noisy
 
         # --- Epoch-resolution masks ---
         n_epochs = int(np.ceil(stimes[-1] / epoch_width))

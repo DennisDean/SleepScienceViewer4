@@ -713,10 +713,6 @@ class SleepStages:
         self.stage_time_dict = stage_time_dict
 
         return stage_time_dict
-    def return_stage_spectrogram_mask_array(self, hypnogram_str):
-        hypnogram_options = self.return_sleep_stage_labels()
-        hypnogram_index = hypnogram_options.index(hypnogram_str)
-        sleep_stages_labels = [self.numeric_labels, self.text_labels, self.nremrem_labels, self.text_n3_labels]
     @staticmethod
     def summarize_sleep_stages(stage_list: list, stage_dict: dict[int, str]) -> dict[int | str, int | str]:
         """
