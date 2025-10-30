@@ -17,7 +17,6 @@ This code is companion to the paper:
 """
 
 # To Do
-#TODO: clean up warnings when computing masks
 
 # Analysis Imports
 import math
