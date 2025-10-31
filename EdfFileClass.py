@@ -202,7 +202,6 @@ def apply_notch_filter(signal_data, fs, notch_freq:int = 60, Q=30.0): # noinspec
     filtered_signal : ndarray
         Filtered output.
     """
-    print(f'data length {len(signal_data)}')
 
     nyquist = fs/2
 
