@@ -620,7 +620,8 @@ class SignalWindow(QMainWindow):
 
         # Clear Spectrogram
         clear_spectrogram_plot(parent_widget=self.ui.graphicsView_spectrogram)
-        self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
+        if self.multitaper_spectrogram_obj is not None:
+            self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
 
         # turn off update signal combobox
         self.ui.comboBox_signals.blockSignals(False)

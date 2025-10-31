@@ -202,12 +202,14 @@ def apply_notch_filter(signal_data, fs, notch_freq:int = 60, Q=30.0): # noinspec
     filtered_signal : ndarray
         Filtered output.
     """
+    print(f'data length {len(signal_data)}')
+
     nyquist = fs/2
 
     if 0 < notch_freq < nyquist:
         notch_freq = notch_freq
         b, a = iirnotch(w0=notch_freq, Q=Q, fs=fs)
-        return_signal = filtfilt(b, a, signal)
+        return_signal = filtfilt(b, a, signal_data)
         logger.info(f'Notch filter applied: notch = {notch_freq}')
     else:
         return_signal = signal_data
