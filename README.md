@@ -84,12 +84,12 @@ Ideal for researchers, clinicians, and developers working in sleep research, hum
 
 <p align="center">    
 <img src="Media/SleepScienceViewer_signals_only.png" width="600" /><br>
-**Figure 3.** Sleep Science Viewer with hypnogram, spectrogram, and annotations hidden (signal-only mode).
+<b>Figure 3.</b> Sleep Science Viewer with hypnogram, spectrogram, and annotations hidden (signal-only mode).
 </p>
 
 <p align="center">    
 <img src="Media/signal_viewer_beta_signals_only.png" width="600" /><br>
-**Figure 4.** Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.
+<b>Figure 4.</b> Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.
 </p>
 
 ### Spectral Viewer
@@ -109,12 +109,12 @@ Provides options for noise detection, multi-taper spectrogram configuration, and
 
 <p align="center">    
 <img src="Media/Spectral Viewer_beta.png" /><br>
-**Figure 5.** Spectral Viewer for performing spectral analysis on signals.
+<b>Figure 5.</b> Spectral Viewer for performing spectral analysis on signals.
 </p>
 
 <p align="center">    
 <img src="Media/Spectral Viewer_output_only_beta.png"  /><br>
-**Figure 6.** Spectral Viewer configured to show spectrograms for multiple signals.
+<b>Figure 6.</b> Spectral Viewer configured to show spectrograms for multiple signals.
 </p>
 
 ### Previewing Results
@@ -123,17 +123,17 @@ Average, Band, and Spectrogram buttons on the spectral viewer interface allow us
 
 <p align="center">    
 <img src="Media/Spectral Viewer_plotting_spectrogram.png"  width="600" /><br>
-**Figure 7.** Spectral Viewer configured to review a small number of signals.
+<b>Figure 7.</b> Spectral Viewer configured to review a small number of signals.
 </p>
 
 <p align="center">    
 <img src="Media/Spectral Viewer_plotting_average.png"  width="600" /><br>
-**Figure 8.** Viewing average spectrogram by sleep stage.
+<b>Figure 8.</b> Viewing average spectrogram by sleep stage.
 </p>
 
 <p align="center">    
 <img src="Media/Spectral Viewer_plotting_bands.png"  width="600" /><br>
-**Figure 9.** Viewing bands by sleep stage.
+<b>Figure 9.</b> Viewing bands by sleep stage.
 </p>
 
 ### Settings and Parameter Options
@@ -161,7 +161,7 @@ Clicking the save button initiates writing a configuration file (XML) and result
 
 <p align="center">    
 <img src="Media/spectral_results_folder.png"  width="300" style="border: 2px solid grey;" /><br>
-**Figure 10.** Viewing bands by sleep stage.
+<b>Figure 10.</b> Viewing bands by sleep stage.
 </p>
 
 
