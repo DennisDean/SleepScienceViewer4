@@ -14,7 +14,7 @@ The application features:
 
 SleepScienceViewer uses a modular, class-based architecture to represent both [EDF files](Media/Docs/EDF_File_Class.md) and [annotation files](Media/Docs/Annotation_XML_Class.md). These classes can also be used independently to access or manipulate specific data elements, making them ideal for analysis within notebooks or other Python programs.
 
-The vision for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the [vision statement](vision.md).
+The vision for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the [vision statement](Media/Docs/vision.md).
 
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 Figure 1. Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.
