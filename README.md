@@ -84,12 +84,12 @@ Ideal for researchers, clinicians, and developers working in sleep research, hum
 
 <p align="center">    
 <img src="Media/SleepScienceViewer_signals_only.png" width="600" /><br>
-<b>Figure 3.</b> Sleep Science Viewer with hypnogram, spectrogram, and annotations hidden (signal-only mode).
+<b>Figure 3.</b> Sleep Science Viewer in signal-only mode.
 </p>
 
 <p align="center">    
 <img src="Media/signal_viewer_beta_signals_only.png" width="600" /><br>
-<b>Figure 4.</b> Signal Viewer in signal-only mode with hypnogram, spectrogram, and annotations hidden.
+<b>Figure 4.</b> Signal Viewer in signal-only mode.
 </p>
 
 ### Spectral Viewer
