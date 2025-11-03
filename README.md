@@ -100,6 +100,8 @@ Users can show or hide interface components such as settings, parameters, the hy
 
 The interface includes two main sections for controlling the analysis: **Settings** and **Parameters**.
 
+Additional details are available in the source file description: ([multi_taper_spectrogram.md](Media/Docs/multi_taper_spectrogram.md)). 
+
 #### Settings Section
 Allows users to select up to ten signals for analysis and choose whether to display an x-axis label. Signal reference and filter parameters are visible but not yet implemented.
 
