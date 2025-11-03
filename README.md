@@ -1,20 +1,20 @@
 # Sleep Science Viewer
 
-A Python-native EDF file and XML annotation viewer.
+Python-native EDF and XML annotation viewer featuring multi-signal and single-signal displays plus a spectral analysis window.
 
 ## Description
 
-SleepScienceViewer is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) 
-and corresponding annotation files (XML). Designed with sleep science workflows in mind, the tool enables efficient review 
-of signals and sleep stages through a responsive and customizable GUI.
+**SleepScienceViewer** is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) files and corresponding XML annotation files. Designed with sleep science workflows in mind, the tool enables efficient review of signals and sleep stages through a responsive and customizable GUI built with PySide6.
 
-SleepScienceViewer uses a class-based architecture to [represent EDF](Media/Docs/EDF_File_Class.md) and [annotation files](Media/Docs/Annotation_XML_Class.md). These classes 
-can also be used independently to access specific information from the files, supporting flexible review and analysis 
-within notebooks or other Python programs.
+The application features:
 
-The vision for the viewer emerged years ago and is made possible by the wealth of open 
-source software currently available. Guiding principles for development and features 
-under consideration can be found in the [vision statement](vision.md).
+* **Multi-signal viewer** for synchronized inspection of multiple EEG or physiological channels.
+* **Single-signal viewer** for focused review and detailed exploration.
+* **Spectral analysis window** for frequency-domain insights, including power band visualizations and noise detection.
+
+SleepScienceViewer uses a modular, class-based architecture to represent both [EDF files](Media/Docs/EDF_File_Class.md) and [annotation files](Media/Docs/Annotation_XML_Class.md). These classes can also be used independently to access or manipulate specific data elements, making them ideal for analysis within notebooks or other Python programs.
+
+The vision for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the [vision statement](vision.md).
 
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 Figure 1. Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.
