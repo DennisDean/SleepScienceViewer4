@@ -224,8 +224,11 @@ class Ui_MainWindow(object):
         sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.plainTextEdit_settings_description.sizePolicy().hasHeightForWidth())
         self.plainTextEdit_settings_description.setSizePolicy(sizePolicy5)
-        self.plainTextEdit_settings_description.setMinimumSize(QSize(200, 25))
-        self.plainTextEdit_settings_description.setMaximumSize(QSize(200, 25))
+        self.plainTextEdit_settings_description.setMinimumSize(QSize(200, 100))
+        self.plainTextEdit_settings_description.setMaximumSize(QSize(200, 100))
+        self.plainTextEdit_settings_description.setStyleSheet(u"QPlainTextEdit {\n"
+"    background-color: white;\n"
+"}")
 
         self.verticalLayout_s.addWidget(self.plainTextEdit_settings_description)
 
@@ -239,14 +242,17 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_s.addWidget(self.label_14)
 
-        self.plainTextEdit_settings_output_suffix = QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_settings_output_suffix.setObjectName(u"plainTextEdit_settings_output_suffix")
-        sizePolicy5.setHeightForWidth(self.plainTextEdit_settings_output_suffix.sizePolicy().hasHeightForWidth())
-        self.plainTextEdit_settings_output_suffix.setSizePolicy(sizePolicy5)
-        self.plainTextEdit_settings_output_suffix.setMinimumSize(QSize(200, 25))
-        self.plainTextEdit_settings_output_suffix.setMaximumSize(QSize(200, 25))
+        self.plainTextEdit_setting_output_suffix = QPlainTextEdit(self.centralwidget)
+        self.plainTextEdit_setting_output_suffix.setObjectName(u"plainTextEdit_setting_output_suffix")
+        sizePolicy2.setHeightForWidth(self.plainTextEdit_setting_output_suffix.sizePolicy().hasHeightForWidth())
+        self.plainTextEdit_setting_output_suffix.setSizePolicy(sizePolicy2)
+        self.plainTextEdit_setting_output_suffix.setMinimumSize(QSize(200, 25))
+        self.plainTextEdit_setting_output_suffix.setMaximumSize(QSize(200, 25))
+        self.plainTextEdit_setting_output_suffix.setStyleSheet(u"QPlainTextEdit {\n"
+"    background-color: white;\n"
+"}")
 
-        self.verticalLayout_s.addWidget(self.plainTextEdit_settings_output_suffix)
+        self.verticalLayout_s.addWidget(self.plainTextEdit_setting_output_suffix)
 
         self.line_4 = QFrame(self.centralwidget)
         self.line_4.setObjectName(u"line_4")
@@ -548,15 +554,20 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addWidget(self.label_47)
 
-        self.checkBox_plotting_xlabels = QCheckBox(self.centralwidget)
-        self.checkBox_plotting_xlabels.setObjectName(u"checkBox_plotting_xlabels")
-
-        self.verticalLayout_6.addWidget(self.checkBox_plotting_xlabels)
-
+        self.horizontalLayout_42 = QHBoxLayout()
+        self.horizontalLayout_42.setObjectName(u"horizontalLayout_42")
         self.checkBox_description_plotting_legend = QCheckBox(self.centralwidget)
         self.checkBox_description_plotting_legend.setObjectName(u"checkBox_description_plotting_legend")
 
-        self.verticalLayout_6.addWidget(self.checkBox_description_plotting_legend)
+        self.horizontalLayout_42.addWidget(self.checkBox_description_plotting_legend)
+
+        self.checkBox_plotting_xlabels = QCheckBox(self.centralwidget)
+        self.checkBox_plotting_xlabels.setObjectName(u"checkBox_plotting_xlabels")
+
+        self.horizontalLayout_42.addWidget(self.checkBox_plotting_xlabels)
+
+
+        self.verticalLayout_6.addLayout(self.horizontalLayout_42)
 
 
         self.verticalLayout_s.addLayout(self.verticalLayout_6)
@@ -1919,8 +1930,8 @@ class Ui_MainWindow(object):
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Analysis", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Reference", None))
         self.label_47.setText(QCoreApplication.translate("MainWindow", u"Plotting", None))
-        self.checkBox_plotting_xlabels.setText(QCoreApplication.translate("MainWindow", u"x labels", None))
         self.checkBox_description_plotting_legend.setText(QCoreApplication.translate("MainWindow", u"Legend", None))
+        self.checkBox_plotting_xlabels.setText(QCoreApplication.translate("MainWindow", u"x labels", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"Filter", None))
         self.checkBox_settings_band.setText(QCoreApplication.translate("MainWindow", u"Band", None))
         self.label_56.setText(QCoreApplication.translate("MainWindow", u"Hz", None))

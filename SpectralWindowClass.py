@@ -355,6 +355,8 @@ class SpectralWindow(QMainWindow):
         self.reference_signal_labels:list|None=None
 
         # Define settings variables
+        self.settings_brief_description_default:str = 'Multi-taper Spectrogram computed with Sleep Science Viewer'
+        self.settings_output_suffic:str ='multi_taper'
         self.spectral_bands_default:list[list]
         self.spectral_bands_titles_default:list
         self.band_low_values:list[float]
@@ -458,6 +460,7 @@ class SpectralWindow(QMainWindow):
         self.result_average_spectrogram_list:list|None = None
         self.input_signal_obj_list:list|None = None
         self.noise_mask_list:list|None=None
+        self.stage_mask_list:list|None=None
         self.analysis_param_dict:dict|None=None
         self.analysis_signal_labels:dict|None=None
 
@@ -581,7 +584,11 @@ class SpectralWindow(QMainWindow):
         # Log status
         logger.info(f'Preparing setting options')
 
-        #  Set filter combo box values
+        # Setup description
+        self.ui.plainTextEdit_settings_description.setPlainText(self.settings_brief_description_default)
+        self.ui.plainTextEdit_setting_output_suffix.setPlainText(self.settings_output_suffic)
+
+        # Set filter combo box values
         band_low_values         = [0.1, 0.5, 1.0, 10.0 ]
         band_high_values        = [50.0, 60.0, 70.0]
         notch_values            = [50.0, 60.0]
@@ -987,7 +994,7 @@ class SpectralWindow(QMainWindow):
         setting_description_dict = {}
         setting_description_names = self.setting_description_names
         setting_description_cb = [self.ui.plainTextEdit_settings_description,
-                                  self.ui.plainTextEdit_settings_output_suffix]
+                                  self.ui.plainTextEdit_setting_output_suffix]
         for setting_param in zip(setting_description_names, setting_description_cb):
             name, cb = setting_param
             setting_description_dict[name] = cb.toPlainText()
@@ -1115,6 +1122,7 @@ class SpectralWindow(QMainWindow):
         self.result_spectrogram_obj_list = []
         self.input_signal_obj_list = []
         self.noise_mask_list = []
+        self.stage_mask_list = []
         for i, signal_label in enumerate(analysis_signal_labels):
             # Setup labels
             gui_signal_lbl = self.analyis_signal_labels[i]
@@ -1126,7 +1134,6 @@ class SpectralWindow(QMainWindow):
                                                     window_params=window_params, filter_param=filter_param,
                                                     noise_detect_param_dict=noise_detect_param_dict)
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
-            # noise_mask_dict = self.noise_mask_dict
 
             # Store Results
             self.input_signal_obj_list.append(signal_obj)
@@ -1396,9 +1403,10 @@ class SpectralWindow(QMainWindow):
         setting_description_dict, setting_signal_dict, setting_plotting_dict, setting_filter_dict = self.get_settings()
         noise_param_dict, taper_param_dict, band_params_dict, analysis_param_dict = self.get_parameters()
 
-        # Generate default filename with timestamp
+        # Generate default filename with timestamp (not using timestamp during development)
+        output_suffix = self.ui.plainTextEdit_setting_output_suffix.toPlainText()
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        base_filename = f"{edf_base_name}_spec_anl"
+        base_filename = f"{edf_base_name}_{output_suffix}"
 
         # Collect signal information for XML
         signal_info_list = []
@@ -1409,6 +1417,7 @@ class SpectralWindow(QMainWindow):
         nrem_stage = self.xml_obj.sleep_stages_obj.sleep_stages_NremRem
 
         noise_fn_dict = {}
+        stage_mask_fn_dict = {}
         for idx, input_output_noise_obj in enumerate(zip(self.input_signal_obj_list,
                                                    self.result_spectrogram_obj_list,
                                                    self.noise_mask_list)):
@@ -1459,15 +1468,16 @@ class SpectralWindow(QMainWindow):
             })
 
             # Write stage masks
-            stage_fn = f'{edf_base_name}_spec_anl_{str(idx+1).zfill(3)}_{safe_label}_stage_masks'
+            stage_fn = f'{edf_base_name}_{output_suffix}_{str(idx+1).zfill(3)}_{safe_label}_stage_masks'
             stage_n_mask_list, stage_n_mask_label_list = multi_taper_obj.generate_stage_masks(epoch_width, n_stages, stimes)
             stage_mask_dict = make_dict_from_list(stage_n_mask_label_list, stage_n_mask_list)
             stage_nrem__mask_list, stage_nrem_mask_label_list = multi_taper_obj.generate_stage_masks(epoch_width, nrem_stage, stimes)
             stage_mask_dict = make_dict_from_list(stage_nrem_mask_label_list, stage_nrem__mask_list, exisiting_dict=stage_mask_dict)
             self.save_stage_masks(stage_mask_dict, stimes, output_dir, base_filename=stage_fn)
+            stage_mask_fn_dict[safe_label] = stage_fn
 
             # Write noise masks
-            noise_fn = f'{edf_base_name}_spec_anl_{str(idx + 1).zfill(3)}_{safe_label}_noise_masks'
+            noise_fn = f'{edf_base_name}_{output_suffix}_{str(idx + 1).zfill(3)}_{safe_label}_noise_masks'
             self.save_noise_masks(noise_mask_dict, stimes, output_dir, base_filename=noise_fn)
             noise_fn_dict[signal_label] = noise_fn
 
@@ -1554,12 +1564,17 @@ class SpectralWindow(QMainWindow):
             freq_range_elem.set('start', str(sig_info['freq_range'][0]))
             freq_range_elem.set('end', str(sig_info['freq_range'][1]))
 
+        # Stage Mask Filename
+        stage_elem = ET.SubElement(root, 'Stage_Mask_Files')
+        for key, value in stage_mask_fn_dict.items():
+            item = ET.SubElement(stage_elem, make_xml_safe_tag(key))
+            item.text = str(value)
+
         # Noise Mask Filename
-        noise_elem = ET.SubElement(root, 'Noise')
+        noise_elem = ET.SubElement(root, 'Noise_Mask_Files')
         for key, value in noise_fn_dict.items():
             item = ET.SubElement(noise_elem, make_xml_safe_tag(key))
             item.text = str(value)
-
 
         # Write XML file with pretty formatting
         tree = ET.ElementTree(root)

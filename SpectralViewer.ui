@@ -351,14 +351,19 @@
               <property name="minimumSize">
                <size>
                 <width>200</width>
-                <height>25</height>
+                <height>100</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>200</width>
-                <height>25</height>
+                <height>100</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPlainTextEdit {
+    background-color: white;
+}</string>
               </property>
              </widget>
             </item>
@@ -393,9 +398,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit_settings_output_suffix">
+             <widget class="QPlainTextEdit" name="plainTextEdit_setting_output_suffix">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -411,6 +416,11 @@
                 <width>200</width>
                 <height>25</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPlainTextEdit {
+    background-color: white;
+}</string>
               </property>
              </widget>
             </item>
@@ -1093,18 +1103,22 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_plotting_xlabels">
-                <property name="text">
-                 <string>x labels</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_description_plotting_legend">
-                <property name="text">
-                 <string>Legend</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout_42">
+                <item>
+                 <widget class="QCheckBox" name="checkBox_description_plotting_legend">
+                  <property name="text">
+                   <string>Legend</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_plotting_xlabels">
+                  <property name="text">
+                   <string>x labels</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
