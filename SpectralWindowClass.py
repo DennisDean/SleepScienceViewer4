@@ -307,7 +307,20 @@ def make_xml_safe_tag(key: str) -> str:
         safe_key = '_' + safe_key
 
     return safe_key
+def make_dict_from_list(list_labels, list_entries, exisiting_dict:dict|None=None):
+    """ Return dictionary from list and labels"""
 
+    # Create return dictionary
+    if exisiting_dict is None:
+        return_dict = {}
+    else:
+        return_dict = exisiting_dict
+
+    # Create or add to, redundant stages are overwritten
+    for lkey, lentry in zip(list_labels, list_entries):
+        return_dict[lkey] = lentry
+
+    return return_dict
 
 
 # To Do
@@ -1390,7 +1403,11 @@ class SpectralWindow(QMainWindow):
         # Collect signal information for XML
         signal_info_list = []
 
-        # Process each spectrogram object
+        # Get stage information
+        epoch_width = self.xml_obj.epochLength
+        n_stages = self.xml_obj.sleep_stages_obj.sleep_stages_N3
+        nrem_stage = self.xml_obj.sleep_stages_obj.sleep_stages_NremRem
+
         noise_fn_dict = {}
         for idx, input_output_noise_obj in enumerate(zip(self.input_signal_obj_list,
                                                    self.result_spectrogram_obj_list,
@@ -1441,10 +1458,19 @@ class SpectralWindow(QMainWindow):
                 'freq_range': (float(sfreqs[0]), float(sfreqs[-1]))
             })
 
+            # Write stage masks
+            stage_fn = f'{edf_base_name}_spec_anl_{str(idx+1).zfill(3)}_{safe_label}_stage_masks'
+            stage_n_mask_list, stage_n_mask_label_list = multi_taper_obj.generate_stage_masks(epoch_width, n_stages, stimes)
+            stage_mask_dict = make_dict_from_list(stage_n_mask_label_list, stage_n_mask_list)
+            stage_nrem__mask_list, stage_nrem_mask_label_list = multi_taper_obj.generate_stage_masks(epoch_width, nrem_stage, stimes)
+            stage_mask_dict = make_dict_from_list(stage_nrem_mask_label_list, stage_nrem__mask_list, exisiting_dict=stage_mask_dict)
+            self.save_stage_masks(stage_mask_dict, stimes, output_dir, base_filename=stage_fn)
+
             # Write noise masks
-            noise_fn = f'{edf_base_name}_spec_anl_{str(idx+1).zfill(3)}_{safe_label}_noise_masks'
+            noise_fn = f'{edf_base_name}_spec_anl_{str(idx + 1).zfill(3)}_{safe_label}_noise_masks'
             self.save_noise_masks(noise_mask_dict, stimes, output_dir, base_filename=noise_fn)
-            noise_fn_dict[signal_label]=noise_fn
+            noise_fn_dict[signal_label] = noise_fn
+
 
         # Create XML file with settings and parameters
         xml_filename = f"{base_filename}_{str(0).zfill(3)}_config.xml"
@@ -1548,6 +1574,43 @@ class SpectralWindow(QMainWindow):
         QApplication.restoreOverrideCursor()
 
         return
+    @staticmethod
+    def save_stage_masks(stage_mask_dict, stimes, save_dir, base_filename='stage_masks'):
+        tuple[list[np.ndarray], list[str]]
+        """
+                Save sstge masks (time-resolution masks) to a CSV file.
+
+                Args:
+                    noise_mask (tuple[list[np.ndarray]): Stage binary mask for each stage label.
+                    stage_label_list (list[str]): Stage labels
+                    stimes (np.ndarray): Time vector (same length as time masks).
+                    save_dir (str): Directory where CSV will be saved.
+                    base_filename (str): Base name for the output CSV file (default 'noise_masks').
+
+                Returns:
+                    str: Full path to the saved CSV file.
+                """
+
+        # Create file
+        os.makedirs(save_dir, exist_ok=True)
+        save_path = os.path.join(save_dir, f"{base_filename}.csv")
+
+        # Validate lengths
+        for key in stage_mask_dict.keys():
+            if len(stage_mask_dict[key]) != len(stimes):
+                raise ValueError(f"Mask '{key}' length ({len(stage_mask_dict[key])}) "
+                                 f"does not match time vector ({len(stimes)}).")
+
+        # Construct DataFrame
+        df = pd.DataFrame({'time_sec': stimes})
+        for key in stage_mask_dict.keys():
+            df[key] = stage_mask_dict[key].astype(int)  # Save as 1 (True) / 0 (False)
+
+        # Save CSV
+        df.to_csv(save_path, index=False)
+        logger.info(f"Saved stage mask CSV to {save_path}")
+
+        return save_path
     @staticmethod
     def save_noise_masks(noise_mask, stimes, save_dir, base_filename='noise_masks'):
         """
