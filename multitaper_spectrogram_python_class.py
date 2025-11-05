@@ -859,7 +859,7 @@ class MultitaperSpectrogram:
         dialog.setLayout(layout)
 
         # Show dialog
-        dialog.exec_()
+        dialog.exec()
     def clear_spectrogram_results(self):
         # Clear heatmap results
         for attr in [
