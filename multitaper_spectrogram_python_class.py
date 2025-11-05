@@ -28,7 +28,7 @@ from typing import Tuple, Literal, Optional, Callable
 
 # Logistical Imports
 import timeit
-from   joblib import Parallel, delayed, cpu_count
+from joblib import Parallel, delayed, cpu_count
 import logging
 
 # Visualization imports
@@ -1560,7 +1560,7 @@ class MultitaperSpectrogram:
 
         return mt_spectrum[freq_inds]
 
-    # STAGE UTILITY FUNCTION
+    # Generate Masks
     @staticmethod
     def generate_stage_masks(epoch: float, stages: list[str], spectral_times: np.ndarray) -> tuple[list[np.ndarray], list[str]]:
         """
@@ -1634,6 +1634,35 @@ class MultitaperSpectrogram:
             analysis_mask_range_dict[lab] = fn(spectral_times)
 
         return analysis_mask_range_dict
+    @staticmethod
+    def generate_band_freq_masks(band_param_dict:dict, spectral_freqs: np.ndarray) -> dict[str,npt.NDArray[bool]]:
+        """
+        Generate boolean masks for each frequency band.
+
+        Parameters
+        ----------
+        band_param_dict : dict[str, tuple[float, float]]
+            Dictionary where each key is a band name, and the value is a
+            (low_freq, high_freq) tuple in Hz.
+        spectral_freqs : np.ndarray
+            1D array of frequencies in Hz corresponding to the spectrogram frequency axis.
+
+        Returns
+        -------
+        dict[str, npt.NDArray[np.bool_]]
+            Dictionary mapping each band name to a boolean mask array where True
+            values indicate frequencies within the specified band.
+        """
+
+        # Define return dictionary
+        analysis_mask_range_dict: dict[str, npt.NDArray[np.bool_]] = {}
+
+        for band_key, (band_low, band_high) in band_param_dict.items():
+            mask = (spectral_freqs >= band_low) & (spectral_freqs < band_high)
+            analysis_mask_range_dict[band_key] = mask
+
+        return analysis_mask_range_dict
+
     # Python
     def __str__(self):
         return f'Multi-Taper Spectrogram: Sample Frequency {self.fs} '

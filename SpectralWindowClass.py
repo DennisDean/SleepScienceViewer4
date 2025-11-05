@@ -378,7 +378,7 @@ class SpectralWindow(QMainWindow):
         self.param_noise_dict:dict|None = None
         self.param_taper_names = ['window', 'step', 'num_cpus']
         self.param_taper_dict:dict|None = None
-        self.param_band_names = ['alpha', 'theta', 'alpha', 'sigma', 'beta', 'gamma']
+        self.param_band_names = ['delta', 'theta', 'alpha', 'sigma', 'beta', 'gamma']
         self.param_band_dict:dict|None = None
         self.param_analysis_names = ['range']
         self.param_analysis_dict:dict|None = None
@@ -971,13 +971,13 @@ class SpectralWindow(QMainWindow):
                                self.ui.horizontalLayout_results_9, self.ui.horizontalLayout_results_10]
 
         # Setup bands
-        self.spectral_bands_low_cb = [self.ui.comboBox_parameters_band_alpha_low,
+        self.spectral_bands_low_cb = [self.ui.comboBox_parameters_band_delta_low,
                                       self.ui.comboBox_parameters_band_theta_low,
                                       self.ui.comboBox_parameters_band_alpha_low,
                                       self.ui.comboBox_parameters_band_sigma_low,
                                       self.ui.comboBox_parameters_band_beta_low,
                                       self.ui.comboBox_parameters_band_gamma_low]
-        self.spectral_bands_high_cb = [self.ui.comboBox_parameters_band_alpha_high,
+        self.spectral_bands_high_cb = [self.ui.comboBox_parameters_band_delta_high,
                                       self.ui.comboBox_parameters_band_theta_high,
                                       self.ui.comboBox_parameters_band_alpha_high,
                                       self.ui.comboBox_parameters_band_sigma_high,
@@ -1424,6 +1424,7 @@ class SpectralWindow(QMainWindow):
         noise_fn_dict = {}
         stage_mask_fn_dict = {}
         analysis_range_fn_dict = {}
+        band_freq_fn_dict = {}
         for idx, input_output_noise_obj in enumerate(zip(self.input_signal_obj_list,
                                                    self.result_spectrogram_obj_list,
                                                    self.noise_mask_list)):
@@ -1479,20 +1480,25 @@ class SpectralWindow(QMainWindow):
             stage_mask_dict = make_dict_from_list(stage_n_mask_label_list, stage_n_mask_list)
             stage_nrem__mask_list, stage_nrem_mask_label_list = multi_taper_obj.generate_stage_masks(epoch_width, nrem_stage, stimes)
             stage_mask_dict = make_dict_from_list(stage_nrem_mask_label_list, stage_nrem__mask_list, exisiting_dict=stage_mask_dict)
-            self.save_stage_masks(stage_mask_dict, stimes, output_dir, base_filename=stage_fn)
+            stage_fn = self.save_stage_masks(stage_mask_dict, stimes, output_dir, base_filename=stage_fn)
             stage_mask_fn_dict[safe_label] = stage_fn
 
             # Write analysis range masks
             analysis_fn = f'{edf_base_name}_{output_suffix}_{str(idx + 1).zfill(3)}_{safe_label}_analysis_range_masks'
             analysis_range_mask_dict = multi_taper_obj.generate_analysis_range_masks(first_sleep_time, last_sleep_time, stimes)
-            self.save_analysis_range_masks(analysis_range_mask_dict, stimes, output_dir, base_filename=analysis_fn)
+            analysis_fn = self.save_analysis_range_masks(analysis_range_mask_dict, stimes, output_dir, base_filename=analysis_fn)
             analysis_range_fn_dict[safe_label] = analysis_fn
 
             # Write noise masks
             noise_fn = f'{edf_base_name}_{output_suffix}_{str(idx + 1).zfill(3)}_{safe_label}_noise_masks'
-            self.save_noise_masks(noise_mask_dict, stimes, output_dir, base_filename=noise_fn)
+            noise_fn = self.save_noise_masks(noise_mask_dict, stimes, output_dir, base_filename=noise_fn)
             noise_fn_dict[signal_label] = noise_fn
 
+            # Write band frequency masks
+            band_freq_fn = f'{edf_base_name}_{output_suffix}_{str(idx + 1).zfill(3)}_{safe_label}_band_freq_masks'
+            band_freq_mask_dict = multi_taper_obj.generate_band_freq_masks(band_params_dict, sfreqs)
+            band_freq_fn = self.save_freq_band_masks(band_freq_mask_dict, sfreqs, output_dir, base_filename=band_freq_fn)
+            band_freq_fn_dict[signal_label] = band_freq_fn
 
         # Create XML file with settings and parameters
         xml_filename = f"{base_filename}_{str(0).zfill(3)}_config.xml"
@@ -1718,13 +1724,13 @@ class SpectralWindow(QMainWindow):
 
         return save_path
     @staticmethod
-    def save_band_freq_masks(save_mask, sfreq, save_dir, base_filename='freq_masks'):
+    def save_freq_band_masks(band_mask, sfreq, save_dir, base_filename='freq_masks'):
         """
         Save noise detection results (time-resolution masks) to a CSV file.
 
         Args:
             noise_mask (dict): Output from simple_noise_detection().
-            stimes (np.ndarray): Time vector (same length as time masks).
+            sfreq (np.ndarray): Frequency vector in Hz (same length as time masks).
             save_dir (str): Directory where CSV will be saved.
             base_filename (str): Base name for the output CSV file (default 'noise_masks').
 
@@ -1734,19 +1740,16 @@ class SpectralWindow(QMainWindow):
         os.makedirs(save_dir, exist_ok=True)
         save_path = os.path.join(save_dir, f"{base_filename}.csv")
 
-        # Select only time-resolution keys (same length as stimes)
-        time_mask_keys = [k for k in noise_mask.keys() if k.endswith('_time_mask')]
-
         # Validate lengths
-        for key in time_mask_keys:
-            if len(noise_mask[key]) != len(stimes):
-                raise ValueError(f"Mask '{key}' length ({len(noise_mask[key])}) "
-                                 f"does not match time vector ({len(stimes)}).")
+        for key in band_mask.keys():
+            if len(band_mask[key]) != len(sfreq):
+                raise ValueError(f"Mask '{key}' length ({len(band_mask[key])}) "
+                                 f"does not match time vector ({len(sfreq)}).")
 
         # Construct DataFrame
-        df = pd.DataFrame({'time_sec': stimes})
-        for key in time_mask_keys:
-            df[key] = noise_mask[key].astype(int)  # Save as 1 (True) / 0 (False)
+        df = pd.DataFrame({'Frequency(s)': sfreq})
+        for key in band_mask:
+            df[key] = band_mask[key].astype(int)  # Save as 1 (True) / 0 (False)
 
         # Save CSV
         df.to_csv(save_path, index=False)

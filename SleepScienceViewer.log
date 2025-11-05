@@ -2171,3 +2171,623 @@
 [2025-11-04 16:30:55,423] INFO - SpectralWindowClass - CSV files: 7 signal(s) saved
 [2025-11-04 18:22:35,724] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
 [2025-11-04 18:22:36,407] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-11-04 21:31:40,619] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 21:31:40,963] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 21:31:40,968] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:31:40,990] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:40,990] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:31:40,990] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:31:41,003] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,004] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:31:41,004] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:31:41,017] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,017] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:31:41,017] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:31:41,030] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,030] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:31:41,030] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:31:41,043] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,043] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:31:41,043] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:31:41,056] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,056] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:31:41,056] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:31:41,069] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,069] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:31:41,070] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:31:41,118] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,119] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:31:41,119] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:31:41,132] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,132] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:31:41,132] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:31:41,145] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:41,145] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:31:41,145] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 21:31:41,158] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:31:42,078] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 21:31:44,706] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1364
+[2025-11-04 21:31:44,727] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 21:31:45,025] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 21:31:45,026] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr03, learn-nsrr03-profusion
+[2025-11-04 21:31:48,942] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 21:31:48,957] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 21:31:49,197] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 21:31:56,428] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 21:31:56,429] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 21:31:56,429] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 21:32:00,910] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.31 seconds
+[2025-11-04 21:32:00,941] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 21:32:00,953] INFO - EdfFileClass - Δ-band avg=361.175, threshold=722.350
+[2025-11-04 21:32:00,953] INFO - EdfFileClass - β-band avg=709.304, threshold=1773.260
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 11454, % excluded = 27.99%
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 7699, % excluded = 18.82%
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 486, % excluded = 1.19%
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 332, % excluded = 0.81%
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 7447, % excluded = 18.20%
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 11706, % excluded = 28.61%
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 298, % excluded = 0.73%
+[2025-11-04 21:32:00,976] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 516, % excluded = 1.26%
+[2025-11-04 21:32:00,977] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:32:01,497] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 21:32:05,706] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.09 seconds
+[2025-11-04 21:32:05,734] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:32:28,800] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:32:35,709] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EMG_stage_masks.csv
+[2025-11-04 21:32:35,737] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EMG_analysis_range_masks.csv
+[2025-11-04 21:32:35,765] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EMG_noise_masks.csv
+[2025-11-04 21:43:43,853] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 21:43:44,158] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 21:43:44,163] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:43:44,180] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,181] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:43:44,181] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:43:44,194] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,194] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:43:44,194] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:43:44,207] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,207] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:43:44,207] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:43:44,220] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,220] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:43:44,220] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:43:44,233] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,233] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:43:44,233] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:43:44,245] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,246] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:43:44,246] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:43:44,258] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,259] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:43:44,259] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:43:44,308] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,308] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:43:44,308] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:43:44,321] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,321] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:43:44,321] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:43:44,334] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,334] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:43:44,334] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 21:43:44,347] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:43:44,822] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 21:43:46,408] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-11-04 21:43:46,416] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 21:43:46,673] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 21:43:46,673] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-11-04 21:43:48,982] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 21:43:49,004] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 21:43:49,383] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 21:43:58,250] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 21:43:58,251] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 21:43:58,251] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 21:44:02,000] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.62 seconds
+[2025-11-04 21:44:02,026] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 21:44:02,037] INFO - EdfFileClass - Δ-band avg=130.137, threshold=260.274
+[2025-11-04 21:44:02,037] INFO - EdfFileClass - β-band avg=1571.818, threshold=3929.544
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 2340, % excluded = 6.53%
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 3077, % excluded = 8.58%
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 187, % excluded = 0.52%
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 163, % excluded = 0.45%
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 390, % excluded = 1.09%
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 5027, % excluded = 14.02%
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 72, % excluded = 0.20%
+[2025-11-04 21:44:02,056] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 262, % excluded = 0.73%
+[2025-11-04 21:44:02,056] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:44:02,437] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 21:44:06,307] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.77 seconds
+[2025-11-04 21:44:06,332] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:44:23,809] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:44:29,889] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_stage_masks.csv
+[2025-11-04 21:44:29,913] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_analysis_range_masks.csv
+[2025-11-04 21:44:29,938] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_noise_masks.csv
+[2025-11-04 21:44:29,939] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_band_freq_masks.csv
+[2025-11-04 21:45:19,834] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 21:45:20,143] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 21:45:20,148] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:45:20,165] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,166] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:45:20,166] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:45:20,179] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,179] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:45:20,180] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:45:20,193] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,193] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:45:20,193] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:45:20,206] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,207] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:45:20,207] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:45:20,220] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,221] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:45:20,221] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:45:20,233] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,234] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:45:20,234] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:45:20,246] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,247] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:45:20,247] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:45:20,295] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,296] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:45:20,296] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:45:20,309] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,309] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:45:20,309] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:45:20,322] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,322] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:45:20,322] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 21:45:20,335] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:45:20,691] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 21:45:24,301] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-11-04 21:45:24,311] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 21:45:24,575] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 21:45:24,575] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-11-04 21:45:34,102] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 21:45:34,125] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 21:45:34,403] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 21:45:41,210] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 21:45:41,220] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 21:45:41,220] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 21:45:45,105] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.76 seconds
+[2025-11-04 21:45:45,131] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 21:45:45,142] INFO - EdfFileClass - Δ-band avg=130.137, threshold=260.274
+[2025-11-04 21:45:45,142] INFO - EdfFileClass - β-band avg=1571.818, threshold=3929.544
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 2340, % excluded = 6.53%
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 3077, % excluded = 8.58%
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 187, % excluded = 0.52%
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 163, % excluded = 0.45%
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 390, % excluded = 1.09%
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 5027, % excluded = 14.02%
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 72, % excluded = 0.20%
+[2025-11-04 21:45:45,161] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 262, % excluded = 0.73%
+[2025-11-04 21:45:45,162] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:45:45,548] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 21:45:49,299] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.66 seconds
+[2025-11-04 21:45:49,324] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:46:21,422] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:46:27,602] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_stage_masks.csv
+[2025-11-04 21:46:27,628] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_analysis_range_masks.csv
+[2025-11-04 21:46:27,653] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_noise_masks.csv
+[2025-11-04 21:46:27,653] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_band_freq_masks.csv
+[2025-11-04 21:46:27,654] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:46:27,654] INFO - SpectralWindowClass - Configuration file: learn-nsrr02_multi_taper_000_config.xml
+[2025-11-04 21:46:27,654] INFO - SpectralWindowClass - CSV files: 1 signal(s) saved
+[2025-11-04 21:50:42,437] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
+[2025-11-04 21:50:43,038] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-11-04 21:50:55,239] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 21:50:55,588] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 21:50:55,593] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:50:55,610] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,611] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:50:55,611] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:50:55,624] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,624] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:50:55,624] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:50:55,637] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,637] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:50:55,637] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:50:55,650] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,650] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:50:55,650] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:50:55,663] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,663] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:50:55,663] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:50:55,676] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,677] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:50:55,677] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:50:55,690] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,690] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:50:55,690] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:50:55,740] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,740] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:50:55,740] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:50:55,753] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,754] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:50:55,754] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:50:55,766] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:55,767] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:50:55,767] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 21:50:55,780] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:50:56,354] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 21:50:58,468] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1364
+[2025-11-04 21:50:58,484] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 21:50:58,771] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 21:50:58,772] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr03, learn-nsrr03-profusion
+[2025-11-04 21:51:04,588] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 21:51:04,607] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 21:51:04,843] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 21:51:16,004] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 21:51:16,005] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 21:51:16,005] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 21:51:20,335] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.18 seconds
+[2025-11-04 21:51:20,364] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 21:51:20,376] INFO - EdfFileClass - Δ-band avg=361.175, threshold=722.350
+[2025-11-04 21:51:20,376] INFO - EdfFileClass - β-band avg=709.304, threshold=1773.260
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 11454, % excluded = 27.99%
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 7699, % excluded = 18.82%
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 486, % excluded = 1.19%
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 332, % excluded = 0.81%
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 7447, % excluded = 18.20%
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 11706, % excluded = 28.61%
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 298, % excluded = 0.73%
+[2025-11-04 21:51:20,399] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 516, % excluded = 1.26%
+[2025-11-04 21:51:20,400] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:51:20,878] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 21:51:25,068] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.09 seconds
+[2025-11-04 21:51:25,097] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:51:39,640] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:51:46,690] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EMG_stage_masks.csv
+[2025-11-04 21:51:46,718] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EMG_analysis_range_masks.csv
+[2025-11-04 21:51:46,746] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EMG_noise_masks.csv
+[2025-11-04 21:51:46,748] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EMG_band_freq_masks.csv
+[2025-11-04 21:51:46,749] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:51:46,749] INFO - SpectralWindowClass - Configuration file: learn-nsrr03_multi_taper_000_config.xml
+[2025-11-04 21:51:46,749] INFO - SpectralWindowClass - CSV files: 1 signal(s) saved
+[2025-11-04 21:54:53,915] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01.edf
+[2025-11-04 21:54:54,263] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01.edf
+[2025-11-04 21:54:54,267] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:54:54,285] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,285] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 21:54:54,285] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:54:54,298] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,299] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 21:54:54,299] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:54:54,312] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,312] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 21:54:54,312] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:54:54,325] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,325] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 21:54:54,325] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:54:54,338] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,338] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 21:54:54,338] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:54:54,351] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,351] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 21:54:54,352] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:54:54,364] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,364] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 21:54:54,364] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:54:54,412] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,413] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 21:54:54,413] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:54:54,426] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,426] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 21:54:54,427] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:54:54,439] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:54,439] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 21:54:54,439] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 21:54:54,452] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 21:54:55,375] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 21:54:59,989] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1364
+[2025-11-04 21:55:00,017] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01-profusion.xml
+[2025-11-04 21:55:00,310] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr01-profusion.xml
+[2025-11-04 21:55:00,311] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr01, learn-nsrr01-profusion
+[2025-11-04 21:55:32,490] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 21:55:32,508] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 21:55:32,752] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 21:55:43,106] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 21:55:43,107] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 21:55:43,107] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 21:55:47,447] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.20 seconds
+[2025-11-04 21:55:47,477] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 21:55:47,489] INFO - EdfFileClass - Δ-band avg=96.117, threshold=192.234
+[2025-11-04 21:55:47,489] INFO - EdfFileClass - β-band avg=227.437, threshold=568.593
+[2025-11-04 21:55:47,512] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 2691, % excluded = 6.58%
+[2025-11-04 21:55:47,512] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 5573, % excluded = 13.62%
+[2025-11-04 21:55:47,513] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 149, % excluded = 0.36%
+[2025-11-04 21:55:47,513] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 218, % excluded = 0.53%
+[2025-11-04 21:55:47,513] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 2273, % excluded = 5.56%
+[2025-11-04 21:55:47,513] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 5991, % excluded = 14.64%
+[2025-11-04 21:55:47,513] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 139, % excluded = 0.34%
+[2025-11-04 21:55:47,513] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 226, % excluded = 0.55%
+[2025-11-04 21:55:47,513] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:55:47,983] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 21:55:52,200] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.11 seconds
+[2025-11-04 21:55:52,229] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 21:56:04,180] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:56:11,072] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr01_multi_taper_001_EMG_stage_masks.csv
+[2025-11-04 21:56:11,100] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr01_multi_taper_001_EMG_analysis_range_masks.csv
+[2025-11-04 21:56:11,129] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr01_multi_taper_001_EMG_noise_masks.csv
+[2025-11-04 21:56:11,132] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr01_multi_taper_001_EMG_band_freq_masks.csv
+[2025-11-04 21:56:11,132] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 21:56:11,132] INFO - SpectralWindowClass - Configuration file: learn-nsrr01_multi_taper_000_config.xml
+[2025-11-04 21:56:11,132] INFO - SpectralWindowClass - CSV files: 1 signal(s) saved
+[2025-11-04 22:07:59,214] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
+[2025-11-04 22:08:00,542] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-11-04 22:10:37,610] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 22:10:37,909] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 22:10:37,914] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:10:37,931] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:37,931] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:10:37,932] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:10:37,944] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:37,945] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:10:37,945] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:10:37,957] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:37,958] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:10:37,958] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:10:37,971] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:37,971] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:10:37,971] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:10:37,984] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:37,985] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:10:37,985] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:10:37,997] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:37,998] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:10:37,998] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:10:38,010] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:38,011] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:10:38,011] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:10:38,060] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:38,061] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:10:38,061] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:10:38,074] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:38,074] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:10:38,074] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:10:38,087] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:38,087] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:10:38,087] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 22:10:38,100] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:10:39,543] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 22:10:40,965] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-11-04 22:10:40,981] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 22:10:41,244] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 22:10:41,244] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-11-04 22:10:43,787] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 22:10:43,815] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 22:10:44,095] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 22:10:50,655] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 22:10:50,656] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 22:10:50,657] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 22:10:54,412] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.63 seconds
+[2025-11-04 22:10:54,439] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 22:10:54,450] INFO - EdfFileClass - Δ-band avg=4041.589, threshold=8083.178
+[2025-11-04 22:10:54,450] INFO - EdfFileClass - β-band avg=6585.960, threshold=16464.899
+[2025-11-04 22:10:54,469] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 1887, % excluded = 5.26%
+[2025-11-04 22:10:54,469] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 6046, % excluded = 16.87%
+[2025-11-04 22:10:54,469] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 172, % excluded = 0.48%
+[2025-11-04 22:10:54,469] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 204, % excluded = 0.57%
+[2025-11-04 22:10:54,469] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 565, % excluded = 1.58%
+[2025-11-04 22:10:54,469] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 7368, % excluded = 20.55%
+[2025-11-04 22:10:54,469] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 100, % excluded = 0.28%
+[2025-11-04 22:10:54,470] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 276, % excluded = 0.77%
+[2025-11-04 22:10:54,470] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:10:54,806] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 22:10:58,490] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.59 seconds
+[2025-11-04 22:10:58,515] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:11:08,844] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:11:15,101] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EEG_sec__stage_masks.csv
+[2025-11-04 22:11:15,125] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EEG_sec__analysis_range_masks.csv
+[2025-11-04 22:11:15,151] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EEG_sec__noise_masks.csv
+[2025-11-04 22:11:15,152] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EEG_sec__band_freq_masks.csv
+[2025-11-04 22:11:15,152] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:11:15,152] INFO - SpectralWindowClass - Configuration file: learn-nsrr02_multi_taper_000_config.xml
+[2025-11-04 22:11:15,152] INFO - SpectralWindowClass - CSV files: 1 signal(s) saved
+[2025-11-04 22:15:58,271] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 22:15:58,619] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02.edf
+[2025-11-04 22:15:58,624] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:15:58,641] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,642] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:15:58,642] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:15:58,655] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,655] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:15:58,655] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:15:58,668] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,668] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:15:58,669] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:15:58,682] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,682] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:15:58,682] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:15:58,695] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,695] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:15:58,695] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:15:58,708] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,708] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:15:58,709] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:15:58,721] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,722] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:15:58,722] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:15:58,770] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,771] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:15:58,771] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:15:58,784] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,784] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:15:58,784] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:15:58,797] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:58,797] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:15:58,797] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 22:15:58,810] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:15:59,730] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 22:16:01,526] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1195
+[2025-11-04 22:16:01,532] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 22:16:01,813] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr02-profusion.xml
+[2025-11-04 22:16:01,813] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr02, learn-nsrr02-profusion
+[2025-11-04 22:16:11,946] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 22:16:11,974] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 22:16:12,268] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 22:16:23,931] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 22:16:23,933] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 22:16:23,933] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 22:16:27,882] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.82 seconds
+[2025-11-04 22:16:27,908] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 22:16:27,919] INFO - EdfFileClass - Δ-band avg=130.137, threshold=260.274
+[2025-11-04 22:16:27,919] INFO - EdfFileClass - β-band avg=1571.818, threshold=3929.544
+[2025-11-04 22:16:27,939] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 2340, % excluded = 6.53%
+[2025-11-04 22:16:27,939] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 3077, % excluded = 8.58%
+[2025-11-04 22:16:27,940] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 187, % excluded = 0.52%
+[2025-11-04 22:16:27,940] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 163, % excluded = 0.45%
+[2025-11-04 22:16:27,940] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 390, % excluded = 1.09%
+[2025-11-04 22:16:27,940] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 5027, % excluded = 14.02%
+[2025-11-04 22:16:27,940] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 72, % excluded = 0.20%
+[2025-11-04 22:16:27,940] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 262, % excluded = 0.73%
+[2025-11-04 22:16:27,940] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:16:28,330] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 22:16:32,178] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 3.76 seconds
+[2025-11-04 22:16:32,203] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:16:44,333] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:16:50,665] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_stage_masks.csv
+[2025-11-04 22:16:50,689] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_analysis_range_masks.csv
+[2025-11-04 22:16:50,714] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_noise_masks.csv
+[2025-11-04 22:16:50,716] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr02_multi_taper_001_EMG_band_freq_masks.csv
+[2025-11-04 22:16:50,716] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:16:50,716] INFO - SpectralWindowClass - Configuration file: learn-nsrr02_multi_taper_000_config.xml
+[2025-11-04 22:16:50,716] INFO - SpectralWindowClass - CSV files: 1 signal(s) saved
+[2025-11-04 22:18:17,000] INFO - SpectralWindowClass - Spectral Viewer - closeEvent
+[2025-11-04 22:18:18,802] INFO - SleepScienceViewer - Sleep Science Viewer - Close Event
+[2025-11-04 22:23:58,322] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 22:23:58,660] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 22:23:58,664] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:23:58,682] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,682] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:23:58,682] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:23:58,696] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,696] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:23:58,696] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:23:58,708] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,709] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:23:58,709] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:23:58,722] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,722] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:23:58,722] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:23:58,735] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,735] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:23:58,735] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:23:58,748] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,748] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:23:58,748] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:23:58,761] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,761] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:23:58,761] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:23:58,809] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,810] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:23:58,810] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:23:58,823] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,823] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:23:58,823] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:23:58,836] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:58,837] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:23:58,837] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 22:23:58,850] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:23:59,726] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 22:24:02,716] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1364
+[2025-11-04 22:24:02,736] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 22:24:03,035] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 22:24:03,035] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr03, learn-nsrr03-profusion
+[2025-11-04 22:24:06,165] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 22:24:06,188] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 22:24:06,431] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 22:24:12,860] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 22:24:12,862] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 22:24:12,862] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 22:24:15,495] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.55 seconds
+[2025-11-04 22:24:15,503] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 22:24:15,504] INFO - EdfFileClass - Δ-band avg=7515.417, threshold=15030.834
+[2025-11-04 22:24:15,504] INFO - EdfFileClass - β-band avg=0.000, threshold=0.000
+[2025-11-04 22:24:15,526] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 8237, % excluded = 20.13%
+[2025-11-04 22:24:15,526] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 40916, % excluded = 100.00%
+[2025-11-04 22:24:15,526] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 561, % excluded = 1.37%
+[2025-11-04 22:24:15,526] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 1364, % excluded = 3.33%
+[2025-11-04 22:24:15,526] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 8237, % excluded = 20.13%
+[2025-11-04 22:24:15,526] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 40916, % excluded = 100.00%
+[2025-11-04 22:24:15,527] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 561, % excluded = 1.37%
+[2025-11-04 22:24:15,527] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 1364, % excluded = 3.33%
+[2025-11-04 22:24:15,527] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:24:15,650] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 22:24:18,153] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 2.46 seconds
+[2025-11-04 22:24:18,160] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:24:31,677] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:24:33,568] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EOG_R__stage_masks.csv
+[2025-11-04 22:24:33,593] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EOG_R__analysis_range_masks.csv
+[2025-11-04 22:24:33,618] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EOG_R__noise_masks.csv
+[2025-11-04 22:24:33,619] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EOG_R__band_freq_masks.csv
+[2025-11-04 22:24:33,619] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:24:33,619] INFO - SpectralWindowClass - Configuration file: learn-nsrr03_multi_taper_000_config.xml
+[2025-11-04 22:24:33,619] INFO - SpectralWindowClass - CSV files: 1 signal(s) saved
+[2025-11-04 22:26:57,218] INFO - EdfFileClass - Loading complete EDF file: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 22:26:57,555] INFO - SleepScienceViewer - Loaded EDF: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03.edf
+[2025-11-04 22:26:57,559] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:26:57,577] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,577] INFO - SleepScienceViewer - Signal 1 combo box changed to SaO2
+[2025-11-04 22:26:57,577] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:26:57,590] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,591] INFO - SleepScienceViewer - Signal 2 combo box changed to PR
+[2025-11-04 22:26:57,591] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:26:57,603] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,604] INFO - SleepScienceViewer - Signal 3 combo box changed to EEG(sec)
+[2025-11-04 22:26:57,604] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:26:57,617] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,617] INFO - SleepScienceViewer - Signal 4 combo box changed to ECG
+[2025-11-04 22:26:57,617] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:26:57,630] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,630] INFO - SleepScienceViewer - Signal 5 combo box changed to EMG
+[2025-11-04 22:26:57,630] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:26:57,643] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,644] INFO - SleepScienceViewer - Signal 6 combo box changed to EOG(L)
+[2025-11-04 22:26:57,644] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:26:57,657] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,657] INFO - SleepScienceViewer - Signal 7 combo box changed to EOG(R)
+[2025-11-04 22:26:57,657] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:26:57,706] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,707] INFO - SleepScienceViewer - Signal 8 combo box changed to EEG
+[2025-11-04 22:26:57,707] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:26:57,719] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,720] INFO - SleepScienceViewer - Signal 9 combo box changed to AIRFLOW
+[2025-11-04 22:26:57,720] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:26:57,733] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:57,733] INFO - SleepScienceViewer - Signal 10 combo box changed to THOR RES
+[2025-11-04 22:26:57,733] INFO - EdfFileClass - EDF Signal - plot_signal_segment: Signal key is empty. Plotting with a generated signal of zeros.
+[2025-11-04 22:26:57,746] INFO - EdfFileClass - plot_signal_segment: parent widget found
+[2025-11-04 22:26:58,825] INFO - SleepScienceViewer - Preparing to loading annotation file.
+[2025-11-04 22:27:01,254] INFO - root - Initializing SleepStagesClass: epoch30.0, num of stages 1364
+[2025-11-04 22:27:01,272] INFO - SleepScienceViewer - Loaded XML: /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 22:27:01,566] INFO - SleepScienceViewer - Annotation file loaded /home/dennis/PycharmProjects/SleepScienceViewer4/Test Data/learn-nsrr03-profusion.xml
+[2025-11-04 22:27:01,566] INFO - SleepScienceViewer - Checking if EDF and Annotation files names are aligned: text distance (10), subset = True, learn-nsrr03, learn-nsrr03-profusion
+[2025-11-04 22:27:04,519] INFO - SleepScienceViewer - Opening signal viewer
+[2025-11-04 22:27:04,540] INFO - SpectralWindowClass - Preparing setting options
+[2025-11-04 22:27:04,781] INFO - SleepScienceViewer - Loading spectral viewer in independent  mode
+[2025-11-04 22:27:13,240] INFO - SpectralWindowClass - OK clicked: Will continue 
+[2025-11-04 22:27:13,241] INFO - SpectralWindowClass - EDF file not loaded. Can not analyze signal list.
+[2025-11-04 22:27:13,241] INFO - SpectralWindowClass - Preparing to compute spectrograms.
+[2025-11-04 22:27:17,735] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.33 seconds
+[2025-11-04 22:27:17,764] INFO - EdfFileClass - Starting simple noise detection.
+[2025-11-04 22:27:17,776] INFO - EdfFileClass - Δ-band avg=5574.725, threshold=11149.449
+[2025-11-04 22:27:17,776] INFO - EdfFileClass - β-band avg=768.924, threshold=1922.311
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - delta_time_mask: spectral epochs excluded = 5250, % excluded = 12.83%
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - beta_time_mask: spectral epochs excluded = 2531, % excluded = 6.19%
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - delta_epoch_mask: spectral epochs excluded = 475, % excluded = 1.16%
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - beta_epoch_mask: spectral epochs excluded = 104, % excluded = 0.25%
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - union_time_mask: spectral epochs excluded = 1775, % excluded = 4.34%
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - intersection_time_mask: spectral epochs excluded = 6006, % excluded = 14.68%
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - union_epoch_mask: spectral epochs excluded = 98, % excluded = 0.24%
+[2025-11-04 22:27:17,798] INFO - EdfFileClass - intersection_epoch_mask: spectral epochs excluded = 480, % excluded = 1.17%
+[2025-11-04 22:27:17,798] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:27:18,205] INFO - SpectralWindowClass - Spectrogram plotted
+[2025-11-04 22:27:22,448] INFO - multitaper_spectrogram_python_class - Multitaper compute time: 4.14 seconds
+[2025-11-04 22:27:22,477] INFO - multitaper_spectrogram_python_class - Multitaper Spectrogram - clean up events
+[2025-11-04 22:27:36,825] INFO - SpectralWindowClass - Selected folder: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:27:43,777] INFO - SpectralWindowClass - Saved stage mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EEG_stage_masks.csv
+[2025-11-04 22:27:43,804] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EEG_analysis_range_masks.csv
+[2025-11-04 22:27:43,833] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EEG_noise_masks.csv
+[2025-11-04 22:27:43,834] INFO - SpectralWindowClass - Saved noise mask CSV to /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results/learn-nsrr03_multi_taper_001_EEG_band_freq_masks.csv
+[2025-11-04 22:27:43,835] INFO - SpectralWindowClass - Spectral results saved to: /home/dennis/PycharmProjects/SleepScienceViewer4/spectral_results
+[2025-11-04 22:27:43,835] INFO - SpectralWindowClass - Configuration file: learn-nsrr03_multi_taper_000_config.xml
+[2025-11-04 22:27:43,835] INFO - SpectralWindowClass - CSV files: 1 signal(s) saved
