@@ -1416,8 +1416,14 @@ class SpectralWindow(QMainWindow):
         n_stages = self.xml_obj.sleep_stages_obj.sleep_stages_N3
         nrem_stage = self.xml_obj.sleep_stages_obj.sleep_stages_NremRem
 
+        # Get sleep start and end
+        sleep_stage_time_dict = self.xml_obj.sleep_stages_obj.return_stage_time_dict()
+        first_sleep_time = sleep_stage_time_dict['sleep_start_time']
+        last_sleep_time = sleep_stage_time_dict['sleep_end_time']
+
         noise_fn_dict = {}
         stage_mask_fn_dict = {}
+        analysis_range_fn_dict = {}
         for idx, input_output_noise_obj in enumerate(zip(self.input_signal_obj_list,
                                                    self.result_spectrogram_obj_list,
                                                    self.noise_mask_list)):
@@ -1475,6 +1481,12 @@ class SpectralWindow(QMainWindow):
             stage_mask_dict = make_dict_from_list(stage_nrem_mask_label_list, stage_nrem__mask_list, exisiting_dict=stage_mask_dict)
             self.save_stage_masks(stage_mask_dict, stimes, output_dir, base_filename=stage_fn)
             stage_mask_fn_dict[safe_label] = stage_fn
+
+            # Write analysis range masks
+            analysis_fn = f'{edf_base_name}_{output_suffix}_{str(idx + 1).zfill(3)}_{safe_label}_analysis_range_masks'
+            analysis_range_mask_dict = multi_taper_obj.generate_analysis_range_masks(first_sleep_time, last_sleep_time, stimes)
+            self.save_analysis_range_masks(analysis_range_mask_dict, stimes, output_dir, base_filename=analysis_fn)
+            analysis_range_fn_dict[safe_label] = analysis_fn
 
             # Write noise masks
             noise_fn = f'{edf_base_name}_{output_suffix}_{str(idx + 1).zfill(3)}_{safe_label}_noise_masks'
@@ -1565,16 +1577,26 @@ class SpectralWindow(QMainWindow):
             freq_range_elem.set('end', str(sig_info['freq_range'][1]))
 
         # Stage Mask Filename
-        stage_elem = ET.SubElement(root, 'Stage_Mask_Files')
+        mask_elem = ET.SubElement(root, 'Masks')
+        stage_elem = ET.SubElement(mask_elem, 'Stage_Mask_Files')
         for key, value in stage_mask_fn_dict.items():
             item = ET.SubElement(stage_elem, make_xml_safe_tag(key))
             item.text = str(value)
 
         # Noise Mask Filename
-        noise_elem = ET.SubElement(root, 'Noise_Mask_Files')
+        noise_elem = ET.SubElement(mask_elem, 'Noise_Mask_Files')
         for key, value in noise_fn_dict.items():
             item = ET.SubElement(noise_elem, make_xml_safe_tag(key))
             item.text = str(value)
+
+
+        # Analysis Range Mask Filename
+        analysis_range_elem = ET.SubElement(mask_elem, 'Analysis_Range_Mask_Files')
+        for key, value in analysis_range_fn_dict.items():
+            item = ET.SubElement(analysis_range_elem, make_xml_safe_tag(key))
+            item.text = str(value)
+
+
 
         # Write XML file with pretty formatting
         tree = ET.ElementTree(root)
@@ -1589,6 +1611,39 @@ class SpectralWindow(QMainWindow):
         QApplication.restoreOverrideCursor()
 
         return
+    @staticmethod
+    def save_analysis_range_masks(analysis_range_masks, stimes, save_dir, base_filename='range_masks'):
+        """
+        Save noise detection results (time-resolution masks) to a CSV file.
+
+        Args:
+            noise_mask (dict): Output from simple_noise_detection().
+            stimes (np.ndarray): Time vector (same length as time masks).
+            save_dir (str): Directory where CSV will be saved.
+            base_filename (str): Base name for the output CSV file (default 'noise_masks').
+
+        Returns:
+            str: Full path to the saved CSV file.
+        """
+        os.makedirs(save_dir, exist_ok=True)
+        save_path = os.path.join(save_dir, f"{base_filename}.csv")
+
+        # Validate lengths
+        for key in analysis_range_masks.keys():
+            if len(analysis_range_masks[key]) != len(stimes):
+                raise ValueError(f"Mask '{key}' length ({len(noise_mask[key])}) "
+                                 f"does not match time vector ({len(stimes)}).")
+
+        # Construct DataFrame
+        df = pd.DataFrame({'time_sec': stimes})
+        for key in analysis_range_masks.keys():
+            df[key] = analysis_range_masks[key].astype(int)  # Save as 1 (True) / 0 (False)
+
+        # Save CSV
+        df.to_csv(save_path, index=False)
+        logger.info(f"Saved noise mask CSV to {save_path}")
+
+        return save_path
     @staticmethod
     def save_stage_masks(stage_mask_dict, stimes, save_dir, base_filename='stage_masks'):
         tuple[list[np.ndarray], list[str]]
@@ -1628,6 +1683,42 @@ class SpectralWindow(QMainWindow):
         return save_path
     @staticmethod
     def save_noise_masks(noise_mask, stimes, save_dir, base_filename='noise_masks'):
+        """
+        Save noise detection results (time-resolution masks) to a CSV file.
+
+        Args:
+            noise_mask (dict): Output from simple_noise_detection().
+            stimes (np.ndarray): Time vector (same length as time masks).
+            save_dir (str): Directory where CSV will be saved.
+            base_filename (str): Base name for the output CSV file (default 'noise_masks').
+
+        Returns:
+            str: Full path to the saved CSV file.
+        """
+        os.makedirs(save_dir, exist_ok=True)
+        save_path = os.path.join(save_dir, f"{base_filename}.csv")
+
+        # Select only time-resolution keys (same length as stimes)
+        time_mask_keys = [k for k in noise_mask.keys() if k.endswith('_time_mask')]
+
+        # Validate lengths
+        for key in time_mask_keys:
+            if len(noise_mask[key]) != len(stimes):
+                raise ValueError(f"Mask '{key}' length ({len(noise_mask[key])}) "
+                                 f"does not match time vector ({len(stimes)}).")
+
+        # Construct DataFrame
+        df = pd.DataFrame({'time_sec': stimes})
+        for key in time_mask_keys:
+            df[key] = noise_mask[key].astype(int)  # Save as 1 (True) / 0 (False)
+
+        # Save CSV
+        df.to_csv(save_path, index=False)
+        logger.info(f"Saved noise mask CSV to {save_path}")
+
+        return save_path
+    @staticmethod
+    def save_band_freq_masks(save_mask, sfreq, save_dir, base_filename='freq_masks'):
         """
         Save noise detection results (time-resolution masks) to a CSV file.
 

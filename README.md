@@ -161,11 +161,12 @@ Six frequency bands are defined, with defaults commonly used for EEG analysis. T
 
 Clicking the save button initiates writing a configuration file (XML) and results + noise detection mask files for each signal. The noise mask file includes: `delta_time_mask`, `beta_time_mask`, `union_time_mask`, and `intersection_time_mask`. The masks are provided as a starting point for evaluating noise content.
 
+Added writing stage masks to disk. Stage masks in the output include: 'W', 'NREM', 'N1', 'N2', 'N3', and 'REM'.
+
 <p align="center">    
 <img src="Media/spectral_results_folder.png"  width="300" style="border: 2px solid grey;" /><br>
 <b>Figure 10.</b> Viewing bands by sleep stage.
 </p>
-
 
 
 ## Known Limitations
@@ -182,7 +183,6 @@ Several features are under consideration for future implementation. These capabi
 - Overlay annotations directly on signals in both the main and signal views
 
 ### Noise Mask Enhancements
-- Export stage masks to support offline summary generation
 - Export epoch-level noise masks for more granular data review
 
 ### Noise Mask Interaction

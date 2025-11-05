@@ -539,6 +539,7 @@ class SleepStages:
 
         # Creating a set of values to facilitate analysis
         self.stage_time_dict:list|None = None
+        self.stage_time_keys:list[char]|None = ['sleep_start_index', 'sleep_end_index', 'sleep_start_time', 'sleep_end_time']
 
         # Event Management
     def cleanup_events(self):

@@ -1601,7 +1601,39 @@ class MultitaperSpectrogram:
             masks.append(mask)
             mlabels.append(stage)
         return masks, mlabels
+    @staticmethod
+    def generate_analysis_range_masks(first_sleep_time:float, last_sleep_time:float, spectral_times: np.ndarray) -> dict[str,npt.NDArray[bool]]:
+        """
+        Generate boolean masks for each analysis range.
 
+        Parameters
+        ----------
+        time_first_sleep : float
+            Time of first sleep in seconds
+        time_last_sleep: list[str]
+            List of sleep stages (e.g., ['W', 'N1', 'N2', 'REM', ...]).
+        spectral_times : np.ndarray
+            Array of times in seconds corresponding to spectrogram frames.
+
+        Returns
+        -------
+        dict[str, npt.NDArray[bool]
+            masks  : list of boolean arrays, one per unique stage
+            mlabels: list of analysis range labels
+        """
+
+        # Define return dictionary
+        analysis_mask_range_dict = {}
+
+        # Define return value
+        range_label_list = ['first_wake', 'first_wake_and_sleep', 'sleep_only', 'ending_wake']
+        ramge_fun_list = [lambda x: first_sleep_time > x, lambda x: last_sleep_time >= x,
+                          lambda x: np.logical_and(first_sleep_time <= x, last_sleep_time >= x),
+                          lambda x:x>last_sleep_time]
+        for lab, fn in zip(range_label_list, ramge_fun_list):
+            analysis_mask_range_dict[lab] = fn(spectral_times)
+
+        return analysis_mask_range_dict
     # Python
     def __str__(self):
         return f'Multi-Taper Spectrogram: Sample Frequency {self.fs} '
