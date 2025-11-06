@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'SleepScienceViewer.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.9.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -121,6 +121,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_show_spectrogram = QPushButton(self.centralwidget)
         self.pushButton_show_spectrogram.setObjectName(u"pushButton_show_spectrogram")
+        self.pushButton_show_spectrogram.setEnabled(False)
         self.pushButton_show_spectrogram.setMinimumSize(QSize(38, 25))
         self.pushButton_show_spectrogram.setMaximumSize(QSize(38, 25))
         self.pushButton_show_spectrogram.setCheckable(True)
@@ -170,8 +171,8 @@ class Ui_MainWindow(object):
         self.hypnogram_graphicsView.setObjectName(u"hypnogram_graphicsView")
         sizePolicy.setHeightForWidth(self.hypnogram_graphicsView.sizePolicy().hasHeightForWidth())
         self.hypnogram_graphicsView.setSizePolicy(sizePolicy)
-        self.hypnogram_graphicsView.setMinimumSize(QSize(0, 90))
-        self.hypnogram_graphicsView.setMaximumSize(QSize(16777215, 90))
+        self.hypnogram_graphicsView.setMinimumSize(QSize(0, 85))
+        self.hypnogram_graphicsView.setMaximumSize(QSize(16777215, 85))
 
         self.horizontalLayout_hypnogram.addWidget(self.hypnogram_graphicsView)
 
@@ -195,6 +196,18 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_hypnogram_commands.addWidget(self.hypnogram_comboBox, 0, Qt.AlignTop)
 
+        self.label_3 = QLabel(self.centralwidget)
+        self.label_3.setObjectName(u"label_3")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
+        self.label_3.setSizePolicy(sizePolicy3)
+        self.label_3.setMinimumSize(QSize(25, 5))
+        self.label_3.setMaximumSize(QSize(25, 5))
+
+        self.verticalLayout_hypnogram_commands.addWidget(self.label_3)
+
         self.horizontalLayout_hypnogram_show = QHBoxLayout()
         self.horizontalLayout_hypnogram_show.setObjectName(u"horizontalLayout_hypnogram_show")
         self.pushButton_hyp_show_stages = QPushButton(self.centralwidget)
@@ -215,6 +228,13 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_hypnogram_commands.addLayout(self.horizontalLayout_hypnogram_show)
+
+        self.label_5 = QLabel(self.centralwidget)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setMinimumSize(QSize(5, 5))
+        self.label_5.setMaximumSize(QSize(5, 5))
+
+        self.verticalLayout_hypnogram_commands.addWidget(self.label_5)
 
 
         self.horizontalLayout_hypnogram.addLayout(self.verticalLayout_hypnogram_commands)
@@ -258,8 +278,8 @@ class Ui_MainWindow(object):
         self.spectrogram_graphicsView.setObjectName(u"spectrogram_graphicsView")
         sizePolicy.setHeightForWidth(self.spectrogram_graphicsView.sizePolicy().hasHeightForWidth())
         self.spectrogram_graphicsView.setSizePolicy(sizePolicy)
-        self.spectrogram_graphicsView.setMinimumSize(QSize(0, 60))
-        self.spectrogram_graphicsView.setMaximumSize(QSize(16777215, 60))
+        self.spectrogram_graphicsView.setMinimumSize(QSize(0, 70))
+        self.spectrogram_graphicsView.setMaximumSize(QSize(16777215, 70))
 
         self.horizontalLayout_spectrogram_plot.addWidget(self.spectrogram_graphicsView)
 
@@ -271,11 +291,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_spectrogram_command_2.setObjectName(u"horizontalLayout_spectrogram_command_2")
         self.compute_spectrogram_pushButton = QPushButton(self.centralwidget)
         self.compute_spectrogram_pushButton.setObjectName(u"compute_spectrogram_pushButton")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.compute_spectrogram_pushButton.sizePolicy().hasHeightForWidth())
-        self.compute_spectrogram_pushButton.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.compute_spectrogram_pushButton.sizePolicy().hasHeightForWidth())
+        self.compute_spectrogram_pushButton.setSizePolicy(sizePolicy4)
         self.compute_spectrogram_pushButton.setMinimumSize(QSize(62, 25))
         self.compute_spectrogram_pushButton.setMaximumSize(QSize(62, 25))
 
@@ -379,11 +399,8 @@ class Ui_MainWindow(object):
 
         self.update_epoch_pushButton = QPushButton(self.centralwidget)
         self.update_epoch_pushButton.setObjectName(u"update_epoch_pushButton")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.update_epoch_pushButton.sizePolicy().hasHeightForWidth())
-        self.update_epoch_pushButton.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.update_epoch_pushButton.sizePolicy().hasHeightForWidth())
+        self.update_epoch_pushButton.setSizePolicy(sizePolicy3)
         self.update_epoch_pushButton.setMinimumSize(QSize(30, 25))
         self.update_epoch_pushButton.setMaximumSize(QSize(30, 25))
 
@@ -417,8 +434,8 @@ class Ui_MainWindow(object):
 
         self.previous_pushButton = QPushButton(self.centralwidget)
         self.previous_pushButton.setObjectName(u"previous_pushButton")
-        sizePolicy3.setHeightForWidth(self.previous_pushButton.sizePolicy().hasHeightForWidth())
-        self.previous_pushButton.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.previous_pushButton.sizePolicy().hasHeightForWidth())
+        self.previous_pushButton.setSizePolicy(sizePolicy4)
         self.previous_pushButton.setMinimumSize(QSize(0, 25))
         self.previous_pushButton.setMaximumSize(QSize(50, 25))
 
@@ -426,8 +443,8 @@ class Ui_MainWindow(object):
 
         self.last_epoch_pushButton = QPushButton(self.centralwidget)
         self.last_epoch_pushButton.setObjectName(u"last_epoch_pushButton")
-        sizePolicy3.setHeightForWidth(self.last_epoch_pushButton.sizePolicy().hasHeightForWidth())
-        self.last_epoch_pushButton.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.last_epoch_pushButton.sizePolicy().hasHeightForWidth())
+        self.last_epoch_pushButton.setSizePolicy(sizePolicy4)
         self.last_epoch_pushButton.setMinimumSize(QSize(0, 25))
         self.last_epoch_pushButton.setMaximumSize(QSize(50, 25))
 
@@ -923,8 +940,10 @@ class Ui_MainWindow(object):
         self.pushButton_show_annotation.setText(QCoreApplication.translate("MainWindow", u"Ann", None))
         self.label_4.setText("")
         self.hypnogram_label.setText(QCoreApplication.translate("MainWindow", u"Hypnogram", None))
+        self.label_3.setText("")
         self.pushButton_hyp_show_stages.setText(QCoreApplication.translate("MainWindow", u"Show", None))
         self.pushButton_hypnogram_legend.setText(QCoreApplication.translate("MainWindow", u"L", None))
+        self.label_5.setText("")
         self.spectrogram_label.setText(QCoreApplication.translate("MainWindow", u"Multi-Taper Spectrogram", None))
         self.label.setText("")
         self.compute_spectrogram_pushButton.setText(QCoreApplication.translate("MainWindow", u"Spect.", None))

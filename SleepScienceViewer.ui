@@ -288,13 +288,13 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>90</height>
+            <height>85</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>90</height>
+            <height>85</height>
            </size>
           </property>
          </widget>
@@ -349,6 +349,31 @@
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="label_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>25</width>
+              <height>5</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>25</width>
+              <height>5</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_hypnogram_show">
             <item alignment="Qt::AlignTop">
              <widget class="QPushButton" name="pushButton_hyp_show_stages">
@@ -395,6 +420,25 @@
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="minimumSize">
+             <size>
+              <width>5</width>
+              <height>5</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>5</width>
+              <height>5</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -490,13 +534,13 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>60</height>
+            <height>70</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>60</height>
+            <height>70</height>
            </size>
           </property>
          </widget>

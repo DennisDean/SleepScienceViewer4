@@ -870,8 +870,8 @@ class SleepStages:
             logger.error(f'*** Could not export sleep stages: {filename}, error: {e}')
 
     # Plotting functions
-    def plot_hypnogram(self, parent_widget=None, stage_index = 0, hypnogram_marker:float|None=None,
-                       double_click_callback=None, show_stage_colors = False):
+    def plot_hypnogram(self, parent_widget=None, stage_index=0, hypnogram_marker: float | None = None,
+                       double_click_callback=None, show_stage_colors=False):
         """
         Generate and display a hypnogram (sleep stage visualization) as a step plot.
 
@@ -929,39 +929,32 @@ class SleepStages:
             - Purple vertical line marks hypnogram_marker position if provided
             - Grid lines appear at each sleep stage level
         """
-        # if not hasattr(self, 'sleep_stages') or not hasattr(self, 'epoch_times'):
-        #    raise ValueError("Missing required data: 'sleep_stages' and 'epoch_times'")
-
         # Set Plot defaults
-        grid_color             = '#cccccc'  # light gray
-        signal_color           = 'blue'
-        y_pad_c                = 0.25
-        label_fontsize         = 8
-        xlabel_offset_dict     = {0:1, 1:0, 2:0.5}
-        xlabel_offset          = xlabel_offset_dict[stage_index]
-        # ylabel_offset          = 0.02*self.recording_duration_hr*3600
-        grid_linewidth         = 0.8
-        marker_line_width      = 0.8
+        grid_color = '#cccccc'  # light gray
+        signal_color = 'blue'
+        y_pad_c = 0.25
+        label_fontsize = 8
+        grid_linewidth = 0.8
+        marker_line_width = 0.8
         hypnogram_marker_color = 'purple'
-
-        # Get stage color information
-        # stage_color = self.default_stage_colors
+        x_major_tict_dist = 3600
+        x_minor_tict_dist = 900
 
         # Get hypnogram information
-        stages    = self.num_stages
-        times     = self.time_seconds
+        stages = self.num_stages
+        times = self.time_seconds
         time_axis = np.arange(len(stages)) * self.sleep_epoch
 
         # Check interface for histogram
         stage_mapping = [self.num_stage_to_text_dict, self.num_stage_to_nremrem_reduced_dict,
                          self.num_stage_to_text_n3_reduced_dict]
-        stage_arrays  = [self.num_stages, self.sleep_stages_NremRem_num,
-                         self.num_stage_n3 ]
+        stage_arrays = [self.num_stages, self.sleep_stages_NremRem_num,
+                        self.num_stage_n3]
         stage_map = stage_mapping[stage_index]
-        stages    = stage_arrays[stage_index]
+        stages = stage_arrays[stage_index]
 
         # Stage to Y-axis mapping (traditional inverted)
-        y_ticks   = list(stage_map.keys())
+        y_ticks = list(stage_map.keys())
         y_ticks.sort()
 
         # Create figure and axis
@@ -981,8 +974,8 @@ class SleepStages:
                     # Calculate rectangle boundaries
                     x_start = time_axis[i]
                     x_end = time_axis[i + 1] if i + 1 < len(time_axis) else time_axis[i] + self.sleep_epoch
-                    y_bottom = min(y_ticks) - 0.5
-                    y_top = max(y_ticks) + 0.5
+                    y_bottom = min(y_ticks) - 1.0
+                    y_top = max(y_ticks) + 1.0
 
                     # Draw rectangle
                     ax.add_patch(plt.Rectangle((x_start, y_bottom),
@@ -997,19 +990,13 @@ class SleepStages:
         plot_y_labels, plot_stages = self.reorder_labels_stages(stage_map, stages)
         ax.step(time_axis, plot_stages, color=signal_color, linewidth=1, zorder=2)
 
-        ax.set_xlim(min(times), max(times)+self.sleep_epoch*2)
+        ax.set_xlim(min(times), max(times) + self.sleep_epoch * 2)
         ax.set_ylim(min(y_ticks) - 0.5, max(y_ticks) + 0.5)
         ax.tick_params(axis='both', labelsize=label_fontsize)
 
         fig.tight_layout()
 
-        # Clear tick marks
-        ax.set_xticks([])
-        ax.set_yticks([])
-
         # Horizontal grid lines (Y-axis)
-        # y_labels = plot_y_labels
-
         for y, label in plot_y_labels.items():
             ax.axhline(y=y, color=grid_color, linewidth=grid_linewidth, linestyle='-', zorder=1)
 
@@ -1017,12 +1004,24 @@ class SleepStages:
         ax.set_yticks(list(plot_y_labels.keys()))
         ax.set_yticklabels(list(plot_y_labels.values()), fontsize=label_fontsize)
 
-        # Draw custom x-axis labels
-        x_ticks  = range(3600, int(max(times)), 3600)
-        x_labels = map(lambda seconds: f'{str(int(seconds/3600))}h' , x_ticks)
-        for x, label in zip(x_ticks, x_labels):
-            ax.text(x, ax.get_ylim()[1] + xlabel_offset , label,
-                  fontsize=label_fontsize, ha='center', va='bottom', color='black')
+        # Set up x-axis with major and minor ticks
+        from matplotlib.ticker import MultipleLocator, FuncFormatter
+
+        # Set tick distances
+        ax.xaxis.set_major_locator(MultipleLocator(x_major_tict_dist))
+        ax.xaxis.set_minor_locator(MultipleLocator(x_minor_tict_dist))
+
+        # Format major tick labels as "1h", "2h", etc.
+        def format_hours(x, pos):
+            hours = int(x / 3600)
+            return f'{hours}h' if hours > 0 else ''
+
+        ax.xaxis.set_major_formatter(FuncFormatter(format_hours))
+
+        # Style the tick marks
+        ax.tick_params(axis='x', which='major', labelsize=label_fontsize,
+                       length=4, width=0.8, direction='in')
+        ax.tick_params(axis='x', which='minor', length=2, width=0.5, direction='in')
 
         # Compute vertical padding (5% headroom above and below)
         y_min = float(np.min(stages))
@@ -1032,14 +1031,15 @@ class SleepStages:
         ax.invert_yaxis()
 
         for spine in ax.spines.values():
-            spine.set_visible(False)
+            spine.set_visible(True)
 
         max_label_len = max([len(label) for label in stage_map.values()])
         left_margin = min(0.03, 0.02 * max_label_len)
         fig.subplots_adjust(left=left_margin, right=0.99, top=0.95, bottom=0.05)
 
         if hypnogram_marker is not None:
-            ax.axvline(x=hypnogram_marker, color=hypnogram_marker_color, linestyle='-', label=f'Set Point: {hypnogram_marker}',
+            ax.axvline(x=hypnogram_marker, color=hypnogram_marker_color, linestyle='-',
+                       label=f'Set Point: {hypnogram_marker}',
                        linewidth=marker_line_width, zorder=3)
 
         # Store reference to axes and figure
@@ -1058,14 +1058,9 @@ class SleepStages:
             canvas.setContextMenuPolicy(Qt.CustomContextMenu)
             canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
 
-            # Add canvas to layout
-            #existing_layout = parent_widget.layout()
-            #existing_layout.addWidget(canvas)
-
             # Assign figure to parent_widget so save dialog knows what to save
-            parent_widget.figure = fig  # <-- THIS IS THE CRITICAL LINE
+            parent_widget.figure = fig
             parent_widget.canvas_item = canvas
-
 
             # Double click handler
             cid = canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
@@ -1304,7 +1299,6 @@ class SleepStages:
 
         """
         return f'SleepStages(number of epochs = {len(self.num_stages)}, epoch duration = {self.sleep_epoch }")'
-
 class SignalAnnotations:
     """
         Manage and visualize signal annotations (scored events) from sleep studies.
