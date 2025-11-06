@@ -1632,10 +1632,10 @@ class SignalAnnotations:
 
         # Remove spines
         for i, spine in enumerate(ax.spines.values()):
-            if i > 1:
+            if i >= 0:
                 spine.set_visible(True)
-                spine.set_color('gray')
-                spine.set_linewidth(0.5)
+                #spine.set_color('gray')
+                #spine.set_linewidth(0.5)
             else:
                 spine.set_visible(False)
 
@@ -1646,15 +1646,19 @@ class SignalAnnotations:
             legend.get_frame().set_facecolor('white')
 
         # Adjust layout
-        fig.subplots_adjust(left=0.03, right=0.99, top=0.95, bottom=0.05)
+        fig.subplots_adjust(left=0.03, right=0.99, top=0.95, bottom=0.15)
 
         # Handle widget integration
         if parent_widget:
             # Create a new Figure Canvas
             canvas = FigureCanvas(fig)
-            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
+
+            # connect right-click
+            canvas.setContextMenuPolicy(Qt.CustomContextMenu)
+            canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
 
             # Connect double-click event handler
             cid = canvas.mpl_connect('button_press_event', self._on_annotation_double_click)
@@ -1677,6 +1681,19 @@ class SignalAnnotations:
 
             existing_layout.setContentsMargins(0, 0, 0, 0)
             existing_layout.addWidget(canvas)
+
+            # Respect the parent widget’s size (e.g., fixed height set in Designer)
+            canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+            canvas.setFixedHeight(parent_widget.height())
+
+            # Optional: ensure the figure matches the widget size
+            dpi = fig.get_dpi()
+            fig.set_size_inches(parent_widget.width() / dpi, parent_widget.height() / dpi)
+            canvas.draw()
+
+            # Assign figure to parent_widget so save dialog knows what to save
+            parent_widget.figure = fig
+            parent_widget.canvas_item = canvas
 
         return #fig, ax
     def show_annotation_legend(self, parent=None):

@@ -31,6 +31,14 @@ import timeit
 from joblib import Parallel, delayed, cpu_count
 import logging
 
+# Graphics library
+import PySide6
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QGraphicsView, QGraphicsScene, QMenu, QFileDialog,
+    QDialog, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QLabel, QVBoxLayout, QPushButton)
+
+
 # Visualization imports
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.ticker import FuncFormatter
@@ -761,6 +769,17 @@ class MultitaperSpectrogram:
             canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
 
+            # connect right-click
+            canvas.setContextMenuPolicy(Qt.CustomContextMenu)
+            canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
+
+            # fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+            fig.subplots_adjust(left=0.03, right=0.99, top=0.94, bottom=0.06)
+
+            # Assign figure to parent_widget so save dialog knows what to save
+            parent_widget.figure = fig
+            parent_widget.canvas_item = canvas
+
             # Connect double-click event handler
             cid = canvas.mpl_connect('button_press_event', self._on_spectrogram_double_click)
             self.spectrogram_connection.append(cid)
@@ -768,8 +787,7 @@ class MultitaperSpectrogram:
             # Store canvas reference
             self.current_spectrogram_canvas = canvas
 
-            # fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
-            fig.subplots_adjust(left=0.03, right=0.99, top=0.94, bottom=0.06)
+
 
             # Remove existing layout and widgets if they exist
             existing_layout = parent_widget.layout()
