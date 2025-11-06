@@ -207,10 +207,6 @@ class FigureGraphicsView(QGraphicsView):
     # --- Save dialog ---
     def open_save_dialog(self):
         if self.figure is None:
-            print("No figure assigned to save!")
-            return
-        print("Figure found — opening save dialog")
-        if self.figure is None:
             return
 
         dialog = QDialog(self)
