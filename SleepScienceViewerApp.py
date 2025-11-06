@@ -353,10 +353,16 @@ class MainApp(QMainWindow):
         self.ui.setupUi(self)
 
         # Overide Hypnogram Graphic View
-        self.hypnogram_view = FigureGraphicsView(self)
-        layout = self.ui.hypnogram_graphicsView.parent().layout()
-        layout.replaceWidget(self.ui.hypnogram_graphicsView, self.hypnogram_view)
-        self.ui.hypnogram_graphicsView.deleteLater()
+        #self.hypnogram_view = FigureGraphicsView(self)
+        #layout = self.ui.hypnogram_graphicsView.parent().layout()
+        #layout.replaceWidget(self.ui.hypnogram_graphicsView, self.hypnogram_view)
+        #self.ui.hypnogram_graphicsView.deleteLater()
+
+        self.hypnogram_view:QGraphicsView|None = None
+        self.hypnogram_view = self.replace_designer_graphic_view_with_custom(self.ui.hypnogram_graphicsView)
+
+        # Overide Spectrogram Graphic View
+
 
         # Time Unit Converstions
         s_to_min = lambda s:int(s/60)
@@ -544,6 +550,14 @@ class MainApp(QMainWindow):
         self.ui.pushButton_show_spectrogram.clicked.connect(self.show_spectrogram_push)
         self.ui.pushButton_show_hypnogram.clicked.connect(self.show_hypnogram_push)
         self.ui.pushButton_show_annotation.clicked.connect(self.show_annotation_push)
+    # Init Utilities
+    def replace_designer_graphic_view_with_custom(self, old_graphic_view: QGraphicsView):
+        # Make custom graphic view to enable right click menu
+        new_graphic_view: QGraphicsView = FigureGraphicsView(self)
+        layout = old_graphic_view.parent().layout()
+        layout.replaceWidget(old_graphic_view, new_graphic_view)
+        old_graphic_view.deleteLater()
+        return new_graphic_view
 
     # App and Window Fix Results
     def focusOutEvent(self, event):
