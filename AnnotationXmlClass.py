@@ -1054,6 +1054,19 @@ class SleepStages:
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
 
+            # connect right-click
+            canvas.setContextMenuPolicy(Qt.CustomContextMenu)
+            canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
+
+            # Add canvas to layout
+            #existing_layout = parent_widget.layout()
+            #existing_layout.addWidget(canvas)
+
+            # Assign figure to parent_widget so save dialog knows what to save
+            parent_widget.figure = fig  # <-- THIS IS THE CRITICAL LINE
+            parent_widget.canvas_item = canvas
+
+
             # Double click handler
             cid = canvas.mpl_connect('button_press_event', self._on_hypnogram_double_click)
             self.hypnogram_connection.append(cid)

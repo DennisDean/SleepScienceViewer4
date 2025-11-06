@@ -29,12 +29,12 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # To Do List
 
 # PySide6 imports
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtCore import QEvent, Qt, QObject, Signal, QTimer, QRectF
 from PySide6.QtGui import QFont, QFontDatabase, QKeyEvent
-from PySide6.QtCore import QEvent, Qt, QObject, Signal, QTimer
-from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
-from PySide6.QtWidgets import QFileDialog, QMessageBox
-from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon
+from PySide6.QtWidgets import QMainWindow, QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
+from PySide6.QtWidgets import QFileDialog, QMessageBox, QGraphicsView, QGraphicsScene, QMenu
+from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QApplication, QDoubleSpinBox
+from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon, QImage
 from PySide6.QtWidgets import QListWidgetItem
 
 # System Import
@@ -140,6 +140,145 @@ class AboutDialog(QDialog):
         btn_close = QPushButton("Close")
         btn_close.clicked.connect(self.close)
         layout.addWidget(btn_close)
+class SaveFigureDialog(QDialog):
+    """Dialog for specifying save options."""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Save Figure Options")
+
+        self.width_edit = QLineEdit("6")   # inches (placeholder)
+        self.height_edit = QLineEdit("4")
+        self.dpi_edit = QLineEdit("150")
+
+        form_layout = QFormLayout()
+        form_layout.addRow("Width (in):", self.width_edit)
+        form_layout.addRow("Height (in):", self.height_edit)
+        form_layout.addRow("DPI:", self.dpi_edit)
+
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons.accepted.connect(self.accept)
+        buttons.rejected.connect(self.reject)
+
+        layout = QVBoxLayout()
+        layout.addLayout(form_layout)
+        layout.addWidget(buttons)
+        self.setLayout(layout)
+    def get_values(self):
+        """Return export parameters."""
+        try:
+            width = float(self.width_edit.text())
+            height = float(self.height_edit.text())
+            dpi = int(self.dpi_edit.text())
+        except ValueError:
+            width, height, dpi = 6, 4, 150
+        return width, height, dpi
+
+# Extend Existing Class
+class FigureGraphicsView(QGraphicsView):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.scene = QGraphicsScene(self)
+        self.setScene(self.scene)
+        self.figure = None
+        self.canvas_item = None
+
+    # --- Optional if you embed figures dynamically ---
+    def set_figure(self, figure):
+        if self.canvas_item:
+            self.scene.removeItem(self.canvas_item)
+        self.figure = figure
+        canvas = FigureCanvas(figure)
+        self.scene.addWidget(canvas)
+        self.canvas_item = canvas
+
+    # --- Right-click context menu ---
+    def contextMenuEvent(self, event):
+        menu = QMenu(self)
+
+        save_action = menu.addAction("Save Figure...")
+        menu.addSeparator()
+        menu.addAction("Cancel")
+
+        action = menu.exec(event.globalPos())
+
+        if action == save_action:
+            self.open_save_dialog()
+
+    # --- Save dialog ---
+    def open_save_dialog(self):
+        if self.figure is None:
+            print("No figure assigned to save!")
+            return
+        print("Figure found — opening save dialog")
+        if self.figure is None:
+            return
+
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Save Figure")
+        layout = QFormLayout(dialog)
+
+        width_spin = QDoubleSpinBox()
+        width_spin.setRange(1.0, 50.0)
+        width_spin.setValue(self.figure.get_size_inches()[0])
+        layout.addRow("Width (inches):", width_spin)
+
+        height_spin = QDoubleSpinBox()
+        height_spin.setRange(1.0, 50.0)
+        height_spin.setValue(self.figure.get_size_inches()[1])
+        layout.addRow("Height (inches):", height_spin)
+
+        dpi_spin = QDoubleSpinBox()
+        dpi_spin.setRange(50, 1200)
+        dpi_spin.setValue(self.figure.dpi)
+        layout.addRow("DPI:", dpi_spin)
+
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        layout.addRow(buttons)
+
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+
+        if dialog.exec() == QDialog.Accepted:
+            width = width_spin.value()
+            height = height_spin.value()
+            dpi = dpi_spin.value()
+            self.save_figure_to_file(width, height, dpi)
+    def show_context_menu(self, pos):
+        menu = QMenu(self)
+        save_action = menu.addAction("Save Figure…")
+        menu.addSeparator()
+        menu.addAction("Cancel")
+        action = menu.exec(self.mapToGlobal(pos))
+        if action == save_action:
+            self.open_save_dialog()
+
+    # --- Save file method ---
+    def save_figure_to_file(self, width, height, dpi):
+        if self.figure is None:
+            return
+
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, "Save Figure", "", "PNG Files (*.png);;PDF Files (*.pdf);;SVG Files (*.svg)"
+        )
+        if not file_path:
+            return
+
+        # Save original size
+        original_size = self.figure.get_size_inches().copy()
+        original_dpi = self.figure.dpi
+
+        try:
+            # Set new size for saving
+            self.figure.set_size_inches(width, height)
+            self.figure.savefig(file_path, dpi=dpi, bbox_inches='tight')
+        finally:
+            # Restore original size
+            self.figure.set_size_inches(original_size)
+            self.figure.dpi = original_dpi
+
+            # Redraw the canvas to reflect restored size
+            if self.canvas_item:
+                self.canvas_item.draw()
 
 # utilities
 def clear_spectrogram_plot(parent_widget = None):
@@ -216,6 +355,12 @@ class MainApp(QMainWindow):
         self.ui = Ui_MainWindow()
         self.setWindowTitle("Sleep Science Viewer")
         self.ui.setupUi(self)
+
+        # Overide Hypnogram Graphic View
+        self.hypnogram_view = FigureGraphicsView(self)
+        layout = self.ui.hypnogram_graphicsView.parent().layout()
+        layout.replaceWidget(self.ui.hypnogram_graphicsView, self.hypnogram_view)
+        self.ui.hypnogram_graphicsView.deleteLater()
 
         # Time Unit Converstions
         s_to_min = lambda s:int(s/60)
@@ -805,7 +950,7 @@ class MainApp(QMainWindow):
             # Plot Hypnogram
             hypnogram_marker = 0
             show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
-            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                     hypnogram_marker=hypnogram_marker,
                                                                     double_click_callback=self.on_hypnogram_double_click_1,
                                                                     show_stage_colors=show_stage_colors)
@@ -877,7 +1022,7 @@ class MainApp(QMainWindow):
         # self.ui.annotation_comboBox.currentTextChanged.disconnect()
         self.ui.hypnogram_comboBox.setEnabled(False)
         self.ui.hypnogram_comboBox.clear()
-        self.annotation_xml_obj.sleep_stages_obj.clear_hypnogram_plot(self.ui.hypnogram_graphicsView)
+        self.annotation_xml_obj.sleep_stages_obj.clear_hypnogram_plot(self.hypnogram_view)
         self.annotation_xml_obj = None
         self.ui.load_annotation_textEdit.clear()
         # self.ui.epoch_comboBox.setEnabled(False)
@@ -950,7 +1095,7 @@ class MainApp(QMainWindow):
                 show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
 
                 stage_map = index
-                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                             stage_index=stage_map,
                                                             hypnogram_marker=hypnogram_marker,
                                                             double_click_callback=self.on_hypnogram_double_click_1,
@@ -978,7 +1123,7 @@ class MainApp(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
         show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
-        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_annotation_double_click_1,
                                                                 show_stage_colors=show_stage_colors)
@@ -1027,7 +1172,7 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
-        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_hypnogram_double_click_1)
 
@@ -1058,7 +1203,7 @@ class MainApp(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
         show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
-        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_hypnogram_double_click_1,
                                                                 show_stage_colors=show_stage_colors)
@@ -1182,7 +1327,7 @@ class MainApp(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
         show_stage_colors = self.ui.pushButton_hyp_show_stages.isChecked()
-        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_hypnogram_double_click_1,
                                                                 show_stage_colors=show_stage_colors)
@@ -1260,7 +1405,7 @@ class MainApp(QMainWindow):
 
         # Plot Hypnogram
         hypnogram_marker = 0
-        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                 hypnogram_marker=hypnogram_marker)
 
         # Turn on epoc buttons
@@ -1291,7 +1436,7 @@ class MainApp(QMainWindow):
                 cbox_val         = self.ui.epoch_comboBox.currentIndex()
                 epoch_width_sec  = self.epoch_display_options_width_sec[cbox_val]
                 hypnogram_marker = epoch_width_sec*self.current_epoch
-                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+                self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                     hypnogram_marker=hypnogram_marker)
 
         # Turn on epoc buttons
@@ -1322,7 +1467,7 @@ class MainApp(QMainWindow):
             cbox_val         = self.ui.epoch_comboBox.currentIndex()
             epoch_width_sec  = self.epoch_display_options_width_sec[cbox_val]
             hypnogram_marker = epoch_width_sec*self.current_epoch
-            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                     hypnogram_marker=hypnogram_marker)
 
         # Turn off epoch buttons
@@ -1348,7 +1493,7 @@ class MainApp(QMainWindow):
             cbox_val = self.ui.epoch_comboBox.currentIndex()
             epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
             hypnogram_marker = epoch_width_sec * self.current_epoch
-            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+            self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                     hypnogram_marker=hypnogram_marker)
         # Turn on epoc buttons
         self.activate_epoch_buttons(activate_buttons=True)
@@ -1376,7 +1521,7 @@ class MainApp(QMainWindow):
         cbox_val = self.ui.epoch_comboBox.currentIndex()
         epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
         hypnogram_marker = epoch_width_sec * self.current_epoch
-        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.ui.hypnogram_graphicsView,
+        self.annotation_xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
                                                                 hypnogram_marker=hypnogram_marker)
 
         # Turn on epoc buttons
@@ -1641,7 +1786,7 @@ class MainApp(QMainWindow):
         time_str = self.return_time_string(current_epoch, epoch_width)
         self.ui.epochs_label.setText(f" of {self.max_epoch} epochs ({time_str})")
 
-    # Menu Item
+    # Menu Items
     # File
     def open_edf_menu_item(self):
         self.load_edf_file()
@@ -1653,6 +1798,7 @@ class MainApp(QMainWindow):
         msg_box.setText("Settings item is not implemented yet")
         msg_box.setIcon(QMessageBox.Icon.Information)
         msg_box.exec()
+
     # Generate
     def edf_summary_menu_item(self):
         logger.info(f'EDF Summary Menu Item selected')
@@ -1826,6 +1972,7 @@ class MainApp(QMainWindow):
         else:
             logger.info(f'Sleep Stages Export Menu Item: Annotation File not loaded. Summary not created')
             return None
+
     # Window
     def open_signal_view(self):
         # Write to log
@@ -1838,9 +1985,8 @@ class MainApp(QMainWindow):
             # Get index value for first signal graphic view
             self.signal_window = SignalWindow(edf_obj=self.edf_file_obj, xml_obj=self.annotation_xml_obj, parent=self)
 
-            # Will revisit multiple windows
-
-            self.signal_window.setWindowModality(Qt.WindowModality.ApplicationModal)
+            # Will revisit multiple windows, uncomment next line to create modal
+            # self.signal_window.setWindowModality(Qt.WindowModality.ApplicationModal)
 
             # Show as modal
             if isinstance(self.signal_window, QDialog):
