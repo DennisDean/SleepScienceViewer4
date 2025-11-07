@@ -50,6 +50,9 @@ import pyrsdameraulevenshtein as dl
 # Analysis
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
 
+# Computation
+from scipy.signal import resample
+
 # EDF and Annotation Classes
 from AnnotationXmlClass import AnnotationXml
 from EdfFileClass import EdfSignalAnalysis, EdfFile
@@ -1433,7 +1436,6 @@ class MainApp(QMainWindow):
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
         # Record Spectrogram Completions
-        self.ui.spectrogram_label.setText(f'Data Heatmap - {signal_label}')
         logger.info('Computing spectrogram: Computation completed')
 
         # Turn off busy cursor

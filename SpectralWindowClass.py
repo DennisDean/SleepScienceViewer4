@@ -1134,7 +1134,7 @@ class SpectralWindow(QMainWindow):
         self.results_graphic_views = [self.graphicsView_results_1, self.graphicsView_results_2,
                                       self.graphicsView_results_3, self.graphicsView_results_4,
                                       self.graphicsView_results_5, self.graphicsView_results_6,
-                                      self.ui.graphicsView_results_7, self.graphicsView_results_8,
+                                      self.graphicsView_results_7, self.graphicsView_results_8,
                                       self.graphicsView_results_9, self.graphicsView_results_10]
         self.result_layouts = [self.ui.horizontalLayout_results_1, self.ui.horizontalLayout_results_2,
                                self.ui.horizontalLayout_results_3, self.ui.horizontalLayout_results_4,

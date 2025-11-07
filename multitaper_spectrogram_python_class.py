@@ -23,7 +23,7 @@ import math
 import numpy as np
 import numpy.typing as npt
 from scipy.signal.windows import dpss
-from scipy.signal import detrend
+from scipy.signal import detrend, resample
 from typing import Tuple, Literal, Optional, Callable
 
 # Logistical Imports
@@ -930,8 +930,34 @@ class MultitaperSpectrogram:
         data = self.data
         fs = self.fs
 
+        # Set column limit for safe visualization
+        max_points = 2 ** 23  # ~8.4 million
+
+        # Check if data length exceeds limit
+        n_points = data.shape[-1]  # works for 1D or 2D (time on last axis)
+
+        if n_points > max_points:
+            downsample_factor = int(np.ceil(n_points / max_points))
+            new_length = n_points // downsample_factor
+
+            logger.info(
+                f"Data has {n_points:,} points, exceeding display limit ({max_points:,}). "
+                f"Downsampling by factor {downsample_factor} to {new_length:,} points.",
+            )
+
+            # Downsample the data (time dimension)
+            if data.ndim == 1:
+                data = resample(data, new_length)
+            else:
+                data = resample(data, new_length, axis=-1)
+
+            # Adjust fs accordingly
+            fs = fs / downsample_factor
+
         # Bringing some plotting parameters to the top
         label_fontsize = 6
+
+
 
         # Convert 1D data to single row heatmap for display
         if data.ndim == 1:
