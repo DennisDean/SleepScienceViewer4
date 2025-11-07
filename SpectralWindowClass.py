@@ -1788,7 +1788,7 @@ class SpectralWindow(QMainWindow):
         Save noise detection results (time-resolution masks) to a CSV file.
 
         Args:
-            noise_mask (dict): Output from simple_noise_detection().
+            analysis_range_masks (dict): Output from simple_noise_detection().
             stimes (np.ndarray): Time vector (same length as time masks).
             save_dir (str): Directory where CSV will be saved.
             base_filename (str): Base name for the output CSV file (default 'noise_masks').
@@ -1894,7 +1894,7 @@ class SpectralWindow(QMainWindow):
         Save noise detection results (time-resolution masks) to a CSV file.
 
         Args:
-            noise_mask (dict): Output from simple_noise_detection().
+            band_mask (dict): Output from simple_noise_detection().
             sfreq (np.ndarray): Frequency vector in Hz (same length as time masks).
             save_dir (str): Directory where CSV will be saved.
             base_filename (str): Base name for the output CSV file (default 'noise_masks').

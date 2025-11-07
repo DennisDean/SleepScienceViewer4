@@ -32,12 +32,7 @@ from joblib import Parallel, delayed, cpu_count
 import logging
 
 # Graphics library
-import PySide6
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (
-    QGraphicsView, QGraphicsScene, QMenu, QFileDialog,
-    QDialog, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QLabel, QVBoxLayout, QPushButton)
-
 
 # Visualization imports
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
@@ -1652,9 +1647,9 @@ class MultitaperSpectrogram:
 
         Parameters
         ----------
-        time_first_sleep : float
+        first_sleep_time : float
             Time of first sleep in seconds
-        time_last_sleep: list[str]
+        last_sleep_time: list[str]
             List of sleep stages (e.g., ['W', 'N1', 'N2', 'REM', ...]).
         spectral_times : np.ndarray
             Array of times in seconds corresponding to spectrogram frames.

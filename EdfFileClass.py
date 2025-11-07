@@ -34,9 +34,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # Import Modules
 # OS Imports
 
-# Extend Existing Class
-from FigureGraphicsViewClass import FigureGraphicsView
-
 import copy
 import os
 import logging

@@ -80,11 +80,11 @@ class FigureGraphicsView(QGraphicsView):
             ax = axes[0]
             try:
                 current_xlabel_size = float(ax.xaxis.label.get_fontsize())
-            except Exception:
+            except (AttributeError, TypeError, ValueError):
                 pass
             try:
                 current_ylabel_size = float(ax.yaxis.label.get_fontsize())
-            except Exception:
+            except (AttributeError, TypeError, ValueError):
                 pass
 
         xlabel_fontsize_spin = QDoubleSpinBox()

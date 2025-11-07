@@ -274,6 +274,7 @@ dennis.a.dean@gmail.com
 - Automatic downsampling when creating heatmaps from long signals. 
 - Minor figure tweaks to improve exports.
 - Streamlined interface for consistency.
+- Sleep Science viewer, Signal viewer, and Spectral Analysis Window can be opened at the same time.
 
 ### v0.4
 - Spectral window is functional with the primary goal of reviewing results before batch processing

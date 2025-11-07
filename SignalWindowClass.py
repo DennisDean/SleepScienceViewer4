@@ -13,7 +13,7 @@ import numpy as np
 # Interface packages and modules
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
 from PySide6.QtWidgets import (QGraphicsView, QGraphicsScene, QMenu, QFileDialog,
-    QDialog, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QLabel, QVBoxLayout, QPushButton)
+                               QDialog, QFormLayout, QDialogButtonBox, QDoubleSpinBox)
 from PySide6.QtCore import QEvent, Qt, QObject,Signal, QTimer
 from PySide6.QtGui import QColor, QBrush, QFont, QFontDatabase
 from PySide6.QtGui import QKeyEvent
