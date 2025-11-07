@@ -32,12 +32,12 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 from FigureGraphicsViewClass import FigureGraphicsView
 
 # PySide6 imports
-from PySide6.QtCore import QEvent, Qt, QObject, Signal, QTimer, QRectF
-from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon, QImage
+from PySide6.QtCore import QEvent, Qt, QObject, Signal, QTimer
+from PySide6.QtGui import QColor, QPixmap, QPainter, QBrush, QIcon
 from PySide6.QtGui import QFont, QFontDatabase, QKeyEvent, QFileOpenEvent
 from PySide6.QtWidgets import QMainWindow, QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
-from PySide6.QtWidgets import QFileDialog, QMessageBox, QGraphicsView, QGraphicsScene, QMenu, QSizePolicy
-from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QApplication, QDoubleSpinBox
+from PySide6.QtWidgets import QFileDialog, QMessageBox, QGraphicsView, QSizePolicy
+from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QApplication
 from PySide6.QtWidgets import QListWidgetItem
 
 # System Import
@@ -488,7 +488,7 @@ class MainApp(QMainWindow):
         if isinstance(event, QFileOpenEvent):
             file_path = event.file()
             if file_path.lower().endswith(".edf"):
-                self.load_edf_file(file_path)
+                self.load_edf_file_from_command_line(file_path)
                 return True
         return super().event(event)
 
@@ -606,6 +606,66 @@ class MainApp(QMainWindow):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open EDF File", self.last_fn_path , "EDF Files (*.edf *.EDF)")
         try:
             # Create XML Object
+            self.edf_file_obj = EdfFile(file_path)
+            self.edf_file_obj.load()
+
+            # Update interface
+            self.ui.load_edf_textEdit.setText(f"{file_path}")
+
+            # Store last working directory
+            self.last_fn_path = os.path.dirname(file_path)
+
+            # QMessageBox.information(self, "XML Loaded", f"Loaded: {file_path}")
+            logger.info(f"Loaded EDF: {file_path}")
+        except Exception as e:
+            logger.error(f'SleepScienceViewer: Error loading EDF file - {type(e).__name__}: {e}')
+
+        if file_path:
+            #Changing code to be more modular in managing gui signals
+            self.turn_off_signal_comboboxes_signals()
+
+            # Set epoch display options
+            self.initialize_epoch_variables()
+            if self.annotation_xml_obj is not None:
+                self.clear_annotation_widgets()
+            clear_spectrogram_plot(parent_widget=self.spectrogram_graphicsView)
+            clear_spectrogram_plot(parent_widget=self.graphicsView_annotation)
+            self.multitaper_spectrogram_obj = None
+            self.ui.pushButton_spectrogra_legend.setEnabled(False)
+            self.ui.pushButton_heat_legend.setEnabled(False)
+
+            # Set Spectrogram Signal Labels
+            signal_labels = self.edf_file_obj.edf_signals.signal_labels
+            self.ui.spectrogram_comboBox.clear()
+            self.ui.spectrogram_comboBox.addItems(signal_labels)
+
+            # Determine length of signal
+            epoch_width = self.epoch_display_options_width_sec[self.ui.epoch_comboBox.currentIndex()]
+            max_num_epochs = self.edf_file_obj.edf_signals.return_num_epochs(signal_labels[0], epoch_width)
+            self.max_epoch = max_num_epochs
+            self.signal_length_seconds = self.edf_file_obj.edf_signals.return_signal_length_seconds(
+                signal_labels[0])
+
+            # Update epoch label
+            time_str = self.return_time_string(self.current_epoch, epoch_width)
+            self.ui.epochs_label.setText(f" of {max_num_epochs} epochs ({time_str})")
+
+            # Draw Signals
+            self.set_signal_combo_boxes()
+
+            # Setup Axis
+            self.initialize_xaxis()
+
+            # Turn on signal related buttons
+            self.turn_on_edf_actions()
+            self.turn_on_signal_comboboxes_signals()
+
+            # Turn off actions
+            self.turn_off_xml_actions()
+    def load_edf_file_from_command_line(self, file_path):
+        file_path = file_path
+        try:
+            # Create EDF Object
             self.edf_file_obj = EdfFile(file_path)
             self.edf_file_obj.load()
 

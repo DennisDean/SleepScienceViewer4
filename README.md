@@ -4,18 +4,21 @@ Python-native EDF and XML annotation viewer featuring multi-signal and single-si
 
 ## Description
 
-**SleepScienceViewer** is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) files and corresponding XML annotation files. Designed with sleep science workflows in mind, the tool enables efficient review of signals and sleep stages through a responsive and customizable GUI built with PySide6.
+SleepScienceViewer is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) files and corresponding XML annotation files. Designed with sleep science workflows in mind, the tool enables efficient review of signals and sleep stages through a responsive and customizable GUI built with PySide6.
 
-The application features:
+Main application features:
 
-* **Multi-signal viewer** for synchronized inspection of multiple EEG or physiological channels.
-* **Single-signal viewer** for focused review and detailed exploration.
-* **Spectral analysis window** for frequency-domain insights, including power band visualizations and noise detection.
+- **Multi-signal viewer** for synchronized inspection of multiple EEG or physiological channels.
+- **Single-signal viewer** for focused review and detailed exploration.
+- **Spectral analysis window** for frequency-domain insights, including power band visualizations and noise detection.
 
-SleepScienceViewer uses a modular, class-based architecture to represent both [EDF files](Media/Docs/EDF_File_Class.md) and [annotation files](Media/Docs/Annotation_XML_Class.md). These classes can also be used independently to access or manipulate specific data elements, making them ideal for analysis within notebooks or other Python programs.
+SleepScienceViewer supports the full analysis workflow: loading data, performing spectral analysis, saving results, and generating publication-ready figures. The figure export capability addresses a common bottleneck in research workflows, providing a significant time-saving feature for users who regularly create figures for presentations or manuscripts.
 
-The vision for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the [vision statement](Media/Docs/vision.md).
+Features supporting the research process
+- **Figure export functionality** for creating high-quality visualizations suitable for presentations and journal publications, with customizable DPI settings.
+- **Modular, class-based architecture** to represent both EDF files and annotation files, allowing independent access or manipulation of specific data elements—ideal for integration with Python notebooks or other analysis pipelines.
 
+The vision for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the vision statement.
 ![SleepScienceViewer](Media/SleepScienceViewer.png)
 **Figure 1.** Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.
 
@@ -179,6 +182,25 @@ Clicking **Save** writes the following files:
 <b>Figure 10.</b> Viewing bands by sleep stage.
 </p>
 
+## Saving Figures
+
+Right-clicking on any figure opens a **file save dialog** that allows you to resize the figure for presentations or publications. In this dialog, you can:
+
+- Adjust the figure's width and height
+- Change the font size of the x- and y-axis labels
+- Add a title
+
+<p align="center">    
+<img src="Media/save_figure.png"  width="200" style="border: 2px solid grey;" /><br>
+<b>Figure 11.</b> File save dialog launched by right-clicking on a figure.
+</p>
+
+
+<p align="center">    
+<img src="Media/exported_hypnogram.png"  width="500" style="border: 2px solid grey;" /><br>
+<b>Figure 10.</b> Resized hypnogram with larger axis labels, ready for presentation or publication.
+</p>
+
 
 ## Known Limitations
 
@@ -193,15 +215,9 @@ Several features are under consideration for future implementation. These capabi
 ### Annotation
 - Overlay annotations directly on signals in both the main and signal views
 
-### Noise Mask Enhancements
-- Export epoch-level noise masks for more granular data review
-
 ### Noise Mask Interaction
 - Write noise masks to the marking section for visual inspection and review
 - Display noise masks alongside spectrograms for improved interpretation
-
-### Open-Source Visualization
-- Automate the generation of publication-quality spectrogram, average, and band plots using open-source tools that provide functionality similar to Origin
 
 ## Getting Started
 
@@ -249,6 +265,15 @@ Help documentation will be added as questions are received and common usage scen
 dennis.a.dean@gmail.com
 
 ## Version History
+
+### v0.5
+- Full spectrogram settings and parameters now functional.
+- Export options expanded for noise masks and sleep stage masks.
+- Right-click menus added to figures via a custom PySide6 Graphic View. 
+- Figures can be saved with adjusted label fonts, DPI, and titles.
+- Automatic downsampling when creating heatmaps from long signals. 
+- Minor figure tweaks to improve exports.
+- Streamlined interface for consistency.
 
 ### v0.4
 - Spectral window is functional with the primary goal of reviewing results before batch processing

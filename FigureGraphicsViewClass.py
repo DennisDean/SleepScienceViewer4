@@ -73,27 +73,20 @@ class FigureGraphicsView(QGraphicsView):
         dpi_spin.setValue(self.figure.dpi)
         layout.addRow("DPI:", dpi_spin)
 
-        # Get current font sizes from the first axes
         axes = self.figure.get_axes()
-        current_xlabel_size = 10  # default
-        current_ylabel_size = 10  # default
+        current_xlabel_size = 10
+        current_ylabel_size = 10
         if axes:
             ax = axes[0]
-            xlabel_obj = ax.xaxis.get_label()
-            ylabel_obj = ax.yaxis.get_label()
-
-            # Try to get font size, handle different return types
             try:
-                current_xlabel_size = float(xlabel_obj.get_fontsize())
-            except (TypeError, ValueError, AttributeError):
-                current_xlabel_size = 10
-
+                current_xlabel_size = float(ax.xaxis.label.get_fontsize())
+            except Exception:
+                pass
             try:
-                current_ylabel_size = float(ylabel_obj.get_fontsize())
-            except (TypeError, ValueError, AttributeError):
-                current_ylabel_size = 10
+                current_ylabel_size = float(ax.yaxis.label.get_fontsize())
+            except Exception:
+                pass
 
-        # Font size controls
         xlabel_fontsize_spin = QDoubleSpinBox()
         xlabel_fontsize_spin.setRange(4, 72)
         xlabel_fontsize_spin.setValue(current_xlabel_size)
@@ -103,6 +96,12 @@ class FigureGraphicsView(QGraphicsView):
         ylabel_fontsize_spin.setRange(4, 72)
         ylabel_fontsize_spin.setValue(current_ylabel_size)
         layout.addRow("Y-Label Font Size:", ylabel_fontsize_spin)
+
+        # --- Add a Title field ---
+        from PySide6.QtWidgets import QLineEdit
+        title_edit = QLineEdit()
+        title_edit.setPlaceholderText("Optional title for saved figure")
+        layout.addRow("Figure Title:", title_edit)
 
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         layout.addRow(buttons)
@@ -116,7 +115,8 @@ class FigureGraphicsView(QGraphicsView):
             dpi = dpi_spin.value()
             xlabel_fontsize = xlabel_fontsize_spin.value()
             ylabel_fontsize = ylabel_fontsize_spin.value()
-            self.save_figure_to_file(width, height, dpi, xlabel_fontsize, ylabel_fontsize)
+            title_text = title_edit.text().strip()
+            self.save_figure_to_file(width, height, dpi, xlabel_fontsize, ylabel_fontsize, title_text)
     def show_context_menu(self, pos):
         menu = QMenu(self)
         save_action = menu.addAction("Save Figure…")
@@ -126,7 +126,7 @@ class FigureGraphicsView(QGraphicsView):
         if action == save_action:
             self.open_save_dialog()
     # --- Save file method ---
-    def save_figure_to_file(self, width, height, dpi, xlabel_fontsize=None, ylabel_fontsize=None):
+    def save_figure_to_file(self, width, height, dpi, xlabel_fontsize=None, ylabel_fontsize=None, title_text=None):
         if self.figure is None:
             return
 
@@ -137,15 +137,15 @@ class FigureGraphicsView(QGraphicsView):
             return
 
         axes = self.figure.get_axes()
+        if not axes:
+            return
 
-        # --- Save original state ---
+        # --- Save original figure properties ---
         original_size = self.figure.get_size_inches().copy()
         original_dpi = self.figure.dpi
-
-        # Save margins (subplots_adjust settings)
         original_margins = self.figure.subplotpars.__dict__.copy()
 
-        # Save font sizes
+        # --- Save original font sizes ---
         original_fontsizes = []
         for ax in axes:
             original_fontsizes.append({
@@ -159,7 +159,6 @@ class FigureGraphicsView(QGraphicsView):
             self.figure.set_size_inches(width, height)
             self.figure.set_dpi(dpi)
 
-            # Apply font sizes
             for ax in axes:
                 if xlabel_fontsize is not None:
                     ax.xaxis.label.set_fontsize(xlabel_fontsize)
@@ -168,7 +167,11 @@ class FigureGraphicsView(QGraphicsView):
                     ax.yaxis.label.set_fontsize(ylabel_fontsize)
                     ax.tick_params(axis='y', labelsize=ylabel_fontsize)
 
-            # Prevent Matplotlib from auto-adjusting subplots when saving
+                # --- Set title if provided ---
+                if title_text:
+                    ax.set_title(title_text, fontsize= max(xlabel_fontsize, ylabel_fontsize))
+
+            # Preserve existing margins
             self.figure.subplots_adjust(
                 left=original_margins['left'],
                 right=original_margins['right'],
@@ -177,16 +180,12 @@ class FigureGraphicsView(QGraphicsView):
             )
 
             self.figure.canvas.draw_idle()
-
-            # Save the figure
             self.figure.savefig(file_path, dpi=dpi, bbox_inches='tight')
 
         finally:
-            # --- Restore original figure state ---
+            # Restore figure size and margins
             self.figure.set_size_inches(original_size)
             self.figure.set_dpi(original_dpi)
-
-            # Restore margins exactly as before
             self.figure.subplots_adjust(
                 left=original_margins['left'],
                 right=original_margins['right'],
@@ -194,14 +193,13 @@ class FigureGraphicsView(QGraphicsView):
                 bottom=original_margins['bottom']
             )
 
+            # Restore font sizes (titles kept intentionally)
             for ax, fontsizes in zip(axes, original_fontsizes):
                 ax.xaxis.label.set_fontsize(fontsizes['xlabel'])
                 ax.yaxis.label.set_fontsize(fontsizes['ylabel'])
-                ax.title.set_fontsize(fontsizes['title'])
                 ax.tick_params(axis='x', labelsize=fontsizes['xlabel'])
                 ax.tick_params(axis='y', labelsize=fontsizes['ylabel'])
 
             if self.canvas_item:
                 self.canvas_item.draw()
-
             self.scene.update()

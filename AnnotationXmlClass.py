@@ -1388,7 +1388,6 @@ class SignalAnnotations:
             "#666666"  # dark gray
         ]
         self.color_map:dict[str,str]|None = None # Color map generated on the fly from plot annotations.
-                                                 # TODO: Move color map generation code to init
 
         # Process Scored Events
         self.scoredEvents          = scoredEvents

@@ -8,12 +8,7 @@
 
 # To Do:
 # Essential
-# TODO: Check band plot figure, pretty, not clear it is accurate
-# TODO: Add epoch level noise exclusion
-#
-# Facilitate large scale analysis
-# TODO: save range values, stage masks, nrem-rem masks
-# TODO: Include mask description in configureation file
+# TODO: Check band plot figure, pretty. Test data has significant noise which makes it difficult to check values
 
 # Modules
 import csv
@@ -428,9 +423,7 @@ def make_dict_from_list(list_labels, list_entries, exisiting_dict:dict|None=None
 
 
 # To Do
-#TODO: Add check box support for dictionaries to hold parameters
-#TODO: Add checks for empty data slices
-#TODO: Add support for saving spectrogram support
+
 
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
