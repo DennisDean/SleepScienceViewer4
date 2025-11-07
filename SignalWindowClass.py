@@ -194,11 +194,64 @@ class SignalWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("Signal Viewer")
 
-        # Overide Hypnogram Graphic View
-        self.hypnogram_view = FigureGraphicsView(self)
-        layout = self.ui.graphicsView_hypnogram.parent().layout()
-        layout.replaceWidget(self.ui.graphicsView_hypnogram, self.hypnogram_view)
-        self.ui.graphicsView_hypnogram.deleteLater()
+        # Overide Graphic Views
+        self.graphicsView_hypnogram: QGraphicsView | None = None
+        self.graphicsView_hypnogram = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_hypnogram)
+
+        self.graphicsView_spectrogram: QGraphicsView | None = None
+        self.graphicsView_spectrogram = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_spectrogram)
+
+        self.graphicsView_annotation_plot: QGraphicsView | None = None
+        self.graphicsView_annotation_plot = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_annotation_plot)
+
+        self.graphicsView_signal_1: QGraphicsView | None = None
+        self.graphicsView_signal_1 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_1)
+
+        self.graphicsView_signal_2: QGraphicsView | None = None
+        self.graphicsView_signal_2 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_2)
+
+        self.graphicsView_signal_3: QGraphicsView | None = None
+        self.graphicsView_signal_3 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_3)
+
+        self.graphicsView_signal_4: QGraphicsView | None = None
+        self.graphicsView_signal_4 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_4)
+
+        self.graphicsView_signal_5: QGraphicsView | None = None
+        self.graphicsView_signal_5 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_5)
+
+        self.graphicsView_signal_6: QGraphicsView | None = None
+        self.graphicsView_signal_6 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_6)
+
+        self.graphicsView_signal_7: QGraphicsView | None = None
+        self.graphicsView_signal_7 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_7)
+
+        self.graphicsView_signal_8: QGraphicsView | None = None
+        self.graphicsView_signal_8 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_8)
+
+        self.graphicsView_signal_9: QGraphicsView | None = None
+        self.graphicsView_signal_9 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_9)
+
+        self.graphicsView_signal_10: QGraphicsView | None = None
+        self.graphicsView_signal_10 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_10)
+
+        self.graphicsView_signal_11: QGraphicsView | None = None
+        self.graphicsView_signal_11 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_11)
+
+        self.graphicsView_signal_12: QGraphicsView | None = None
+        self.graphicsView_signal_12 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_12)
+
+        self.graphicsView_signal_13: QGraphicsView | None = None
+        self.graphicsView_signal_13 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_13)
+
+        self.graphicsView_signal_14: QGraphicsView | None = None
+        self.graphicsView_signal_14 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_14)
+
+        self.graphicsView_signal_15: QGraphicsView | None = None
+        self.graphicsView_signal_15 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_15)
+
+        self.graphicsView_signal_axis: QGraphicsView | None = None
+        self.graphicsView_signal_axis = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_signal_axis)
+
 
         # UI Parameters
         self.number_of_epochs_on_screen = 15
@@ -330,6 +383,34 @@ class SignalWindow(QMainWindow):
 
         # Store Spectrogram Object
         self.multitaper_spectrogram_obj = None
+
+    # Setup Utility
+    def replace_designer_graphic_view_with_custom(self, old_graphic_view: QGraphicsView):
+        # Capture the original geometry and size policy
+        old_height = old_graphic_view.height()
+        old_policy = old_graphic_view.sizePolicy()
+
+        # Create the new graphics view
+        new_graphic_view = FigureGraphicsView(self)
+
+        # Apply the same size policy and fixed height
+        new_graphic_view.setSizePolicy(old_policy)
+        if old_policy.verticalPolicy() == QSizePolicy.Policy.Fixed:
+            new_graphic_view.setFixedHeight(old_height)
+        else:
+            # Maintain the same min/max height if not fixed
+            new_graphic_view.setMinimumHeight(old_graphic_view.minimumHeight())
+            new_graphic_view.setMaximumHeight(old_graphic_view.maximumHeight())
+
+        # Replace in the parent layout
+        layout = old_graphic_view.parent().layout()
+        layout.replaceWidget(old_graphic_view, new_graphic_view)
+        old_graphic_view.deleteLater()
+
+        # Match geometry explicitly to prevent layout recalculation from resizing it
+        new_graphic_view.setGeometry(old_graphic_view.geometry())
+
+        return new_graphic_view
 
     # Manage connections
     def focusOutEvent(self, event):
@@ -498,7 +579,7 @@ class SignalWindow(QMainWindow):
         show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
 
         # Plot Hypnogram
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
                                                      double_click_callback=self.on_hypnogram_double_click,
                                                      show_stage_colors = show_stage_colors)
@@ -511,7 +592,7 @@ class SignalWindow(QMainWindow):
         cur_annotation_setting = self.ui.comboBox_annotation.currentText()
         # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
         self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
-                                                                 self.ui.graphicsView_annotation_plot,
+                                                                 self.graphicsView_annotation_plot,
                                                                  annotation_filter=cur_annotation_setting,
                                                                  double_click_callback=self.on_annotation_double_click)
         # Set up plot legend
@@ -579,11 +660,11 @@ class SignalWindow(QMainWindow):
                          self.ui.label_signal_7,  self.ui.label_signal_8,  self.ui.label_signal_9,
                          self.ui.label_signal_10, self.ui.label_signal_11, self.ui.label_signal_12,
                          self.ui.label_signal_13, self.ui.label_signal_14, self.ui.label_signal_15]
-        graphic_views = [self.ui.graphicsView_signal_1,  self.ui.graphicsView_signal_2,  self.ui.graphicsView_signal_3,
-                         self.ui.graphicsView_signal_4,  self.ui.graphicsView_signal_5,  self.ui.graphicsView_signal_6,
-                         self.ui.graphicsView_signal_7,  self.ui.graphicsView_signal_8,  self.ui.graphicsView_signal_9,
-                         self.ui.graphicsView_signal_10, self.ui.graphicsView_signal_11, self.ui.graphicsView_signal_12,
-                         self.ui.graphicsView_signal_13, self.ui.graphicsView_signal_14, self.ui.graphicsView_signal_15]
+        graphic_views = [self.graphicsView_signal_1,  self.graphicsView_signal_2,  self.graphicsView_signal_3,
+                         self.graphicsView_signal_4,  self.graphicsView_signal_5,  self.graphicsView_signal_6,
+                         self.graphicsView_signal_7,  self.graphicsView_signal_8,  self.graphicsView_signal_9,
+                         self.graphicsView_signal_10, self.graphicsView_signal_11, self.graphicsView_signal_12,
+                         self.graphicsView_signal_13, self.graphicsView_signal_14, self.graphicsView_signal_15]
 
         # Set epoch numbers on interface to correspond to graphic view
         current_epoch = int(self.ui.textEdit_epoch.toPlainText())
@@ -691,7 +772,7 @@ class SignalWindow(QMainWindow):
 
         # Create x-axis for reference
         signal_label = "" # force no signal
-        graphic_view = self.ui.graphicsView_signal_axis
+        graphic_view = self.graphicsView_signal_axis
         self.edf_obj.edf_signals.plot_signal_segment(signal_label,
                                                      signal_type, epoch_num, epoch_width, graphic_view,
                                                      x_tick_settings       = epoch_display_axis_grid,
@@ -734,7 +815,7 @@ class SignalWindow(QMainWindow):
         self.draw_signal_in_graphic_views()
 
         # Clear Spectrogram
-        clear_spectrogram_plot(parent_widget=self.ui.graphicsView_spectrogram)
+        clear_spectrogram_plot(parent_widget=self.graphicsView_spectrogram)
         if self.multitaper_spectrogram_obj is not None:
             self.multitaper_spectrogram_obj.clear_data_heatmap_variables()
 
@@ -791,7 +872,7 @@ class SignalWindow(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
         show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
                                                      double_click_callback=self.on_hypnogram_double_click,
                                                      show_stage_colors = show_stage_colors
@@ -823,7 +904,7 @@ class SignalWindow(QMainWindow):
                 hypnogram_marker = (current_epoch -1)*window_width_sec # zero referenced epoch
 
                 stage_map = index
-                self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+                self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                             stage_index=stage_map,
                                                             hypnogram_marker=hypnogram_marker,
                                                             double_click_callback=self.on_hypnogram_double_click,
@@ -864,13 +945,13 @@ class SignalWindow(QMainWindow):
             multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
-                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram,
+                multitaper_spectrogram_obj.plot(self.graphicsView_spectrogram,
                                                 double_click_callback=self.on_spectrogram_double_click)
                 # Update log
                 logger.info(f'Spectrogram plotted')
             else:
                 # Plot signal heatmap
-                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
+                multitaper_spectrogram_obj.plot_data(self.graphicsView_spectrogram,
                                                      double_click_callback=self.on_spectrogram_double_click)
                 logger.info(f'Plotted heatmap instead')
 
@@ -921,7 +1002,7 @@ class SignalWindow(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
         show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
                                                      double_click_callback=self.on_hypnogram_double_click,
                                                      show_stage_colors=show_stage_colors
@@ -1021,7 +1102,7 @@ class SignalWindow(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
         show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
                                                      double_click_callback=self.on_hypnogram_double_click,
                                                      show_stage_colors = show_stage_colors
@@ -1063,7 +1144,7 @@ class SignalWindow(QMainWindow):
             cur_annotation_setting = self.ui.comboBox_annotation.currentText()
             # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
-                                                        self.ui.graphicsView_annotation_plot,
+                                                        self.graphicsView_annotation_plot,
                                                         annotation_filter = cur_annotation_setting,
                                                         double_click_callback = self.on_annotation_double_click)
     def show_annotation_legend_popup(self):
@@ -1111,7 +1192,7 @@ class SignalWindow(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = annotation_time_in_sec
         show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                                 hypnogram_marker=hypnogram_marker,
                                                                 double_click_callback=self.on_hypnogram_double_click,
                                                                 show_stage_colors = show_stage_colors)
@@ -1172,7 +1253,7 @@ class SignalWindow(QMainWindow):
         # Plot Hypnogram
         hypnogram_marker = 0
         show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
                                                      double_click_callback=self.on_hypnogram_double_click,
                                                      show_stage_colors=show_stage_colors)
@@ -1206,7 +1287,7 @@ class SignalWindow(QMainWindow):
             epoch_width_sec   = self.epoch_display_options_width_sec[cbox_val]
             hypnogram_marker  = epoch_width_sec * self.current_epoch
             show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                          hypnogram_marker=hypnogram_marker,
                                                          show_stage_colors=show_stage_colors)
         # Turn of epoc buttons
@@ -1237,7 +1318,7 @@ class SignalWindow(QMainWindow):
             epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
             hypnogram_marker = epoch_width_sec * self.current_epoch
             show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                          hypnogram_marker=hypnogram_marker,
                                                          show_stage_colors=show_stage_colors)
         # Turn on epoc buttons
@@ -1265,7 +1346,7 @@ class SignalWindow(QMainWindow):
             epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
             hypnogram_marker = epoch_width_sec * self.current_epoch
             show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+            self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                          hypnogram_marker=hypnogram_marker,
                                                          show_stage_colors=show_stage_colors)
         else:
@@ -1302,7 +1383,7 @@ class SignalWindow(QMainWindow):
         epoch_width_sec = self.epoch_display_options_width_sec[cbox_val]
         hypnogram_marker = epoch_width_sec * self.current_epoch
         show_stage_colors = self.ui.pushButton_show_hypnogram_stages_in_color.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                      hypnogram_marker=hypnogram_marker,
                                                      show_stage_colors=show_stage_colors)
 

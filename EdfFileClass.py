@@ -42,6 +42,15 @@ from pathlib import Path
 # Logic support
 from sympy.logic.boolalg import Boolean
 
+
+# Interface
+from PySide6.QtWidgets import (
+    QGraphicsView, QGraphicsScene, QMenu, QFileDialog,
+    QDialog, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QLabel, QVBoxLayout, QPushButton
+)
+from PySide6.QtCore import Qt
+
+
 # Interface  and Plotting
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
@@ -1011,6 +1020,14 @@ class EdfSignals:
             canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
             canvas.setStyleSheet("background-color: white;")  # Qt background
+
+            canvas.setContextMenuPolicy(Qt.CustomContextMenu)
+            canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
+
+            # Assign figure to parent_widget so save dialog knows what to save
+            parent_widget.figure = fig
+            parent_widget.canvas_item = canvas
+
 
             existing_layout = parent_widget.layout()
             if existing_layout:

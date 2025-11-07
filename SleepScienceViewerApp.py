@@ -362,38 +362,38 @@ class MainApp(QMainWindow):
         self.graphicsView_annotation: QGraphicsView | None = None
         self.graphicsView_annotation = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_annotation)
 
-        # self.signal_1_graphicsView: QGraphicsView | None = None
-        # self.signal_1_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_1_graphicsView)
-        #
-        # self.signal_2_graphicsView: QGraphicsView | None = None
-        # self.signal_2_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_2_graphicsView)
-        #
-        # self.signal_3_graphicsView: QGraphicsView | None = None
-        # self.signal_3_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_3_graphicsView)
-        #
-        # self.signal_4_graphicsView: QGraphicsView | None = None
-        # self.signal_4_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_4_graphicsView)
-        #
-        # self.signal_5_graphicsView: QGraphicsView | None = None
-        # self.signal_5_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_5_graphicsView)
-        #
-        # self.signal_6_graphicsView: QGraphicsView | None = None
-        # self.signal_6_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_6_graphicsView)
-        #
-        # self.signal_7_graphicsView: QGraphicsView | None = None
-        # self.signal_7_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_7_graphicsView)
-        #
-        # self.signal_8_graphicsView: QGraphicsView | None = None
-        # self.signal_8_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_8_graphicsView)
-        #
-        # self.signal_9_graphicsView: QGraphicsView | None = None
-        # self.signal_9_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_9_graphicsView)
-        #
-        # self.signal_10_graphicsView: QGraphicsView | None = None
-        # self.signal_10_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_10_graphicsView)
-        #
-        # self.graphicsView_x_axis: QGraphicsView | None = None
-        # self.graphicsView_x_axis = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_x_axis)
+        self.signal_1_graphicsView: QGraphicsView | None = None
+        self.signal_1_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_1_graphicsView)
+
+        self.signal_2_graphicsView: QGraphicsView | None = None
+        self.signal_2_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_2_graphicsView)
+
+        self.signal_3_graphicsView: QGraphicsView | None = None
+        self.signal_3_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_3_graphicsView)
+
+        self.signal_4_graphicsView: QGraphicsView | None = None
+        self.signal_4_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_4_graphicsView)
+
+        self.signal_5_graphicsView: QGraphicsView | None = None
+        self.signal_5_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_5_graphicsView)
+
+        self.signal_6_graphicsView: QGraphicsView | None = None
+        self.signal_6_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_6_graphicsView)
+
+        self.signal_7_graphicsView: QGraphicsView | None = None
+        self.signal_7_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_7_graphicsView)
+
+        self.signal_8_graphicsView: QGraphicsView | None = None
+        self.signal_8_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_8_graphicsView)
+
+        self.signal_9_graphicsView: QGraphicsView | None = None
+        self.signal_9_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_9_graphicsView)
+
+        self.signal_10_graphicsView: QGraphicsView | None = None
+        self.signal_10_graphicsView = self.replace_designer_graphic_view_with_custom(self.ui.signal_10_graphicsView)
+
+        self.graphicsView_x_axis: QGraphicsView | None = None
+        self.graphicsView_x_axis = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_x_axis)
 
         # Time Unit Converstions
         s_to_min = lambda s:int(s/60)
@@ -485,16 +485,16 @@ class MainApp(QMainWindow):
 
         # Set up for a single function combobox change
         self.signal_views = [
-            self.ui.signal_1_graphicsView,
-            self.ui.signal_2_graphicsView,
-            self.ui.signal_3_graphicsView,
-            self.ui.signal_4_graphicsView,
-            self.ui.signal_5_graphicsView,
-            self.ui.signal_6_graphicsView,
-            self.ui.signal_7_graphicsView,
-            self.ui.signal_8_graphicsView,
-            self.ui.signal_9_graphicsView,
-            self.ui.signal_10_graphicsView,
+            self.signal_1_graphicsView,
+            self.signal_2_graphicsView,
+            self.signal_3_graphicsView,
+            self.signal_4_graphicsView,
+            self.signal_5_graphicsView,
+            self.signal_6_graphicsView,
+            self.signal_7_graphicsView,
+            self.signal_8_graphicsView,
+            self.signal_9_graphicsView,
+            self.signal_10_graphicsView,
         ]
         self.signal_comboboxes = [
             self.ui.signal_1_comboBox,
@@ -784,7 +784,7 @@ class MainApp(QMainWindow):
         # Plot X axis
         # Create x-axis for reference
         signal_label = ""  # force no signal
-        graphic_view = self.ui.graphicsView_x_axis
+        graphic_view = self.graphicsView_x_axis
         signal_type = ' '  # not used
         epoch_num = 1
         epoch_width_index = self.ui.epoch_comboBox.currentIndex()
@@ -1764,13 +1764,13 @@ class MainApp(QMainWindow):
                               self.ui.signal_7_comboBox, self.ui.signal_8_comboBox, self.ui.signal_9_comboBox,
                               self.ui.signal_10_comboBox]
 
-        graphic_views = [self.ui.signal_1_graphicsView, self.ui.signal_2_graphicsView,
-                         self.ui.signal_3_graphicsView,
-                         self.ui.signal_4_graphicsView, self.ui.signal_5_graphicsView,
-                         self.ui.signal_6_graphicsView,
-                         self.ui.signal_7_graphicsView, self.ui.signal_8_graphicsView,
-                         self.ui.signal_9_graphicsView,
-                         self.ui.signal_10_graphicsView]
+        graphic_views = [self.signal_1_graphicsView, self.signal_2_graphicsView,
+                         self.signal_3_graphicsView,
+                         self.signal_4_graphicsView, self.ui.signal_5_graphicsView,
+                         self.signal_6_graphicsView,
+                         self.signal_7_graphicsView, self.ui.signal_8_graphicsView,
+                         self.signal_9_graphicsView,
+                         self.signal_10_graphicsView]
 
         # Get signal color widgets and
         signal_color_combo_boxes = self.signal_color_comboboxes

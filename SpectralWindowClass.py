@@ -33,7 +33,7 @@ from typing import Callable
 # Interface packages and modules
 from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, QMessageBox, QWidget
 from PySide6.QtWidgets import (QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow, QTextEdit, QGraphicsView,
-                               QGraphicsScene, QMenu, QFormLayout, QDialogButtonBox, QDoubleSpinBox)
+                               QGraphicsScene, QMenu, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QSizePolicy)
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QKeyEvent
 
@@ -449,11 +449,45 @@ class SpectralWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("Spectral Viewer")
 
-        # Overide Hypnogram Graphic View
-        self.hypnogram_view = FigureGraphicsView(self)
-        layout = self.ui.graphicsView_hypnogram.parent().layout()
-        layout.replaceWidget(self.ui.graphicsView_hypnogram, self.hypnogram_view)
-        self.ui.graphicsView_hypnogram.deleteLater()
+        # Overide Graphic Views
+        self.graphicsView_hypnogram: QGraphicsView | None = None
+        self.graphicsView_hypnogram = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_hypnogram)
+
+        self.graphicsView_spectrogram: QGraphicsView | None = None
+        self.graphicsView_spectrogram = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_spectrogram)
+
+        self.graphicsView_results_1: QGraphicsView | None = None
+        self.graphicsView_results_1 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_1)
+
+        self.graphicsView_results_2: QGraphicsView | None = None
+        self.graphicsView_results_2 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_2)
+
+        self.graphicsView_results_3: QGraphicsView | None = None
+        self.graphicsView_results_3 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_3)
+
+        self.graphicsView_results_4: QGraphicsView | None = None
+        self.graphicsView_results_4 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_4)
+
+        self.graphicsView_results_5: QGraphicsView | None = None
+        self.graphicsView_results_5 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_5)
+
+        self.graphicsView_results_6: QGraphicsView | None = None
+        self.graphicsView_results_6 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_6)
+
+        self.graphicsView_results_7: QGraphicsView | None = None
+        self.graphicsView_results_7 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_7)
+
+        self.graphicsView_results_8: QGraphicsView | None = None
+        self.graphicsView_results_8 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_8)
+
+        self.graphicsView_results_9: QGraphicsView | None = None
+        self.graphicsView_results_9 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_9)
+
+        self.graphicsView_results_10: QGraphicsView | None = None
+        self.graphicsView_results_10 = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_results_10)
+
+        self.graphicsView_time_axis: QGraphicsView | None = None
+        self.graphicsView_time_axis = self.replace_designer_graphic_view_with_custom(self.ui.graphicsView_time_axis)
 
         # Save signals and annotations
         self.edf_obj = edf_obj
@@ -573,6 +607,34 @@ class SpectralWindow(QMainWindow):
         self.stage_mask_list:list|None=None
         self.analysis_param_dict:dict|None=None
         self.analysis_signal_labels:dict|None=None
+
+    # Init Utilities
+    def replace_designer_graphic_view_with_custom(self, old_graphic_view: QGraphicsView):
+        # Capture the original geometry and size policy
+        old_height = old_graphic_view.height()
+        old_policy = old_graphic_view.sizePolicy()
+
+        # Create the new graphics view
+        new_graphic_view = FigureGraphicsView(self)
+
+        # Apply the same size policy and fixed height
+        new_graphic_view.setSizePolicy(old_policy)
+        if old_policy.verticalPolicy() == QSizePolicy.Policy.Fixed:
+            new_graphic_view.setFixedHeight(old_height)
+        else:
+            # Maintain the same min/max height if not fixed
+            new_graphic_view.setMinimumHeight(old_graphic_view.minimumHeight())
+            new_graphic_view.setMaximumHeight(old_graphic_view.maximumHeight())
+
+        # Replace in the parent layout
+        layout = old_graphic_view.parent().layout()
+        layout.replaceWidget(old_graphic_view, new_graphic_view)
+        old_graphic_view.deleteLater()
+
+        # Match geometry explicitly to prevent layout recalculation from resizing it
+        new_graphic_view.setGeometry(old_graphic_view.geometry())
+
+        return new_graphic_view
 
     # Manage connections
     def focusOutEvent(self, event):
@@ -885,7 +947,7 @@ class SpectralWindow(QMainWindow):
 
         # Plot Hypnogram
         show_stage_colors = self.ui.pushButton_hypnogram_show_stages.isChecked()
-        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+        self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                      show_stage_colors = show_stage_colors)
 
         # Turn on hypnogram signal
@@ -904,7 +966,7 @@ class SpectralWindow(QMainWindow):
                 show_stage_colors = self.ui.pushButton_hypnogram_show_stages.isChecked()
 
                 stage_map = index
-                self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.hypnogram_view,
+                self.xml_obj.sleep_stages_obj.plot_hypnogram(parent_widget=self.graphicsView_hypnogram,
                                                             stage_index=stage_map,
                                                             show_stage_colors=show_stage_colors)
     def show_stages_on_hypnogram(self):
@@ -959,14 +1021,14 @@ class SpectralWindow(QMainWindow):
             if multitaper_spectrogram_obj.spectrogram_computed:
                 # Plot spectrogram if computer
                 show_legend = self.ui.checkBox_description_plotting_legend.isChecked()
-                multitaper_spectrogram_obj.plot(self.ui.graphicsView_spectrogram, show_legend=show_legend)
+                multitaper_spectrogram_obj.plot(self.graphicsView_spectrogram, show_legend=show_legend)
                 self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
                 # Update log
                 logger.info(f'Spectrogram plotted')
             else:
                 # Plot signal heatmap
-                multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram)
+                multitaper_spectrogram_obj.plot_data(self.graphicsView_spectrogram)
                 logger.info(f'Plotted heatmap instead')
 
             self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
@@ -1010,7 +1072,7 @@ class SpectralWindow(QMainWindow):
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
         # Plot signal heatmap
-        multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram)
+        multitaper_spectrogram_obj.plot_data(self.graphicsView_spectrogram)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
         # Record Spectrogram Completions
@@ -1069,11 +1131,11 @@ class SpectralWindow(QMainWindow):
                                       self.ui.comboBox_settings_ref_sig5, self.ui.comboBox_settings_ref_sig6,
                                       self.ui.comboBox_settings_ref_sig7, self.ui.comboBox_settings_ref_sig8,
                                       self.ui.comboBox_settings_ref_sig9, self.ui.comboBox_settings_ref_sig10]
-        self.results_graphic_views = [self.ui.graphicsView_results_1, self.ui.graphicsView_results_2,
-                                      self.ui.graphicsView_results_3, self.ui.graphicsView_results_4,
-                                      self.ui.graphicsView_results_5, self.ui.graphicsView_results_6,
-                                      self.ui.graphicsView_results_7, self.ui.graphicsView_results_8,
-                                      self.ui.graphicsView_results_9, self.ui.graphicsView_results_10]
+        self.results_graphic_views = [self.graphicsView_results_1, self.graphicsView_results_2,
+                                      self.graphicsView_results_3, self.graphicsView_results_4,
+                                      self.graphicsView_results_5, self.graphicsView_results_6,
+                                      self.ui.graphicsView_results_7, self.graphicsView_results_8,
+                                      self.graphicsView_results_9, self.graphicsView_results_10]
         self.result_layouts = [self.ui.horizontalLayout_results_1, self.ui.horizontalLayout_results_2,
                                self.ui.horizontalLayout_results_3, self.ui.horizontalLayout_results_4,
                                self.ui.horizontalLayout_results_5, self.ui.horizontalLayout_results_6,
@@ -1279,7 +1341,7 @@ class SpectralWindow(QMainWindow):
         # Create x-axis for reference
         turn_axis_units_off = False
         axis_only = True
-        graphics_view = self.ui.graphicsView_time_axis
+        graphics_view = self.graphicsView_time_axis
         signal_label = analysis_signal_labels[0]
         signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
         signal_analysis_obj = EdfSignalAnalysis(signal_obj)
@@ -1342,7 +1404,7 @@ class SpectralWindow(QMainWindow):
         if show_x_axis_layout:
             turn_axis_units_off = False
             axis_only = True
-            graphics_view = self.ui.graphicsView_time_axis
+            graphics_view = self.graphicsView_time_axis
             signal_label = self.analysis_signal_labels[0]
             signal_obj = self.edf_obj.edf_signals.return_edf_signal(signal_label)
             signal_analysis_obj = EdfSignalAnalysis(signal_obj)
