@@ -590,7 +590,6 @@ class SignalWindow(QMainWindow):
         # Plot annotations
         total_time_in_seconds = self.xml_obj.sleep_stages_obj.time_seconds
         cur_annotation_setting = self.ui.comboBox_annotation.currentText()
-        # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
         self.xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                                  self.graphicsView_annotation_plot,
                                                                  annotation_filter=cur_annotation_setting,
@@ -684,15 +683,12 @@ class SignalWindow(QMainWindow):
         time_axis_units         = self.epoch_axis_units[epoch_width_index]
         signal_type             = ""
 
-        #print(f'epoch_width_index = {epoch_width_index}, epoch_width = {epoch_width}')
-
         # Set signal label
         signal_label = self.ui.comboBox_signals.currentText()
 
         # Get filtering parameters
         filter_param = self.filter_param
 
-        #print(f'filter_param = {filter_param} ')
 
         # Determine y limits
         if self.ui.pushButton_sync_y.isChecked():

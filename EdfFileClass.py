@@ -33,6 +33,10 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # Import Modules
 # OS Imports
+
+# Extend Existing Class
+from FigureGraphicsViewClass import FigureGraphicsView
+
 import copy
 import os
 import logging
@@ -42,14 +46,8 @@ from pathlib import Path
 # Logic support
 from sympy.logic.boolalg import Boolean
 
-
 # Interface
-from PySide6.QtWidgets import (
-    QGraphicsView, QGraphicsScene, QMenu, QFileDialog,
-    QDialog, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QLabel, QVBoxLayout, QPushButton
-)
 from PySide6.QtCore import Qt
-
 
 # Interface  and Plotting
 from PySide6.QtWidgets import QVBoxLayout, QSizePolicy
@@ -72,9 +70,8 @@ import pandas as pd
 import csv
 import json
 
-# Methods
+# Analsysis Classes
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
-
 
 import warnings
 DEBUG = True
