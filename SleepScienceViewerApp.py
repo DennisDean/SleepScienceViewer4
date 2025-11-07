@@ -1733,9 +1733,9 @@ class MainApp(QMainWindow):
 
         graphic_views = [self.signal_1_graphicsView, self.signal_2_graphicsView,
                          self.signal_3_graphicsView,
-                         self.signal_4_graphicsView, self.ui.signal_5_graphicsView,
+                         self.signal_4_graphicsView, self.signal_5_graphicsView,
                          self.signal_6_graphicsView,
-                         self.signal_7_graphicsView, self.ui.signal_8_graphicsView,
+                         self.signal_7_graphicsView, self.signal_8_graphicsView,
                          self.signal_9_graphicsView,
                          self.signal_10_graphicsView]
 
