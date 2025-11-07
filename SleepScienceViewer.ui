@@ -170,7 +170,7 @@
         <item>
          <widget class="QPushButton" name="pushButton_show_spectrogram">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="minimumSize">
            <size>
@@ -226,53 +226,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="spectrogram_comboBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>95</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>95</width>
-            <height>25</height>
-           </size>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
@@ -288,13 +241,13 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>85</height>
+            <height>80</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>85</height>
+            <height>80</height>
            </size>
           </property>
          </widget>
@@ -421,100 +374,7 @@
             </item>
            </layout>
           </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="minimumSize">
-             <size>
-              <width>5</width>
-              <height>5</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>5</width>
-              <height>5</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
          </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_spectrogram_text">
-        <item>
-         <spacer name="horizontalSpacer_13">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="spectrogram_label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Multi-Taper Spectrogram</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="minimumSize">
-           <size>
-            <width>125</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>125</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>
@@ -534,23 +394,54 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>70</height>
+            <height>75</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>70</height>
+            <height>75</height>
            </size>
           </property>
          </widget>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_spectrogram_command_container">
+          <property name="spacing">
+           <number>1</number>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_spectrogram_commands">
+            <property name="spacing">
+             <number>1</number>
+            </property>
+            <item>
+             <widget class="QComboBox" name="spectrogram_comboBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>95</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>95</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_spectrogram_command_2">
+              <property name="spacing">
+               <number>1</number>
+              </property>
               <item alignment="Qt::AlignTop">
                <widget class="QPushButton" name="compute_spectrogram_pushButton">
                 <property name="sizePolicy">
@@ -562,13 +453,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>62</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>62</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -581,13 +472,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>25</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>25</width>
-                  <height>25</height>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="text">
@@ -601,18 +492,21 @@
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="spacing">
+             <number>1</number>
+            </property>
             <item>
              <widget class="QPushButton" name="pushButton_spectrogram_heat">
               <property name="minimumSize">
                <size>
                 <width>62</width>
-                <height>0</height>
+                <height>20</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>62</width>
-                <height>16777215</height>
+                <height>20</height>
                </size>
               </property>
               <property name="text">

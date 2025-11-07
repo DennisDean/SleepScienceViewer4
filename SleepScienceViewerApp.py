@@ -30,7 +30,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # PySide6 imports
 from PySide6.QtCore import QEvent, Qt, QObject, Signal, QTimer, QRectF
-from PySide6.QtGui import QFont, QFontDatabase, QKeyEvent
+from PySide6.QtGui import QFont, QFontDatabase, QKeyEvent, QFileOpenEvent
 from PySide6.QtWidgets import QMainWindow, QDialog, QVBoxLayout, QLabel, QPushButton, QTextBrowser
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QGraphicsView, QGraphicsScene, QMenu, QSizePolicy
 from PySide6.QtWidgets import QFormLayout, QLineEdit, QDialogButtonBox, QApplication, QDoubleSpinBox
@@ -581,6 +581,17 @@ class MainApp(QMainWindow):
         self.ui.pushButton_show_spectrogram.clicked.connect(self.show_spectrogram_push)
         self.ui.pushButton_show_hypnogram.clicked.connect(self.show_hypnogram_push)
         self.ui.pushButton_show_annotation.clicked.connect(self.show_annotation_push)
+
+    # Overide event handler
+    def event(self, event):
+        # Handle macOS-style file open events (fires when user double-clicks .edf)
+        if isinstance(event, QFileOpenEvent):
+            file_path = event.file()
+            if file_path.lower().endswith(".edf"):
+                self.load_edf_file(file_path)
+                return True
+        return super().event(event)
+
     # Init Utilities
     def replace_designer_graphic_view_with_custom(self, old_graphic_view: QGraphicsView):
         # Capture the original geometry and size policy
@@ -678,7 +689,6 @@ class MainApp(QMainWindow):
     def show_spectrogram_push(self,checked: bool):
         # Recursively hide widgets in layouts
         set_layout_visible(self.ui.horizontalLayout_spectrogram_plot,checked)
-        set_layout_visible(self.ui.horizontalLayout_spectrogram_text, checked)
         set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
         set_layout_visible(self.ui.horizontalLayout_spectrogram_command_2, checked)
     def show_hypnogram_push(self,checked: bool):
@@ -1314,7 +1324,6 @@ class MainApp(QMainWindow):
             # Record Spectrogram Completions
             if self.multitaper_spectrogram_obj.spectrogram_computed:
                 self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
-                self.ui.spectrogram_label.setText(f'Multitaper Spectrogram - {signal_label}')
                 logger.info('Computing spectrogram: Computation completed')
             else:
                 self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
@@ -2106,6 +2115,12 @@ class MainApp(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     window = MainApp()
+
+    if len(sys.argv) > 1:
+        file_path = sys.argv[1]
+        if file_path.lower().endswith(".edf"):
+            viewer.load_edf_file(file_path)
+
     window.show()
     app.exec()
 if __name__ == "__main__":
