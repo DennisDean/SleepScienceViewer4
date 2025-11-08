@@ -37,8 +37,7 @@ from FigureGraphicsViewClass import FigureGraphicsView
 
 # Interface packages and modules
 from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, QMessageBox, QWidget
-from PySide6.QtWidgets import (QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow, QTextEdit, QGraphicsView,
-                               QGraphicsScene, QMenu, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QSizePolicy)
+from PySide6.QtWidgets import (QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow, QTextEdit, QGraphicsView, QSizePolicy)
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QKeyEvent
 
