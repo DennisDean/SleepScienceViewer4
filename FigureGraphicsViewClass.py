@@ -4,17 +4,23 @@
 
 # Import modules
 from PySide6.QtWidgets import (
+    QDialog,
+    QDialogButtonBox,
+    QDoubleSpinBox,
+    QFileDialog,
+    QFormLayout,
     QGraphicsView,
     QGraphicsScene,
+    QLineEdit,
     QMenu,
-    QDialog,
-    QFormLayout,
-    QDoubleSpinBox,
-    QDialogButtonBox,
-    QFileDialog,
-    QSizePolicy
+    QMessageBox,
+    QSizePolicy,
 )
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from PySide6.QtGui import QImage, QGuiApplication, QPixmap
+import matplotlib.pyplot as plt
+import copy
+import io
 
 # Extend Existing Class
 class FigureGraphicsView(QGraphicsView):
@@ -25,6 +31,7 @@ class FigureGraphicsView(QGraphicsView):
         self.figure = None
         self.canvas_item = None
 
+        print('initializing custom graphic view')
     # --- Optional if you embed figures dynamically ---
     def set_figure(self, figure):
         if self.canvas_item:
@@ -58,6 +65,7 @@ class FigureGraphicsView(QGraphicsView):
         dialog.setWindowTitle("Save Figure")
         layout = QFormLayout(dialog)
 
+        # --- Figure Dimensions ---
         width_spin = QDoubleSpinBox()
         width_spin.setRange(1.0, 50.0)
         width_spin.setValue(self.figure.get_size_inches()[0])
@@ -69,54 +77,91 @@ class FigureGraphicsView(QGraphicsView):
         layout.addRow("Height (inches):", height_spin)
 
         dpi_spin = QDoubleSpinBox()
-        dpi_spin.setRange(50, 1200)
+        dpi_spin.setRange(72, 600)
         dpi_spin.setValue(self.figure.dpi)
         layout.addRow("DPI:", dpi_spin)
 
-        axes = self.figure.get_axes()
-        current_xlabel_size = 10
-        current_ylabel_size = 10
-        if axes:
-            ax = axes[0]
-            try:
-                current_xlabel_size = float(ax.xaxis.label.get_fontsize())
-            except (AttributeError, TypeError, ValueError):
-                pass
-            try:
-                current_ylabel_size = float(ax.yaxis.label.get_fontsize())
-            except (AttributeError, TypeError, ValueError):
-                pass
+        # --- Font Controls ---
+        xlabel_font_spin = QDoubleSpinBox()
+        xlabel_font_spin.setRange(4, 40)
+        xlabel_font_spin.setValue(10)
+        layout.addRow("X Label Font Size:", xlabel_font_spin)
 
-        xlabel_fontsize_spin = QDoubleSpinBox()
-        xlabel_fontsize_spin.setRange(4, 72)
-        xlabel_fontsize_spin.setValue(current_xlabel_size)
-        layout.addRow("X-Label Font Size:", xlabel_fontsize_spin)
+        ylabel_font_spin = QDoubleSpinBox()
+        ylabel_font_spin.setRange(4, 40)
+        ylabel_font_spin.setValue(10)
+        layout.addRow("Y Label Font Size:", ylabel_font_spin)
 
-        ylabel_fontsize_spin = QDoubleSpinBox()
-        ylabel_fontsize_spin.setRange(4, 72)
-        ylabel_fontsize_spin.setValue(current_ylabel_size)
-        layout.addRow("Y-Label Font Size:", ylabel_fontsize_spin)
+        title_font_spin = QDoubleSpinBox()
+        title_font_spin.setRange(6, 60)
+        title_font_spin.setValue(14)
+        layout.addRow("Title Font Size:", title_font_spin)
 
-        # --- Add a Title field ---
-        from PySide6.QtWidgets import QLineEdit
+        # --- Title Text ---
         title_edit = QLineEdit()
-        title_edit.setPlaceholderText("Optional title for saved figure")
-        layout.addRow("Figure Title:", title_edit)
+        layout.addRow("Title:", title_edit)
 
-        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        layout.addRow(buttons)
+        # --- Buttons ---
+        buttons = QDialogButtonBox(QDialogButtonBox.Save | QDialogButtonBox.Cancel)
+        copy_button = buttons.addButton("Copy", QDialogButtonBox.ActionRole)
+        layout.addWidget(buttons)
 
-        buttons.accepted.connect(dialog.accept)
+        # --- Helper to apply fonts ---
+        def apply_fonts(ax):
+            ax.xaxis.label.set_size(xlabel_font_spin.value())
+            ax.yaxis.label.set_size(ylabel_font_spin.value())
+            for tick in ax.get_xticklabels() + ax.get_yticklabels():
+                tick.set_fontsize(min(xlabel_font_spin.value(), ylabel_font_spin.value()))
+
+        # --- Create a temporary copy of the figure ---
+        def get_figure_copy():
+            fig_copy = copy.deepcopy(self.figure)
+            fig_copy.set_size_inches(width_spin.value(), height_spin.value())
+            fig_copy.set_dpi(dpi_spin.value())
+            print(type(fig_copy))
+            fig_copy.set_layout_engine('constrained')
+
+            if title_edit.text():
+                print('setting title')
+                fig_copy.suptitle(title_edit.text(), fontsize=title_font_spin.value())
+            for ax in fig_copy.axes:
+                apply_fonts(ax)
+            return fig_copy
+
+        # --- Save Handler ---
+        def save_figure():
+            file_name, _ = QFileDialog.getSaveFileName(
+                dialog,
+                "Save Figure",
+                "",
+                "PNG Files (*.png);;JPEG Files (*.jpg);;PDF Files (*.pdf)"
+            )
+            if not file_name:
+                return
+
+            fig_copy = get_figure_copy()
+            fig_copy.savefig(file_name, dpi=dpi_spin.value(), bbox_inches="tight")
+            QMessageBox.information(dialog, "Saved", f"Figure saved to:\n{file_name}")
+            plt.close(fig_copy)  # clean up
+            dialog.accept()
+
+        # --- Copy Handler ---
+        def copy_figure():
+            fig_copy = get_figure_copy()
+            buf = io.BytesIO()
+            fig_copy.savefig(buf, format="png", dpi=dpi_spin.value(), bbox_inches="tight")
+            qimage = QImage.fromData(buf.getvalue(), "PNG")
+            QGuiApplication.clipboard().setPixmap(QPixmap.fromImage(qimage))
+            plt.close(fig_copy)  # clean up
+            QMessageBox.information(dialog, "Copied", "Figure copied to clipboard.")
+            dialog.accept()
+
+        # --- Connect Buttons ---
+        buttons.accepted.connect(save_figure)
         buttons.rejected.connect(dialog.reject)
+        copy_button.clicked.connect(copy_figure)
 
-        if dialog.exec() == QDialog.Accepted:
-            width = width_spin.value()
-            height = height_spin.value()
-            dpi = dpi_spin.value()
-            xlabel_fontsize = xlabel_fontsize_spin.value()
-            ylabel_fontsize = ylabel_fontsize_spin.value()
-            title_text = title_edit.text().strip()
-            self.save_figure_to_file(width, height, dpi, xlabel_fontsize, ylabel_fontsize, title_text)
+        dialog.exec()
     def show_context_menu(self, pos):
         menu = QMenu(self)
         save_action = menu.addAction("Save Figure…")
@@ -127,11 +172,13 @@ class FigureGraphicsView(QGraphicsView):
             self.open_save_dialog()
     # --- Save file method ---
     def save_figure_to_file(self, width, height, dpi, xlabel_fontsize=None, ylabel_fontsize=None, title_text=None):
+        print('Safe figure to file')
         if self.figure is None:
             return
 
         file_path, _ = QFileDialog.getSaveFileName(
-            self, "Save Figure", "figure.png", "PNG Files (*.png);;PDF Files (*.pdf);;SVG Files (*.svg)"
+            self, "Save Figure", "figure.png",
+            "PNG Files (*.png);;PDF Files (*.pdf);;SVG Files (*.svg)"
         )
         if not file_path:
             return
@@ -140,25 +187,39 @@ class FigureGraphicsView(QGraphicsView):
         if not axes:
             return
 
-        # --- Save original figure properties ---
+        title_list = []
+        for ax_f in axes:
+            title_list.append(ax_f.get_title())
+        print(title_list)
+
+        # --- Save original properties ---
         original_size = self.figure.get_size_inches().copy()
         original_dpi = self.figure.dpi
-        original_margins = self.figure.subplotpars.__dict__.copy()
+        original_margins = {
+            'left': self.figure.subplotpars.left,
+            'right': self.figure.subplotpars.right,
+            'top': self.figure.subplotpars.top,
+            'bottom': self.figure.subplotpars.bottom,
+        }
+        print(original_margins)
 
-        # --- Save original font sizes ---
-        original_fontsizes = []
-        for ax in axes:
-            original_fontsizes.append({
+        # --- Save font sizes and suptitle ---
+        original_fontsizes = [
+            {
                 'xlabel': ax.xaxis.label.get_fontsize(),
                 'ylabel': ax.yaxis.label.get_fontsize(),
                 'title': ax.title.get_fontsize()
-            })
+            } for ax in axes
+        ]
 
+        print('got figure axis and orignial parameters')
         try:
-            # --- Apply new settings ---
+            print('tring to apply new features')
+            # --- Apply new size and resolution ---
             self.figure.set_size_inches(width, height)
             self.figure.set_dpi(dpi)
 
+            # --- Update axis label and tick font sizes ---
             for ax in axes:
                 if xlabel_fontsize is not None:
                     ax.xaxis.label.set_fontsize(xlabel_fontsize)
@@ -167,39 +228,49 @@ class FigureGraphicsView(QGraphicsView):
                     ax.yaxis.label.set_fontsize(ylabel_fontsize)
                     ax.tick_params(axis='y', labelsize=ylabel_fontsize)
 
-                # --- Set title if provided ---
-                if title_text:
-                    ax.set_title(title_text, fontsize= max(xlabel_fontsize, ylabel_fontsize))
+            # --- Add or preserve title ---
+            if title_text:
+                fontsize_for_title = max(
+                    f for f in [xlabel_fontsize, ylabel_fontsize] if f is not None
+                ) if any([xlabel_fontsize, ylabel_fontsize]) else 12  # fallback
 
-            # Preserve existing margins
-            self.figure.subplots_adjust(
-                left=original_margins['left'],
-                right=original_margins['right'],
-                top=original_margins['top'],
-                bottom=original_margins['bottom']
-            )
+                for ax in axes:
+                    ax.set_title(title_text, fontsize=fontsize_for_title, pad=10)
+                else:
+                    for ax in axes:
+                        ax.set_title("double check code is called")
 
-            self.figure.canvas.draw_idle()
+
+            # --- Save the figure ---
             self.figure.savefig(file_path, dpi=dpi, bbox_inches='tight')
 
         finally:
-            # Restore figure size and margins
+            print('entering finally')
+            # --- Restore size, margins, and fonts ---
             self.figure.set_size_inches(original_size)
             self.figure.set_dpi(original_dpi)
-            self.figure.subplots_adjust(
-                left=original_margins['left'],
-                right=original_margins['right'],
-                top=original_margins['top'],
-                bottom=original_margins['bottom']
-            )
+            self.figure.subplots_adjust(**original_margins)
 
-            # Restore font sizes (titles kept intentionally)
             for ax, fontsizes in zip(axes, original_fontsizes):
                 ax.xaxis.label.set_fontsize(fontsizes['xlabel'])
                 ax.yaxis.label.set_fontsize(fontsizes['ylabel'])
                 ax.tick_params(axis='x', labelsize=fontsizes['xlabel'])
                 ax.tick_params(axis='y', labelsize=fontsizes['ylabel'])
 
+            # --- Restore suptitle ---
+
+            for ax_f in axes:
+                title_list.append(ax_f.get_title())
+
+
+            if title_list:
+                for (ax_f, title_f) in zip(axes,title_list) :
+                    ax_f.set_title(title_f)
+            elif has_suptitle:
+                for (ax_f, title_f) in zip(axes, title_list):
+                    ax_f.set_title('')
+
+            # --- Redraw once at the end ---
             if self.canvas_item:
                 self.canvas_item.draw()
             self.scene.update()
