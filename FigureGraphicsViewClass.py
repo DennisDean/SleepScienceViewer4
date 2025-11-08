@@ -118,11 +118,9 @@ class FigureGraphicsView(QGraphicsView):
             fig_copy = copy.deepcopy(self.figure)
             fig_copy.set_size_inches(width_spin.value(), height_spin.value())
             fig_copy.set_dpi(dpi_spin.value())
-            print(type(fig_copy))
             fig_copy.set_layout_engine('constrained')
 
             if title_edit.text():
-                print('setting title')
                 fig_copy.suptitle(title_edit.text(), fontsize=title_font_spin.value())
             for ax in fig_copy.axes:
                 apply_fonts(ax)
@@ -185,12 +183,8 @@ class FigureGraphicsView(QGraphicsView):
 
         axes = self.figure.get_axes()
         if not axes:
+            print('no axes found')
             return
-
-        title_list = []
-        for ax_f in axes:
-            title_list.append(ax_f.get_title())
-        print(title_list)
 
         # --- Save original properties ---
         original_size = self.figure.get_size_inches().copy()
@@ -201,6 +195,8 @@ class FigureGraphicsView(QGraphicsView):
             'top': self.figure.subplotpars.top,
             'bottom': self.figure.subplotpars.bottom,
         }
+        oringinal_sup_title = self.figure.get_suptitle()
+        print(oringinal_sup_title)
         print(original_margins)
 
         # --- Save font sizes and suptitle ---
