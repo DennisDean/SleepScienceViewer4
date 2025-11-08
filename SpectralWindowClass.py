@@ -25,115 +25,15 @@ from functools import partial
 from pathlib import Path
 from typing import Callable
 
+# Overide Graphic View to support right click menu
+from FigureGraphicsViewClass import FigureGraphicsView
+
 # Interface packages and modules
 from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, QMessageBox, QWidget
 from PySide6.QtWidgets import (QPushButton, QLabel, QLineEdit, QFileDialog, QMainWindow, QTextEdit, QGraphicsView,
                                QGraphicsScene, QMenu, QFormLayout, QDialogButtonBox, QDoubleSpinBox, QSizePolicy)
 from PySide6.QtCore import QEvent, Qt, QObject,Signal
 from PySide6.QtGui import QKeyEvent
-
-# Class Extension
-class FigureGraphicsView(QGraphicsView):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.scene = QGraphicsScene(self)
-        self.setScene(self.scene)
-        self.figure = None
-        self.canvas_item = None
-
-    # --- Optional if you embed figures dynamically ---
-    def set_figure(self, figure):
-        if self.canvas_item:
-            self.scene.removeItem(self.canvas_item)
-        self.figure = figure
-        canvas = FigureCanvas(figure)
-        self.scene.addWidget(canvas)
-        self.canvas_item = canvas
-
-    # --- Right-click context menu ---
-    def contextMenuEvent(self, event):
-        menu = QMenu(self)
-
-        save_action = menu.addAction("Save Figure...")
-        menu.addSeparator()
-        menu.addAction("Cancel")
-
-        action = menu.exec(event.globalPos())
-
-        if action == save_action:
-            self.open_save_dialog()
-
-    # --- Save dialog ---
-    def open_save_dialog(self):
-        if self.figure is None:
-            return
-
-        dialog = QDialog(self)
-        dialog.setWindowTitle("Save Figure")
-        layout = QFormLayout(dialog)
-
-        width_spin = QDoubleSpinBox()
-        width_spin.setRange(1.0, 50.0)
-        width_spin.setValue(self.figure.get_size_inches()[0])
-        layout.addRow("Width (inches):", width_spin)
-
-        height_spin = QDoubleSpinBox()
-        height_spin.setRange(1.0, 50.0)
-        height_spin.setValue(self.figure.get_size_inches()[1])
-        layout.addRow("Height (inches):", height_spin)
-
-        dpi_spin = QDoubleSpinBox()
-        dpi_spin.setRange(50, 1200)
-        dpi_spin.setValue(self.figure.dpi)
-        layout.addRow("DPI:", dpi_spin)
-
-        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        layout.addRow(buttons)
-
-        buttons.accepted.connect(dialog.accept)
-        buttons.rejected.connect(dialog.reject)
-
-        if dialog.exec() == QDialog.Accepted:
-            width = width_spin.value()
-            height = height_spin.value()
-            dpi = dpi_spin.value()
-            self.save_figure_to_file(width, height, dpi)
-    def show_context_menu(self, pos):
-        menu = QMenu(self)
-        save_action = menu.addAction("Save Figure…")
-        menu.addSeparator()
-        menu.addAction("Cancel")
-        action = menu.exec(self.mapToGlobal(pos))
-        if action == save_action:
-            self.open_save_dialog()
-
-    # --- Save file method ---
-    def save_figure_to_file(self, width, height, dpi):
-        if self.figure is None:
-            return
-
-        file_path, _ = QFileDialog.getSaveFileName(
-            self, "Save Figure", "", "PNG Files (*.png);;PDF Files (*.pdf);;SVG Files (*.svg)"
-        )
-        if not file_path:
-            return
-
-        # Save original size
-        original_size = self.figure.get_size_inches().copy()
-        original_dpi = self.figure.dpi
-
-        try:
-            # Set new size for saving
-            self.figure.set_size_inches(width, height)
-            self.figure.savefig(file_path, dpi=dpi, bbox_inches='tight')
-        finally:
-            # Restore original size
-            self.figure.set_size_inches(original_size)
-            self.figure.dpi = original_dpi
-
-            # Redraw the canvas to reflect restored size
-            if self.canvas_item:
-                self.canvas_item.draw()
 
 # Sleep Science Classes
 from EdfFileClass import EdfFile, EdfSignalAnalysis

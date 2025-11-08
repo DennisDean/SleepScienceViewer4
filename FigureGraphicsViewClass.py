@@ -30,8 +30,6 @@ class FigureGraphicsView(QGraphicsView):
         self.setScene(self.scene)
         self.figure = None
         self.canvas_item = None
-
-        print('initializing custom graphic view')
     # --- Optional if you embed figures dynamically ---
     def set_figure(self, figure):
         if self.canvas_item:
