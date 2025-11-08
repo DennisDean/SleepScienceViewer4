@@ -10,7 +10,8 @@ import logging
 import math
 import numpy as np
 
-
+# Override graphicView to support right click menu
+from FigureGraphicsViewClass import FigureGraphicsView
 
 # Interface packages and modules
 from PySide6.QtWidgets import QMainWindow, QSizePolicy, QListWidgetItem, QApplication, QMessageBox
