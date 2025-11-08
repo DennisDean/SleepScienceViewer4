@@ -27,6 +27,9 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
 
 # To Do List
+# ToDo: Add show menu for consistency allowing user to turn off file menu
+# ToDo: Add signal specific gain control
+# ToDo: Revisit visualzing annotations on signals
 
 # Extend Existing Class
 from FigureGraphicsViewClass import FigureGraphicsView

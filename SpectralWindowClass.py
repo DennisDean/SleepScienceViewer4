@@ -9,6 +9,13 @@
 # To Do:
 # Essential
 # TODO: Check band plot figure, pretty. Test data has significant noise which makes it difficult to check values
+# Major Effort
+# ToDO: Revisit navigation strategy so double click navigation does not affect other windows or does.
+# interface
+# ToDo: Add ability to show a signal spectrogram that differs from the one displayed in the signal raster
+# Todo: Remove multi-taper sepctrogram tech for consistency with sleep science viewer window
+# TODO: Add units to spectral legend
+# TODO: Update Graphic View widgets for average and band plots to support right-clicking to save or copy figure
 
 # Modules
 import csv
@@ -321,15 +328,8 @@ def make_dict_from_list(list_labels, list_entries, exisiting_dict:dict|None=None
 
     return return_dict
 
-
-# To Do
-
-
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
-
-# To Do List
-
 
 # GUI Classes
 class SpectralWindow(QMainWindow):

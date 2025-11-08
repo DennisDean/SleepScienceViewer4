@@ -1340,6 +1340,7 @@ class MultitaperSpectrogram:
         # Embed canvas into the provided QWidget
         if parent_widget:
             canvas = FigureCanvas(fig)
+
             canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
 
