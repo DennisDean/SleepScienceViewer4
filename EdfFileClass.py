@@ -983,11 +983,11 @@ class EdfSignals:
                                fontsize=tick_label_fontsize)
         if turn_xaxis_labels_off:
             ax.set_xticklabels([])
-        else:
-            pass
-            # ax.set_yticklabels([])
 
-        ax.tick_params(axis='y', labelsize=tick_label_fontsize)
+        # Accept default tick values
+        labelcolor = 'black' if turn_xaxis_labels_off else 'white'
+        color = 'black' if turn_xaxis_labels_off else 'white'
+        ax.tick_params(axis='y', labelsize=tick_label_fontsize, labelcolor = labelcolor, color=color)
 
         # Enable grid lines for major and minor ticks
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')

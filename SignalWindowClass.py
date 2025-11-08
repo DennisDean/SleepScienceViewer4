@@ -942,7 +942,7 @@ class SignalWindow(QMainWindow):
         multitaper_spectrogram_obj = signal_analysis_obj.multitapper_spectrogram()
 
         # Plot signal heatmap
-        multitaper_spectrogram_obj.plot_data(self.ui.graphicsView_spectrogram,
+        multitaper_spectrogram_obj.plot_data(self.graphicsView_spectrogram,
                                         double_click_callback=self.on_spectrogram_double_click)
         self.multitaper_spectrogram_obj = multitaper_spectrogram_obj
 
