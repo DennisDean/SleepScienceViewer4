@@ -1012,7 +1012,7 @@ class SleepStages:
         ax.xaxis.set_minor_locator(MultipleLocator(x_minor_tict_dist))
 
         # Format major tick labels as "1h", "2h", etc.
-        def format_hours(x):
+        def format_hours(x, _pos):
             hours = int(x / 3600)
             return f'{hours}h' if hours > 0 else ''
 

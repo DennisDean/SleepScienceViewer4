@@ -1,14 +1,15 @@
 # Core GUI Framework
-PySide6==6.9.2
+pyside6==6.10.0
+PySide6==6.10.0
 
 # Data Processing & Analysis
-numpy==2.3.3
-pandas==2.3.2
-scipy==1.16.2
+numpy==2.3.4
+pandas==2.3.3
+scipy==1.16.3
 pyrsdameraulevenshtein==1.1.0
 
 # Visualization
-matplotlib==3.10.6
+matplotlib==3.10.7
 cmocean==4.0.3
 colorcet==3.1.0
 
@@ -19,13 +20,13 @@ gatspy==0.3
 
 # File Handling
 openpyxl==3.1.5
-lxml==6.0.1
+lxml==6.0.2
 
 # Utilities
 requests==2.32.5
-cryptography==46.0.1
+cryptography==46.0.3
 joblib==1.5.2
-psutil==7.1.0
+psutil==7.1.3
 python-dateutil==2.9.0.post0
 pytz==2025.2
 sympy==1.14.0
