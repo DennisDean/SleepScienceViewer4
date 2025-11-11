@@ -1647,6 +1647,9 @@
     <addaction name="actionOpen_Edf"/>
     <addaction name="actionOpen_XML"/>
     <addaction name="separator"/>
+    <addaction name="actionCreate_Batch_File"/>
+    <addaction name="actionOpen_Batch_File"/>
+    <addaction name="separator"/>
     <addaction name="actionSettings"/>
    </widget>
    <widget class="QMenu" name="menuGenerate">
@@ -1750,6 +1753,16 @@
   <action name="actionOpen_Spectral_Window">
    <property name="text">
     <string>Open Spectral Window</string>
+   </property>
+  </action>
+  <action name="actionCreate_Batch_File">
+   <property name="text">
+    <string>Create Batch File</string>
+   </property>
+  </action>
+  <action name="actionOpen_Batch_File">
+   <property name="text">
+    <string>Open Batch File</string>
    </property>
   </action>
  </widget>

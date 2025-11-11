@@ -31,16 +31,24 @@ class FigureGraphicsView(QGraphicsView):
         self.figure = None
         self.canvas_item = None
     # --- Optional if you embed figures dynamically ---
+    # def set_figure(self, figure):
+    #     if self.canvas_item:
+    #         self.scene.removeItem(self.canvas_item)
+    #     self.figure = figure
+    #     canvas = FigureCanvas(figure)
+    #     self.scene.addWidget(canvas)
+    #     canvas.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.fixed)
+    #     canvas.updateGeometry()
+    #     self.canvas_item = canvas
     def set_figure(self, figure):
         if self.canvas_item:
             self.scene.removeItem(self.canvas_item)
         self.figure = figure
-        canvas = FigureCanvas(figure)
+        canvas = CustomFigureCanvas(figure, parent_view=self)
         self.scene.addWidget(canvas)
-        canvas.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.fixed)
+        canvas.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         canvas.updateGeometry()
         self.canvas_item = canvas
-
     # --- Right-click context menu ---
     def contextMenuEvent(self, event):
         menu = QMenu(self)

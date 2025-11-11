@@ -198,7 +198,7 @@ Right-clicking on any figure opens a **file save dialog** that allows you to res
 
 <p align="center">    
 <img src="Media/exported_hypnogram.png"  width="500" style="border: 2px solid grey;" /><br>
-<b>Figure 10.</b> Resized hypnogram with larger axis labels, ready for presentation or publication.
+<b>Figure 12.</b> Resized hypnogram with larger axis labels, ready for presentation or publication.
 </p>
 
 

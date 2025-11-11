@@ -993,13 +993,13 @@ class EdfSignals:
         ax.grid(axis='x', which='major', linestyle='-', linewidth=1, color='gray')
         ax.grid(axis='x', which='minor', linestyle='--', linewidth=0.5, color='darkgray')
 
-        # Remove ticks and labels, but preserve gridlines
+        # Turn on bounding box
         for spine in ax.spines.values():
-            spine.set_visible(False)
+            spine.set_visible(True)
 
         # Compute vertical padding (5% headroom above and below)
         if turn_xaxis_labels_off:
-            fig.subplots_adjust(left=.03, right=0.99, top=0.92, bottom=0.05)
+            fig.subplots_adjust(left=.03, right=0.99, top=0.9, bottom=0.05)
         else:
             fig.subplots_adjust(left=.03, right=0.99, top=0.93, bottom=0.35)
 
@@ -1034,7 +1034,7 @@ class EdfSignals:
                 existing_layout = QVBoxLayout(parent_widget)
                 parent_widget.setLayout(existing_layout)
 
-            existing_layout.setContentsMargins(0, 0, 0, 0)
+            existing_layout.setContentsMargins(0, 0, 0.02, 0.98)
             existing_layout.addWidget(canvas)
 
     # Python
