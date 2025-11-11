@@ -19,6 +19,12 @@
      <layout class="QVBoxLayout" name="verticalLayout_master">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_file_commands">
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
+        </property>
         <item>
          <widget class="QTextEdit" name="load_edf_textEdit">
           <property name="sizePolicy">
@@ -230,6 +236,12 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_hypnogram">
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
+        </property>
         <item>
          <widget class="QGraphicsView" name="hypnogram_graphicsView">
           <property name="sizePolicy">
@@ -383,6 +395,12 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
+        </property>
         <item>
          <widget class="QGraphicsView" name="spectrogram_graphicsView">
           <property name="sizePolicy">
@@ -441,6 +459,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_spectrogram_command_2">
               <property name="spacing">
                <number>1</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
               </property>
               <item alignment="Qt::AlignTop">
                <widget class="QPushButton" name="compute_spectrogram_pushButton">
@@ -541,6 +562,12 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_annotation_plot">
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
+        </property>
         <item>
          <widget class="QGraphicsView" name="graphicsView_annotation">
           <property name="sizePolicy">
