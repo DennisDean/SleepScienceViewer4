@@ -981,8 +981,26 @@ class EdfSignals:
         # Set labels only for major ticks
         ax.set_xticklabels([f"{convert_time_f(x)}{time_axis_units}" for x in major_ticks],
                                fontsize=tick_label_fontsize)
+        #if turn_xaxis_labels_off:
+        #    ax.set_xticklabels([])
         if turn_xaxis_labels_off:
-            ax.set_xticklabels([])
+            # Ensure labels are “active” for layout
+            ax.tick_params(axis='x', labelbottom=True)
+
+            # Get axes position in figure coordinates
+            bbox = ax.get_position()
+            y_axes_bottom = bbox.y0
+
+            # Move x-axis labels slightly below the axes (5% of axes height)
+            offset = 0.2 * bbox.height
+            for label in ax.get_xticklabels():
+                label.set_y(y_axes_bottom - offset)
+
+            # Shrink bottom margin to keep labels off-screen
+            fig.subplots_adjust(bottom=0.01)
+        else:
+            # Normal bottom margin
+            fig.subplots_adjust(bottom=0.35)
 
         # Accept default tick values
         labelcolor = 'black' if turn_xaxis_labels_off else 'white'
