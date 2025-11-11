@@ -1441,8 +1441,9 @@ class MultitaperSpectrogram:
 
         # Add band group labels below
         for center, band in zip(band_centers, band_names):
-            ax.text(center, 0.045, band, ha='center', va='top', fontsize=label_fontsize,
+            ax.text(center, 0.01, band, ha='center', va='bottom', fontsize=label_fontsize,
                     transform=ax.get_xaxis_transform())
+        ax.set_ylim(bottom=-0.05)
 
         ax.set_xlabel('')
         ax.set_ylabel('Average Power',fontsize=label_fontsize)
