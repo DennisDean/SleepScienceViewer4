@@ -1,6 +1,14 @@
 # Custom Graphic View for Sleep Science Viewer
 # Provides support for right-clicking on figures
 #
+# With in the if parent_widget:
+# Need to tell canvas to use a custom context menu
+#       canvas.setContextMenuPolicy(Qt.CustomContextMenu)
+#       canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
+#
+#       # Assign figure to parent_widget so save dialog knows what to save
+#       parent_widget.figure = fig
+#       parent_widget.canvas_item = canvas
 
 # Import modules
 from PySide6.QtWidgets import (
@@ -62,7 +70,63 @@ class FigureGraphicsView(QGraphicsView):
         if action == save_action:
             self.open_save_dialog()
 
-    # --- Save dialog ---
+    # def open_save_dialog(self):
+    #     """Open a dialog box to save the currently displayed Matplotlib figure."""
+    #     if self.figure is None:
+    #         return
+    #
+    #     from PySide6.QtWidgets import QDialog, QFormLayout, QDoubleSpinBox, QLineEdit, QPushButton, QFileDialog
+    #
+    #     dialog = QDialog(self)
+    #     dialog.setWindowTitle("Save Figure")
+    #
+    #     layout = QFormLayout(dialog)
+    #
+    #     # --- Width & Height controls
+    #     width_spin = QDoubleSpinBox()
+    #     width_spin.setRange(1.0, 50.0)
+    #     width_spin.setValue(self.figure.get_size_inches()[0])
+    #
+    #     height_spin = QDoubleSpinBox()
+    #     height_spin.setRange(1.0, 50.0)
+    #     height_spin.setValue(self.figure.get_size_inches()[1])
+    #
+    #     # --- DPI control
+    #     dpi_spin = QDoubleSpinBox()
+    #     dpi_spin.setRange(50, 1200)
+    #     dpi_spin.setValue(self.figure.get_dpi())
+    #
+    #     # --- Title control
+    #     title_edit = QLineEdit()
+    #     title_edit.setPlaceholderText("Optional: figure title")
+    #
+    #     # Add widgets to layout
+    #     layout.addRow("Width (inches):", width_spin)
+    #     layout.addRow("Height (inches):", height_spin)
+    #     layout.addRow("DPI:", dpi_spin)
+    #     layout.addRow("Title:", title_edit)
+    #
+    #     # --- Save button
+    #     save_button = QPushButton("Save")
+    #     layout.addRow(save_button)
+    #
+    #     def save_figure():
+    #         file_path, _ = QFileDialog.getSaveFileName(
+    #             self, "Save Figure", "", "PNG Files (*.png);;PDF Files (*.pdf);;SVG Files (*.svg)"
+    #         )
+    #         if file_path:
+    #             # Apply any title text
+    #             if title_edit.text():
+    #                 self.figure.suptitle(title_edit.text())
+    #
+    #             # Resize and save
+    #             self.figure.set_size_inches(width_spin.value(), height_spin.value())
+    #             self.figure.savefig(file_path, dpi=dpi_spin.value(), bbox_inches='tight')
+    #             dialog.accept()
+    #
+    #     save_button.clicked.connect(save_figure)
+    #     dialog.exec()
+    #--- Save dialog ---
     def open_save_dialog(self):
         if self.figure is None:
             return

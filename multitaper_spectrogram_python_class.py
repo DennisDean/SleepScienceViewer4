@@ -1344,6 +1344,14 @@ class MultitaperSpectrogram:
             canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
 
+            # Set a custom context windwo
+            canvas.setContextMenuPolicy(Qt.CustomContextMenu)
+            canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
+
+            # Assign figure to parent_widget so save dialog knows what to save
+            parent_widget.figure = fig
+            parent_widget.canvas_item = canvas
+
             # Store canvas reference
             self.current_spectrogram_canvas = canvas
 
@@ -1448,6 +1456,14 @@ class MultitaperSpectrogram:
             canvas = FigureCanvas(fig)
             canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             canvas.updateGeometry()
+
+            # Set a custom context windwo
+            canvas.setContextMenuPolicy(Qt.CustomContextMenu)
+            canvas.customContextMenuRequested.connect(parent_widget.show_context_menu)
+
+            # Assign figure to parent_widget so save dialog knows what to save
+            parent_widget.figure = fig
+            parent_widget.canvas_item = canvas
 
             # Store canvas reference
             self.current_spectrogram_canvas = canvas
