@@ -25,6 +25,7 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
+from pandas.io.formats.printing import enable_data_resource_formatter
 
 # To Do List
 # ToDo: Add show menu for consistency allowing user to turn off file menu
@@ -45,13 +46,14 @@ from PySide6.QtWidgets import QListWidgetItem
 
 # System Import
 import os
+import re
 import sys
 import math
 from functools import partial
 from logging_config import logger
 
 # Utilities
-import pyrsdameraulevenshtein as dl
+from pyxdameraulevenshtein import damerau_levenshtein_distance
 
 # Analysis
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
@@ -64,6 +66,7 @@ from EdfFileClass import EdfSignalAnalysis, EdfFile
 from SleepScienceViewer import Ui_MainWindow
 from SignalWindowClass import SignalWindow
 from SpectralWindowClass import SpectralWindow
+from CreateBatchFileClass import Ui_Dialog
 
 # Dialog Boxes
 class EDFInfoDialog(QDialog):
@@ -178,6 +181,243 @@ class SaveFigureDialog(QDialog):
         except ValueError:
             width, height, dpi = 6, 4, 150
         return width, height, dpi
+class CreateBatchFileDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+
+
+        # Define Variables
+        self.folder_path:str|None = None
+        self.subject_id_approach:str|None = None
+        self.subject_id_list:list|None = None
+        self.subject_prefix:str|None = None
+
+        # Set buttons to start
+        self.set_controls_to_start()
+
+        # Set up file selection
+        self.edf_files:str|None = None
+        self.xml_files:str|None = None
+        self.ui.pushButton_select_batch_folder.clicked.connect(self.select_edf_xml_folder)
+
+        # Setup ratio buttong
+        self.ui.radioButton_edf.toggled.connect(self.subject_id_radio_button)
+        self.ui.radioButton_generate.toggled.connect(self.subject_id_radio_button)
+        self.ui.radioButton_extract.toggled.connect(self.subject_id_radio_button)
+
+        # Assign result box
+        all_families = QFontDatabase.families()
+        monospace_fonts = [f for f in all_families if QFontDatabase.isFixedPitch(f)]
+        selected_font = monospace_fonts[0] if monospace_fonts else "Courier"
+        font = QFont(selected_font, 10)
+        font.setStyleHint(QFont.StyleHint.Monospace)
+        self.ui.textEdit_result_box.setFont(font)
+
+    # Set up dialog controls and defaults
+    def set_controls_to_start(self):
+        # Set button to starting value
+        self.ui.pushButton_select_batch_folder.setEnabled(True)
+
+        # Set radio button to start
+        self.ui.radioButton_generate.setChecked(True)
+        self.subject_id_radio_button()
+
+        # Set up subject prefix to start
+        self.subject_prefix = 'subject'
+        self.ui.plainTextEdit_subject_prefix.setPlainText(self.subject_prefix)
+
+        # Set Button Box Values
+        ok_button = self.ui.buttonBox.button(QDialogButtonBox.Ok)
+        ok_button.setEnabled(False)
+        cancel_button = self.ui.buttonBox.button(QDialogButtonBox.Cancel)
+        cancel_button.setEnabled(False)
+    def subject_id_radio_button(self):
+        if self.ui.radioButton_edf.isChecked():
+            self.subject_id_approach = 'EDF'
+            set_layout_visible(self.ui.verticalLayout_generate_options, False)
+            set_layout_visible(self.ui.verticalLayout_extract_subject_id_function, False)
+        elif self.ui.radioButton_extract.isChecked():
+            self.subject_id_approach = 'EXTRACT'
+            set_layout_visible(self.ui.verticalLayout_generate_options, False)
+            set_layout_visible(self.ui.verticalLayout_extract_subject_id_function, True)
+        elif self.ui.radioButton_generate.isChecked():
+            self.subject_id_approach = 'GENERATE'
+            set_layout_visible(self.ui.verticalLayout_generate_options, True)
+            set_layout_visible(self.ui.verticalLayout_extract_subject_id_function, False)
+
+    # Get and process user requrest
+    def select_edf_xml_folder(self):
+        folder = QFileDialog.getExistingDirectory(
+            self,
+            "Select Folder Containing EDF and XML Files"
+        )
+
+        if not folder:
+            msg = 'Data folder selection canceled'
+            self.ui.lineEditload_message.setText(msg)
+            return None, None  # user canceled
+
+        self.folder_path = folder
+        self.ui.plainTextEdit_selected_folder.setPlainText(folder)
+
+
+        # Gather EDF and XML files (case-insensitive)
+        edf_files = []
+        xml_files = []
+
+        for fname in os.listdir(folder):
+            lower = fname.lower()
+            full_path = os.path.join(folder, fname)
+
+            if os.path.isfile(full_path):
+                if lower.endswith(".edf"):
+                    edf_files.append(fname)
+                elif lower.endswith(".xml"):
+                    xml_files.append(fname)
+
+        # Save file information
+        self.edf_files = edf_files
+        self.xml_files = xml_files
+        self.subject_id_list = self.get_subject_ids()
+        check_passed = self.check_edf_xml_file_lists()
+        if not check_passed:
+            check_passed = self.align_file_subject_lists()
+            logger.info('EDF and XML file lengths are different lengths')
+
+        # align file, simple sort, sving just in case
+        file_text_summary = self.generate_text_summary()
+        self.ui.textEdit_result_box.setText(file_text_summary)
+
+        # # Better align file
+        # aligned_records = self.build_record_table(self.subject_id_list, self.edf_files , self.xml_files)
+        # for idx, subject_id  in enumerate(self.subject_id_list):
+        #     record_dict = aligned_records[subject_id]
+        #     self.edf_files[idx] = record_dict['edf']
+        #     self.xml_files[idx] = record_dict['xml']
+        # file_text_summary = self.generate_text_summary()
+        # self.ui.textEdit_result_box.setText(file_text_summary)
+
+    # Support user folder request
+    def get_subject_ids(self, id_num_start:int|None = None):
+        # Define subject list return value
+        subject_id_list = []
+
+        # Check inputs
+        num_of_ids = max(len(self.edf_files), len(self.xml_files))
+        if num_of_ids<= 0 :
+            return subject_id_list
+        if id_num_start == None:
+            id_num_start = 1
+        id_str_width = len(str(num_of_ids+id_num_start))+2
+
+        # Get or generate subject ids
+        if self.ui.radioButton_generate.isChecked():
+            subject_prefix = self.ui.plainTextEdit_subject_prefix.toPlainText()
+            if not subject_prefix:
+                subject_prefix = 'subject'
+
+            subject_id_list = [ f'{subject_prefix}_{(idx+id_num_start):0{id_str_width}d}' for idx in range(num_of_ids)]
+        elif self.ui.radioButton_extract.isChecked():
+            logger.info('Extracting subject id from edf file name')
+            subject_id_list = []
+        elif self.ui.radioButton_edf.isChecked():
+            logger.info('Extracting subject id from edf file header')
+            subject_id_list = []
+
+        return subject_id_list
+    def extract_num_only(self, filename):
+        """
+        Extracts first integer from filename and returns it as an int.
+        """
+        m = re.search(r"(\d+)", filename)
+        return int(m.group(1)) if m else None
+    def best_match(self, target, candidates, max_distance=5):
+        """
+        Returns the closest string from candidates based on DL distance.
+        If no match is close enough, return None.
+        """
+        if not candidates:
+            return None
+
+        best = min(candidates, key=lambda c: damerau_levenshtein_distance(target, c))
+        distance = damerau_levenshtein_distance(target, best)
+
+        return best if distance <= max_distance else None
+    def build_record_table(self, subjects, edf_list, xml_list):
+
+        edf_map = {self.extract_num_only(f): f for f in edf_list}
+        xml_map = {self.extract_num_only(f): f for f in xml_list}
+
+        record_table = {}
+
+        for subj in subjects:
+            subj_num = self.extract_num_only(subj)
+
+            record_table[subj] = {
+                "edf": edf_map.get(subj_num, "missing_file"),
+                "xml": xml_map.get(subj_num, "missing_file")
+            }
+
+        return record_table
+    def check_edf_xml_file_lists(self)->bool:
+        check:bool = True
+        if self.edf_files is None or self.xml_files is None:
+            msg = 'Could not generate an EDF and/or XML file list'
+            self.ui.lineEditload_message.setText(msg)
+            check = False
+        elif len(self.edf_files) != len(self.xml_files):
+            msg = f'EDF ({len(self.edf_files)}) and XML ({len(self.xml_files)}) files are different lengths'
+            self.ui.lineEditload_message.setText(msg)
+            check = False
+        else:
+            msg = 'No loading error detected, Check lists before saving batch file'
+            self.ui.lineEditload_message.setText(msg)
+
+        return check
+    def align_file_subject_lists(self)->bool:
+        # Sort list then matchlist
+
+        # Return value
+        check = True
+        missing_string = 'missing_file'
+
+        # Asume alignment is possible by sorting
+        self.edf_files.sort()
+        self.xml_files.sort()
+
+        # Make sure lists are the same length, append empty string to align
+        max_length = max(len(self.edf_files), len(self.xml_files), len(self.subject_id_list))
+        if max_length != len(self.edf_files):
+            num_to_add = max_length-len(self.edf_files)
+            for i in range(num_to_add):
+                self.edf_files.append(missing_string)
+            check = False
+            msg = 'Subject and file lists do not align'
+            self.ui.lineEditload_message.setText(msg)
+        if max_length != len(self.xml_files):
+            num_to_add = max_length-len(self.xml_files)
+            for i in range(num_to_add):
+                self.xml_files.append(missing_string)
+            check = False
+            msg = 'Subject and file lists do not align'
+            self.ui.lineEditload_message.setText(msg)
+
+        # Return check
+        return check
+    def generate_text_summary(self):
+        subj_file_txt = ''
+        max_subj_id_len = max([len(s) for s in self.subject_id_list])
+        max_edf_fn_len = max([len(s) for s in self.edf_files])
+        max_xml_fn_len = max([len(s) for s in self.xml_files])
+        for idx, (subj_id, edf_fn, xml_fn) in enumerate(zip(self.subject_id_list, self.edf_files, self.xml_files)):
+            print(edf_fn)
+            subj_file_txt += f'{subj_id:<{max_subj_id_len}}  {edf_fn:<{max_edf_fn_len}}  {xml_fn:<{max_xml_fn_len}}\n'
+
+        print(subj_file_txt)
+
+        return subj_file_txt
 
 # utilities
 def clear_spectrogram_plot(parent_widget = None):
@@ -485,6 +725,9 @@ class MainApp(QMainWindow):
         self.ui.pushButton_show_hypnogram.clicked.connect(self.show_hypnogram_push)
         self.ui.pushButton_show_annotation.clicked.connect(self.show_annotation_push)
 
+        # Connect create batch file menu item
+        self.ui.actionCreate_Batch_File.triggered.connect(self.create_batch_file_menu_item)
+        self.create_batch_file_window = None
     # Overide event handler
     def event(self, event):
         # Handle macOS-style file open events (fires when user double-clicks .edf)
@@ -1822,6 +2065,14 @@ class MainApp(QMainWindow):
         self.load_edf_file()
     def open_xml_menu_item(self):
         self.load_xml_file()
+    def create_batch_file_menu_item(self):
+        # Write to log
+        logger.info(f'Opening create batch file dialog')
+
+        # Open Dialog
+        self.create_batch_file_window = CreateBatchFileDialog(self)
+        self.create_batch_file_window.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.create_batch_file_window.show()
     def settings_menu_item(self):
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Info")
