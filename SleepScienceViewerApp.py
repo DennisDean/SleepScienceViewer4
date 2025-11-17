@@ -287,17 +287,22 @@ class CreateBatchFileDialog(QDialog):
             logger.info('EDF and XML file lengths are different lengths')
 
         # align file, simple sort, sving just in case
-        file_text_summary = self.generate_text_summary()
-        self.ui.textEdit_result_box.setText(file_text_summary)
+        file_text_summary_by_sort = self.generate_text_summary()
+        self.ui.textEdit_result_box.setText(file_text_summary_by_sort)
 
-        # # Better align file
-        # aligned_records = self.build_record_table(self.subject_id_list, self.edf_files , self.xml_files)
-        # for idx, subject_id  in enumerate(self.subject_id_list):
-        #     record_dict = aligned_records[subject_id]
-        #     self.edf_files[idx] = record_dict['edf']
-        #     self.xml_files[idx] = record_dict['xml']
-        # file_text_summary = self.generate_text_summary()
-        # self.ui.textEdit_result_box.setText(file_text_summary)
+        # Better align file
+        aligned_records, check = self.build_record_table(self.subject_id_list, self.edf_files , self.xml_files)
+        print(aligned_records)
+        print(check)
+        if check:
+            for idx, subject_id  in enumerate(self.subject_id_list):
+                record_dict = aligned_records[subject_id]
+                self.edf_files[idx] = record_dict['edf']
+                self.xml_files[idx] = record_dict['xml']
+            file_text_summary = self.generate_text_summary()
+            self.ui.textEdit_result_box.setText(file_text_summary)
+        else:
+            file_text_summary = file_text_summary_by_sort
 
     # Support user folder request
     def get_subject_ids(self, id_num_start:int|None = None):
@@ -347,11 +352,12 @@ class CreateBatchFileDialog(QDialog):
         return best if distance <= max_distance else None
     def build_record_table(self, subjects, edf_list, xml_list):
 
+        # Generate mapping function by subject numeric value
         edf_map = {self.extract_num_only(f): f for f in edf_list}
         xml_map = {self.extract_num_only(f): f for f in xml_list}
 
+        # Check for subject numbers in file name and count # of missing
         record_table = {}
-
         for subj in subjects:
             subj_num = self.extract_num_only(subj)
 
@@ -360,7 +366,20 @@ class CreateBatchFileDialog(QDialog):
                 "xml": xml_map.get(subj_num, "missing_file")
             }
 
-        return record_table
+        # Count missing entries
+        num_missing_edf = 0
+        num_missing_xml = 0
+        for subj in subjects:
+            # Keep track of missing values
+            rec_dict = record_table[subj]
+            num_missing_edf += 1 if rec_dict.get('edf') == "missing_file" else 0
+            num_missing_xml += 1 if rec_dict.get('xml') == "missing_file" else 0
+
+        # Check if number of missing values is complete would happen if numbers are not used to
+        # differentiat files. List will result in a sorted list.
+        check = 0 if (num_missing_edf + num_missing_xml) == 2*len(subjects) else 1
+
+        return record_table, check
     def check_edf_xml_file_lists(self)->bool:
         check:bool = True
         if self.edf_files is None or self.xml_files is None:
@@ -412,10 +431,7 @@ class CreateBatchFileDialog(QDialog):
         max_edf_fn_len = max([len(s) for s in self.edf_files])
         max_xml_fn_len = max([len(s) for s in self.xml_files])
         for idx, (subj_id, edf_fn, xml_fn) in enumerate(zip(self.subject_id_list, self.edf_files, self.xml_files)):
-            print(edf_fn)
             subj_file_txt += f'{subj_id:<{max_subj_id_len}}  {edf_fn:<{max_edf_fn_len}}  {xml_fn:<{max_xml_fn_len}}\n'
-
-        print(subj_file_txt)
 
         return subj_file_txt
 
@@ -1252,7 +1268,6 @@ class MainApp(QMainWindow):
             # Plot annotations
             total_time_in_seconds = self.annotation_xml_obj.sleep_stages_obj.time_seconds
             cur_annotation_setting = self.ui.annotation_comboBox.currentText()
-            # print(f'cur_annotation_setting = "{cur_annotation_setting}"')
             self.annotation_xml_obj.scored_event_obj.plot_annotation(total_time_in_seconds,
                                                 self.graphicsView_annotation,
                                                 annotation_filter = cur_annotation_setting,
@@ -1493,7 +1508,6 @@ class MainApp(QMainWindow):
         process_eeg = False
         if self.edf_file_obj is not None:
             process_eeg = self.show_ok_cancel_dialog()
-            # print(f'process_eeg = {process_eeg}')
         else:
             logger.info(f'EDF file not loaded. Can not compute spectrogram.')
 
