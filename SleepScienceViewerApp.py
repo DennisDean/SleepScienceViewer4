@@ -50,10 +50,12 @@ import os
 import re
 import sys
 import math
-import socket
+from pathlib import Path
 from datetime import datetime
 from functools import partial
 from logging_config import logger
+import xml.etree.ElementTree as ET
+import xml.dom.minidom as minidom
 
 # Utilities
 from pyxdameraulevenshtein import damerau_levenshtein_distance
@@ -223,15 +225,14 @@ class CreateBatchFileDialog(QDialog):
         self.ui.textEdit_result_box.setFont(font)
 
         # Define results to save to file
+        self.batch_file_extension:str = 'batch.xml'
         self.date:str|None = None
         self.time:str|None = None
         self.computer_name:str|None = None
         self.hard_disk_name:str|None = None
-        self.folder:str|None = None
         self.edf_files:list|None = None
         self.xml_files:list|None = None
         self.subject_id_list:list|None = None
-
 
     # Set up dialog controls and defaults
     def set_controls_to_start(self):
@@ -268,15 +269,89 @@ class CreateBatchFileDialog(QDialog):
         logger.info('Closing batch file creation dialog button')
         super().reject()
     def ok_button_response(self):
+        # Information to write
         title = 'Sleep Science Viewer Batch File'
         date = datetime.now().strftime('%Y-%m-%d')
         time = datetime.now().strftime('%H:%M:%S')
-        folder = self.folder
+        folder_path = self.folder_path
         subject_id_list = self.subject_id_list
         edf_files = self.edf_files
         xml_files = self.xml_files
+        batch_ext = self.batch_file_extension
 
+        # Get last past
+        propose_last_folder_name = sanitize_filename(Path(folder_path).name)
+        propose_last_folder_name += '.'
+        propose_last_folder_name += batch_ext
+        propose_last_folder_name.lower()
 
+        # Open file dialog to select save location
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            "Save Batch File",
+            os.path.join(folder_path, propose_last_folder_name),  # Start in the same folder
+            "XML Files (*.xml);;All Files (*)"
+        )
+
+        # If user cancelled, return
+        if not file_path:
+            return
+
+        # Ensure .xml extension
+        if not file_path.endswith(batch_ext):
+            file_path += batch_ext
+
+        try:
+            # Create XML structure
+            root = ET.Element('BatchFile')
+
+            # Add metadata
+            ET.SubElement(root, 'Title').text = title
+            ET.SubElement(root, 'Date').text = date
+            ET.SubElement(root, 'Time').text = time
+            ET.SubElement(root, 'Folder').text = folder_path
+
+            # Add subject IDs
+            subjects = ET.SubElement(root, 'SubjectIDs')
+            for subject_id in subject_id_list:
+                ET.SubElement(subjects, 'SubjectID').text = str(subject_id)
+
+            # Add EDF files
+            edf_section = ET.SubElement(root, 'EDFFiles')
+            for edf_file in edf_files:
+                ET.SubElement(edf_section, 'File').text = str(edf_file)
+
+            # Add XML files
+            xml_section = ET.SubElement(root, 'XMLFiles')
+            for xml_file in xml_files:
+                ET.SubElement(xml_section, 'File').text = str(xml_file)
+
+            # Convert to pretty XML string
+            xml_string = ET.tostring(root, encoding='unicode')
+            dom = minidom.parseString(xml_string)
+            pretty_xml = dom.toprettyxml(indent="  ")
+
+            # Write to file
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(pretty_xml)
+
+            # Show success message
+            QMessageBox.information(
+                self,
+                "Success",
+                f"Batch file created successfully:\n{file_path}"
+            )
+
+            # Close the dialog
+            self.accept()
+
+        except Exception as e:
+            # Show error message if something goes wrong
+            QMessageBox.critical(
+                self,
+                "Error",
+                f"Failed to create batch file:\n{str(e)}"
+            )
 
     # Get and process user requrest
     def select_edf_xml_folder(self):
@@ -305,7 +380,7 @@ class CreateBatchFileDialog(QDialog):
             if os.path.isfile(full_path):
                 if lower.endswith(".edf"):
                     edf_files.append(fname)
-                elif lower.endswith(".xml"):
+                elif lower.endswith(".xml") and not lower.endswith(self.batch_file_extension):
                     xml_files.append(fname)
 
         # Save file information
@@ -499,6 +574,29 @@ def set_layout_visible(layout, visible: bool):
         if nested_layout:
             # Recursively process the nested layout
             set_layout_visible(nested_layout, visible)
+def sanitize_filename(filename):
+    """
+    Make a filename safe by replacing spaces and non-alphanumeric characters.
+
+    Args:
+        filename: The original filename string
+
+    Returns:
+        A sanitized filename string
+    """
+    # Replace spaces with underscores
+    safe_name = filename.replace(' ', '_')
+
+    # Keep only alphanumeric characters, underscores, hyphens, and dots
+    safe_name = re.sub(r'[^\w\-.]', '_', safe_name)
+
+    # Remove multiple consecutive underscores
+    safe_name = re.sub(r'_+', '_', safe_name)
+
+    # Remove leading/trailing underscores
+    safe_name = safe_name.strip('_')
+
+    return safe_name.lower()
 class NumericTextEditFilter(QObject):
     enterPressed = Signal()
     def eventFilter(self, obj, event):
