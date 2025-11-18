@@ -261,25 +261,6 @@ def toggle_layout(layout):
     visible = not is_first_nonlayout_widget_visible(layout)
     set_layout_visible(layout, visible)
     logger.info(f'Setting {layout} viability setting to {visible}')
-
-# Utility Classes
-class NumericTextEditFilter(QObject):
-    enterPressed = Signal()
-    def __init__(self, parent=None):
-        super().__init__(parent)
-    def eventFilter(self, obj, event):
-        if event.type() == QEvent.Type.KeyPress and isinstance(event, QKeyEvent):
-            if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:  # Qt.Key.Key_Return in PySide6
-                self.enterPressed.emit()  # Emit signal when Enter is pressed
-                return True  # Consume the event so it doesn't insert a newline
-            if event.key() == Qt.Key.Key_Backspace or event.key() == Qt.Key.Key_Delete:
-                return False  # Allow backspace and delete
-            if event.text().isdigit():
-                return False  # Allow digits
-            else:
-                return True  # Filter out non-numeric input
-
-        return False
 def clear_spectrogram_plot(parent_widget = None):
     layout = parent_widget.layout()
     if layout:
@@ -325,6 +306,25 @@ def make_dict_from_list(list_labels, list_entries, exisiting_dict:dict|None=None
         return_dict[lkey] = lentry
 
     return return_dict
+
+# Utility Classes
+class NumericTextEditFilter(QObject):
+    enterPressed = Signal()
+    def __init__(self, parent=None):
+        super().__init__(parent)
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.Type.KeyPress and isinstance(event, QKeyEvent):
+            if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:  # Qt.Key.Key_Return in PySide6
+                self.enterPressed.emit()  # Emit signal when Enter is pressed
+                return True  # Consume the event so it doesn't insert a newline
+            if event.key() == Qt.Key.Key_Backspace or event.key() == Qt.Key.Key_Delete:
+                return False  # Allow backspace and delete
+            if event.text().isdigit():
+                return False  # Allow digits
+            else:
+                return True  # Filter out non-numeric input
+
+        return False
 
 # Set up a module-level logger
 logger = logging.getLogger(__name__)
