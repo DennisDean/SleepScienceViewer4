@@ -25,6 +25,7 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
+from more_itertools.more import padded
 from pandas.io.formats.printing import enable_data_resource_formatter
 
 # To Do List
@@ -49,6 +50,8 @@ import os
 import re
 import sys
 import math
+import socket
+from datetime import datetime
 from functools import partial
 from logging_config import logger
 
@@ -195,7 +198,11 @@ class CreateBatchFileDialog(QDialog):
         self.subject_prefix:str|None = None
 
         # Set buttons to start
+        self.ok_button:QPushButton|None = None
+        self.cancel_button:QPushButton|None = None
         self.set_controls_to_start()
+        self.ok_button.clicked.connect(self.ok_button_response)
+        self.cancel_button.clicked.connect(self.cancel_button_response)
 
         # Set up file selection
         self.edf_files:str|None = None
@@ -215,6 +222,17 @@ class CreateBatchFileDialog(QDialog):
         font.setStyleHint(QFont.StyleHint.Monospace)
         self.ui.textEdit_result_box.setFont(font)
 
+        # Define results to save to file
+        self.date:str|None = None
+        self.time:str|None = None
+        self.computer_name:str|None = None
+        self.hard_disk_name:str|None = None
+        self.folder:str|None = None
+        self.edf_files:list|None = None
+        self.xml_files:list|None = None
+        self.subject_id_list:list|None = None
+
+
     # Set up dialog controls and defaults
     def set_controls_to_start(self):
         # Set button to starting value
@@ -229,10 +247,10 @@ class CreateBatchFileDialog(QDialog):
         self.ui.plainTextEdit_subject_prefix.setPlainText(self.subject_prefix)
 
         # Set Button Box Values
-        ok_button = self.ui.buttonBox.button(QDialogButtonBox.Ok)
-        ok_button.setEnabled(False)
-        cancel_button = self.ui.buttonBox.button(QDialogButtonBox.Cancel)
-        cancel_button.setEnabled(False)
+        self.ok_button = self.ui.buttonBox.button(QDialogButtonBox.Ok)
+        self.ok_button.setEnabled(False)
+        self.cancel_button = self.ui.buttonBox.button(QDialogButtonBox.Cancel)
+        self.cancel_button.setEnabled(False)
     def subject_id_radio_button(self):
         if self.ui.radioButton_edf.isChecked():
             self.subject_id_approach = 'EDF'
@@ -246,6 +264,19 @@ class CreateBatchFileDialog(QDialog):
             self.subject_id_approach = 'GENERATE'
             set_layout_visible(self.ui.verticalLayout_generate_options, True)
             set_layout_visible(self.ui.verticalLayout_extract_subject_id_function, False)
+    def cancel_button_response(self):
+        logger.info('Closing batch file creation dialog button')
+        super().reject()
+    def ok_button_response(self):
+        title = 'Sleep Science Viewer Batch File'
+        date = datetime.now().strftime('%Y-%m-%d')
+        time = datetime.now().strftime('%H:%M:%S')
+        folder = self.folder
+        subject_id_list = self.subject_id_list
+        edf_files = self.edf_files
+        xml_files = self.xml_files
+
+
 
     # Get and process user requrest
     def select_edf_xml_folder(self):
@@ -281,9 +312,9 @@ class CreateBatchFileDialog(QDialog):
         self.edf_files = edf_files
         self.xml_files = xml_files
         self.subject_id_list = self.get_subject_ids()
-        check_passed = self.check_edf_xml_file_lists()
-        if not check_passed:
-            check_passed = self.align_file_subject_lists()
+        check_passed_aligned = self.check_edf_xml_file_lists()
+        if not check_passed_aligned:
+            check_passed_aligned = self.align_file_subject_lists()
             logger.info('EDF and XML file lengths are different lengths')
 
         # align file, simple sort, sving just in case
@@ -291,10 +322,8 @@ class CreateBatchFileDialog(QDialog):
         self.ui.textEdit_result_box.setText(file_text_summary_by_sort)
 
         # Better align file
-        aligned_records, check = self.build_record_table(self.subject_id_list, self.edf_files , self.xml_files)
-        print(aligned_records)
-        print(check)
-        if check:
+        aligned_records, check_subj_num_present = self.build_record_table(self.subject_id_list, self.edf_files , self.xml_files)
+        if check_subj_num_present:
             for idx, subject_id  in enumerate(self.subject_id_list):
                 record_dict = aligned_records[subject_id]
                 self.edf_files[idx] = record_dict['edf']
@@ -302,7 +331,12 @@ class CreateBatchFileDialog(QDialog):
             file_text_summary = self.generate_text_summary()
             self.ui.textEdit_result_box.setText(file_text_summary)
         else:
+            # resetting
             file_text_summary = file_text_summary_by_sort
+
+        # turn on cancel and okl button
+        self.ok_button.setEnabled(True)
+        self.cancel_button.setEnabled(True)
 
     # Support user folder request
     def get_subject_ids(self, id_num_start:int|None = None):
