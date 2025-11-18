@@ -228,6 +228,7 @@ class CreateBatchFileDialog(QDialog):
         self.batch_file_extension:str = 'batch.xml'
         self.date:str|None = None
         self.time:str|None = None
+        self.missing_file_text:str = 'missing_file'
         self.computer_name:str|None = None
         self.hard_disk_name:str|None = None
         self.edf_files:list|None = None
@@ -278,6 +279,7 @@ class CreateBatchFileDialog(QDialog):
         edf_files = self.edf_files
         xml_files = self.xml_files
         batch_ext = self.batch_file_extension
+        missing_file_text = self.missing_file_text
 
         # Get last past
         propose_last_folder_name = sanitize_filename(Path(folder_path).name)
@@ -310,6 +312,7 @@ class CreateBatchFileDialog(QDialog):
             ET.SubElement(root, 'Date').text = date
             ET.SubElement(root, 'Time').text = time
             ET.SubElement(root, 'Folder').text = folder_path
+            ET.SubElement(root, 'Missing_File_Text').text = missing_file_text
 
             # Add subject IDs
             subjects = ET.SubElement(root, 'SubjectIDs')
@@ -460,6 +463,8 @@ class CreateBatchFileDialog(QDialog):
 
         return best if distance <= max_distance else None
     def build_record_table(self, subjects, edf_list, xml_list):
+        # Setup default
+        missing_file_text = self.missing_file_text
 
         # Generate mapping function by subject numeric value
         edf_map = {self.extract_num_only(f): f for f in edf_list}
@@ -471,8 +476,8 @@ class CreateBatchFileDialog(QDialog):
             subj_num = self.extract_num_only(subj)
 
             record_table[subj] = {
-                "edf": edf_map.get(subj_num, "missing_file"),
-                "xml": xml_map.get(subj_num, "missing_file")
+                "edf": edf_map.get(subj_num, missing_file_text),
+                "xml": xml_map.get(subj_num, missing_file_text)
             }
 
         # Count missing entries

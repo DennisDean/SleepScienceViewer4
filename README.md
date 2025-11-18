@@ -201,6 +201,58 @@ Right-clicking on any figure opens a **file save dialog** that allows you to res
 <b>Figure 12.</b> Resized hypnogram with larger axis labels, ready for presentation or publication.
 </p>
 
+## Batch Processing
+Sleep Science Viewer support batch processing of included analysis. 
+
+### Create Batch File
+Select create batch file from 
+A PyQt dialog for creating XML batch files that pair EDF and XML files with subject IDs for batch processing in Sleep Science Viewer.
+
+<p align="center">    
+<img src="Media/create_batch_file_dialog.png"  width="500" style="border: 2px solid grey;" /><br>
+<b>Figure 13.</b> Create batch file dialog box showing one missing file.
+</p>
+
+#### Features
+
+- **Folder Selection**: Browse and select folders containing EDF and XML files
+- **Subject ID Management**: Three approaches for handling subject IDs:
+  - **Generate**: Auto-generate sequential IDs with custom prefix (default: "subject_001", "subject_002", etc.)
+  - **Extract**: Extract IDs from filenames using pattern matching
+  - **EDF**: Extract IDs from EDF file headers
+- Smart File Alignment: Automatically pairs EDF/XML files by:
+  - Numeric extraction from filenames
+  - Damerau-Levenshtein distance matching for similar names
+  - Sorted fallback when numeric matching fails
+- Preview Display: Monospace text preview showing aligned subject IDs with their paired files
+- XML Output: Generates structured batch XML files containing:
+  - Metadata (title, date, time, folder path)
+  - Subject ID list
+  - Paired EDF and XML file lists
+  - Missing file indicators
+
+#### Dialog Controls
+
+- **Select Folder Button**: Choose directory containing EDF/XML files
+- **Subject ID Options**:
+  - Radio buttons to select ID generation method
+  - Custom prefix text field for generated IDs
+- **Preview Box**: Shows alignment of subjects → EDF files → XML files
+- **Status Messages**: Displays alignment warnings and file count mismatches
+- **OK/Cancel Buttons**: Save batch file or cancel operation
+
+#### File Alignment Logic
+1. Attempts numeric matching first (extracts numbers from filenames)
+2. Falls back to alphabetical sorting if numeric matching fails
+3. Pads shorter lists with "missing_file" placeholder
+4. Displays alignment status and warnings
+
+#### Output Format
+Creates .batch.xml files with pretty-printed XML structure for easy batch processing of sleep study data.
+
+### Open Batch File Dialog
+
+Coming soon!
 
 ## Known Limitations
 
