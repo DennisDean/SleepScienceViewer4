@@ -25,8 +25,6 @@ This source code is licensed under the GNU Affero General Public License v3.0.
 See the LICENSE file in the root directory of this source tree or visit
 https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 """
-from more_itertools.more import padded
-from pandas.io.formats.printing import enable_data_resource_formatter
 
 # To Do List
 # ToDo: Add show menu for consistency allowing user to turn off file menu
@@ -58,7 +56,7 @@ import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
 
 # Utilities
-from pyxdameraulevenshtein import damerau_levenshtein_distance
+import pyrsdameraulevenshtein as dl
 
 # Analysis
 from multitaper_spectrogram_python_class import MultitaperSpectrogram
@@ -881,6 +879,7 @@ class MainApp(QMainWindow):
         # Connect create batch file menu item
         self.ui.actionCreate_Batch_File.triggered.connect(self.create_batch_file_menu_item)
         self.create_batch_file_window = None
+
     # Overide event handler
     def event(self, event):
         # Handle macOS-style file open events (fires when user double-clicks .edf)
