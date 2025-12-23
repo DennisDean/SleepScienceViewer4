@@ -1018,15 +1018,24 @@ class MainApp(QMainWindow):
         set_layout_visible(self.ui.horizontalLayout_spectrogram_plot,checked)
         set_layout_visible(self.ui.verticalLayout_spectrogram_commands, checked)
         set_layout_visible(self.ui.horizontalLayout_spectrogram_command_2, checked)
+
+        # Set pushbutton check mark appropriately
+        self.ui.pushButton_show_spectrogram.setChecked(checked)
     def show_hypnogram_push(self,checked: bool):
         # Recursively hide widgets in layouts
         set_layout_visible(self.ui.horizontalLayout_hypnogram,checked)
         set_layout_visible(self.ui.verticalLayout_hypnogram_commands, checked)
+
+        # Align pushbutton check mark
+        self.ui.pushButton_show_hypnogram.setChecked(checked)
     def show_annotation_push(self,checked: bool):
         # Recursively hide widgets in layouts
         set_layout_visible(self.ui.horizontalLayout_annotation_plot,checked)
         set_layout_visible(self.ui.horizontalLayout_annotation_commands, checked)
         set_layout_visible(self.ui.verticalLayout_Annotation_List_Widget, checked)
+
+        # Align pushbutton check status
+        self.ui.pushButton_show_annotation.setChecked(checked)
 
     # Initialize EDF
     def load_edf_file(self):
@@ -1093,6 +1102,10 @@ class MainApp(QMainWindow):
             # Turn on signal
             set_layout_visible(self.ui.horizontalLayout_signals, True)
             self.graphicsView_x_axis.setMaximumHeight(40)
+            self.show_annotation_push(False)
+
+            # Turn off Hypnogram and Annotation
+            self.show_hypnogram_push(False)
             self.show_annotation_push(False)
     def load_edf_file_from_command_line(self, file_path):
         file_path = file_path
@@ -1447,6 +1460,10 @@ class MainApp(QMainWindow):
 
             # Connect spectrogram signal to handler
             self.ui.spectrogram_comboBox.currentTextChanged.connect(self.on_spectogram_signal_combobox_change)
+
+            # Show hypnogram
+            self.show_hypnogram_push(True)
+            self.ui.pushButton_show_hypnogram.setChecked(True)
     def on_annotation_combobox_text_changed(self,text):
         logger.info(f'Annotation combobox text changed to {text}')
 
