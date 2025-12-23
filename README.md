@@ -19,8 +19,10 @@ Features supporting the research process
 - **Modular, class-based architecture** to represent both EDF files and annotation files, allowing independent access or manipulation of specific data elements—ideal for integration with Python notebooks or other analysis pipelines.
 
 The vision for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the vision statement.
-![SleepScienceViewer](Media/SleepScienceViewer.png)
+![SleepScienceViewer](src/media/SleepScienceViewer.png)
 **Figure 1.** Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.
+
+**Note:** This project is under active testing. Please report any Windows compatibility issues vis GitHub issues.
 
 ## Intended Use
 
@@ -63,7 +65,7 @@ Ideal for researchers, clinicians, and developers working in sleep research, hum
 - Double-click on hypnogram, spectrogram, or annotation plots to move to the selected epoch
 - Double-click on annotation list entries to jump to annotation start times
 
-![Signal Viewer Interface](Media/signal_viewer_beta.png)
+![Signal Viewer Interface](src/media/signal_viewer_beta.png)
 **Figure 2.** Signal Viewer interface displaying a single channel with epochs and overlays.
 
 ### Signal Viewer
@@ -86,12 +88,12 @@ Ideal for researchers, clinicians, and developers working in sleep research, hum
 - Support for marking epochs in-progress
 
 <p align="center">    
-<img src="Media/SleepScienceViewer_signals_only.png" width="600" /><br>
+<img src="src/media/SleepScienceViewer_signals_only.png" width="600" /><br>
 <b>Figure 3.</b> Sleep Science Viewer in signal-only mode.
 </p>
 
 <p align="center">    
-<img src="Media/signal_viewer_beta_signals_only.png" width="600" /><br>
+<img src="src/media/signal_viewer_beta_signals_only.png" width="600" /><br>
 <b>Figure 4.</b> Signal Viewer in signal-only mode.
 </p>
 
@@ -103,7 +105,7 @@ Users can show or hide interface components such as settings, parameters, the hy
 
 The interface includes two main sections for controlling the analysis: **Settings** and **Parameters**.
 
-Additional details are available in the source file description: ([multi_taper_spectrogram.md](Media/Docs/multi_taper_spectrogram.md)). 
+Additional details are available in the source file description: ([multi_taper_spectrogram.md](src/media/Docs/multi_taper_spectrogram.md)). 
 
 #### Settings Section
 Allows users to select up to ten signals for analysis and choose whether to display an x-axis label. Signal reference and filter parameters are visible but not yet implemented.
@@ -113,12 +115,12 @@ Provides options for noise detection, multi-taper spectrogram configuration, and
 
 
 <p align="center">    
-<img src="Media/Spectral Viewer_beta.png" /><br>
+<img src="src/media/Spectral Viewer_beta.png" /><br>
 <b>Figure 5.</b> Spectral Viewer for performing spectral analysis on signals.
 </p>
 
 <p align="center">    
-<img src="Media/Spectral Viewer_output_only_beta.png"  /><br>
+<img src="src/media/Spectral Viewer_output_only_beta.png"  /><br>
 <b>Figure 6.</b> Spectral Viewer configured to show spectrograms for multiple signals.
 </p>
 
@@ -127,17 +129,17 @@ Provides options for noise detection, multi-taper spectrogram configuration, and
 Average, Band, and Spectrogram buttons on the spectral viewer interface allow users to view average spectrum and band boxplots by stage. The graphing functions use the hypnogram setting to create summaries which include all available stages, reduction to stages N1-N3, and REM-NREM. Clicking between different summaries and plotting functions allows users to view the data in multiple ways.
 
 <p align="center">    
-<img src="Media/Spectral Viewer_plotting_spectrogram.png"  width="600" /><br>
+<img src="src/media/Spectral Viewer_plotting_spectrogram.png"  width="600" /><br>
 <b>Figure 7.</b> Spectral Viewer configured to review a small number of signals.
 </p>
 
 <p align="center">    
-<img src="Media/Spectral Viewer_plotting_average.png"  width="600" /><br>
+<img src="src/media/Spectral Viewer_plotting_average.png"  width="600" /><br>
 <b>Figure 8.</b> Viewing average spectrogram by sleep stage.
 </p>
 
 <p align="center">    
-<img src="Media/Spectral Viewer_plotting_bands.png"  width="600" /><br>
+<img src="src/media/Spectral Viewer_plotting_bands.png"  width="600" /><br>
 <b>Figure 9.</b> Viewing bands by sleep stage.
 </p>
 
@@ -178,7 +180,7 @@ Clicking **Save** writes the following files:
   - delta, theta, alpha, sigma, beta, and gamma
 
 <p align="center">    
-<img src="Media/spectral_results_folder.png"  width="300" style="border: 2px solid grey;" /><br>
+<img src="src/media/spectral_results_folder.png"  width="300" style="border: 2px solid grey;" /><br>
 <b>Figure 10.</b> Viewing bands by sleep stage.
 </p>
 
@@ -191,13 +193,13 @@ Right-clicking on any figure opens a **file save dialog** that allows you to res
 - Add a title
 
 <p align="center">    
-<img src="Media/save_figure.png"  width="200" style="border: 2px solid grey;" /><br>
+<img src="src/media/save_figure.png"  width="200" style="border: 2px solid grey;" /><br>
 <b>Figure 11.</b> File save dialog launched by right-clicking on a figure.
 </p>
 
 
 <p align="center">    
-<img src="Media/exported_hypnogram.png"  width="500" style="border: 2px solid grey;" /><br>
+<img src="src/media/exported_hypnogram.png"  width="500" style="border: 2px solid grey;" /><br>
 <b>Figure 12.</b> Resized hypnogram with larger axis labels, ready for presentation or publication.
 </p>
 
@@ -209,7 +211,7 @@ Select create batch file from
 A PyQt dialog for creating XML batch files that pair EDF and XML files with subject IDs for batch processing in Sleep Science Viewer.
 
 <p align="center">    
-<img src="Media/create_batch_file_dialog.png"  width="500" style="border: 2px solid grey;" /><br>
+<img src="src/media/create_batch_file_dialog.png"  width="500" style="border: 2px solid grey;" /><br>
 <b>Figure 13.</b> Create batch file dialog box showing one missing file.
 </p>
 
@@ -271,11 +273,18 @@ Several features are under consideration for future implementation. These capabi
 - Write noise masks to the marking section for visual inspection and review
 - Display noise masks alongside spectrograms for improved interpretation
 
+## Supported Platforms
+
+- Ubuntu Linux (tested)
+- Windows (in testing)
+- macOS (not yet tested)
+
 ## Getting Started
 
 The Sleep Science Viewer requires an EDF and Annotation file. We used files downloaded from the National Sleep Research Resource tutorial to develop the interface.
 
 We recommend using a virtual environment when running the Sleep Science Viewer.
+
 
 ### Dependencies
 
@@ -283,11 +292,13 @@ This application was developed in Python 3.12, with the graphical user interface
 
 Users should be mindful of the memory demands associated with displaying multiple spectrograms. As a reference point, displaying ten 11-hour ECG spectrograms requires approximately 25 GB of memory.
 
+
+
 ### Download Test Data
 
 We tested the SleepScienceViewer with data from the National Sleep Research Resource.
 
-### Installing
+### Installing on Ubuntu
 
 #### 1. Install pipx
 ```bash
