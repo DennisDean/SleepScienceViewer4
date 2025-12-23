@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'SleepScienceViewer.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.2
+## Created by: Qt User Interface Compiler version 6.9.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -120,7 +120,7 @@ class Ui_MainWindow(object):
         self.pushButton_show_hypnogram.setMinimumSize(QSize(38, 25))
         self.pushButton_show_hypnogram.setMaximumSize(QSize(38, 25))
         self.pushButton_show_hypnogram.setCheckable(True)
-        self.pushButton_show_hypnogram.setChecked(True)
+        self.pushButton_show_hypnogram.setChecked(False)
 
         self.horizontalLayout_file_commands.addWidget(self.pushButton_show_hypnogram)
 
@@ -130,7 +130,7 @@ class Ui_MainWindow(object):
         self.pushButton_show_spectrogram.setMinimumSize(QSize(38, 25))
         self.pushButton_show_spectrogram.setMaximumSize(QSize(38, 25))
         self.pushButton_show_spectrogram.setCheckable(True)
-        self.pushButton_show_spectrogram.setChecked(True)
+        self.pushButton_show_spectrogram.setChecked(False)
 
         self.horizontalLayout_file_commands.addWidget(self.pushButton_show_spectrogram)
 
@@ -139,7 +139,7 @@ class Ui_MainWindow(object):
         self.pushButton_show_annotation.setMinimumSize(QSize(38, 25))
         self.pushButton_show_annotation.setMaximumSize(QSize(38, 16777215))
         self.pushButton_show_annotation.setCheckable(True)
-        self.pushButton_show_annotation.setChecked(True)
+        self.pushButton_show_annotation.setChecked(False)
 
         self.horizontalLayout_file_commands.addWidget(self.pushButton_show_annotation)
 
@@ -832,7 +832,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1203, 23))
+        self.menubar.setGeometry(QRect(0, 0, 1203, 21))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuGenerate = QMenu(self.menubar)

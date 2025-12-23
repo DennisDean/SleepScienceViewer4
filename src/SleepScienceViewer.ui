@@ -169,7 +169,7 @@
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -200,7 +200,7 @@
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -228,7 +228,7 @@
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -921,6 +921,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -988,6 +989,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1055,6 +1057,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1122,6 +1125,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1189,6 +1193,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1256,6 +1261,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1323,6 +1329,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1390,6 +1397,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1457,6 +1465,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1524,6 +1533,7 @@
                 </property>
                 <property name="font">
                  <font>
+                  <weight>50</weight>
                   <bold>false</bold>
                  </font>
                 </property>
@@ -1664,7 +1674,7 @@
      <x>0</x>
      <y>0</y>
      <width>1203</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

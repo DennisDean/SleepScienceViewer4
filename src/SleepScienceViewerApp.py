@@ -28,6 +28,7 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 
 # To Do List
 # ToDo: Add show menu for consistency allowing user to turn off file menu
+# ToDo: Start interface in a collapse states allowing support for smaller monitors
 # ToDo: Add signal specific gain control
 # ToDo: Revisit visualizing annotations on signals
 
@@ -2476,6 +2477,7 @@ class MainApp(QMainWindow):
 # Start Application
 def main():
     app = QApplication(sys.argv)
+    app.setStyle('fusion')
     window = MainApp()
     window.show()
     app.exec()
