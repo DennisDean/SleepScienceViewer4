@@ -2,6 +2,7 @@
 
 Python-native EDF and XML annotation viewer featuring multi-signal and single-signal displays plus a spectral analysis window.
 
+
 ## Description
 
 SleepScienceViewer is a Python-native application for visualizing and analyzing sleep data stored in EDF (European Data Format) files and corresponding XML annotation files. Designed with sleep science workflows in mind, the tool enables efficient review of signals and sleep stages through a responsive and customizable GUI built with PySide6.
