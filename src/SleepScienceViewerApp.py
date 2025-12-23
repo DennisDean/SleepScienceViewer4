@@ -565,6 +565,11 @@ def set_layout_visible(layout, visible: bool):
         layout: QLayout object to process
         visible: Boolean indicating whether to show (True) or hide (False) widgets
     """
+    # Set spacing to 0 when hiding to ensure full contraction
+    if hasattr(layout, 'setSpacing'):
+        layout.setSpacing(0 if not visible else layout.spacing())
+
+    # Recursive set widgets in layout off
     for i in range(layout.count()):
         item = layout.itemAt(i)
 
@@ -572,12 +577,19 @@ def set_layout_visible(layout, visible: bool):
         widget = item.widget()
         if widget:
             widget.setVisible(visible)
+            if not visible:
+                # Force widget to take no space when hidden
+                widget.setMaximumHeight(0)
+            else:
+                # Reset to default
+                widget.setMaximumHeight(16777215)  # QWIDGETSIZE_MAX
 
         # Check if the item is a nested layout
         nested_layout = item.layout()
         if nested_layout:
             # Recursively process the nested layout
             set_layout_visible(nested_layout, visible)
+
 def sanitize_filename(filename):
     """
     Make a filename safe by replacing spaces and non-alphanumeric characters.
@@ -881,6 +893,9 @@ class MainApp(QMainWindow):
         self.ui.actionCreate_Batch_File.triggered.connect(self.create_batch_file_menu_item)
         self.create_batch_file_window = None
 
+        # Initialize Interface
+        self.initialize_interface()
+
     # Overide event handler
     def event(self, event):
         # Handle macOS-style file open events (fires when user double-clicks .edf)
@@ -918,6 +933,19 @@ class MainApp(QMainWindow):
         new_graphic_view.setGeometry(old_graphic_view.geometry())
 
         return new_graphic_view
+    def initialize_interface(self):
+        # Expand data widgets according to ui settings (collapsing first)
+        self.show_hypnogram_push(self.ui.pushButton_show_hypnogram.isChecked())
+        self.show_spectrogram_push(self.ui.pushButton_show_spectrogram.isChecked())
+
+        # Collapse signal layout
+        set_layout_visible(self.ui.horizontalLayout_signals, True)
+        self.graphicsView_x_axis.setMaximumHeight(40)
+        self.show_annotation_push(self.ui.pushButton_show_annotation.isChecked())
+
+        # Update layout
+        self.ui.centralwidget.updateGeometry()
+        self.ui.centralwidget.adjustSize()
 
     # App and Window Fix Results
     def focusOutEvent(self, event):
@@ -1061,6 +1089,11 @@ class MainApp(QMainWindow):
 
             # Turn off actions
             self.turn_off_xml_actions()
+
+            # Turn on signal
+            set_layout_visible(self.ui.horizontalLayout_signals, True)
+            self.graphicsView_x_axis.setMaximumHeight(40)
+            self.show_annotation_push(False)
     def load_edf_file_from_command_line(self, file_path):
         file_path = file_path
         try:

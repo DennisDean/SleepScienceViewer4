@@ -6,22 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1203</width>
-    <height>1620</height>
+    <width>1127</width>
+    <height>973</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>100</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Sleep Science Viewer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_master">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_file_commands">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
         <property name="topMargin">
          <number>2</number>
         </property>
@@ -71,6 +80,12 @@
         </item>
         <item>
          <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -251,7 +266,7 @@
         <item>
          <widget class="QGraphicsView" name="hypnogram_graphicsView">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -259,13 +274,13 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>80</height>
+            <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>80</height>
+            <height>16777215</height>
            </size>
           </property>
          </widget>
@@ -410,7 +425,7 @@
         <item>
          <widget class="QGraphicsView" name="spectrogram_graphicsView">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -418,13 +433,13 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>75</height>
+            <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>75</height>
+            <height>16777215</height>
            </size>
           </property>
          </widget>
@@ -577,7 +592,7 @@
         <item>
          <widget class="QGraphicsView" name="graphicsView_annotation">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -585,13 +600,13 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>25</height>
+            <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>25</height>
+            <height>16777215</height>
            </size>
           </property>
          </widget>
@@ -628,7 +643,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_16">
             <item>
-             <widget class="QLabel" name="label_8">
+             <widget class="QLabel" name="label_4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -653,7 +668,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_9">
+             <widget class="QLabel" name="label_5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -716,7 +731,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_7">
+             <widget class="QLabel" name="label_6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -813,7 +828,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_6">
+             <widget class="QLabel" name="label_9">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -838,7 +853,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="label_8">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -913,9 +928,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="label_7">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1008,7 +1023,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_1_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1016,13 +1031,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1076,7 +1091,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_2_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1084,13 +1099,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1144,7 +1159,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_3_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1152,13 +1167,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1212,7 +1227,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_4_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1220,13 +1235,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1280,7 +1295,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_5_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1288,13 +1303,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1348,7 +1363,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_6_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1356,13 +1371,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1416,7 +1431,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_7_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1424,13 +1439,13 @@
               <property name="minimumSize">
                <size>
                 <width>50</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1484,7 +1499,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_8_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1492,13 +1507,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1552,7 +1567,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_10_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1560,13 +1575,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1620,7 +1635,7 @@
             <item>
              <widget class="QGraphicsView" name="signal_9_graphicsView">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -1628,13 +1643,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>50</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>200</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1674,13 +1689,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>40</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>40</height>
+                <height>16777215</height>
                </size>
               </property>
              </widget>
@@ -1733,7 +1748,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1203</width>
+     <width>1127</width>
      <height>21</height>
     </rect>
    </property>
