@@ -276,9 +276,12 @@ Several features are under consideration for future implementation. These capabi
 
 ## Supported Platforms
 
-- Ubuntu Linux (tested)
-- Windows (in testing)
-- macOS (not yet tested)
+- **Ubuntu Linux (tested)**
+  - Installs are available from git and pip
+- **Windows (in testing)**
+  - Executes within PyCharm window with libraries installed
+  - Ubuntu and windows compatible requirements file under development
+- **macOS (not yet tested)**
 
 ## Getting Started
 

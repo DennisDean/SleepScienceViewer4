@@ -33,6 +33,11 @@ https://www.gnu.org/licenses/agpl-3.0.html for full terms.
 # ToDo: Revisit visualizing annotations on signals
 
 # Extend Existing Class
+
+# For safe windows deployment
+import matplotlib
+matplotlib.use("QtAgg")
+
 from FigureGraphicsViewClass import FigureGraphicsView
 
 # PySide6 imports
