@@ -1,8 +1,8 @@
 ## Vision
 
-The Sleep Science Viewer aims to reduce the effort required to get started in sleep medicine. Its flexible architecture supports interface development, graph and summary generation, and command-line execution, including integration with computational notebooks.
+The Sleep Science Viewer aims to reduce the effort required to get started in sleep medicine. Its flexible architecture supports interface development, graph and summary generation, and command-line execution, including integration with computational notebooks. There is also the potential a tool to support different research models (animal and human) as wel as supporting interdisciplinary research (experimentation, data analysis, modeling, and machine learning/AI)
 
-Advances in open-source software have enabled the development of a multi-featured sleep stage viewer and data analysis engine. Central to this tool are visualizations that help users gain deeper insights into their data.
+Advances in open-source software have enabled the rapid development of a multi-featured sleep stage viewer and data analysis engine. Central to this tool are visualizations that help users gain deeper insights into their data.
 
 ## Design Approach
 

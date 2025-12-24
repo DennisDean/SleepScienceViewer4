@@ -322,6 +322,15 @@ To launch the application:
 SleepScienceViewer
 ```
 
+### Installing on Windows
+
+#### 1. Download executable
+An executable is made available for early testing. Go to the [v0.5 release](https://github.com/DennisDean/SleepScienceViewer4/releases/tag/v0.5) to download the executable. 
+
+**Note:** The early release is made available to fulfill a requests for Windows support. 
+
+#### 2. Double click on executable 
+Double click on the executable or start from the command line. 
 ## Help
 
 Help documentation will be added as questions are received and common usage scenarios emerge. For questions or feedback, feel free to reach out to the author listed below.
