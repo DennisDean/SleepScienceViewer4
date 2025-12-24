@@ -279,8 +279,7 @@ Several features are under consideration for future implementation. These capabi
 - **Ubuntu Linux (tested)**
   - Installs are available from git and pip
 - **Windows (in testing)**
-  - Executes within PyCharm window with libraries installed
-  - Ubuntu and windows compatible requirements file under development
+  - Executable available in release v0.5
 - **macOS (not yet tested)**
 
 ## Getting Started
