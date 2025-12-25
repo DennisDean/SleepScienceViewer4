@@ -37,7 +37,7 @@ Mouse model researchers ask about dealing with extremely large files and extendi
 
 Both groups are enabled by existing MATLAB software. Python enabled software will need to provide capabilities that exceed what is currently possible. 
 
-####Mouse Models####
+#### Mouse Models
 Here are some links shared with me:
 - https://github.com/zekebarger/AccuSleePy
 - https://buzsakilab.com/wp/resources/buzcode/
