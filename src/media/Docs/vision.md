@@ -23,6 +23,23 @@ Development follows a continuous release model, with each update introducing new
 - Prioritize implementing Origin-like export options before developing full publication-ready visualization features, supporting customized, publication-quality templates
 
 **Saving Spectral Results**
+Work towards extensible and reproducible data formats for generated output.
 - **HDF5 Format**: Store all inputs, data links, settings, parameters, and computed outputs, including pre-computed summaries to facilitate cross-participant aggregation
 - **Annotated CSV Spectrogram Results**: Provide spectral annotations aligned with sleep stages by time, enabling result merging across participants
 - **XML Format**: Consider including analysis parameters and results to improve interoperability with other tools and data management systems
+
+### Research Support
+Human and mouse model researchers have reached out with interest. 
+
+Human researchers tend to ask for support for completing specific analysis especially in regards to EEG analysis easier to get started. There is also interest in computing many of the sleep disordered measures provided by the NSRR. 
+
+Mouse model researchers ask about dealing with extremely large files and extending current methods. 
+
+Both groups are enabled by existing MATLAB software. Python enabled software will need to provide capabilities that exceed what is currently possible. 
+
+####Mouse Models####
+Here are some links shared with me:
+- https://github.com/zekebarger/AccuSleePy
+- https://buzsakilab.com/wp/resources/buzcode/
+- https://github.com/EtienneCmb/visbrain
+- https://cognitive-neuroscience-open-tools.github.io/visbrain/auto_examples/gui_sleep/load_edf.html#sphx-glr-auto-examples-gui-sleep-load-edf-py

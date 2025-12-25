@@ -19,7 +19,7 @@ Features supporting the research process
 - **Figure export functionality** for creating high-quality visualizations suitable for presentations and journal publications, with customizable DPI settings.
 - **Modular, class-based architecture** to represent both EDF files and annotation files, allowing independent access or manipulation of specific data elements—ideal for integration with Python notebooks or other analysis pipelines.
 
-The vision for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the vision statement.
+The [vision](src/media/Docs/vision.md) for the viewer emerged years ago and has been realized through the wealth of open-source software available today. Guiding principles for development and planned features are outlined in the vision statement.
 ![SleepScienceViewer](src/media/SleepScienceViewer.png)
 **Figure 1.** Sleep Science Viewer interface with signals, hypnogram, spectrogram, and annotations.
 
